@@ -1,3 +1,9 @@
+import Link from 'next/link';
+import { inter } from '@/app/ui/fonts';
+import Navbar from '@/app/ui/navbar'
+
+import '@/app/ui/global.css';
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +11,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${inter.className}`}>
+        <Navbar />
+        <main>
+          {children}
+        </main>
+        <footer>
+          Footer
+        </footer>
+      </body>
     </html>
   );
 }
