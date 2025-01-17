@@ -26,7 +26,6 @@ body {
   background-color: var(--tertiary-color);
   display: flex;
   flex-direction: column;
-  padding-bottom: 56px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -82,13 +81,10 @@ main {
 
 footer {
   display: block;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   background-color: var(--tertiary-color);
   color: var(--font-tertiary-color);
   padding: 16px 32px;
   text-align: center;
   margin: 0;
-
 }
