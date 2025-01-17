@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 
@@ -35,10 +36,20 @@ export default function Navbar() {
         <Link
           key={homeLink.name}
           href={homeLink.href}
-          className={clsx({
-            'highlighted': pathname === homeLink.href,
-          })}
+          className={clsx(
+            'homeLink',
+            {
+              'highlighted': pathname === homeLink.href,
+            }
+          )}
         >
+          <Image
+            src="/logo-white.png"
+            width={32}
+            height={32}
+            alt="Screenshots of the dashboard project showing desktop version"
+            style={{ margin: '-4px 0' }}
+          />
           <p>Ryan Legal, PC</p>
         </Link>
       </div>

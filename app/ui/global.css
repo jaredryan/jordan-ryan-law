@@ -52,7 +52,7 @@ nav {
 }
 
 nav a {
-  padding: 16px 16px;
+  padding: 16px;
 }
 
 nav a.highlighted {
@@ -61,6 +61,13 @@ nav a.highlighted {
 
 nav .home {
   display: flex;
+}
+
+nav .home .homeLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 nav .menu {
