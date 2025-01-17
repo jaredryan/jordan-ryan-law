@@ -31,25 +31,25 @@ export default function Navbar() {
 
   return (
     <nav>
-      <div>
+      <div className='home'>
         <Link
           key={homeLink.name}
           href={homeLink.href}
           className={clsx({
-            'bg-sky-100 text-blue-600': pathname === homeLink.href,
+            'highlighted': pathname === homeLink.href,
           })}
         >
-          <p>{homeLink.name}</p>
+          <p>Ryan Legal, PC</p>
         </Link>
       </div>
-      <div>
+      <div className='menu'>
         {links.map((link) => {
           return (
             <Link
               key={link.name}
               href={link.href}
               className={clsx({
-              'bg-sky-100 text-blue-600': pathname === link.href,
+                'highlighted': pathname === link.href,
               })}
             >
               <p>{link.name}</p>

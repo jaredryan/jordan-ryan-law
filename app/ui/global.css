@@ -1,3 +1,94 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-color: #133862;
+  --secondary-color: #3b4147;
+  --tertiary-color: #222222;
+  --background-primary-color: #fff;
+  --background-secondary-color: #f7f7f7;
+  --font-primary-color: #333;
+  --font-secondary-color: #666;
+  --font-tertiary-color: #fff;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--tertiary-color);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 56px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-prata), Georgia, "Times New Roman", serif
+}
+
+div, p, li {
+  font-family: var(--font-opensans), Arial, sans-serif;
+}
+
+nav {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--font-tertiary-color);
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+nav a {
+  padding: 16px 16px;
+}
+
+nav a.highlighted {
+  background-color: var(--tertiary-color);
+}
+
+nav .home {
+  display: flex;
+}
+
+nav .menu {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+main {
+  background-color: var(--background-primary-color);
+  flex: 1;
+  padding-top: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+footer {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--tertiary-color);
+  color: var(--font-tertiary-color);
+  padding: 16px 32px;
+  text-align: center;
+  margin: 0;
+
+}

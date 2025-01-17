@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { inter } from '@/app/ui/fonts';
+import { openSans, prata } from '@/app/ui/fonts';
 import Navbar from '@/app/ui/navbar'
+import Footer from '@/app/ui/footer'
 
 import '@/app/ui/global.css';
 
@@ -11,14 +11,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${openSans.variable} ${prata.variable}`}>
         <Navbar />
         <main>
           {children}
         </main>
-        <footer>
-          Footer
-        </footer>
+        <Footer />
       </body>
     </html>
   );
