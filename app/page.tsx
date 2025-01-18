@@ -2,21 +2,23 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <div>
-      <Image
-        src="/attorney-writing.png"
-        width={800}
-        height={400}
-        alt="Screenshots of the dashboard project showing desktop version"
-      />
-      {/* <Image
-        src="/hero-mobile.png"
-        width={336}
-        height={372}
-        className="block md:hidden"
-        alt="Screenshot of the dashboard project showing mobile version"
-      /> */}
+    <>
+      <div className="imageContainer">
+        <Image
+          src="/pens2.png"
+          width={0}
+          height={0}
+          sizes="100vw"
+          alt="Classy pen image"
+          className="heroImage"
+        />
+        <div className="after" />
+        <div className="imageText">
+          <h1>Ryan Legal, PC</h1>
+          <h2>Premier provider of the highest quality legal services in Central California</h2>
+        </div>
+      </div>
       <h1>Home Page</h1>
-    </div>
+    </>
   );
 }

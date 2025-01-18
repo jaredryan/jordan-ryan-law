@@ -86,6 +86,50 @@ main {
   width: 100%;
 }
 
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  height: calc(100vh - 56px - 56px - 50px);
+  object-fit: cover;
+}
+
+.imageContainer .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, .2);
+}
+
+.imageText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  text-align: center;
+  color: var(--font-tertiary-color);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 48px 0;
+}
+
+.imageText h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.imageText h2 {
+  font-size: 24px;
+}
+
 footer {
   display: block;
   width: 100%;
