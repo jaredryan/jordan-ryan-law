@@ -1,0 +1,90 @@
+.paymentPage {
+  width: 100%;
+  flex: 1;
+}
+
+.paymentPage .imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.paymentPage .bannerImage {
+  width: 100%;
+  min-height: 350px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.paymentPage .imageContainer .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, .3);
+}
+
+.paymentPage .imageText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  text-align: center;
+  color: var(--font-tertiary-color);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 48px 0;
+}
+
+.paymentPage .imageText h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.paymentPage .imageText h2 {
+  font-size: 24px;
+}
+
+.paymentPage .contentSection {
+  padding: 50px 100px 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paymentPage .contentSection p {
+  color: var(--font-secondary-color);
+  padding-top: 24px;
+  line-height: 32px;
+}
+
+.paymentPage .contentSection h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.paymentPage .contentSection h1 {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 64px;
+  margin-top: 64px;
+}
+
+.paymentPage button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  font-size: 20px;
+  margin-top: 24px;
+  border-radius: 3px;
+  color: var(--font-tertiary-color);
+}
+
+.paymentPage button:hover {
+  background-color: var(--primary-hover-color);
+}

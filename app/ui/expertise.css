@@ -1,0 +1,74 @@
+.expertisePage {
+  width: 100%;
+  flex: 1;
+}
+
+.expertisePage .imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.expertisePage .bannerImage {
+  width: 100%;
+  min-height: 350px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.expertisePage .imageContainer .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, .3);
+}
+
+.expertisePage .imageText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  text-align: center;
+  color: var(--font-tertiary-color);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 48px 0;
+}
+
+.expertisePage .imageText h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.expertisePage .imageText h2 {
+  font-size: 24px;
+}
+
+.expertisePage .contentSection {
+  padding: 50px 100px 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.expertisePage .contentSection p {
+  color: var(--font-secondary-color);
+  padding-top: 24px;
+  line-height: 32px;
+}
+
+.expertisePage .contentSection h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.expertisePage .contentSection h1 {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 64px;
+  margin-top: 64px;
+}

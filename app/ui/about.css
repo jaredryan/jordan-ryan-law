@@ -1,0 +1,92 @@
+.aboutPage {
+  width: 100%;
+  flex: 1;
+}
+
+.aboutPage .imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.aboutPage .bannerImage {
+  width: 100%;
+  min-height: 350px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.aboutPage .imageContainer .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, .3);
+}
+
+.aboutPage .imageText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  text-align: center;
+  color: var(--font-tertiary-color);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 48px 0;
+}
+
+.aboutPage .imageText h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.aboutPage .imageText h2 {
+  font-size: 24px;
+}
+
+.aboutPage .contentSection {
+  padding: 50px 100px 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.aboutPage .contentSection p {
+  color: var(--font-secondary-color);
+  line-height: 32px;
+}
+
+.aboutPage .contentSection h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.aboutPage .contentSection h1 {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 64px;
+  margin-top: 64px;
+}
+
+.aboutPage .profileImage {
+  width: 300px;
+  height: auto;
+}
+
+.aboutPage .avPreeminentBadge {
+  width: 300px;
+  height: auto;
+}
+
+.aboutPage .superLawyersBadge {
+  width: 300px;
+  height: auto;
+}

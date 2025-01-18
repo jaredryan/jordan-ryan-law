@@ -20,14 +20,14 @@ const areasOfPractice = [{
 
 export default function Page() {
   return (
-    <>
+    <div className="homePage">
       <div className="imageContainer">
         <Image
-          src="/pens2.png"
+          src="/upper-falls.png"
           width={0}
           height={0}
           sizes="100vw"
-          alt="Classy pen image"
+          alt="Yosemite Waterfall Image"
           className="heroImage"
         />
         <div className="after" />
@@ -54,17 +54,17 @@ export default function Page() {
         <h2>Premier provider of the highest quality legal services in Central California</h2>
         <p>Ryan Legal, PC, is a Fresno, California, full-service law firm whose practice emphasizes real estate, labor and employment, business litigation, finance, business transactions, health care and estate planning. For more than 35 years, Ryan Legal, PC has provided the highest caliber of legal representation for local and national clients using the most efficient and economical means to achieve the best possible result.</p>
         <p>Founded by lawyers from the best law schools in the country, the firm was created to deliver the highest caliber legal representation to businesses and individuals throughout the San Joaquin Valley, the States of California and Utah, and beyond. Whether it is “bet the company” litigation, strategic counseling, commercial or employment litigation, structuring companies or business deals, Ryan Legal, PC will provide the best possible representation in a timely, responsive and efficient manner. We take pride in the excellence of the services we provide, the quality of our clients and the caliber of our attorneys.</p>
-          <h1>Our Practice Areas</h1>
-          <div className="practiceAreaContainer">
-            {areasOfPractice.map(areaOfPractice => (
-              <div key={areaOfPractice.name}>
-                <div className="icon">{areaOfPractice.icon}</div>
-                <h3>{areaOfPractice.name}</h3>
-              </div>
-            ))}
-            {Array.from({ length: 10 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}
-          </div>
+        <h1>Our Practice Areas</h1>
+        <div className="practiceAreaContainer">
+          {areasOfPractice.map(areaOfPractice => (
+            <div key={areaOfPractice.name}>
+              <div className="icon">{areaOfPractice.icon}</div>
+              <h3>{areaOfPractice.name}</h3>
+            </div>
+          ))}
+          {Array.from({ length: 10 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ const links = [{
   href: '/expertise',
 },
 {
-  name: 'About',
+  name: 'About Us',
   href: '/about'
 },
 {

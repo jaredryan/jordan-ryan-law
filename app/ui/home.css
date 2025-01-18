@@ -1,17 +1,22 @@
-.imageContainer {
+.homePage {
+  width: 100%;
+  flex: 1;
+}
+
+.homePage .imageContainer {
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 
-.heroImage {
+.homePage .heroImage {
   width: 100%;
   height: auto;
   height: calc(100vh - 56px - 56px - 50px);
   object-fit: cover;
 }
 
-.imageContainer .after {
+.homePage .imageContainer .after {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,7 +26,7 @@
   background: rgba(0, 0, 0, .2);
 }
 
-.imageText {
+.homePage .imageText {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -33,16 +38,16 @@
   padding: 48px 0;
 }
 
-.imageText h1 {
+.homePage .imageText h1 {
   font-size: 48px;
   margin-bottom: 24px;
 }
 
-.imageText h2 {
+.homePage .imageText h2 {
   font-size: 24px;
 }
 
-.imageContainer button {
+.homePage .imageContainer button {
   padding: 8px 16px;
   background-color: var(--primary-color);
   font-size: 20px;
@@ -50,49 +55,49 @@
   border-radius: 3px;
 }
 
-.imageContainer button:hover {
+.homePage .imageContainer button:hover {
   background-color: var(--primary-hover-color);
 }
 
-.contentSection {
+.homePage .contentSection {
   padding: 50px 100px 30px;
   width: 100%;
   max-width: 1200px;
   margin: auto;
 }
 
-.contentSection .logoTitle {
+.homePage .contentSection .logoTitle {
   width: 100%;
   max-width: 500px;
   height: auto;
   margin: auto;
 }
 
-.contentSection p {
+.homePage .contentSection p {
   color: var(--font-secondary-color);
   padding-top: 24px;
   line-height: 32px;
 }
 
-.contentSection h2 {
+.homePage .contentSection h2 {
   font-size: 24px;
   text-align: center;
 }
 
-.contentSection h1 {
+.homePage .contentSection h1 {
   font-size: 48px;
   text-align: center;
   margin-bottom: 64px;
   margin-top: 64px;
 }
 
-.contentSection .practiceAreasSection {
+.homePage .contentSection .practiceAreasSection {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.contentSection .practiceAreaContainer {
+.homePage .contentSection .practiceAreaContainer {
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -101,7 +106,7 @@
   gap: 16px;
 }
 
-.contentSection .practiceAreaContainer > div {
+.homePage .contentSection .practiceAreaContainer > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,19 +115,19 @@
   margin-bottom: 32px;
 }
 
-.contentSection .practiceAreaContainer > div.fillEmptySpace {
+.homePage .contentSection .practiceAreaContainer > div.fillEmptySpace {
   height: 0; 
   margin: 0;
 }
 
-.contentSection .practiceAreaContainer > div .icon {
+.homePage .contentSection .practiceAreaContainer > div .icon {
   width: 48px;
   height: 48px;
   margin-bottom: 24px;
   color: var(--primary-color);
 }
 
-.contentSection .practiceAreaContainer h3 {
+.homePage .contentSection .practiceAreaContainer h3 {
   font-weight: 500;
   font-family: var(--font-opensans);
   font-size: 20px;
