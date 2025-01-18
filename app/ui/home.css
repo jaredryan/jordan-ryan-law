@@ -1,0 +1,134 @@
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  height: calc(100vh - 56px - 56px - 50px);
+  object-fit: cover;
+}
+
+.imageContainer .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, .2);
+}
+
+.imageText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  text-align: center;
+  color: var(--font-tertiary-color);
+  text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  padding: 48px 0;
+}
+
+.imageText h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.imageText h2 {
+  font-size: 24px;
+}
+
+.imageContainer button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  font-size: 20px;
+  margin-top: 24px;
+  border-radius: 3px;
+}
+
+.imageContainer button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.contentSection {
+  padding: 50px 100px 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contentSection .logoTitle {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: auto;
+}
+
+.contentSection p {
+  color: var(--font-secondary-color);
+  padding-top: 24px;
+  line-height: 32px;
+}
+
+.contentSection h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.contentSection h1 {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 64px;
+  margin-top: 64px;
+}
+
+.contentSection .practiceAreasSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contentSection .practiceAreaContainer {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.contentSection .practiceAreaContainer > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 175px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.contentSection .practiceAreaContainer > div.fillEmptySpace {
+  height: 0; 
+  margin: 0;
+}
+
+.contentSection .practiceAreaContainer > div .icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
+  color: var(--primary-color);
+}
+
+.contentSection .practiceAreaContainer h3 {
+  font-weight: 500;
+  font-family: var(--font-opensans);
+  font-size: 20px;
+  line-height: 30px;
+}
+
+
+
+
