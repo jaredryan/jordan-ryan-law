@@ -1,6 +1,7 @@
 import {
     AdvancedMarker,
     APIProvider,
+    InfoWindow,
     Map,
     MapCameraChangedEvent,
     Pin
@@ -20,9 +21,18 @@ export default function GoogleMapsAddress() {
             >
                 <AdvancedMarker
                     key="office"
-                    position={{ lat: 36.808851391005625, lng: -119.82297917748616 }}
+                    position={{ lat: 36.8085374, lng: -119.8240786 }}
                 >
-                    <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+                    <Pin />
+                    <InfoWindow
+                        position={{ lat: 36.8085374, lng: -119.8240786 }}
+                        onCloseClick={() => {}}
+                    >
+                        <div>
+                            <h2>Ryan Legal, PC</h2>
+                            <p>Some information about the location</p>
+                        </div>
+                    </InfoWindow>
                 </AdvancedMarker>
             </Map>
         </APIProvider>
