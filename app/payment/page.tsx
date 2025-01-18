@@ -12,6 +12,7 @@ export default function Page() {
           sizes="100vw"
           alt="Classy pen image"
           className="bannerImage"
+          loading="eager"
         />
         <div className="after" />
         <div className="imageText">

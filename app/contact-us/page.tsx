@@ -13,6 +13,7 @@ export default function Page() {
           sizes="100vw"
           alt="Attorneys Writing Image"
           className="bannerImage"
+          loading="eager"
         />
         <div className="after" />
         <div className="imageText">

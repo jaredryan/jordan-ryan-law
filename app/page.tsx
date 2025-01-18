@@ -29,6 +29,7 @@ export default function Page() {
           sizes="100vw"
           alt="Yosemite Waterfall Image"
           className="heroImage"
+          loading="eager"
         />
         <div className="after" />
         <div className="imageText">
@@ -50,6 +51,7 @@ export default function Page() {
           sizes="100vw"
           alt="Ryan Legal, PC Logo"
           className="logoTitle"
+          loading="eager"
         />
         <h2>Premier provider of the highest quality legal services in Central California</h2>
         <p>Ryan Legal, PC, is a Fresno, California, full-service law firm whose practice emphasizes real estate, labor and employment, business litigation, finance, business transactions, health care and estate planning. For more than 35 years, Ryan Legal, PC has provided the highest caliber of legal representation for local and national clients using the most efficient and economical means to achieve the best possible result.</p>
