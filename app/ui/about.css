@@ -7,6 +7,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
 }
 
 .aboutPage .bannerImage {
@@ -15,6 +16,7 @@
   height: auto;
   max-height: 400px;
   object-fit: cover;
+  flex: 1;
 }
 
 .aboutPage .imageContainer .after {

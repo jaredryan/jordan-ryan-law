@@ -15,6 +15,7 @@ nav {
 
 nav a {
   padding: 16px;
+  color: var(--font-tertiary-color);
 }
 
 nav a.highlighted {
@@ -43,5 +44,4 @@ nav .home .homeLink {
 nav .menu {
   display: flex;
   flex-direction: row;
-  gap: 20px;
 }
