@@ -1,0 +1,64 @@
+.contactUsForm {
+    background-color: var(--background-primary-color);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+}
+
+.contactUsForm .inputFields {
+    background-color: var(--background-primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    gap: 24px;
+}
+
+.contactUsForm .inputFields label {
+    background-color: var(--background-primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.contactUsForm input,
+.contactUsForm textarea {
+    border: 1px solid var(--input-border-color);
+    display: block;
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px;
+}
+
+.contactUsForm input:focus-visible,
+.contactUsForm textarea:focus-visible {
+    outline: none;
+    border: 1px solid var(--focused-input-border-color);
+}
+
+.contactUsForm textarea {
+    resize: none;
+}
+
+.contactUsForm .inputFields .input,
+.contactUsForm .inputFields .textareaInput {
+    width: 100%;
+}
+
+.contactUsForm .inputFields .input {
+
+}
+
+.contactUsForm .inputFields .textareaInput {
+
+}
+
+.contactUsForm button {
+
+}

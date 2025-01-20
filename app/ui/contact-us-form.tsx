@@ -1,76 +1,55 @@
 // import {} from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
+import '@/app/ui/contact-us-form.css';
 
 export default function Form() {
   return (
-    <form>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* Invoice Amount */}
-        <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+    <form className="contactUsForm">
+      <h2>Request a Consultation</h2>
+      <div className="inputFields">
+        <div className="input">
+          <label htmlFor="name">
             Name
           </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="name"
-                name="name"
-                type="text"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-            </div>
-          </div>
+          <input
+            id="name"
+            name="name"
+            type="text"
+          />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+        <div className="input">
+          <label htmlFor="email">
             Phone
           </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                pattern="[0-9]{3}[0-9]{4}[0-9]{4}"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-            </div>
-          </div>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            pattern="[0-9]{3}[0-9]{4}[0-9]{4}"
+          />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+        <div className="input">
+          <label htmlFor="email">
             Email
           </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-            </div>
-          </div>
+          <input
+            id="email"
+            name="email"
+            type="email"
+          />
         </div>
-        <div className="mb-4">
-          <label htmlFor="description" className="mb-2 block text-sm font-medium">
+        <div className="textareaInput">
+          <label htmlFor="description">
             How can we help?
           </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="description"
-                name="description"
-                type="text"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-            </div>
-          </div>
+          <textarea
+            id="description"
+            name="description"
+            rows={3}
+          />
         </div>
       </div>
-      <div className="mt-6 flex justify-end gap-4">
-        <Button type="submit">Submit</Button>
-      </div>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }

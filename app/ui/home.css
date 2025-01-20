@@ -50,15 +50,7 @@
 }
 
 .homePage .imageContainer button {
-  padding: 8px 16px;
-  background-color: var(--primary-color);
-  font-size: 20px;
   margin-top: 24px;
-  border-radius: 3px;
-}
-
-.homePage .imageContainer button:hover {
-  background-color: var(--primary-hover-color);
 }
 
 .homePage .contentSection {

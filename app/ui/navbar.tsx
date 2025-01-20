@@ -51,7 +51,7 @@ export default function Navbar() {
             alt="Screenshots of the dashboard project showing desktop version"
             style={{ margin: '-4px 0' }}
           />
-          <p>Ryan Legal, PC</p>
+          Ryan Legal, PC
         </Link>
       </div>
       <div className='menu'>
@@ -64,7 +64,7 @@ export default function Navbar() {
                 'highlighted': pathname === link.href,
               })}
             >
-              <p>{link.name}</p>
+              {link.name}
             </Link>
           );
         })}

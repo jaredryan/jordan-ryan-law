@@ -9,6 +9,8 @@
   --font-secondary-color: #666;
   --font-tertiary-color: #fff;
   --google-maps-color: #1a73e8;
+  --input-border-color: #bbb;
+  --focused-input-border-color: #222222;
 }
 
 html {
@@ -34,13 +36,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-div, p, li {
+div, p, li, label, input, textarea {
   font-family: var(--font-opensans), Arial, sans-serif;
   margin: 0;
+  font-size: 16px;
+  color: var(--font-primary-color);
 }
 
 ul {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -49,11 +55,19 @@ a {
 }
 
 button {
-  background-color: var(--primary-color);
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 3px;
   border: none;
+  background-color: var(--primary-color);
   color: var(--font-tertiary-color);
+  font-size: 16px;
   font-weight: 400;
   font-family: var(--font-opensans), Arial, sans-serif;
+}
+
+button:hover {
+  background-color: var(--primary-hover-color);
 }
 
 main {

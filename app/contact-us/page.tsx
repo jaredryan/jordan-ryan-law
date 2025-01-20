@@ -59,7 +59,7 @@ export default function Page() {
             {cards.map(card => (
               <div className="card" key={card.name}>
                 <div className="icon">{card.icon}</div>
-                <h3>{card.name}</h3>
+                <h2>{card.name}</h2>
                 <ul>
                   {card.content.map(item => <li key={item}>{item}</li>)}
                 </ul>

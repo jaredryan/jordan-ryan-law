@@ -78,14 +78,5 @@
 }
 
 .paymentPage button {
-  padding: 8px 16px;
-  background-color: var(--primary-color);
-  font-size: 20px;
   margin-top: 24px;
-  border-radius: 3px;
-  color: var(--font-tertiary-color);
-}
-
-.paymentPage button:hover {
-  background-color: var(--primary-hover-color);
 }
