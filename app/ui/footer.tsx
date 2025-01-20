@@ -1,3 +1,5 @@
+import '@/app/ui/footer.css';
+
 export default function Footer() {
   return (
     <footer>

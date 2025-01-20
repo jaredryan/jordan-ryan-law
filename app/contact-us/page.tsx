@@ -4,8 +4,14 @@ import ContactUsForm from '@/app/ui/contact-us-form';
 import GoogleMapsAddress from '@/app/ui/google-maps-address';
 import Image from 'next/image';
 import '@/app/ui/contact-us.css';
+import { 
+  PhoneIcon,
+  MapPinIcon,
+  EnvelopeIcon,
+} from '@heroicons/react/24/solid';
 
 const cards = [{
+  icon: <PhoneIcon />,
   name: 'Contact Us',
   content: [
     'Telephone: (559) 439-4000',
@@ -13,6 +19,7 @@ const cards = [{
     'info@mmwbr.com'
   ]
 }, {
+  icon: <MapPinIcon />,
   name: 'Address',
   content: [
     '1690 West Shaw Avenue',
@@ -20,6 +27,7 @@ const cards = [{
     'Fresno, California 93711'
   ]
 }, {
+  icon: <EnvelopeIcon />,
   name: 'Mail',
   content: [
     'Post Office Box 9099',
@@ -47,16 +55,19 @@ export default function Page() {
           </div>
         </div>
         <div className="contentSection">
-          {cards.map(card => (
-            <div className="card" key={card.name}>
-              <h3>{card.name}</h3>
-              <ul>
-                {card.content.map(item => <li key={item}>{item}</li>)}
-              </ul>
-            </div>
-          ))}
+          <div className="cardsContainer">
+            {cards.map(card => (
+              <div className="card" key={card.name}>
+                <div className="icon">{card.icon}</div>
+                <h3>{card.name}</h3>
+                <ul>
+                  {card.content.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
           <ContactUsForm />
-          <GoogleMapsAddress />
+          {/* <GoogleMapsAddress /> */}
         </div>
       </div>
     </>

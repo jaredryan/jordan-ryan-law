@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
+import '@/app/ui/navbar.css';
 
 const homeLink = {
   name: 'Home',
