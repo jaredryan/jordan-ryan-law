@@ -32,7 +32,7 @@ export default function GoogleMapsAddress() {
                         <div>
                             <p>Ryan Legal, PC</p>
                             <a
-                                href={'https://www.google.com/maps/dir//Motschiedler,+Michaelides,+Wishon,+Brewer+%26+Ryan,+LLP,+1690+W+Shaw+Ave+%23200,+Fresno,+CA+93711/@36.8085374,-119.8240786,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x809467c89cbc798d:0x673414201e60d38a!2m2!1d-119.8240786!2d36.8085335!3e0?entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D'}
+                                href="https://www.google.com/maps/place/MMWB%26R/@36.8086968,-119.8260476,17z/data=!3m1!4b1!4m6!3m5!1s0x809467c626e1d33f:0x89ac52a38630fad!8m2!3d36.8086968!4d-119.8234727!16s%2Fg%2F11c2p_xw9l?entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D"
                                 target='_blank'
                                 aria-label='Get directions to the Ryan Legal, PC office on Google Maps.'   
                             >
