@@ -67,7 +67,7 @@ export default function Page() {
             ))}
           </div>
           <ContactUsForm />
-          {/* <GoogleMapsAddress /> */}
+          <GoogleMapsAddress />
         </div>
       </div>
     </>

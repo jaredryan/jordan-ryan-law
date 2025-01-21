@@ -59,24 +59,6 @@
   align-items: center;
 }
 
-.paymentPage .contentSection p {
-  color: var(--font-secondary-color);
-  padding-top: 24px;
-  line-height: 32px;
-}
-
-.paymentPage .contentSection h2 {
-  font-size: 24px;
-  text-align: center;
-}
-
-.paymentPage .contentSection h1 {
-  font-size: 48px;
-  text-align: center;
-  margin-bottom: 64px;
-  margin-top: 64px;
-}
-
 .paymentPage button {
   margin-top: 24px;
 }
