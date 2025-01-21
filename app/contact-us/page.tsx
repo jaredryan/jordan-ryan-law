@@ -55,7 +55,7 @@ export default function Page() {
           </div>
         </div>
         <div className="contentSection">
-          <div className="cardsContainer">
+          <div className="cardsContainer pagePadding">
             {cards.map(card => (
               <div className="card" key={card.name}>
                 <div className="icon">{card.icon}</div>
@@ -66,8 +66,10 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <ContactUsForm />
-          <GoogleMapsAddress />
+          <div className="pagePadding">
+            <ContactUsForm />
+          </div>
+          {/* <GoogleMapsAddress /> */}
         </div>
       </div>
     </>
