@@ -100,13 +100,17 @@
 }
 
 .contactUsPage .cardsContainer .card .icon {
-  width: 64px;
-  height: 64px;
   color: var(--primary-color);
-  margin: 0 auto 32px;
-  border-radius: 50%;
+  margin: 0 auto 16px;
+  /* border-radius: 50%;
   padding: 16px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--primary-color); */
+}
+
+.contactUsPage .cardsContainer .card .icon,
+.contactUsPage .cardsContainer .card .icon svg {
+  width: 48px;
+  height: 48px;
 }
 
 .contactUsPage .cardsContainer .card h2 {

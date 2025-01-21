@@ -3,15 +3,12 @@
 import ContactUsForm from '@/app/ui/contact-us-form';
 import GoogleMapsAddress from '@/app/ui/google-maps-address';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone, faLocationDot, faEnvelope, } from '@fortawesome/free-solid-svg-icons'
 import '@/app/ui/contact-us.css';
-import { 
-  PhoneIcon,
-  MapPinIcon,
-  EnvelopeIcon,
-} from '@heroicons/react/24/solid';
 
 const cards = [{
-  icon: <PhoneIcon />,
+  icon: <FontAwesomeIcon icon={faPhone} />,
   name: 'Contact Us',
   content: [
     'Telephone: (559) 439-4000',
@@ -19,7 +16,7 @@ const cards = [{
     'info@mmwbr.com'
   ]
 }, {
-  icon: <MapPinIcon />,
+  icon: <FontAwesomeIcon icon={faLocationDot} />,
   name: 'Address',
   content: [
     '1690 West Shaw Avenue',
@@ -27,7 +24,7 @@ const cards = [{
     'Fresno, California 93711'
   ]
 }, {
-  icon: <EnvelopeIcon />,
+  icon: <FontAwesomeIcon icon={faEnvelope} />,
   name: 'Mail',
   content: [
     'Post Office Box 9099',

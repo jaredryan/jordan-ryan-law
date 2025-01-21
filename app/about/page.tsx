@@ -6,7 +6,7 @@ export default function Page() {
     <div className="aboutPage">
       <div className="imageContainer">
         <Image
-          src="/attorney-writing.png"
+          src="/pen-on-notebook.jpg"
           width={0}
           height={0}
           sizes="100vw"
