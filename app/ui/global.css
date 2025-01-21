@@ -73,7 +73,7 @@ button:hover {
 main {
   background-color: var(--background-primary-color);
   flex: 1;
-  padding-top: 56px;
+  padding-top: 53.5px;
   display: flex;
   flex-direction: column;
   align-items: center;

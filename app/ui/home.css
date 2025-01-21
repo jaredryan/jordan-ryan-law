@@ -13,12 +13,12 @@
 .homePage .heroImage {
   width: 100%;
   height: auto;
-  height: calc(100vh - 56px - 56px - 50px);
+  height: calc(100vh - 53.5px - 53.5px - 50px);
   object-fit: cover;
   flex: 1;
 }
 
-.homePage .imageContainer .after {
+.homePage .after {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,6 +26,7 @@
   height: 100%;
   display: block;
   background: rgba(0, 0, 0, .2);
+  z-index: 1;
 }
 
 .homePage .imageText {
@@ -38,6 +39,11 @@
   color: var(--font-tertiary-color);
   text-shadow: 0 1px 3px rgba(0,0,0,.3);
   padding: 48px 0;
+  z-index: 2;
+}
+
+.homePage h1 {
+  font-size: 48px;
 }
 
 .homePage .imageText h1 {
@@ -53,10 +59,17 @@
   margin-top: 24px;
 }
 
-.homePage .contentSection {
-  padding: 50px 100px 30px;
+.homePage .contentSection,
+.homePage .pagePadding {
+  padding-left: 100px;
+  padding-right: 100px;
   width: 100%;
   max-width: 1200px;
+}
+
+.homePage .contentSection {
+  padding-top: 50px;
+  padding-bottom: 50px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -100,21 +113,34 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  max-width: 800px;
 }
 
 .homePage .contentSection .practiceAreaContainer > div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 175px;
+  width: 215px;
   text-align: center;
   margin-bottom: 32px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .homePage .contentSection .practiceAreaContainer > div.fillEmptySpace {
   height: 0; 
-  margin: 0;
+  margin: 0 16px;
+}
+
+.homePage .contentSection .practiceAreaContainer > div .icon,
+.homePage .contentSection .practiceAreaContainer > div .icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon,
+.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon svg {
+  width: 36px;
 }
 
 .homePage .contentSection .practiceAreaContainer > div .icon {
@@ -124,6 +150,10 @@
   color: var(--primary-color);
 }
 
+.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon {
+  width: 36px;
+}
+
 .homePage .contentSection .practiceAreaContainer h3 {
   font-weight: 500;
   font-family: var(--font-opensans);
@@ -131,6 +161,40 @@
   line-height: 30px;
 }
 
+.homePage .requestConsultation {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0;
+}
 
+.homePage .requestConsultation .bannerImage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(2px);
+  z-index: 0;
+}
+
+.homePage .requestConsultation .after {
+  background: rgba(0, 0, 0, .4);
+  
+}
+
+.homePage .requestConsultation .pagePadding {
+  z-index: 2;
+}
+
+.homePage .requestConsultation h1 {
+  z-index: 2;
+  color: var(--font-tertiary-color);
+  margin: 0px auto 50px;
+  text-align: center;
+}
 
 

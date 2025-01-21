@@ -1,11 +1,9 @@
-// import {} from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import '@/app/ui/contact-us-form.css';
 
 export default function Form() {
   return (
     <form className="contactUsForm">
-      <h2>Request a Consultation</h2>
       <div className="inputFields">
         <div className="input">
           <label htmlFor="name">

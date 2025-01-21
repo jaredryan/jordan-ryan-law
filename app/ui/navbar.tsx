@@ -46,8 +46,8 @@ export default function Navbar() {
         >
           <Image
             src="/logo-white.png"
-            width={32}
-            height={32}
+            width={46.39}
+            height={28}
             alt="Screenshots of the dashboard project showing desktop version"
             style={{ margin: '-4px 0' }}
           />

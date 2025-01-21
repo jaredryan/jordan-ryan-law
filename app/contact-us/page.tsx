@@ -67,9 +67,10 @@ export default function Page() {
             ))}
           </div>
           <div className="pagePadding">
+            <h2>Request a Consultation</h2>
             <ContactUsForm />
           </div>
-          {/* <GoogleMapsAddress /> */}
+          <GoogleMapsAddress />
         </div>
       </div>
     </>

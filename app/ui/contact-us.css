@@ -124,3 +124,8 @@
   margin-bottom: 0;
 }
 
+.contactUsPage .contentSection h2 {
+  background-color: var(--background-primary-color);
+  padding-top: 32px;
+}
+
