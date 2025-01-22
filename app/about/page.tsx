@@ -35,30 +35,68 @@ export default function Page() {
       <div className="contentSection">
         <h2>Russell K. Ryan — Partner and Founder</h2>
         <div className="images">
-          <Image
-            src="/profile.jpg"
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt="Russ Ryan Image"
-            className="profileImage"
-          />
-          <Image
-            src="/av-preeminent.png"
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt="AV Preeminent Image"
-            className="avPreeminentBadge"
-          />
-          <Image
-            src="/super-lawyers-badge.png"
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt="Super Lawyers Badge Image"
-            className="superLawyersBadge"
-          />
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}> 
+            <Image
+              src="/old-profile.jpg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt="Russ Ryan Image"
+              className="profileImage"
+            />
+            <Image
+              src="/posed-profile.jpg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt="Russ Ryan Image"
+              className="profileImage"
+            />
+            <Image
+              src="/profile.jpg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt="Russ Ryan Image"
+              className="profileImage"
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>   
+            <Image
+              src="/walking-profile.jpg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt="Russ Ryan Image"
+              className="profileImage"
+            />
+            <Image
+              src="/relaxed-profile.jpg"
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt="Russ Ryan Image"
+              className="profileImage"
+            />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Image
+                src="/av-preeminent.png"
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="AV Preeminent Image"
+                className="avPreeminentBadge"
+              />
+              <Image
+                src="/super-lawyers-badge.png"
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="Super Lawyers Badge Image"
+                className="superLawyersBadge"
+              />
+            </div>
+          </div>
         </div>
         <div className='information'>
           <h3>Introduction</h3>
