@@ -4,7 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ContactUsForm from '@/app/ui/contact-us-form';
 import GoogleMapsAddress from '@/app/ui/google-maps-address';
-import { businessExplanation, businessName, businessSlogan, businessSummary, areasOfPractice } from '@/app/content';
+import {
+  businessExplanation, businessName, businessSlogan,
+  businessSummary, areasOfPractice
+} from '@/app/content';
 
 import '@/app/ui/home.css';
 

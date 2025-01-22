@@ -156,7 +156,7 @@ export const russKRyanPriorExperience = [{
   position: 'Shareholder / Partner',
   institution: `Parr, Brown, Loveless and Gee, Salt Lake City Utah and Holland &amp; Hart,
     LLP, Salt Lake City, Utah`,
-    years: '2001-2002',
+  years: '2001-2002',
 }, {
   position: 'Partner',
   institution: 'Motschiedler, Michaelides, Wishon, Brewer &amp; Ryan, LLP',
