@@ -3,6 +3,7 @@
   --primary-hover-color: #184981;
   --secondary-color: #3b4147;
   --tertiary-color: #222222;
+  --accent-color: #feb615;
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
   --font-primary-color: #333;
@@ -52,6 +53,13 @@ ul {
 a {
   text-decoration: none;
   color: var(--font-primary-color);
+}
+
+h3 {
+  font-weight: 500;
+  font-family: var(--font-opensans);
+  font-size: 20px;
+  line-height: 30px;
 }
 
 button {

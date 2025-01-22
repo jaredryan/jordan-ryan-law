@@ -154,13 +154,6 @@
   width: 36px;
 }
 
-.homePage .contentSection .practiceAreaContainer h3 {
-  font-weight: 500;
-  font-family: var(--font-opensans);
-  font-size: 20px;
-  line-height: 30px;
-}
-
 .homePage .requestConsultation {
   position: relative;
   width: 100%;

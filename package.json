@@ -17,8 +17,11 @@
     "autoprefixer": "10.4.20",
     "clsx": "^2.1.1",
     "next": "latest",
+    "pure-react-carousel": "^1.32.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "typescript": "5.7.2",
     "use-debounce": "^10.0.4"
   },

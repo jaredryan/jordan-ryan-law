@@ -1,4 +1,3 @@
-import { Button } from '@/app/ui/button';
 import '@/app/ui/contact-us-form.css';
 
 export default function Form() {
@@ -47,7 +46,7 @@ export default function Form() {
           />
         </div>
       </div>
-      <Button type="submit">Submit</Button>
+      <button type="submit">Submit</button>
     </form>
   );
 }
