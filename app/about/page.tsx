@@ -78,7 +78,7 @@ export default function Page() {
               alt="Russ Ryan Image"
               className="profileImage"
             />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 src="/av-preeminent.png"
                 width={0}
@@ -97,6 +97,7 @@ export default function Page() {
               />
             </div>
           </div>
+          
         </div>
         <div className='information'>
           <h3>Introduction</h3>
