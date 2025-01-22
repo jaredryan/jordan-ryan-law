@@ -130,7 +130,7 @@ export default function Page() {
           </div>
           <h3>Affiliations</h3>
           <ul className="affiliationsContainer">
-            {russKRyanRatingsAndDesignations.map(affiliation => (
+            {russKRyanAffiliations.map(affiliation => (
               <li
                 key={affiliation}
                 className="affiliation"
