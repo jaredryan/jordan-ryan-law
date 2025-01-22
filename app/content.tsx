@@ -90,7 +90,7 @@ export const areasOfPractice = [{
 }]
 
 export const russKRyanProfileSummary = `
-  Russ Ryan focuses is an attorney who focuses his practice on labor and employment, health care,
+  Russ Ryan is an attorney who focuses his practice on labor and employment, health care,
   non-profit representation and business litigation. He represents employers (and the occasional
   employee) in all aspects of employment law, from day-to-day advising, workplace training, corporate
   compliance and the development of personnel policies and procedures to representation in

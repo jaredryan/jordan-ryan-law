@@ -136,6 +136,12 @@
   height: auto;
 }
 
+.aboutPage .squareProfileImage {
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+}
+
 .aboutPage .avPreeminentBadge {
   width: 250px;
   height: auto;

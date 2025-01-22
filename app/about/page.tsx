@@ -14,6 +14,8 @@ import {
   russKRyanClients,
 } from '@/app/content';
 
+// 10 items...best way to display?
+
 export default function Page() {
   return (
     <div className="aboutPage">
@@ -70,15 +72,41 @@ export default function Page() {
               alt="Russ Ryan Image"
               className="profileImage"
             />
-            <Image
-              src="/relaxed-profile.jpg"
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>  
+              <Image
+                src="/relaxed-profile.jpg"
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="Russ Ryan Image"
+                className="profileImage"
+              />
+              {/* <Image
+                src="/baby.jpg"
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="Russ Ryan Image"
+                className="profileImage"
+              /> */}
+            </div>
+            {/* <Image
+              src="/kid.jpg"
               width={0}
               height={0}
               sizes="100vw"
               alt="Russ Ryan Image"
               className="profileImage"
-            />
+            /> */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                src="/square-profile.jpg"
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="Russ Ryan Image"
+                className="squareProfileImage"
+              />
               <Image
                 src="/av-preeminent.png"
                 width={0}
@@ -97,6 +125,7 @@ export default function Page() {
               />
             </div>
           </div>
+          
           
         </div>
         <div className='information'>
