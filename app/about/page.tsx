@@ -123,9 +123,14 @@ export default function Page() {
                   {expertise.content.map(paragraphOrList => (
                     typeof paragraphOrList == 'string' 
                       ? <p key={paragraphOrList}>{paragraphOrList}</p>
-                      : <ul key={paragraphOrList[0]}>
-                        {paragraphOrList.map(bullet => (
-                          <li key={bullet}>{bullet}</li>
+                      : <ul key={typeof paragraphOrList[0] === 'string' ? paragraphOrList[0] : paragraphOrList[0].title}>
+                        {paragraphOrList.map(item => (
+                          typeof item === 'string'
+                            ? <li key={item}>{item}</li>
+                            : <li key={item.title}>
+                                {item.title}
+                                <ul className="nested"><li key={item.content}>{item.content}</li></ul>
+                              </li>
                         ))}
                       </ul>
                   ))}

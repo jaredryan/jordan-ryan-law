@@ -45,6 +45,10 @@ h1, h2, h3, h4, h5, h6, label, input, textarea {
   color: var(--font-tertiary-color);
 }
 
+div, p, li {
+  color: var(--font-secondary-color);
+}
+
 div, p, li, label, input, textarea {
   font-family: var(--font-opensans), Arial, sans-serif;
   margin: 0;

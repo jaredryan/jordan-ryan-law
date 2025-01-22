@@ -233,29 +233,40 @@ export const russKRyanExpertise = [{
       relationship in all aspects of employment law. These training sessions have ranged from groups of
       5-10 employees and managers to more than 1,000 participants and have been conducted in English
       and Spanish. He is fluent in Spanish. A sampling of these training sessions include the following:`,
-    [
-      `Council on Education in Management — moderator and presenter of full and part day programs on
-        sexual harassment, employment discrimination under state and federal law, FMLA, CFRA, ADA,
-        violence in the workplace, and numerous other programs (1993-2002) (more than 30 programs
-        involving thousands of participants).`,
-      `National Business Institute — moderator and presenter on employment law and OSHA programs.`,
-      `Littler Mendelson — presenter on various programs on sexual harassment, employment
-        discrimination, restrictive covenants, trade secrets and employees, FMLA, CFRA, ADA, violence in
-        the workplace and other programs (more than 25 presentations involving thousands of
-        participants).`,
-      `Head Start Programs — presenter and trainer at numerous sessions, in English and Spanish, to
-        employees, members of boards of directors, and members of parent policy council and committees
-        on sexual harassment violence in the workplace, employment discrimination, Brown Act and
-        Roberts Rules of Order. These trainings have been provided to participants from more than 50
-        Head Start Centers over the last 30 years (involving more than 100 trainings and thousands of
-        participants).`,
-      `Federally Qualified Health Centers — presenter and trainer at numerous sessions to employees,
-        members of boards of directors, and physicians on topics such as sexual harassment, violence in
-        the workplace, employment discrimination, Brown Act, Roberts Rules of Order, Board
-        Governance, Corporate and HIPAA compliance. These trainings have been provided to employees
-        of dozens of clinics throughout California (involving more than 100 trainings and thousands of
-        participants).`,
-      `Various Non-Profit and Service Organizations — presenter and trainer to numerous non-profit
+    [{
+      title: `Council on Education in Management`,
+      content: `Moderator and presenter of full and part day programs on
+      sexual harassment, employment discrimination under state and federal law, FMLA, CFRA, ADA,
+      violence in the workplace, and numerous other programs (1993-2002) (more than 30 programs
+      involving thousands of participants).`
+    },
+    {
+      title: `National Business Institute`,
+      content: `Moderator and presenter on employment law and OSHA programs.`,
+    },{
+      title: `Littler Mendelson`,
+      content: `Presenter on various programs on sexual harassment, employment, restrictive
+        covenants, trade secrets and employees, FMLA, CFRA, ADA, violence in the workplace and
+        other programs (more than 25 presentations involving thousands of participants).`,
+    }, {
+      title: `Head Start Programs`,
+      content: `Presenter and trainer at numerous sessions, in English and Spanish, to
+      employees, members of boards of directors, and members of parent policy council and committees
+      on sexual harassment violence in the workplace, employment discrimination, Brown Act and
+      Roberts Rules of Order. These trainings have been provided to participants from more than 50
+      Head Start Centers over the last 30 years (involving more than 100 trainings and thousands of
+      participants).`,
+    }, {
+      title: `Federally Qualified Health Centers`,
+      content: `Presenter and trainer at numerous sessions to employees,
+      members of boards of directors, and physicians on topics such as sexual harassment, violence in
+      the workplace, employment discrimination, Brown Act, Roberts Rules of Order, Board
+      Governance, Corporate and HIPAA compliance. These trainings have been provided to employees
+      of dozens of clinics throughout California (involving more than 100 trainings and thousands of
+      participants).`,
+    }, {
+      title: `Various Non-Profit and Service Organizations`,
+      content: `Presenter and trainer to numerous non-profit
         organizations such as the Centers for Independent Living, Heartland Opportunity Center, Boys and
         Girls Clubs, Save the Children, Rotary Clubs, Lions Clubs, Kiwanis Clubs, Medical Group
         Management Association, various hospitals and health clinics on various topics ranging from
@@ -263,14 +274,16 @@ export const russKRyanExpertise = [{
         the Brown Act, Roberts Rules of Order, Board Governance, HIPAA compliance and annual legal
         updates (. These trainings have been provided to numerous organizations throughout California
         (involving more than 100 trainings and thousands of participants).`,
-      `Client Training — presenter and trainer at hundreds of training sessions to employees and
+    }, {
+      title: `Client Training`,
+      content: `Presenter and trainer at hundreds of training sessions to employees and
         managers for various clients, large and small, including hotels, hotel management companies,
         restaurants, manufacturers, automobile dealerships, agricultural concerns, construction
         companies, health clinics, physician groups, hospitals, skilled nursing facilities, beverage
         distributors and alarm companies on various topics ranging from sexual harassment, violence in
         the workplace, employment discrimination, FMLA, ADA, the Brown Act, Roberts Rules of Order to
         HIPAA compliance.`,
-    ]
+    }]
   ]
 }, {
   name: 'Health Care, Real Estate and Business',
