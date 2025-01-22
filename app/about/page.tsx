@@ -84,17 +84,6 @@ export default function Page() {
               </li>
             ))}
           </ul>
-          <h3>Court Admissions</h3>
-          <ul className="courtAdmissionsContainer">
-            {russKRyanCourtAdmissions.map(courtAdmission => (
-              <li
-                key={courtAdmission}
-                className="courtAdmission"
-              >
-                {courtAdmission}
-              </li>
-            ))}
-          </ul>
           <h3>Ratings and Designations</h3>
           <ul className="ratingsAndDesignationsContainer">
             {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
@@ -103,6 +92,17 @@ export default function Page() {
                 className="ratingOrDesignation"
               >
                 {ratingOrDesignation.title} — {ratingOrDesignation.years}
+              </li>
+            ))}
+          </ul>
+          <h3>Court Admissions</h3>
+          <ul className="courtAdmissionsContainer">
+            {russKRyanCourtAdmissions.map(courtAdmission => (
+              <li
+                key={courtAdmission}
+                className="courtAdmission"
+              >
+                {courtAdmission}
               </li>
             ))}
           </ul>
