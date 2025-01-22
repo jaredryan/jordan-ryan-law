@@ -15,7 +15,7 @@ function BlankArrow(_props: any) {
 
 export default function Carousel() {
   const settings = {
-    customPaging: function(i) {
+    customPaging: function(i: number) {
         const areaOfPractice = areasOfPractice[i]
         return (
           <a className="tab">
