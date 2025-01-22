@@ -36,7 +36,6 @@
   translate: -50% -50%;
   width: 100%;
   text-align: center;
-  color: var(--font-tertiary-color);
   text-shadow: 0 1px 3px rgba(0,0,0,.3);
   padding: 48px 0;
 }
@@ -63,7 +62,7 @@
 
 .aboutPage .contentSection p {
   color: var(--font-secondary-color);
-  line-height: 32px;
+  line-height: 24px;
 }
 
 .aboutPage .contentSection h2 {
@@ -76,6 +75,51 @@
   text-align: center;
   margin-bottom: 64px;
   margin-top: 64px;
+}
+
+.aboutPage .contentSection h3 {
+  margin: 16px 0;
+}
+
+.aboutPage .contentSection h4 {
+  margin: 12px 0;
+}
+
+.aboutPage .contentSection p {
+  margin: 8px 0;
+}
+
+.aboutPage .contentSection li {
+  margin: 4px 0;
+}
+
+.aboutPage .contentSection ul {
+  list-style: disc;
+  padding-left: 32px;
+}
+
+.aboutPage .contentSection li {
+  padding-left: 4px;
+}
+
+.aboutPage .contentSection .clientsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.aboutPage .contentSection .clientsContainer li {
+  min-width: 50%;
+}
+
+@media (max-width: 1100px) {
+  .aboutPage .contentSection .clientsContainer {
+    display: block;
+  }
+
+  .aboutPage .contentSection .clientsContainer li {
+    min-width: auto;
+  }
 }
 
 .aboutPage .profileImage {

@@ -105,12 +105,14 @@ export const russKRyanProfileSummary = `
 
 export const russKRyanEducation = [{
   institution: 'University of California, Berkeley',
-  degree: 'Juris Doctorate, 1988',
+  degree: 'Juris Doctorate',
   rank: 'Top 25% (Approximate) of Class',
+  year: '1988',
 }, {
   institution: 'Brigham Young University',
-  degree: 'Bachelor of Science, Psychology, 1985',
+  degree: 'Bachelor of Science, Psychology',
   rank: 'Cum Laude',
+  year: '1985',
 }]
 
 export const russKRyanBarAdmissions = [{
@@ -132,34 +134,43 @@ export const russKRyanCourtAdmissions = [
   'U.S. District Court, District of Utah',
 ]
 
-export const russKRyanRatingsAndDesignations = [
-  `Designated "Super Lawyer" continuously from 2014 to the present and included each year since
-    2014 in the list of Super Lawyers in Northern California as selected by Super Lawyers Magazine.
-    Super Lawyers uses a patented third party nomination and selection process to rate attorneys with
-    only 5% in all of Northern California receiving Super Lawyer designation.`,
-  `"AV Preeminent" rated attorney continuously since 2012 signifying the highest possible rating of
-    professional excellence in both legal ability and ethical standards. This is Martindale-Hubbell Law
-    Directory's highest accolade, afforded to only the top 5% of all attorneys and law firms nationwide,
-    and is based on peer review ratings provided by the area's judges and attorneys.`,
-  `Martindale-Hubbell Top Rated Lawyers in Labor and Employment — 2016 to Present.`,
-  `Martindale-Hubbell Top Rated Lawyers in Litigation — 2016 to Present.`,
-  `America's Most Honored Lawyers - Top 1% — 2016-Present`,
-  `Designated as one of "Top Lawyers in California" by The Legal Network from 2014 to the present as
+export const russKRyanRatingsAndDesignations = [{
+  title: `Designated "Super Lawyer" in California as selected by Super Lawyers Magazine, which uses a patented
+    third party nomination and selection process to rate the top 5% of attorneys in each state`,
+  years: '2014-present',
+}, {
+  title: `"AV Preeminent" rated attorney signifying the highest possible rating of professional
+    excellence in both legal ability and ethical standards, which is Martindale-Hubbell Law Directory's highest
+    accolade afforded to only the top 5% of all attorneys and law firms nationwide, based on peer
+    review ratings provided by the area's judges and attorneys`,
+  years: '2012-present',
+}, {
+  title: `Martindale-Hubbell Top Rated Lawyers in Labor and Employment`,
+  years: '2016-present',
+}, {
+  title: `Martindale-Hubbell Top Rated Lawyers in Litigation`,
+  years: '2016-present',
+}, {
+  title: `America's Most Honored Lawyers - Top 1%`,
+  years: '2016-Present',
+}, {
+  title: `Designated as one of "Top Lawyers in California" by The Legal Network from 2014 to the present as
     Highest in Ethical Standards and Professional Excellence.`,
-]
+  years: '2014-present'
+}]
 
 export const russKRyanPriorExperience = [{
   position: 'Partner',
-  institution: 'Motschiedler, Michaelides, Wishon, Brewer &amp; Ryan, LLP',
+  institution: 'Motschiedler, Michaelides, Wishon, Brewer & Ryan, LLP',
   years: '2002-2025',
 }, {
   position: 'Shareholder / Partner',
-  institution: `Parr, Brown, Loveless and Gee, Salt Lake City Utah and Holland &amp; Hart,
+  institution: `Parr, Brown, Loveless and Gee, Salt Lake City Utah and Holland & Hart,
     LLP, Salt Lake City, Utah`,
   years: '2001-2002',
 }, {
   position: 'Partner',
-  institution: 'Motschiedler, Michaelides, Wishon, Brewer &amp; Ryan, LLP',
+  institution: 'Motschiedler, Michaelides, Wishon, Brewer & Ryan, LLP',
   years: '1994-2001',
 }, {
   position: 'Adjunct Professor',
@@ -171,7 +182,7 @@ export const russKRyanPriorExperience = [{
   years: '1992-1994',
 }, {
   position: 'Associate Attorney',
-  institution: 'Brobeck, Phleger &amp; Harrison, San Francisco, California',
+  institution: 'Brobeck, Phleger & Harrison, San Francisco, California',
   years: '1989-1991',
 }, {
   position: 'Judicial Clerkskip',
@@ -184,21 +195,21 @@ export const russKRyanPublicAndCommunityService = [{
   institution: 'Madera County Civil Service Commission',
   years: '1997'
 }, {
-  position: 'M',
+  position: 'Missionary',
   institution: 'Church of Jesus Christ of Latter Day Saints, Buenos Aires, Argentina',
   years: '1980-1982'
 }]
 
 export const russKRyanAffiliations = [
-  `Madera County Bar Association (Secretary/Treasurer, 1992-1993, Vice President, 1994,
-    President, 1995)`,
   `California, Utah and Fresno County Bar Associations`,
-  `American Business Trial Lawyers (Board of Directors Fresno Chapter, 2008)`,
-  `Board of Directors, Heartland Opportunity Center (Vice President, 2001)`,
-  `Board of Directors, Resources for Independence Central Valley, 2009-present`,
-  `Kimberlite Corporation (dba Sonitrol), 2010-Present (Board Chairperson)`,
-  `Steering Committee, Center for Disability Innovation at California State University, Fresno, 2008-
-    present`,
+  `Madera County Bar Association — Secretary/Treasurer, 1992-1993; Vice President, 1994;
+    President, 1995`,
+  `American Business Trial Lawyers — Board of Directors, Fresno Chapter, 2008`,
+  `Heartland Opportunity Center — Board of Directors, Vice President, 2001`,
+  `Resources for Independence Central Valley — Board of Directors, 2009-present`,
+  `Kimberlite Corporation (dba Sonitrol) — Board Chairperson, 2010-present`,
+  `Center for Disability Innovation at California State University, Fresno — Steering Committee
+    2008-present`,
 ]
 
 export const russKRyanExpertise = [{
@@ -223,7 +234,7 @@ export const russKRyanExpertise = [{
       5-10 employees and managers to more than 1,000 participants and have been conducted in English
       and Spanish. He is fluent in Spanish. A sampling of these training sessions include the following:`,
     [
-      `Council on Education in Management – moderator and presenter of full and part day programs on
+      `Council on Education in Management — moderator and presenter of full and part day programs on
         sexual harassment, employment discrimination under state and federal law, FMLA, CFRA, ADA,
         violence in the workplace, and numerous other programs (1993-2002) (more than 30 programs
         involving thousands of participants).`,
@@ -290,7 +301,7 @@ export const russKRyanClients = {
   current: [
     'Agriland Farming, Inc.',
     'Altura Centers for Health',
-    'Berry &amp; Berry',
+    'Berry & Berry',
     'Camarena Health',
     'Central Cal Metals',
     'Central California Child Development Services, Inc.',

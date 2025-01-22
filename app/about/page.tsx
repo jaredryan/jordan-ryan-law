@@ -66,15 +66,13 @@ export default function Page() {
             {russKRyanProfileSummary}
           </p>
           <h3>Education</h3>
-          <div className="educationContainer">
+          <ul className="educationContainer">
             {russKRyanEducation.map(education => (
-              <div className="education" key={education.institution}>
-                <p>{education.institution}</p>
-                <p>{education.degree}</p>
-                <p>{education.rank}</p>
-              </div>
+              <li className="education" key={education.institution}>
+                {education.degree} - {education.rank} — {education.institution} — {education.year}
+              </li>
             ))}
-          </div>
+          </ul>
           <h3>Bar Admissions</h3>
           <ul className="barAdmissionsContainer">
             {russKRyanBarAdmissions.map(barAdmission => (
@@ -101,30 +99,37 @@ export default function Page() {
           <ul className="ratingsAndDesignationsContainer">
             {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
               <li
-                key={ratingOrDesignation}
+                key={ratingOrDesignation.title}
                 className="ratingOrDesignation"
               >
-                {ratingOrDesignation}
+                {ratingOrDesignation.title} — {ratingOrDesignation.years}
               </li>
             ))}
           </ul>
-          <h3>Experience</h3>
-          <div className="experienceContainer">
+          <h3>Positions</h3>
+          <ul className="experienceContainer">
             {russKRyanPriorExperience.map(experience => (
-              <div className="experience" key={experience.years}>
-                <p>{experience.position}</p>
-                <p>{experience.institution}</p>
-                <p>{experience.years}</p>
-              </div>
+              <li className="experience" key={experience.years}>
+                {experience.position} — {experience.institution} — {experience.years}
+              </li>
             ))}
-          </div>
-          <h3>Public and Community Service</h3>
-          <div className="serviceContainer">
-            {russKRyanPublicAndCommunityService.map(service => (
-              <div className="service" key={service.years}>
-                <p>{service.position}</p>
-                <p>{service.institution}</p>
-                <p>{service.years}</p>
+          </ul>        
+          <h3>Experience</h3>
+          <div className="expertiseContainer">
+            {russKRyanExpertise.map(expertise => (
+              <div className="expertise" key={expertise.name}>
+                <h4>{expertise.name}</h4>
+                <div className="expertiseContentContainer">
+                  {expertise.content.map(paragraphOrList => (
+                    typeof paragraphOrList == 'string' 
+                      ? <p key={paragraphOrList}>{paragraphOrList}</p>
+                      : <ul key={paragraphOrList[0]}>
+                        {paragraphOrList.map(bullet => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -139,28 +144,17 @@ export default function Page() {
               </li>
             ))}
           </ul>
-          <h3>Expertise</h3>
-          <div className="expertiseContainer">
-            {russKRyanExpertise.map(expertise => (
-              <div className="expertise" key={expertise.name}>
-                <h4>{expertise.name}</h4>
-                <div className="expertiseContentContainer">
-                  {expertise.content.map(paragraph => (
-                    typeof paragraph == 'string' 
-                      ? <p key={paragraph}>{paragraph}</p>
-                      : <ul key={paragraph[0]}>
-                        {paragraph.map(bullet => (
-                          <li key={bullet}>{bullet}</li>
-                        ))}
-                      </ul>
-                  ))}
-                </div>
-              </div>
+          <h3>Public and Community Service</h3>
+          <ul className="serviceContainer">
+            {russKRyanPublicAndCommunityService.map(service => (
+              <li className="service" key={service.years}>
+                {service.position} — {service.institution} — {service.years}
+              </li>
             ))}
-          </div>
+          </ul>
           <h3>Clients</h3>
-          <h4>Past</h4>
-          <ul className="affiliationsContainer">
+          <h4>Present</h4>
+          <ul className="clientsContainer past">
             {russKRyanClients.current.map(client => (
               <li
                 key={client}
@@ -171,7 +165,7 @@ export default function Page() {
             ))}
           </ul>
           <h4>Past</h4>
-          <ul className="affiliationsContainer">
+          <ul className="clientsContainer present">
             {russKRyanClients.past.map(client => (
               <li
                 key={client}

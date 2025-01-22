@@ -36,7 +36,6 @@
   translate: -50% -50%;
   width: 100%;
   text-align: center;
-  color: var(--font-tertiary-color);
   text-shadow: 0 1px 3px rgba(0,0,0,.3);
   padding: 48px 0;
   z-index: 2;
@@ -86,7 +85,7 @@
 .homePage .contentSection p {
   color: var(--font-secondary-color);
   padding-top: 24px;
-  line-height: 32px;
+  line-height: 24px;
 }
 
 .homePage .contentSection h2 {
@@ -188,6 +187,13 @@
   color: var(--font-tertiary-color);
   margin: 0px auto 50px;
   text-align: center;
+}
+
+.homePage .practiceAreaContainer h3 {
+  font-weight: 500;
+  font-family: var(--font-opensans);
+  font-size: 20px;
+  line-height: 30px;
 }
 
 
