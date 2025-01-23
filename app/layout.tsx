@@ -39,6 +39,7 @@ export default function RootLayout({
           sizes="180x180"
         />
         <meta name="apple-mobile-web-app-title" content="Ryan Legal" />
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={`${openSans.variable} ${prata.variable}`}>
         <Navbar />
