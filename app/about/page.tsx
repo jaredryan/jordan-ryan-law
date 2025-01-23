@@ -4,16 +4,14 @@ import '@/app/ui/about.css';
 import { russKRyanProfileSummary } from '@/app/content';
 import AboutCarousel from '@/app/ui/about-carousel';
 
-// 9 items...best way to display?
-
 export default function Page() {
   return (
     <div className="aboutPage">
       <div className="imageContainer">
         <Image
           src="/pen-on-notebook.jpg"
-          width={0}
-          height={0}
+          width={4592}
+          height={3448}
           sizes="100vw"
           alt="Attorneys Writing Image"
           className="bannerImage"

@@ -37,12 +37,7 @@ export default function Navbar() {
         <Link
           key={homeLink.name}
           href={homeLink.href}
-          className={clsx(
-            'homeLink',
-            {
-              'highlighted': pathname === homeLink.href,
-            }
-          )}
+          className={`'homeLink'${pathname === homeLink.href ? ' highlighted' : ''}`}
         >
           <Image
             src="/logo-white.png"
@@ -61,9 +56,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={clsx({
-                'highlighted': pathname === link.href,
-              })}
+              className={`${pathname === homeLink.href ? ' highlighted' : ''}`}
             >
               {link.name}
             </Link>
