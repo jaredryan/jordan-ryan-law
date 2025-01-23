@@ -50,6 +50,7 @@ export default function Navbar() {
             height={28}
             alt="Screenshots of the dashboard project showing desktop version"
             style={{ margin: '-4px 0' }}
+            loading="eager"
           />
           Ryan Legal, PC
         </Link>

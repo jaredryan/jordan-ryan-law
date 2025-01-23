@@ -33,6 +33,7 @@ export default function Page() {
               height={200}
               alt="Russ Ryan Image"
               className="squareProfileImage"
+              loading="eager"
             />
             <Image
               src="/super-lawyers-badge.png"
@@ -40,6 +41,7 @@ export default function Page() {
               height={100}
               alt="Super Lawyers Badge Image"
               className="superLawyersBadge"
+              loading="eager"
             />
             <Image
               src="/av-preeminent.png"
@@ -47,6 +49,7 @@ export default function Page() {
               height={59.18}
               alt="AV Preeminent Image"
               className="avPreeminentBadge"
+              loading="eager"
             />
           </div>  
           <div className="profileInformation">
