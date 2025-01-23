@@ -1,0 +1,70 @@
+.carouselComponent.aboutCarousel .customThumbnails {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 36px;
+}
+
+.carouselComponent.aboutCarousel > div {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.carouselComponent.aboutCarousel .customThumbnails .tab {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    /* width: 215px; */
+    padding: 4px 12px;
+    border: 2px solid var(--background-secondary-color);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.carouselComponent.aboutCarousel ul.customThumbnails {
+  list-style: none;
+}
+
+.carouselComponent.aboutCarousel ul.customThumbnails li,
+.carouselComponent.aboutCarousel ul.customThumbnails p {
+  margin: 0;
+}
+
+.carouselComponent.aboutCarousel .customThumbnails .slick-active .tab {
+    border: 2px solid var(--primary-color) !important;
+}
+
+.carouselComponent.aboutCarousel .customThumbnails .tab:hover {
+    background-color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.carouselComponent.aboutCarousel .icon,
+.carouselComponent.aboutCarousel .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.carouselComponent.aboutCarousel.businessTransactions .icon,
+.carouselComponent.aboutCarousel.businessTransactions .icon svg {
+  width: 24px;
+}
+
+.carouselComponent.aboutCarousel .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--primary-color);
+}
+
+.carouselComponent.aboutCarousel .customThumbnails p {
+    padding-top: 0 !important;
+    font-weight: 500;
+    line-height: normal !important;
+    color: var(--font-primary-color) !important;
+    min-width: 175px !important;
+    width: 100%;
+    text-align: left;
+    flex: 1;
+}

@@ -89,19 +89,20 @@ export const areasOfPractice = [{
     Section 16600 applies to partnerships.`
 }]
 
-export const russKRyanProfileSummary = `
-  Russ Ryan is an attorney who focuses his practice on labor and employment, health care,
-  non-profit representation and business litigation. He represents employers (and the occasional
-  employee) in all aspects of employment law, from day-to-day advising, workplace training, corporate
-  compliance and the development of personnel policies and procedures to representation in
-  employment-related disputes and litigation before federal and state courts through trial and appeal,
-  and administrative agencies such as the California Civil Rights Department, the Equal Employment
-  Opportunity Commission, the Department of Labor, the California Labor Commissioner and the
-  Employment Development Department. His clients include national, regional and local companies
-  and individuals involved in many different industries, with a particular emphasis on health care
-  entities and non-profit organizations. He also assists out-of-town law firms as local counsel on
-  matters pending in state and federal court.
-`
+export const russKRyanProfileSummary = [
+  `Russ Ryan is an attorney who focuses his practice on labor and employment, health care,
+    non-profit representation and business litigation. He represents employers (and the occasional
+    employee) in all aspects of employment law, from day-to-day advising, workplace training, corporate
+    compliance and the development of personnel policies and procedures to representation in
+    employment-related disputes and litigation before federal and state courts through trial and appeal,
+    and administrative agencies such as the California Civil Rights Department, the Equal Employment
+    Opportunity Commission, the Department of Labor, the California Labor Commissioner and the
+    Employment Development Department.`,
+  `His clients include national, regional and local companies
+    and individuals involved in many different industries, with a particular emphasis on health care
+    entities and non-profit organizations. He also assists out-of-town law firms as local counsel on
+    matters pending in state and federal court.`,
+]
 
 export const russKRyanEducation = [{
   institution: 'University of California, Berkeley',

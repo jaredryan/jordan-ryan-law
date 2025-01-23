@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Carousel from '@/app/ui/carousel';
+import ExpertiseCarousel from '@/app/ui/expertise-carousel';
 
 import '@/app/ui/expertise.css';
 
@@ -22,7 +22,7 @@ export default function Page() {
         </div>
       </div>
       <div className="contentSection">
-        <Carousel />
+        <ExpertiseCarousel />
       </div>
     </div>
   );

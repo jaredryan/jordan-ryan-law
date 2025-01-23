@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import { areasOfPractice } from '@/app/content';
 
-import '@/app/ui/carousel.css';
+import '@/app/ui/expertise-carousel.css';
 
 function BlankArrow(_props: any) {
     return <div style={{ display: "none" }} />
@@ -36,7 +36,7 @@ export default function Carousel() {
   }
 
   return (
-    <div className="carouselComponent">
+    <div className="expertiseCarousel carouselComponent">
         <Slider {...settings}>
             {areasOfPractice.map(section => (
             <div className="slide" key={section.name}>

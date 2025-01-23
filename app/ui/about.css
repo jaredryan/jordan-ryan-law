@@ -1,6 +1,9 @@
 .aboutPage {
   width: 100%;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .aboutPage .imageContainer {
@@ -49,105 +52,130 @@
   font-size: 24px;
 }
 
-.aboutPage .contentSection {
-  padding: 50px 100px;
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
+.aboutPage .profile {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+.aboutPage .profileImages {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
 }
 
-.aboutPage .contentSection p {
+.aboutPage .squareProfileImage {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.aboutPage .avPreeminentBadge {
+  width: 200px;
+  height: auto;
+}
+
+.aboutPage .superLawyersBadge {
+  width: 120px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.aboutPage .pagePadding {
+  padding: 50px 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aboutPage .contentSection,
+.aboutPage .carouselSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aboutPage .contentSection {
+  background-color: var(--background-primary-color);
+  max-width: 1200px;
+}
+
+.aboutPage .carouselSection {
+  background-color: var(--background-secondary-color);
+}
+
+.aboutPage .carouselSection .aboutCarousel {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.aboutPage p {
   color: var(--font-secondary-color);
   line-height: 24px;
 }
 
-.aboutPage .contentSection h2 {
+.aboutPage h2 {
+  margin-bottom: 24px;
   font-size: 24px;
   text-align: center;
 }
 
-.aboutPage .contentSection h1 {
+.aboutPage h1 {
   font-size: 48px;
   text-align: center;
   margin-bottom: 64px;
   margin-top: 64px;
 }
 
-.aboutPage .contentSection h3 {
+.aboutPage h3 {
   margin: 24px 0;
 }
 
-.aboutPage .contentSection h4 {
+.aboutPage h4 {
   margin: 18px 0;
 }
 
-.aboutPage .contentSection h3,
-.aboutPage .contentSection h4 {
+.aboutPage h3,
+.aboutPage h4 {
   font-weight: 600;
 }
 
-.aboutPage .contentSection p {
+.aboutPage p {
   margin: 12px 0;
 }
 
-.aboutPage .contentSection li {
+.aboutPage .introduction p:last-of-type {
+  margin: 12px 0 0;
+  color: black;
+}
+
+.aboutPage li {
   margin: 4px 0;
 }
 
-.aboutPage .contentSection ul {
+.aboutPage ul {
   list-style: disc;
   padding-left: 32px;
 }
 
-.aboutPage .contentSection ul.nested {
+.aboutPage ul.nested {
   list-style: circle;
 }
 
-.aboutPage .contentSection li {
+.aboutPage li {
   padding-left: 4px;
 }
 
-.aboutPage .contentSection .clientsContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.aboutPage .contentSection .clientsContainer li {
-  min-width: 50%;
-}
-
 @media (max-width: 1100px) {
-  .aboutPage .contentSection .clientsContainer {
+  .aboutPage .clientsContainer {
     display: block;
   }
 
-  .aboutPage .contentSection .clientsContainer li {
+  .aboutPage .clientsContainer li {
     min-width: auto;
   }
-}
-
-.aboutPage .profileImage {
-  width: 300px;
-  height: auto;
-}
-
-.aboutPage .squareProfileImage {
-  width: 300px;
-  height: auto;
-  border-radius: 50%;
-}
-
-.aboutPage .avPreeminentBadge {
-  width: 250px;
-  height: auto;
-}
-
-.aboutPage .superLawyersBadge {
-  width: 180px;
-  height: auto;
 }
