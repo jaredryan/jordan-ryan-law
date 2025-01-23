@@ -6,7 +6,7 @@ export default function Page() {
     <div className="paymentPage">
       <div className="imageContainer">
         <Image
-          src="/pens2.png"
+          src="/pens2.jpg"
           width={0}
           height={0}
           sizes="100vw"

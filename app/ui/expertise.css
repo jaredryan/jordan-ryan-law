@@ -26,7 +26,7 @@
   width: 100%;
   height: 100%;
   display: block;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, .5);
 }
 
 .expertisePage .imageText {
@@ -42,7 +42,7 @@
 
 .expertisePage .imageText h1 {
   font-size: 48px;
-  margin-bottom: 24px;
+  margin: 0;
 }
 
 .expertisePage .imageText h2 {

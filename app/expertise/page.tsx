@@ -8,7 +8,7 @@ export default function Page() {
     <div className="expertisePage">
       <div className="imageContainer">
         <Image
-          src="/practice.png"
+          src="/practice.jpg"
           width={0}
           height={0}
           sizes="100vw"

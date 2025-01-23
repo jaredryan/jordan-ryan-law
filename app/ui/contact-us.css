@@ -13,9 +13,7 @@
 
 .contactUsPage .bannerImage {
   width: 100%;
-  min-height: 350px;
-  height: auto;
-  max-height: 400px;
+  height: 400px;
   object-fit: cover;
   flex: 1;
 }
@@ -43,7 +41,7 @@
 
 .contactUsPage .imageText h1 {
   font-size: 48px;
-  margin-bottom: 24px;
+  margin: 0;
 }
 
 .contactUsPage .imageText h2 {
