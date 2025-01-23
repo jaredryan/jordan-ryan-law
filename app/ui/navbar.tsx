@@ -37,14 +37,13 @@ export default function Navbar() {
         <Link
           key={homeLink.name}
           href={homeLink.href}
-          className={`'homeLink'${pathname === homeLink.href ? ' highlighted' : ''}`}
+          className={`homeLink${pathname === homeLink.href ? ' highlighted' : ''}`}
         >
           <Image
             src="/logo-white.png"
-            width={46.39}
-            height={28}
+            width={100}
+            height={60}
             alt="Screenshots of the dashboard project showing desktop version"
-            style={{ margin: '-4px 0' }}
             loading="eager"
           />
           Ryan Legal, PC

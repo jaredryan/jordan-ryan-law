@@ -39,8 +39,8 @@ export default function Page() {
       <div className="contentSection">
         <Image
           src="/full-logo.png"
-          width={0}
-          height={0}
+          width={700}
+          height={342}
           sizes="100vw"
           alt="Ryan Legal, PC Logo"
           className="logoTitle"

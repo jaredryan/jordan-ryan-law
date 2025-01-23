@@ -40,6 +40,13 @@ nav .home .homeLink {
   gap: 10px;
 }
 
+nav .home .homeLink img {
+  width: auto;
+  height: 28px;
+  margin: -4px 0
+}
+
+
 nav .menu {
   display: flex;
   flex-direction: row;
