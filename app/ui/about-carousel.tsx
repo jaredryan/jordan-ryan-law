@@ -1,13 +1,29 @@
 'use client'
 
 import Slider from 'react-slick'
-import { useState } from 'react'
+import { useRef, useState, RefObject, ReactNode } from 'react'
+import { CSSTransition } from 'react-transition-group';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+  faBriefcase,
+  faGavel,
+  faCaretDown,
+  faCaretUp,
+  faHospital,
+  faPersonChalkboard,
+  faGraduationCap,
+  faFilePen,
+  faStar,
+  faBuildingColumns,
+  faFileLines,
+  faPenFancy,
+  faPeopleGroup,
+  faPeopleCarryBox,
+  faHandshakeSimple,
+} from '@fortawesome/free-solid-svg-icons'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 import {
   russKRyanEducation,
@@ -25,59 +41,122 @@ import '@/app/ui/about-carousel.css';
 import React from 'react'
 
 const subSectionHeaders = [
-  'Employment',
-  'Training',
-  'Health Care, Business and Real Estate',
-  'Litigation',
-]
+  {
+    title: 'Employment',
+    icon: <FontAwesomeIcon icon={faBriefcase} />,
+  }, {
+    title: 'Training',
+    icon: <FontAwesomeIcon icon={faPersonChalkboard} />,
+  }, {
+    title: 'Health Care, Business and Real Estate',
+    icon: <FontAwesomeIcon icon={faHospital} />,
+  }, {
+    title: 'Litigation',
+    icon: <FontAwesomeIcon icon={faGavel} />,
+}]
 
 const sectionHeaders = [
-  'Education',
-  'Bar Admissions',
-  'Ratings and Designations',
-  'Court Admissions',
-  'Positions',
-  // 'Experience',
+  {
+    title: 'Education',
+    icon: <FontAwesomeIcon icon={faGraduationCap} />,
+  }, {
+    title: 'Bar Admissions',
+    icon: <FontAwesomeIcon icon={faFilePen} />,
+  }, {
+    title: 'Ratings and Designations',
+    icon: <FontAwesomeIcon icon={faStar} />,
+  }, {
+    title: 'Court Admissions',
+    icon: <FontAwesomeIcon icon={faBuildingColumns} />,
+  }, {
+    title: 'Positions',
+    icon: <FontAwesomeIcon icon={faFileLines} />,
+  }, {
+    title: 'Professional Practice',
+    icon: <FontAwesomeIcon icon={faPenFancy} />,
+  }, 
   ...subSectionHeaders,
-  'Affiliations',
-  'Public and Community Service',
-  'Clients',
-]
+  {
+    title: 'Affiliations',
+    icon: <FontAwesomeIcon icon={faPeopleGroup} />,
+  }, {
+    title: 'Public and Community Service',
+    icon: <FontAwesomeIcon icon={faPeopleCarryBox} />,
+  }, {
+    title: 'Clients',
+    icon: <FontAwesomeIcon icon={faHandshakeSimple} />,
+}]
+
+const allSections = sectionHeaders.slice()
+sectionHeaders.splice(5, 1)
 
 function BlankArrow(_props: any) {
     return <div style={{ display: "none" }} />
 }
 
-const renderSideNavItem = (header: string, open: boolean, setOpen: (open: boolean) => void) => {
+const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boolean, setOpen: (open: boolean) => void, nodeRef: RefObject<null> | null) => {
   let tab
+  let className
 
-  if (subSectionHeaders.includes(header)) {
-    if (!open) {
-      tab = <a className="tab hidden"><p>{header}</p></a>
-    } else {
-      tab = <a className="tab nested"><p>{header}</p></a>
-    }
+  const title = header.title
+  const icon = header.icon
+
+  if (subSectionHeaders.map(header => header.title).includes(header.title)) {
+    className = !open
+      ? 'hidden'
+      : 'nested'
+
+    tab = (
+      <CSSTransition 
+        nodeRef={nodeRef}
+        in={open}
+        timeout={500}
+        classNames="fade-bounce-down"
+      >
+        <a className={`tab ${className}`} ref={nodeRef}>
+          <div className="icon">{icon}</div>
+          <p>{title}</p>
+        </a>
+      </CSSTransition>
+    )
   } else {
-    tab = <a className="tab"><p>{header}</p></a>
+    tab = (
+      <a className="tab">
+        <div className="icon">{icon}</div>
+        <p>{title}</p>
+      </a>
+    )
   }
 
-  if (header !== 'Employment') {
+  if (title !== 'Employment') {
     return tab
   }
+
+  const experienceSection = allSections[5]
 
   return (
     <div>
       <a
-        className="tab"
+        className="tab neverChosen"
         onClick={(e) => { 
           setOpen(!open)
           e.stopPropagation()
         }}
       >
-        <p>Experience</p>
-        <FontAwesomeIcon icon={faCaretDown} />
+        <div className="icon">{experienceSection.icon}</div>
+        <p>{experienceSection.title}</p>
+        {open
+          ? <FontAwesomeIcon icon={faCaretUp} />
+          : <FontAwesomeIcon icon={faCaretDown} />}
       </a>
-      {tab}
+      <CSSTransition 
+        nodeRef={nodeRef}
+        in={open}
+        timeout={500}
+        classNames="fade-bounce-down"
+      >
+        {tab}
+      </CSSTransition>
     </div>
   )
 }
@@ -108,10 +187,26 @@ const mapExpertise = (expertise: { name: string, content: (string | string[] | {
 
 export default function Carousel() {
   const [open, setOpen] = useState(false)
+  const nodeRef5 = useRef(null);
+  const nodeRef6 = useRef(null);
+  const nodeRef7 = useRef(null);
+  const nodeRef8 = useRef(null);
+
+  const nodeRefs = {
+    '5': nodeRef5,
+    '6': nodeRef6,
+    '7': nodeRef7,
+    '8': nodeRef8,
+  }
   
   const settings = {
     customPaging: function(i: number) {
-      return renderSideNavItem(sectionHeaders[i], open, setOpen)
+      return renderSideNavItem(
+        sectionHeaders[i],
+        open,
+        setOpen,
+        nodeRefs[i.toString() as keyof typeof nodeRefs] || null
+      )
     },
     dots: true,
     infinite: true,
@@ -128,7 +223,7 @@ export default function Carousel() {
     <div className="aboutCarousel carouselComponent">
       <Slider {...settings}>
         <div className="slide">
-          <h2>{sectionHeaders[0]}</h2>
+          <h2>{sectionHeaders[0].title}</h2>
           <ul className="educationContainer">
             {russKRyanEducation.map(education => (
               <li className="education" key={education.institution}>
@@ -138,7 +233,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[1]}</h2>
+          <h2>{sectionHeaders[1].title}</h2>
           <ul className="barAdmissionsContainer">
             {russKRyanBarAdmissions.map(barAdmission => (
               <li
@@ -151,7 +246,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[2]}</h2>
+          <h2>{sectionHeaders[2].title}</h2>
           <ul className="ratingsAndDesignationsContainer">
             {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
               <li
@@ -164,7 +259,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[3]}</h2>
+          <h2>{sectionHeaders[3].title}</h2>
           <ul className="courtAdmissionsContainer">
             {russKRyanCourtAdmissions.map(courtAdmission => (
               <li
@@ -177,7 +272,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[4]}</h2>
+          <h2>{sectionHeaders[4].title}</h2>
           <ul className="experienceContainer">
             {russKRyanPriorExperience.map(experience => (
               <li className="experience" key={experience.years}>
@@ -187,7 +282,7 @@ export default function Carousel() {
           </ul>      
         </div>
         {/* <div className="slide">
-          <h2>{sectionHeaders[8]}</h2>
+          <h2>{sectionHeaders[8].title}</h2>
           <div className="expertiseContainer">
             {russKRyanExpertise.map(expertise => (
               <div className="expertise" key={expertise.name}>
@@ -213,31 +308,31 @@ export default function Carousel() {
           </div>
         </div> */}
         <div className="slide">
-          <h2>{sectionHeaders[5]}</h2>
+          <h2>{sectionHeaders[5].title}</h2>
           <div className="expertiseContainer">
             {mapExpertise(russKRyanExpertise[0])}
           </div>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[6]}</h2>
+          <h2>{sectionHeaders[6].title}</h2>
           <div className="expertiseContainer">
             {mapExpertise(russKRyanExpertise[1])}
           </div>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[7]}</h2>
+          <h2>{sectionHeaders[7].title}</h2>
           <div className="expertiseContainer">
             {mapExpertise(russKRyanExpertise[2])}
           </div>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[8]}</h2>
+          <h2>{sectionHeaders[8].title}</h2>
           <div className="expertiseContainer">
             {mapExpertise(russKRyanExpertise[3])}
           </div>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[9]}</h2>
+          <h2>{sectionHeaders[9].title}</h2>
           <ul className="affiliationsContainer">
             {russKRyanAffiliations.map(affiliation => (
               <li
@@ -250,7 +345,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[10]}</h2>
+          <h2>{sectionHeaders[10].title}</h2>
           <ul className="serviceContainer">
             {russKRyanPublicAndCommunityService.map(service => (
               <li className="service" key={service.years}>
@@ -260,7 +355,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[11]}</h2>
+          <h2>{sectionHeaders[11].title}</h2>
           <h3>Present</h3>
           <ul className="clientsContainer past">
             {russKRyanClients.current.map(client => (
