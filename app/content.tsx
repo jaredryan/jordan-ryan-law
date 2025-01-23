@@ -287,7 +287,7 @@ export const russKRyanExpertise = [{
     }]
   ]
 }, {
-  name: 'Health Care, Real Estate and Business',
+  name: 'Health Care, Business and Real Estate',
   content: [
     `He represents federal qualified health centers, rural health clinics, skilled nursing facilities as well as
       private practice health care providers with regard to transactions and litigation, corporate

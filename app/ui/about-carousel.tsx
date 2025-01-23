@@ -1,17 +1,13 @@
 'use client'
 
 import Slider from 'react-slick'
+import { useState } from 'react'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-
 
 import {
   russKRyanEducation,
@@ -26,6 +22,14 @@ import {
 } from '@/app/content';
 
 import '@/app/ui/about-carousel.css';
+import React from 'react'
+
+const subSectionHeaders = [
+  'Employment',
+  'Training',
+  'Health Care, Business and Real Estate',
+  'Litigation',
+]
 
 const sectionHeaders = [
   'Education',
@@ -33,7 +37,8 @@ const sectionHeaders = [
   'Ratings and Designations',
   'Court Admissions',
   'Positions',
-  'Experience',
+  // 'Experience',
+  ...subSectionHeaders,
   'Affiliations',
   'Public and Community Service',
   'Clients',
@@ -43,53 +48,70 @@ function BlankArrow(_props: any) {
     return <div style={{ display: "none" }} />
 }
 
-const renderSideNavItem = (header) => {
-  // if (header === 'Experience') {
-  //   return (
-  //     <Accordion>
-  //       <AccordionSummary
-  //         expandIcon={<FontAwesomeIcon icon={faCaretDown} />}
-  //         aria-controls="panel2-content"
-  //         id="panel2-header"
-  //       >
-  //         <p>{header}</p>
-  //       </AccordionSummary>
-  //       <AccordionDetails>
-  //         {russKRyanExpertise.map(expertise => (
-  //           <p>{expertise.name}</p>
-  //         ))}
-  //       </AccordionDetails>
-  //     </Accordion>
-  //   )
-  // } else if (header === 'Clients') {
-  //   return (
-  //     <Accordion>
-  //       <AccordionSummary
-  //         expandIcon={<FontAwesomeIcon icon={faCaretDown} />}
-  //         aria-controls="panel2-content"
-  //         id="panel2-header"
-  //       >
-  //         <p>{header}</p>
-  //       </AccordionSummary>
-  //       <AccordionDetails>
-  //         <p>Present</p>
-  //         <p>Past</p>
-  //       </AccordionDetails>
-  //     </Accordion>
-  //   )
-  // }
-  return <p>{header}</p>
+const renderSideNavItem = (header: string, open: boolean, setOpen: (open: boolean) => void) => {
+  let tab
+
+  if (subSectionHeaders.includes(header)) {
+    if (!open) {
+      tab = <a className="tab hidden"><p>{header}</p></a>
+    } else {
+      tab = <a className="tab nested"><p>{header}</p></a>
+    }
+  } else {
+    tab = <a className="tab"><p>{header}</p></a>
+  }
+
+  if (header !== 'Employment') {
+    return tab
+  }
+
+  return (
+    <div>
+      <a
+        className="tab"
+        onClick={(e) => { 
+          setOpen(!open)
+          e.stopPropagation()
+        }}
+      >
+        <p>Experience</p>
+        <FontAwesomeIcon icon={faCaretDown} />
+      </a>
+      {tab}
+    </div>
+  )
 }
 
+const mapExpertise = (expertise: { name: string, content: (string | string[] | {
+  title: string;
+  content: string;
+}[])[]}) => (
+  <div className="expertise" key={expertise.name}>
+    <div className="expertiseContentContainer">
+      {expertise.content.map((paragraphOrList)  => (
+        typeof paragraphOrList == 'string' 
+          ? <p key={paragraphOrList}>{paragraphOrList}</p>
+          : <ul key={typeof paragraphOrList[0] === 'string' ? paragraphOrList[0] : paragraphOrList[0].title}>
+            {paragraphOrList.map(item => (
+              typeof item === 'string'
+                ? <li key={item}>{item}</li>
+                : <li key={item.title}>
+                    {item.title}
+                    <ul className="nested"><li key={item.content}>{item.content}</li></ul>
+                  </li>
+            ))}
+          </ul>
+      ))}
+    </div>
+  </div>
+)
+
 export default function Carousel() {
+  const [open, setOpen] = useState(false)
+  
   const settings = {
     customPaging: function(i: number) {
-      const header = sectionHeaders[i]
-      return (
-        <a className="tab">
-          {renderSideNavItem(header)}
-        </a>
-      );
+      return renderSideNavItem(sectionHeaders[i], open, setOpen)
     },
     dots: true,
     infinite: true,
@@ -163,9 +185,9 @@ export default function Carousel() {
               </li>
             ))}
           </ul>      
-        </div>  
-        <div className="slide">
-          <h2>{sectionHeaders[5]}</h2>
+        </div>
+        {/* <div className="slide">
+          <h2>{sectionHeaders[8]}</h2>
           <div className="expertiseContainer">
             {russKRyanExpertise.map(expertise => (
               <div className="expertise" key={expertise.name}>
@@ -189,9 +211,33 @@ export default function Carousel() {
               </div>
             ))}
           </div>
+        </div> */}
+        <div className="slide">
+          <h2>{sectionHeaders[5]}</h2>
+          <div className="expertiseContainer">
+            {mapExpertise(russKRyanExpertise[0])}
+          </div>
         </div>
         <div className="slide">
           <h2>{sectionHeaders[6]}</h2>
+          <div className="expertiseContainer">
+            {mapExpertise(russKRyanExpertise[1])}
+          </div>
+        </div>
+        <div className="slide">
+          <h2>{sectionHeaders[7]}</h2>
+          <div className="expertiseContainer">
+            {mapExpertise(russKRyanExpertise[2])}
+          </div>
+        </div>
+        <div className="slide">
+          <h2>{sectionHeaders[8]}</h2>
+          <div className="expertiseContainer">
+            {mapExpertise(russKRyanExpertise[3])}
+          </div>
+        </div>
+        <div className="slide">
+          <h2>{sectionHeaders[9]}</h2>
           <ul className="affiliationsContainer">
             {russKRyanAffiliations.map(affiliation => (
               <li
@@ -204,7 +250,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[7]}</h2>
+          <h2>{sectionHeaders[10]}</h2>
           <ul className="serviceContainer">
             {russKRyanPublicAndCommunityService.map(service => (
               <li className="service" key={service.years}>
@@ -214,7 +260,7 @@ export default function Carousel() {
           </ul>
         </div>
         <div className="slide">
-          <h2>{sectionHeaders[8]}</h2>
+          <h2>{sectionHeaders[11]}</h2>
           <h3>Present</h3>
           <ul className="clientsContainer past">
             {russKRyanClients.current.map(client => (
