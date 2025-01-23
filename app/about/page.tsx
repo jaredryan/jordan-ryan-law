@@ -9,7 +9,7 @@ export default function Page() {
     <div className="aboutPage">
       <div className="imageContainer">
         <Image
-          src="/pen-on-notebook.jpg"
+          src="/pen-on-notebook.webp"
           width={4592}
           height={3448}
           sizes="100vw"
@@ -26,7 +26,7 @@ export default function Page() {
         <div className="profile">
           <div className="profileImages">
             <Image
-              src="/square-profile.jpg"
+              src="/square-profile.webp"
               width={200}
               height={200}
               alt="Russ Ryan Image"

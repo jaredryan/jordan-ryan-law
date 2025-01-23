@@ -16,7 +16,7 @@ export default function Page() {
     <div className="homePage">
       <div className="imageContainer">
         <Image
-          src="/upper-falls.jpg"
+          src="/upper-falls.webp"
           width={0}
           height={0}
           sizes="100vw"
@@ -38,7 +38,7 @@ export default function Page() {
       </div>
       <div className="contentSection">
         <Image
-          src="/full-logo.png"
+          src="/full-logo.webp"
           width={700}
           height={342}
           sizes="100vw"
@@ -61,7 +61,7 @@ export default function Page() {
       </div>
       <div className="requestConsultation">
         <Image
-          src="/attorney-writing.jpg"
+          src="/attorney-writing.webp"
           width={0}
           height={0}
           sizes="100vw"

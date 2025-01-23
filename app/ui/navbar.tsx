@@ -40,7 +40,7 @@ export default function Navbar() {
           className={`homeLink${pathname === homeLink.href ? ' highlighted' : ''}`}
         >
           <Image
-            src="/logo-white.png"
+            src="/logo-white.webp"
             width={100}
             height={60}
             alt="Screenshots of the dashboard project showing desktop version"

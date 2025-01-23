@@ -38,7 +38,7 @@ export default function Page() {
       <div className="contactUsPage">
         <div className="imageContainer">
           <Image
-            src="/fp2.jpg"
+            src="/fp2.webp"
             width={0}
             height={0}
             sizes="100vw"
