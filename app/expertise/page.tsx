@@ -9,9 +9,8 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src="/practice.webp"
-          width={0}
-          height={0}
-          sizes="100vw"
+          width={1920}
+          height={823}
           alt="Legal System Image"
           className="bannerImage"
           loading="eager"

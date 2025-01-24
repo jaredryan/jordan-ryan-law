@@ -39,9 +39,8 @@ export default function Page() {
         <div className="imageContainer">
           <Image
             src="/fp2.webp"
-            width={0}
-            height={0}
-            sizes="100vw"
+            width={1920}
+            height={501}
             alt="Attorneys Writing Image"
             className="bannerImage"
             loading="eager"

@@ -17,9 +17,8 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src="/upper-falls.webp"
-          width={0}
-          height={0}
-          sizes="100vw"
+          width={1920}
+          height={840}
           alt="Yosemite Waterfall Image"
           className="heroImage"
           loading="eager"
@@ -41,7 +40,6 @@ export default function Page() {
           src="/full-logo.webp"
           width={700}
           height={342}
-          sizes="100vw"
           alt="Ryan Legal, PC Logo"
           className="logoTitle"
           loading="eager"
@@ -62,9 +60,8 @@ export default function Page() {
       <div className="requestConsultation">
         <Image
           src="/attorney-writing.webp"
-          width={0}
-          height={0}
-          sizes="100vw"
+          width={1920}
+          height={805}
           alt="Attorneys Writing Image"
           className="bannerImage"
           loading="eager"
