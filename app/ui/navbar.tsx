@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import '@/app/ui/navbar.css';
 
+import logoWhite from '@/public/logo-white.webp'
+
 const homeLink = {
   name: 'Home',
   href: '/',
@@ -39,9 +41,7 @@ export default function Navbar() {
           className={`homeLink${pathname === homeLink.href ? ' highlighted' : ''}`}
         >
           <Image
-            src="/logo-white.webp"
-            width={100}
-            height={60}
+            src={logoWhite}
             alt="Screenshots of the dashboard project showing desktop version"
             loading="eager"
           />

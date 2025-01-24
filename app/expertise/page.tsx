@@ -3,14 +3,14 @@ import ExpertiseCarousel from '@/app/ui/expertise-carousel';
 
 import '@/app/ui/expertise.css';
 
+import practice from '@/public/practice.webp'
+
 export default function Page() {
   return (
     <div className="expertisePage">
       <div className="imageContainer">
         <Image
-          src="/practice.webp"
-          width={1920}
-          height={823}
+          src={practice}
           alt="Legal System Image"
           className="bannerImage"
           loading="eager"

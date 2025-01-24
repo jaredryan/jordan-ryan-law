@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faLocationDot, faEnvelope, } from '@fortawesome/free-solid-svg-icons'
 import '@/app/ui/contact-us.css';
 
+import fp2 from '@/public/fp2.webp'
+
 const cards = [{
   icon: <FontAwesomeIcon icon={faPhone} />,
   name: 'Contact Us',
@@ -38,9 +40,7 @@ export default function Page() {
       <div className="contactUsPage">
         <div className="imageContainer">
           <Image
-            src="/fp2.webp"
-            width={1920}
-            height={501}
+            src={fp2}
             alt="Attorneys Writing Image"
             className="bannerImage"
             loading="eager"

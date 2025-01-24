@@ -11,14 +11,16 @@ import {
 
 import '@/app/ui/home.css';
 
+import upperFalls from '@/public/upper-falls.webp'
+import fullLogo from '@/public/full-logo.webp'
+import attorneyWriting from '@/public/attorney-writing.webp'
+
 export default function Page() {
   return (
     <div className="homePage">
       <div className="imageContainer">
         <Image
-          src="/upper-falls.webp"
-          width={1920}
-          height={840}
+          src={upperFalls}
           alt="Yosemite Waterfall Image"
           className="heroImage"
           loading="eager"
@@ -37,9 +39,7 @@ export default function Page() {
       </div>
       <div className="contentSection">
         <Image
-          src="/full-logo.webp"
-          width={700}
-          height={342}
+          src={fullLogo}
           alt="Ryan Legal, PC Logo"
           className="logoTitle"
           loading="eager"
@@ -59,9 +59,7 @@ export default function Page() {
       </div>
       <div className="requestConsultation">
         <Image
-          src="/attorney-writing.webp"
-          width={1920}
-          height={805}
+          src={attorneyWriting}
           alt="Attorneys Writing Image"
           className="bannerImage"
           loading="eager"

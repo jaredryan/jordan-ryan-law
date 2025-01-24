@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import '@/app/ui/payment.css';
 
+import pens from '@/public/pens2.webp'
+
 export default function Page() {
   return (
     <div className="paymentPage">
       <div className="imageContainer">
         <Image
-          src="/pens2.webp"
-          width={1920}
-          height={682}
+          src={pens}
           alt="Classy pen image"
           className="bannerImage"
           loading="eager"
