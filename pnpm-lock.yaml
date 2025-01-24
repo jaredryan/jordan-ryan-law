@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  react-slick:
+    hash: mqs7wfwewmbwvzoezvxikm22xi
+    path: patches/react-slick.patch
+
 importers:
 
   .:
@@ -37,7 +42,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       react-slick:
         specifier: ^0.30.3
-        version: 0.30.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 0.30.3(patch_hash=mqs7wfwewmbwvzoezvxikm22xi)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-transition-group:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -846,7 +851,7 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-slick@0.30.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-slick@0.30.3(patch_hash=mqs7wfwewmbwvzoezvxikm22xi)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       classnames: 2.5.1
       enquire.js: 2.1.6

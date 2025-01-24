@@ -100,7 +100,7 @@ const renderSideNavItem = (
   open: boolean,
   toggleOpen: () => void,
   nodeRef: RefObject<null> | null,
-  _toggleSlide: () => void,
+  toggleSlide: () => void,
 ) => {
   let tab
   let className
@@ -120,7 +120,7 @@ const renderSideNavItem = (
         timeout={500}
         classNames="fade-bounce-down"
       >
-        <a className={`tab ${className} mobile`} ref={nodeRef}>
+        <a className={`tab ${className} mobile`} ref={nodeRef} onClick={toggleSlide}>
           <div className="icon">{icon}</div>
           <p>{title}</p>
         </a>
@@ -128,7 +128,7 @@ const renderSideNavItem = (
     )
   } else {
     tab = (
-      <a className="tab">
+      <a className="tab" onClick={toggleSlide}>
         <div className="icon">{icon}</div>
         <p>{title}</p>
       </a>
@@ -229,7 +229,7 @@ export default function Carousel() {
     slidesToScroll: 1,
     fade: true,
     speed: 500,
-    dotsClass: "customThumbnails",
+    // dotsClass: "customThumbnails",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
     appendDots: (dots: ReactNode) => (
@@ -239,7 +239,7 @@ export default function Carousel() {
         timeout={500}
         classNames="fade-bounce-left"
       >
-        <ul>
+        <ul className="customThumbnails otherstuff">
           {dots}
         </ul>
       </CSSTransition>
