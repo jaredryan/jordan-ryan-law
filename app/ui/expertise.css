@@ -77,3 +77,15 @@
     padding: 50px;
   }
 }
+
+@media (max-width: 750px) {
+  .expertisePage .contentSection {
+    padding: 50px 37.5px;
+  }
+}
+
+@media (max-width: 550px) {
+  .expertisePage .contentSection {
+    padding: 50px 25px;
+  }
+}

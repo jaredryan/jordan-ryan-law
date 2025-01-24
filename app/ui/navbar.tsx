@@ -90,7 +90,7 @@ export default function Navbar() {
           <div ref={barsRef} className="barsIconContainer">
             <FontAwesomeIcon icon={faBars} />
           </div>
-          <CSSTransition nodeRef={nodeRef} in={true} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
+          <CSSTransition nodeRef={nodeRef} in={isOpen} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
               <div ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`}>
                 {links.map((link) => {
                   return (

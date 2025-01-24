@@ -200,3 +200,15 @@
     padding: 50px;
   }
 }
+
+@media (max-width: 750px) {
+  .homePage .contentSection {
+    padding: 50px 37.5px;
+  }
+}
+
+@media (max-width: 550px) {
+  .homePage .contentSection {
+    padding: 50px 25px;
+  }
+}

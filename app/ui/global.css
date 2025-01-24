@@ -99,6 +99,20 @@ main {
   }
 }
 
+@media (max-width: 750px) {
+  .pagePadding {
+    padding-left: 37.5px !important;
+    padding-right: 37.5px !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .pagePadding {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
+}
+
 /* Animations */
 
 .fade-bounce-down-enter {
