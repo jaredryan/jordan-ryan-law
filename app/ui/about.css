@@ -167,13 +167,3 @@
 .aboutPage li {
   padding-left: 4px;
 }
-
-@media (max-width: 1100px) {
-  .aboutPage .clientsContainer {
-    display: block;
-  }
-
-  .aboutPage .clientsContainer li {
-    min-width: auto;
-  }
-}

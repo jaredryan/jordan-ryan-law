@@ -1,5 +1,5 @@
 nav {
-  display: block;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -7,6 +7,12 @@ nav {
   width: 100%;
   background-color: var(--primary-color);
   margin: 0;
+  justify-content: center;
+}
+
+nav .pagePadding {
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

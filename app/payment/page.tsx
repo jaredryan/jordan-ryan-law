@@ -21,9 +21,9 @@ export default function Page() {
         </div>
       </div>
       <div className="contentSection">
-        <p>We are partnering with Lawpay to make payment quick and easy, but it is not ready yet.</p>
+        <p>We are partnering with Lawpay to make payment quick and easy, but it's not ready yet.</p>
         <br />
-        <p>We will let you know when it is available!</p>
+        <p>We'll let you know when it is available!</p>
         {/* <a href="https://www.lawpay.com">
           <button>
             Pay Now
