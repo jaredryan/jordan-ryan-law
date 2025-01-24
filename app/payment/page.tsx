@@ -7,8 +7,8 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src="/pens2.webp"
-          // width={1920}
-          // height={682}
+          width={1920}
+          height={682}
           alt="Classy pen image"
           className="bannerImage"
           loading="eager"
