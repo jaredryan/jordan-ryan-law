@@ -12,9 +12,7 @@
 
 .expertisePage .bannerImage {
   width: 100%;
-  min-height: 350px;
-  height: auto;
-  max-height: 400px;
+  height: 400px;
   object-fit: cover;
   flex: 1;
 }

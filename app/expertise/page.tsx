@@ -15,6 +15,7 @@ export default function Page() {
           className="bannerImage"
           loading="eager"
           priority={true}
+          placeholder="blur"
         />
         <div className="after" />
         <div className="imageText">

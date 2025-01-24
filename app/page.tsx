@@ -25,6 +25,7 @@ export default function Page() {
           className="heroImage"
           loading="eager"
           priority={true}
+          placeholder="blur"
         />
         <div className="after" />
         <div className="imageText pagePadding">
@@ -45,6 +46,7 @@ export default function Page() {
           className="logoTitle"
           loading="eager"
           priority={true}
+          placeholder="blur"
         />
         <h2>{businessSummary}</h2>
         {businessExplanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}

@@ -45,6 +45,7 @@ export default function Navbar() {
             alt="Screenshots of the dashboard project showing desktop version"
             loading="eager"
             priority={true}
+            placeholder="blur"
           />
           Ryan Legal, PC
         </Link>

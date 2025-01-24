@@ -19,6 +19,7 @@ export default function Page() {
           className="bannerImage"
           loading="eager"
           priority={true}
+          placeholder="blur"
         />
         <div className="after" />
         <div className="imageText">
@@ -34,6 +35,7 @@ export default function Page() {
               className="squareProfileImage"
               loading="eager"
               priority={true}
+              placeholder="blur"
             />
             <Image
               src={superLawyersBadge}
@@ -41,6 +43,7 @@ export default function Page() {
               className="superLawyersBadge"
               loading="eager"
               priority={true}
+              placeholder="blur"
             />
             <Image
               src={avPreeminent}
@@ -48,6 +51,7 @@ export default function Page() {
               className="avPreeminentBadge"
               loading="eager"
               priority={true}
+              placeholder="blur"
             />
           </div>  
           <div className="profileInformation">
