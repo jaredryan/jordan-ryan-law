@@ -52,8 +52,60 @@ nav .home .homeLink img {
   margin: -4px 0
 }
 
-
-nav .menu {
+nav .desktopMenu {
   display: flex;
   flex-direction: row;
+}
+
+nav .barsContainer {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  nav .desktopMenu {
+    display: none;
+  }
+
+  nav .barsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  nav .barsContainer:hover, nav .barsContainer.open {
+    background-color: var(--primary-hover-color);
+  }
+
+  nav .barsContainer.open:hover {
+    background-color: var(--secondary-color);
+  }
+
+  nav .barsIconContainer,
+  nav .barsIconContainer svg {
+    width: 28px;
+    height: 28px;
+    color: var(--font-tertiary-color);
+  }
+
+  nav .dropdownContent {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    margin: 0;
+    bottom: 0;
+    translate: 0 calc(100% + 4px);
+    right: 0;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    width: 150px;
+  }
+
+  nav .dropdownContent a {
+    padding: 12px 18px;
+    text-align: left;
+  }
 }
