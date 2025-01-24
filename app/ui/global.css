@@ -117,6 +117,7 @@ main {
 
 .fade-bounce-down-enter {
   opacity: 0;
+  visibility: visible !important;
   transform: translateY(-10%);
 }
 
@@ -124,63 +125,68 @@ main {
   opacity: 1;
   transform: translateY(0);
   transition: 500ms ease;
+  visibility: visible !important;
 }
 
 .fade-bounce-down-enter-done {
   opacity: 1;
   transform: translateY(0);
+  visibility: visible !important;
 }
 
 .fade-bounce-down-exit {
   opacity: 1;
   transform: translateY(0%);
+  visibility: visible !important;
 }
 
 .fade-bounce-down-exit-active {
   opacity: 0;
   transform: translateY(-10%);
   transition: 500ms ease;
+  visibility: visible !important;
 }
 
 .fade-bounce-down-exit-done {
   opacity: 0;
   transform: translateY(-10%);
-}
-
-.fade-bounce-down-visibility-enter {
-  opacity: 0;
-  visibility: visible !important;
-  transform: translateY(-10%);
-}
-
-.fade-bounce-down-visibility-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: 500ms ease;
-  visibility: visible !important;
-}
-
-.fade-bounce-down-visibility-enter-done {
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible !important;
-}
-
-.fade-bounce-down-visibility-exit {
-  opacity: 1;
-  transform: translateY(0%);
-  visibility: visible !important;
-}
-
-.fade-bounce-down-visibility-exit-active {
-  opacity: 0;
-  transform: translateY(-10%);
-  transition: 500ms ease;
-  visibility: visible !important;
-}
-
-.fade-bounce-down-visibility-exit-done {
-  opacity: 0;
-  transform: translateX(-10%);
   visibility: hidden;
+}
+
+.fade-bounce-right-enter {
+    opacity: 0;
+    visibility: visible !important;
+    transform: translateX(-10%);
+}
+
+.fade-bounce-right-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: 500ms ease;
+    visibility: visible !important;
+}
+
+.fade-bounce-right-enter-done {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible !important;
+}
+
+.fade-bounce-right-exit {
+    opacity: 1;
+    transform: translateX(0%);
+    visibility: visible !important;
+}
+
+.fade-bounce-right-exit-active {
+    opacity: 0;
+    transform: translateX(-10%);
+    transition: 500ms ease;
+    visibility: visible !important;
+}
+
+.fade-bounce-right-exit-done {
+    opacity: 0;
+    transform: translateX(-10%);
+    visibility: hidden;
 }

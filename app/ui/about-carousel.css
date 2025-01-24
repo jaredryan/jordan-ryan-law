@@ -6,6 +6,11 @@
     padding-left: 0;
 }
 
+.carouselComponent.aboutCarousel .slick-list {
+  display: block;
+  flex: 1;
+}
+
 @media (max-width: 1075px) {
   .carouselComponent.aboutCarousel .customThumbnails {
     margin-right: 24px;
@@ -45,6 +50,10 @@
 .carouselComponent.aboutCarousel ul.customThumbnails li,
 .carouselComponent.aboutCarousel ul.customThumbnails p {
   margin: 0;
+}
+
+.carouselComponent.aboutCarousel ul.customThumbnails li {
+  padding: 0;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .slick-active .tab:not(.neverChosen) {
@@ -110,11 +119,21 @@
 
   .carouselComponent.aboutCarousel .tab.mobile {
     display: flex !important;
+    padding-left: 12px !important;
+  }
+
+  .carouselComponent.aboutCarousel .tab.mobile.tab.hidden {
+    display: flex !important;
+    padding-left: 12px !important;
   }
 }
 
 @media (max-width: 550px) {
   .carouselComponent.aboutCarousel .customThumbnails {
     display: flex !important;
+  }
+
+  .carouselComponent.aboutCarousel .slick-list {
+    display: none;
   }
 }

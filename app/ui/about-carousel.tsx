@@ -39,6 +39,7 @@ import {
 
 import '@/app/ui/about-carousel.css';
 import React from 'react'
+import { TransitionChildren } from 'react-transition-group/Transition';
 
 const subSectionHeaders = [
   {
@@ -187,10 +188,12 @@ const mapExpertise = (expertise: { name: string, content: (string | string[] | {
 
 export default function Carousel() {
   const [open, setOpen] = useState(false)
+  const [slide, setSlide] = useState(true)
   const nodeRef5 = useRef(null);
   const nodeRef6 = useRef(null);
   const nodeRef7 = useRef(null);
   const nodeRef8 = useRef(null);
+  const nodeRefSlide = useRef(null);
 
   const nodeRefs = {
     '5': nodeRef5,
@@ -205,7 +208,7 @@ export default function Carousel() {
         sectionHeaders[i],
         open,
         setOpen,
-        nodeRefs[i.toString() as keyof typeof nodeRefs] || null
+        nodeRefs[i.toString() as keyof typeof nodeRefs] || null,
       )
     },
     dots: true,
@@ -217,6 +220,18 @@ export default function Carousel() {
     dotsClass: "customThumbnails",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
+    appendDots: (dots: ReactNode) => (
+      <CSSTransition 
+        nodeRef={nodeRefSlide}
+        in={open}
+        timeout={500}
+        classNames="fade-bounce-left"
+      >
+        <ul>
+          {dots}
+        </ul>
+      </CSSTransition>
+    ),
   }
 
   return (
