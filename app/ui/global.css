@@ -92,6 +92,13 @@ main {
   width: 100%;
 }
 
+@media (max-width: 1075px) {
+  .pagePadding {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
+}
+
 /* Animations */
 
 .fade-bounce-down-enter {

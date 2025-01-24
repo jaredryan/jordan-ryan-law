@@ -12,10 +12,11 @@ nav {
 
 nav .pagePadding {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0 100px;
 }
 
 nav a {
@@ -23,14 +24,7 @@ nav a {
   color: var(--font-tertiary-color);
 }
 
-nav a.highlighted {
-  background-color: var(--tertiary-color);
-}
-
-nav a.highlighted:hover {
-  background-color: var(--secondary-color);
-}
-
+nav a.highlighted,
 nav a:hover {
   background-color: var(--primary-hover-color);
 }
@@ -79,10 +73,6 @@ nav .barsContainer {
     background-color: var(--primary-hover-color);
   }
 
-  nav .barsContainer.open:hover {
-    background-color: var(--secondary-color);
-  }
-
   nav .barsIconContainer,
   nav .barsIconContainer svg {
     width: 28px;
@@ -107,5 +97,6 @@ nav .barsContainer {
   nav .dropdownContent a {
     padding: 12px 18px;
     text-align: left;
+    border-radius: 3px;
   }
 }

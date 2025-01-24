@@ -60,3 +60,9 @@
 .paymentPage button {
   margin-top: 24px;
 }
+
+@media (max-width: 1075px) {
+  .paymentPage .contentSection {
+    padding: 50px;
+  }
+}

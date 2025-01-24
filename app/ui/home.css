@@ -195,4 +195,8 @@
   line-height: 30px;
 }
 
-
+@media (max-width: 1075px) {
+  .homePage .contentSection {
+    padding: 50px;
+  }
+}

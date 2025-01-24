@@ -71,3 +71,9 @@
   margin-bottom: 64px;
   margin-top: 64px;
 }
+
+@media (max-width: 1075px) {
+  .expertisePage .contentSection {
+    padding: 50px;
+  }
+}
