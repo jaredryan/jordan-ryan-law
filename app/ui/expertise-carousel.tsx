@@ -30,7 +30,11 @@ export default function Carousel() {
     slidesToScroll: 1,
     fade: true,
     speed: 500,
-    dotsClass: "customThumbnails",
+    appendDots: (dots: any) => (
+      <ul className="customThumbnails">
+        {dots}
+      </ul>
+    ),
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
   }

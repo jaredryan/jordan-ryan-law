@@ -239,7 +239,7 @@ export default function Carousel() {
         timeout={500}
         classNames="fade-bounce-left"
       >
-        <ul className="customThumbnails otherstuff">
+        <ul className="customThumbnails">
           {dots}
         </ul>
       </CSSTransition>
