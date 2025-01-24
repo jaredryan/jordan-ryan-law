@@ -62,7 +62,8 @@ export default function Page() {
               {russKRyanProfileSummary.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
-              <p>Click any topic on the left menu below to learn more.</p>
+              <p className="desktop">Click any topic on the left menu below to learn more.</p>
+              <p className="mobile">Click any topic on the menu below to learn more.</p>
             </div>
           </div>
         </div>

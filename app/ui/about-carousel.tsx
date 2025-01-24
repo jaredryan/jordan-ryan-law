@@ -113,7 +113,7 @@ const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boo
         timeout={500}
         classNames="fade-bounce-down"
       >
-        <a className={`tab ${className}`} ref={nodeRef}>
+        <a className={`tab ${className} mobile`} ref={nodeRef}>
           <div className="icon">{icon}</div>
           <p>{title}</p>
         </a>
@@ -137,7 +137,7 @@ const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boo
   return (
     <div>
       <a
-        className="tab neverChosen"
+        className="tab neverChosen desktop"
         onClick={(e) => { 
           setOpen(!open)
           e.stopPropagation()

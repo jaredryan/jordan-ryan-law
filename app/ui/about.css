@@ -152,7 +152,8 @@
   margin: 12px 0;
 }
 
-.aboutPage .introduction p:last-of-type {
+.aboutPage .introduction .desktop,
+.aboutPage .introduction .mobile {
   margin: 12px 0 0;
   color: black;
 }
@@ -174,13 +175,21 @@
   padding-left: 4px;
 }
 
+.aboutPage .desktop {
+  display: inherit;
+}
+
+.aboutPage .mobile {
+  display: none;
+}
+
 @media (max-width: 1075px) {
   .aboutPage .profile {
     gap: 50px;
   }
 }
 
-@media (max-width: 815px) {
+@media (max-width: 850px) {
   .aboutPage .profile {
     flex-direction: column;
     justify-content: center;
@@ -196,6 +205,14 @@
 
   .aboutPage .profileImages .squareProfileImage {
     margin: 0;
+  }
+
+  .aboutPage .desktop {
+    display: none !important;
+  }
+
+  .aboutPage .mobile {
+    display: block;
   }
 }
 

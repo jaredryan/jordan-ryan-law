@@ -40,6 +40,19 @@ export const areasOfPractice = [{
     negotiations and the prosecution and defense of claims of unfair labor practice
     matters.`,
 }, {
+  name: 'Business Transactions and Finance',
+  icon: <FontAwesomeIcon icon={faFileInvoiceDollar} />,
+  className: 'businessTransactions',
+  content: `In his role as outside general counsel for many of his clients, Mr. Ryan has
+    provided representation all aspects of formation, organization, financing and
+    merging of both for-profit and non-profit entities. This includes borrower
+    representation in secured and unsecured financial transactions, including loan
+    commitments and credit line renewals from $1 million to more than $200 million,
+    and assistance with the merging of health care entities and complex structuring
+    such as those involving new market tax credits. Having taught commercial and
+    secured transactions as an adjunct professor at a local law school for eight years
+    has given Mr. Ryan unique insights into such transactions.`
+}, {
   name: 'Health Care',
   icon: <FontAwesomeIcon icon={faHandHoldingMedical} />,
   content: `Ryan Legal represents federal qualified health centers, rural health clinics,
@@ -55,19 +68,6 @@ export const areasOfPractice = [{
     relationships. The firm also advises tech companies in the areas of confidentiality
     and nondisclosure agreements, complex compensation arrangements, software
     agreements, trademark licensing and related issues.`
-}, {
-  name: 'Business Transactions and Finance',
-  icon: <FontAwesomeIcon icon={faFileInvoiceDollar} />,
-  className: 'businessTransactions',
-  content: `In his role as outside general counsel for many of his clients, Mr. Ryan has
-    provided representation all aspects of formation, organization, financing and
-    merging of both for-profit and non-profit entities. This includes borrower
-    representation in secured and unsecured financial transactions, including loan
-    commitments and credit line renewals from $1 million to more than $200 million,
-    and assistance with the merging of health care entities and complex structuring
-    such as those involving new market tax credits. Having taught commercial and
-    secured transactions as an adjunct professor at a local law school for eight years
-    has given Mr. Ryan unique insights into such transactions.`
 }, {
   name: 'Business Litigation',
   icon: <FontAwesomeIcon icon={faScaleBalanced} />,
