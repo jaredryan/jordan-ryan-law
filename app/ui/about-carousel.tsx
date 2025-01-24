@@ -100,7 +100,7 @@ const renderSideNavItem = (
   open: boolean,
   toggleOpen: () => void,
   nodeRef: RefObject<null> | null,
-  toggleSlide: () => void,
+  _toggleSlide: () => void,
 ) => {
   let tab
   let className
@@ -120,7 +120,7 @@ const renderSideNavItem = (
         timeout={500}
         classNames="fade-bounce-down"
       >
-        <a className={`tab ${className} mobile`} ref={nodeRef} onClick={toggleSlide}>
+        <a className={`tab ${className} mobile`} ref={nodeRef}>
           <div className="icon">{icon}</div>
           <p>{title}</p>
         </a>
@@ -146,7 +146,7 @@ const renderSideNavItem = (
       <a
         className="tab neverChosen desktop"
         onClick={(e) => { 
-          toggleOpen(!open)
+          toggleOpen()
           e.stopPropagation()
         }}
       >
