@@ -16,7 +16,7 @@ nav .pagePadding {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 100px;
+  padding: 0 85px;
 }
 
 nav a {
@@ -57,8 +57,8 @@ nav .barsContainer {
 
 @media (max-width: 850px) {
   nav .pagePadding {
-    padding-left: 36px !important;
-    padding-right: 36px !important;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
   }
 
   nav .desktopMenu {

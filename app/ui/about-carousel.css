@@ -6,6 +6,18 @@
     padding-left: 0;
 }
 
+@media (max-width: 1075px) {
+  .carouselComponent.aboutCarousel .customThumbnails {
+    margin-right: 24px;
+  }
+}
+
+@media (max-width: 750px) {
+  .carouselComponent.aboutCarousel .customThumbnails {
+    margin-right: 12px;
+  }
+}
+
 .carouselComponent.aboutCarousel > div {
     display: flex;
     flex-direction: row-reverse;

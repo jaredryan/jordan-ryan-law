@@ -84,7 +84,7 @@
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 575px) {
   .expertisePage .contentSection {
     padding: 50px 25px;
   }

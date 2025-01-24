@@ -5,6 +5,18 @@
     margin-right: 36px;
 }
 
+@media (max-width: 1075px) {
+  .carouselComponent.expertiseCarousel .customThumbnails {
+    margin-right: 24px;
+  }
+}
+
+@media (max-width: 750px) {
+  .carouselComponent.expertiseCarousel .customThumbnails {
+    margin-right: 12px;
+  }
+}
+
 .carouselComponent.expertiseCarousel > div {
     display: flex;
     flex-direction: row-reverse;

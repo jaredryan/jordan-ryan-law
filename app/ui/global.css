@@ -106,7 +106,7 @@ main {
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 575px) {
   .pagePadding {
     padding-left: 25px !important;
     padding-right: 25px !important;

@@ -207,7 +207,7 @@
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 575px) {
   .homePage .contentSection {
     padding: 50px 25px;
   }

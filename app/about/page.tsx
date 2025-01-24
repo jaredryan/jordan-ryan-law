@@ -37,22 +37,24 @@ export default function Page() {
               priority={true}
               placeholder="blur"
             />
-            <Image
-              src={superLawyersBadge}
-              alt="Super Lawyers Badge Image"
-              className="superLawyersBadge"
-              loading="eager"
-              priority={true}
-              placeholder="blur"
-            />
-            <Image
-              src={avPreeminent}
-              alt="AV Preeminent Image"
-              className="avPreeminentBadge"
-              loading="eager"
-              priority={true}
-              placeholder="blur"
-            />
+            <div className="badgeContainer">
+              <Image
+                src={superLawyersBadge}
+                alt="Super Lawyers Badge Image"
+                className="superLawyersBadge"
+                loading="eager"
+                priority={true}
+                placeholder="blur"
+              />
+              <Image
+                src={avPreeminent}
+                alt="AV Preeminent Image"
+                className="avPreeminentBadge"
+                loading="eager"
+                priority={true}
+                placeholder="blur"
+              />
+            </div>
           </div>  
           <div className="profileInformation">
             <h2>Russell K. Ryan — Partner and Founder</h2>
