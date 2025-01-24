@@ -54,6 +54,7 @@
 
 .carouselComponent.aboutCarousel ul.customThumbnails li {
   padding: 0;
+  width: 300px;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .slick-active .tab:not(.neverChosen) {
@@ -80,6 +81,27 @@
   width: 24px;
   height: 24px;
   color: var(--primary-color);
+}
+
+.carouselComponent.aboutCarousel .icon,
+.carouselComponent.aboutCarousel .dropdownIcon {
+  color: var(--primary-color);
+}
+
+.carouselComponent.aboutCarousel .dropdownIcon {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselComponent.aboutCarousel .dropdownIcon svg {
+  height: 14px;
+}
+
+.carouselComponent.aboutCarousel .dropdownIcon,
+.carouselComponent.aboutCarousel .dropdownIcon svg {
+  width: 14px;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails p {
@@ -109,7 +131,7 @@
   }
 
   .carouselComponent.aboutCarousel .customThumbnails li {
-    width: 100%;
+    width: 100% !important;
     height: 100%;
   }
 
@@ -122,9 +144,11 @@
     padding-left: 12px !important;
   }
 
-  .carouselComponent.aboutCarousel .tab.mobile.tab.hidden {
+  .carouselComponent.aboutCarousel .tab.mobile.hidden {
     display: flex !important;
     padding-left: 12px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 

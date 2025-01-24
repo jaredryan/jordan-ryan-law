@@ -95,7 +95,13 @@ function BlankArrow(_props: any) {
     return <div style={{ display: "none" }} />
 }
 
-const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boolean, setOpen: (open: boolean) => void, nodeRef: RefObject<null> | null) => {
+const renderSideNavItem = (
+  header: { title: string, icon: ReactNode },
+  open: boolean,
+  toggleOpen: () => void,
+  nodeRef: RefObject<null> | null,
+  toggleSlide: () => void,
+) => {
   let tab
   let className
 
@@ -114,7 +120,7 @@ const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boo
         timeout={500}
         classNames="fade-bounce-down"
       >
-        <a className={`tab ${className} mobile`} ref={nodeRef}>
+        <a className={`tab ${className} mobile`} ref={nodeRef} onClick={toggleSlide}>
           <div className="icon">{icon}</div>
           <p>{title}</p>
         </a>
@@ -140,15 +146,17 @@ const renderSideNavItem = (header: { title: string, icon: ReactNode }, open: boo
       <a
         className="tab neverChosen desktop"
         onClick={(e) => { 
-          setOpen(!open)
+          toggleOpen(!open)
           e.stopPropagation()
         }}
       >
         <div className="icon">{experienceSection.icon}</div>
         <p>{experienceSection.title}</p>
-        {open
-          ? <FontAwesomeIcon icon={faCaretUp} />
-          : <FontAwesomeIcon icon={faCaretDown} />}
+        <div className="dropdownIcon" >
+          {open
+            ? <FontAwesomeIcon icon={faCaretUp} />
+            : <FontAwesomeIcon icon={faCaretDown} />}
+        </div>
       </a>
       <CSSTransition 
         nodeRef={nodeRef}
@@ -195,6 +203,9 @@ export default function Carousel() {
   const nodeRef8 = useRef(null);
   const nodeRefSlide = useRef(null);
 
+  const toggleOpen = () => setOpen(!open)
+  const toggleSlide = () => setSlide(!open)
+
   const nodeRefs = {
     '5': nodeRef5,
     '6': nodeRef6,
@@ -207,8 +218,9 @@ export default function Carousel() {
       return renderSideNavItem(
         sectionHeaders[i],
         open,
-        setOpen,
+        toggleOpen,
         nodeRefs[i.toString() as keyof typeof nodeRefs] || null,
+        toggleSlide
       )
     },
     dots: true,
@@ -223,7 +235,7 @@ export default function Carousel() {
     appendDots: (dots: ReactNode) => (
       <CSSTransition 
         nodeRef={nodeRefSlide}
-        in={open}
+        in={slide}
         timeout={500}
         classNames="fade-bounce-left"
       >
