@@ -14,6 +14,7 @@ export default function Page() {
           alt="Legal System Image"
           className="bannerImage"
           loading="eager"
+          priority={true}
         />
         <div className="after" />
         <div className="imageText">

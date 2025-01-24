@@ -24,6 +24,7 @@ export default function Page() {
           alt="Yosemite Waterfall Image"
           className="heroImage"
           loading="eager"
+          priority={true}
         />
         <div className="after" />
         <div className="imageText pagePadding">
@@ -43,6 +44,7 @@ export default function Page() {
           alt="Ryan Legal, PC Logo"
           className="logoTitle"
           loading="eager"
+          priority={true}
         />
         <h2>{businessSummary}</h2>
         {businessExplanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}

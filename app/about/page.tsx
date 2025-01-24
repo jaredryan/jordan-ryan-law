@@ -18,6 +18,7 @@ export default function Page() {
           alt="Attorneys Writing Image"
           className="bannerImage"
           loading="eager"
+          priority={true}
         />
         <div className="after" />
         <div className="imageText">
@@ -32,18 +33,21 @@ export default function Page() {
               alt="Russ Ryan Image"
               className="squareProfileImage"
               loading="eager"
+              priority={true}
             />
             <Image
               src={superLawyersBadge}
               alt="Super Lawyers Badge Image"
               className="superLawyersBadge"
               loading="eager"
+              priority={true}
             />
             <Image
               src={avPreeminent}
               alt="AV Preeminent Image"
               className="avPreeminentBadge"
               loading="eager"
+              priority={true}
             />
           </div>  
           <div className="profileInformation">

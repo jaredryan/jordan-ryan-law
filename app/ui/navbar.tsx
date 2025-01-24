@@ -44,6 +44,7 @@ export default function Navbar() {
             src={logoWhite}
             alt="Screenshots of the dashboard project showing desktop version"
             loading="eager"
+            priority={true}
           />
           Ryan Legal, PC
         </Link>
@@ -54,7 +55,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`${pathname === homeLink.href ? ' highlighted' : ''}`}
+              className={`${pathname === link.href ? 'highlighted' : ''}`}
             >
               {link.name}
             </Link>

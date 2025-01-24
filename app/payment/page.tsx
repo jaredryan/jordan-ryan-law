@@ -12,6 +12,7 @@ export default function Page() {
           alt="Classy pen image"
           className="bannerImage"
           loading="eager"
+          priority={true}
         />
         <div className="after" />
         <div className="imageText">

@@ -44,6 +44,7 @@ export default function Page() {
             alt="Attorneys Writing Image"
             className="bannerImage"
             loading="eager"
+            priority={true}
           />
           <div className="after" />
           <div className="imageText">
