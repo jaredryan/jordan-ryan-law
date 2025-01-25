@@ -118,7 +118,7 @@ main {
 .fade-bounce-down-enter {
   opacity: 0;
   visibility: visible !important;
-  transform: translateY(-10%);
+  transform: translateY(-20%);
 }
 
 .fade-bounce-down-enter-active {
@@ -142,51 +142,95 @@ main {
 
 .fade-bounce-down-exit-active {
   opacity: 0;
-  transform: translateY(-10%);
+  transform: translateY(-20%);
   transition: 500ms ease;
   visibility: visible !important;
 }
 
 .fade-bounce-down-exit-done {
   opacity: 0;
-  transform: translateY(-10%);
+  transform: translateY(-20%);
   visibility: hidden;
 }
 
-.fade-bounce-left-enter {
-    opacity: 0;
-    visibility: visible !important;
-    transform: translateX(-10%);
-}
+@media (max-width: 850px) {
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter {
+      opacity: 0;
+      visibility: visible !important;
+      transform: translateX(-20%);
+  }
 
-.fade-bounce-left-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: 500ms ease;
-    visibility: visible !important;
-}
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: 700ms ease;
+      visibility: visible !important;
+  }
 
-.fade-bounce-left-enter-done {
-    opacity: 1;
-    transform: translateX(0);
-    visibility: visible !important;
-}
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-done {
+      opacity: 1;
+      transform: translateX(0);
+      visibility: visible !important;
+  }
 
-.fade-bounce-left-exit {
-    opacity: 1;
-    transform: translateX(0%);
-    visibility: visible !important;
-}
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit {
+      opacity: 1;
+      transform: translateX(0%);
+      visibility: visible !important;
+  }
 
-.fade-bounce-left-exit-active {
-    opacity: 0;
-    transform: translateX(-10%);
-    transition: 500ms ease;
-    visibility: visible !important;
-}
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-active {
+      opacity: 0;
+      transform: translateX(-20%);
+      transition: 700ms ease;
+      visibility: visible !important;
+  }
 
-.fade-bounce-left-exit-done {
-    opacity: 0;
-    transform: translateX(-10%);
-    visibility: hidden;
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done {
+      opacity: 0;
+      transform: translateX(-20%);
+      visibility: hidden;
+      display: none !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-enter {
+      opacity: 0;
+      visibility: visible !important;
+      transform: translateX(-20%);
+      display: inline-block !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: 700ms ease;
+      visibility: visible !important;
+      display: inline-block !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-enter-done {
+      opacity: 1;
+      transform: translateX(0);
+      visibility: visible !important;
+      display: inline-block !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-exit {
+      opacity: 1;
+      transform: translateX(0%);
+      visibility: visible !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-exit-active {
+      opacity: 0;
+      transform: translateX(-20%);
+      transition: 700ms ease;
+      visibility: visible !important;
+  }
+
+  .aboutPage .slide.fade-bounce-left-exit-done {
+      opacity: 0;
+      transform: translateX(-20%);
+      visibility: hidden;
+  }
 }

@@ -147,11 +147,6 @@
   transform: translateY(100%);
 }
 
-.carouselComponent.aboutCarousel .fade-bounce-left-exit-done {
-  visibility: visible;
-  opacity: 1;
-}
-
 .carouselComponent.aboutCarousel li {
   margin: 0;
   margin-top: 4px;
@@ -177,6 +172,11 @@
   max-width: 450px;
 }
 
+.carouselComponent.aboutCarousel .fade-bounce-left-exit-done {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (max-width: 850px) {
   .carouselComponent.aboutCarousel .customThumbnails {
     display: flex !important;
@@ -196,10 +196,6 @@
 
   .carouselComponent.aboutCarousel .slideFalse .slick-list {
     visibility: visible;
-  }
-
-  .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done {
-    display: none !important;
   }
 
   .carouselComponent.aboutCarousel .slide {

@@ -134,6 +134,10 @@
   margin-bottom: 24px;
 }
 
+.aboutPage h3 {
+  margin-top: 0 !important;
+}
+
 .aboutPage .slideFalse h3 {
   margin-top: 24px;
 }
