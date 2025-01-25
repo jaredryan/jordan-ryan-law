@@ -55,13 +55,6 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
 
   const { name, phone, email, description } = validatedFields.data;
 
-  console.log({
-    name,
-    phone,
-    email,
-    description,
-  })
-
   // Send Email
 
   const msg = {
@@ -90,14 +83,11 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
 
     // @ts-ignore
     if (error.response) {
-      // @ts-ignore
-      console.error('SendGrid Error:', error.response.body)
-
       return {
         message: 'failure',
         errors: {
           // @ts-ignore
-          sendGrid: error.response.body
+          sendGrid: error.response?.body
         }
       }
     }

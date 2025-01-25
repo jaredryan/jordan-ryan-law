@@ -7,22 +7,19 @@ import {
 } from '@vis.gl/react-google-maps';
 import '@/app/ui/google-maps-address.css';
 
-export default function stub() {
+export function stub() {
     return <div style={{width: '100%', height: '400px', backgroundColor: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <h2 style={{ color: 'white', backgroundColor: 'black' }}>Google Maps section</h2>
     </div>
 }
 
-export function GoogleMapsAddress() {
+export default function GoogleMapsAddress() {
     return (
         <APIProvider apiKey={'AIzaSyBFT4isOBiPPTttkihHnsl9WboOWUc-ZeY'} onLoad={() => console.log('Maps API has loaded.')}>
             <div className="googleMapsComponent">
                 <Map
                     defaultZoom={13}
                     defaultCenter={{ lat: 36.808851391005625, lng: -119.82297917748616 }}
-                    onCameraChanged={(ev: MapCameraChangedEvent) =>
-                        console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
-                    }
                     mapId={'DEMO_MAP_ID'}
                     style={{ width: '100%', height: 'auto' }}
                 >

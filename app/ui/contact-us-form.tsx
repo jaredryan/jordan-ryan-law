@@ -9,8 +9,6 @@ export default function Form() {
   // @ts-ignore
   const [state, formAction] = useActionState(sendContactUsEmail, initialState);
 
-  console.log(state)
-
   return (
     <form className="contactUsForm" action={formAction}>
       <div className="inputFields">
