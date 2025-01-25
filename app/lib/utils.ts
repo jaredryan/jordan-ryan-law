@@ -27,62 +27,58 @@ const FormSchema = z.object({
   description: z.string({
     required_error: 'Description is required',
   }),
-  date: z.string(),
 });
 
-const SendEmail = FormSchema.omit({ date: true });
+const SendEmail = FormSchema
 
 export async function sendContactUsEmail(_prevState: State, formData: FormData) {
-  try {
-    // We artificially delay a response for demo purposes.
-    // Don't do this in production :)
-    
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    // Format Email from FormData
-
-    const validatedFields = SendEmail.safeParse({
-      name: formData.get("name"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      description: formData.get("description"),
-    });
+  // We artificially delay a response for demo purposes.
+  // Don't do this in production :)
   
-    if (!validatedFields.success) {
-      return {
-        errors: validatedFields.error.flatten().fieldErrors,
-        message: "Missing Fields. Failed to Create Invoice.",
-      };
-    }
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const { name, phone, email, description } = validatedFields.data;
-    const jsDate = new Date()
-    const date = jsDate.toLocaleDateString();
-    const time = jsDate.toLocaleTimeString();
+  // Get Email data from FormData
 
-    console.log({
+  const validatedFields = SendEmail.safeParse({
+    name: formData.get("name"),
+    phone: formData.get("phone"),
+    email: formData.get("email"),
+    description: formData.get("description"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Invoice.",
+    };
+  }
+
+  const { name, phone, email, description } = validatedFields.data;
+
+  console.log({
+    name,
+    phone,
+    email,
+    description,
+  })
+
+  // Send Email
+
+  const msg = {
+    to: 'rkr@mmwbr.com', // Change to your recipient
+    from: 'jryantennis@gmail.com', // Change to your verified sender
+    subject: 'Consultation Request from Ryan Legal Website',
+    templateId: 'd-f0a05944301b4a1d8ef0f727f0a0191f',
+    dynamicTemplateData: {
       name,
       phone,
       email,
       description,
-      date,
-      time,
-    })
+    },
+  }
 
-    // Send Email
-
-    console.log('Sending Contact Us Email');
-
+  try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
-
-    const msg = {
-      to: 'jryantennis@gmail.com', // Change to your recipient
-      from: 'jryantennis@gmail.com', // Change to your verified sender
-      subject: 'Sending with SendGrid is Fun',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
-
     await sgMail.send(msg)
  
     return {
@@ -92,10 +88,24 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   } catch (error) {
     console.error('SendGrid Error:', error);
 
+    // @ts-ignore
+    if (error.response) {
+      // @ts-ignore
+      console.error('SendGrid Error:', error.response.body)
+
+      return {
+        message: 'failure',
+        errors: {
+          // @ts-ignore
+          sendGrid: error.response.body
+        }
+      }
+    }
+
     return {
       message: 'failure',
       errors: {
-        sendGrid: error
+        sendGrid: "Unknown error"
       }
     }
   }
