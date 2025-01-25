@@ -66,7 +66,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="carouselSection pagePadding">
+      <div className="carouselSection pagePadding" id="topic-menu">
         <h2 className="desktop">Click any topic on the left menu below to learn more.</h2>
         <h2 className="mobile">Click any topic on the menu below to learn more.</h2>
         <AboutCarousel />

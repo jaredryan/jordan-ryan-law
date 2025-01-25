@@ -247,10 +247,10 @@ export default function Carousel() {
   }
 
   const GoBackArrow = (location: 'top' | 'bottom' = 'bottom') => (
-    <div className={`backIconContainer ${location}`} onClick={() => setSlide(true)}>
+    <a className={`backIconContainer ${location}`} onClick={() => setSlide(true)} href="#topic-menu">
       <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
       <span>See Menu</span>
-    </div>
+    </a>
   )
 
   return (

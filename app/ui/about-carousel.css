@@ -216,4 +216,8 @@
   .carouselComponent.aboutCarousel h4 {
     text-align: center;
   }
+
+  .carouselComponent.aboutCarousel .slick-list {
+    padding: 50px 0 90px;
+  }
 }
