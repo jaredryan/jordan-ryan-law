@@ -118,7 +118,7 @@ const renderSideNavItem = (
       <CSSTransition 
         nodeRef={nodeRef}
         in={open}
-        timeout={700}
+        timeout={1000}
         classNames="fade-bounce-down"
       >
         <div>
@@ -237,7 +237,7 @@ export default function Carousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
-    speed: 700,
+    speed: 1000,
     // dotsClass: "customThumbnails",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
@@ -245,7 +245,7 @@ export default function Carousel() {
       <CSSTransition 
         nodeRef={nodeRefSlideMenu}
         in={slide === true}
-        timeout={700}
+        timeout={1000}
         classNames="fade-bounce-left"
         onExited={() => setSlide(false)}
       >
@@ -276,7 +276,7 @@ export default function Carousel() {
           <CSSTransition 
               nodeRef={nodeRefSlideDisplay0}
               in={!slide}
-              timeout={700}
+              timeout={1000}
               classNames="fade-bounce-left"
               onExited={() => setSlide(true)}
             >
@@ -295,7 +295,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay1}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -317,7 +317,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay2}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -340,7 +340,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay3}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -362,7 +362,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay4}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -382,7 +382,7 @@ export default function Carousel() {
           {/* <CSSTransition 
             nodeRef={nodeRefSlideDisplay}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -416,7 +416,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay5}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -432,7 +432,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay6}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -448,7 +448,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay7}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -463,7 +463,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay8}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -479,7 +479,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay9}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -502,7 +502,7 @@ export default function Carousel() {
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay10}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
@@ -521,7 +521,7 @@ export default function Carousel() {
           <CSSTransition
             nodeRef={nodeRefSlideDisplay11}
             in={!slide}
-            timeout={700}
+            timeout={1000}
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >

@@ -164,7 +164,7 @@ main {
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-active {
       opacity: 1;
       transform: translateX(0);
-      transition: 700ms ease;
+      transition: 1000ms ease;
       visibility: visible !important;
   }
 
@@ -183,7 +183,7 @@ main {
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-active {
       opacity: 0;
       transform: translateX(-20%);
-      transition: 700ms ease;
+      transition: 1000ms ease;
       visibility: visible !important;
   }
 
@@ -204,7 +204,7 @@ main {
   .aboutPage .slide.fade-bounce-left-enter-active {
       opacity: 1;
       transform: translateX(0);
-      transition: 700ms ease;
+      transition: 1000ms ease;
       visibility: visible !important;
       display: inline-block !important;
   }
@@ -225,7 +225,7 @@ main {
   .aboutPage .slide.fade-bounce-left-exit-active {
       opacity: 0;
       transform: translateX(-20%);
-      transition: 700ms ease;
+      transition: 1000ms ease;
       visibility: visible !important;
   }
 

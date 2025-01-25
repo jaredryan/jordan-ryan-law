@@ -29,7 +29,7 @@ export default function Carousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
-    speed: 700,
+    speed: 1000,
     appendDots: (dots: any) => (
       <ul className="customThumbnails">
         {dots}
