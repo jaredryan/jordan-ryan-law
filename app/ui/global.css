@@ -12,6 +12,7 @@
   --google-maps-color: #1a73e8;
   --input-border-color: #bbb;
   --focused-input-border-color: #222222;
+  --error-font-color: #A60000;
 }
 
 html {

@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-google-maps/api": "^2.20.5",
     "@sendgrid/mail": "^8.1.4",
+    "@types/validator": "^13.12.2",
     "@vis.gl/react-google-maps": "^1.5.0",
     "next": "latest",
     "pure-react-carousel": "^1.32.0",
@@ -21,6 +22,7 @@
     "slick-carousel": "^1.8.1",
     "typescript": "5.7.2",
     "use-debounce": "^10.0.4",
+    "validator": "^13.12.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

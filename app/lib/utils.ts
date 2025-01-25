@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 import sgMail from '@sendgrid/mail'
+import validator from 'validator'
+
 
 export type State = {
   errors?: {
@@ -14,22 +16,34 @@ export type State = {
   message?: string | null;
 };
 
-const FormSchema = z.object({
-  name: z.string({
-    required_error: 'Name is required',
-  }),
-  phone: z.string({
-    required_error: 'Phone is required',
-  }),
-  email: z.string({
-    required_error: 'Email is required',
-  }),
-  description: z.string({
-    required_error: 'Description is required',
-  }),
-});
+const isAValidPhoneNumber = (str: string) => (
+  validator.isMobilePhone(str, "en-US")
+)
 
-const SendEmail = FormSchema
+const FormSchema = z.object({
+  name: z
+    .string().min(1, {
+      message: 'Please enter your name.',
+    }),
+  phone: z
+    .string().min(1, {
+      message: 'Please enter your phone number.',
+    }).refine(isAValidPhoneNumber, {
+      message: 'Please enter a valid phone number.' 
+    }),
+  email: z
+    .string().min(1, {
+      message: 'Please enter your email.',
+    }).email({
+      message: 'Please enter a valid email.' 
+    }),
+  description: z
+    .string().min(1, {
+      message: 'Please tell us about your concern.',
+    }),
+})
+
+const SendEmail = FormSchema.omit({})
 
 export async function sendContactUsEmail(_prevState: State, formData: FormData) {
   // We artificially delay a response for demo purposes.
@@ -38,6 +52,8 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   // Get Email data from FormData
+
+  console.dir(validator.isMobilePhone)
 
   const validatedFields = SendEmail.safeParse({
     name: formData.get("name"),
@@ -71,8 +87,10 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   }
 
   try {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
-    await sgMail.send(msg)
+    // sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
+    // await sgMail.send(msg)
+
+    console.log(`And it's submitted`)
  
     return {
       message: 'success',
