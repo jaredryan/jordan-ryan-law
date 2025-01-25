@@ -89,6 +89,8 @@ export default function Form() {
         </div>
       </div>
       <button type="submit">Submit</button>
+      {state.message === 'success' && <p>Success</p>}
+      {state.message === 'failure' && <p>Failure</p>}
     </form>
   );
 }

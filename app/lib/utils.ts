@@ -93,7 +93,7 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
     console.error('SendGrid Error:', error);
 
     return {
-      message: 'failed',
+      message: 'failure',
       errors: {
         sendGrid: error
       }
