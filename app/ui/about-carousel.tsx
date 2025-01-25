@@ -526,7 +526,7 @@ export default function Carousel() {
             onExited={() => setSlide(true)}
           >
           <div className="slide" ref={nodeRefSlideDisplay11}>
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             {GoBackArrow()}
             <h3>{sectionHeaders[11].title}</h3>
             <h4>Present</h4>
