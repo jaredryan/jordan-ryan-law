@@ -264,7 +264,7 @@ export default function Carousel() {
       </div>
     )
     : (
-      <a className={`backIconContainer ${location}`} onClick={() => setSlide('loading')} href="#topic-menu">
+      <a className={`backIconContainer ${location}`} onClick={() => setTimeout(() => setSlide('loading'), 750)} href="#topic-menu">
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
         <span>See Menu</span>
       </a>
