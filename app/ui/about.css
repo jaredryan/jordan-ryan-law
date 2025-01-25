@@ -135,11 +135,7 @@
 }
 
 .aboutPage h3 {
-  margin-top: 0 !important;
-}
-
-.aboutPage .slideFalse h3 {
-  margin-top: 24px;
+  margin-top: 0;
 }
 
 .aboutPage h4 {
@@ -195,6 +191,10 @@
 @media (max-width: 850px) {
   .aboutPage .profileInformation h2 {
     text-align: center;
+  }
+
+  .aboutPage h3 {
+    margin-top: 24px;
   }
 
   .aboutPage .profile {
