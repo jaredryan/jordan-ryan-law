@@ -119,7 +119,7 @@ main {
 .fade-bounce-down-enter {
   opacity: 0;
   visibility: visible !important;
-  transform: translateY(-20%);
+  transform: translateY(-30%);
 }
 
 .fade-bounce-down-enter-active {
@@ -143,14 +143,14 @@ main {
 
 .fade-bounce-down-exit-active {
   opacity: 0;
-  transform: translateY(-20%);
+  transform: translateY(-30%);
   transition: 500ms ease;
   visibility: visible !important;
 }
 
 .fade-bounce-down-exit-done {
   opacity: 0;
-  transform: translateY(-20%);
+  transform: translateY(-30%);
   visibility: hidden;
 }
 
@@ -158,7 +158,7 @@ main {
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter {
       opacity: 0;
       visibility: visible !important;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-active {
@@ -182,14 +182,14 @@ main {
 
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-active {
       opacity: 0;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
       transition: 1000ms ease;
       visibility: visible !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done {
       opacity: 0;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
       visibility: hidden;
       display: none !important;
   }
@@ -197,7 +197,7 @@ main {
   .aboutPage .slide.fade-bounce-left-enter {
       opacity: 0;
       visibility: visible !important;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
       display: inline-block !important;
   }
 
@@ -224,14 +224,14 @@ main {
 
   .aboutPage .slide.fade-bounce-left-exit-active {
       opacity: 0;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
       transition: 1000ms ease;
       visibility: visible !important;
   }
 
   .aboutPage .slide.fade-bounce-left-exit-done {
       opacity: 0;
-      transform: translateX(-20%);
+      transform: translateX(-30%);
       visibility: hidden;
   }
 }
