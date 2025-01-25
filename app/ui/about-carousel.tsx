@@ -237,7 +237,7 @@ export default function Carousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
-    speed: 700,
+    speed: 1,
     // dotsClass: "customThumbnails",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
@@ -256,12 +256,19 @@ export default function Carousel() {
     ),
   }
 
-  const GoBackArrow = (location: 'top' | 'bottom' = 'bottom') => (
-    <a className={`backIconContainer ${location}`} onClick={() => setSlide('loading')} href="#topic-menu">
-      <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
-      <span>See Menu</span>
-    </a>
-  )
+  const GoBackArrow = (location: 'top' | 'bottom' = 'top') => location === 'top'
+    ? (
+      <div className={`backIconContainer ${location}`} onClick={() => setSlide('loading')}>
+        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
+        <span>See Menu</span>
+      </div>
+    )
+    : (
+      <a className={`backIconContainer ${location}`} onClick={() => setSlide('loading')} href="#topic-menu">
+        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
+        <span>See Menu</span>
+      </a>
+    )
 
   return (
     <div className="aboutCarousel carouselComponent">
@@ -316,7 +323,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay2}>
             {GoBackArrow()}
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[2].title}</h3>
             <ul className="ratingsAndDesignationsContainer">
               {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
@@ -361,7 +368,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay4}>
             {GoBackArrow()}
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[4].title}</h3>
             <ul className="experienceContainer">
               {russKRyanPriorExperience.map(experience => (
@@ -414,7 +421,7 @@ export default function Carousel() {
             onExited={() => setSlide(true)}
           >
           <div className="slide" ref={nodeRefSlideDisplay5}>
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             {GoBackArrow()}
             <h3>{sectionHeaders[5].title}</h3>
             <div className="expertiseContainer">
@@ -430,7 +437,7 @@ export default function Carousel() {
             onExited={() => setSlide(true)}
           >
           <div className="slide" ref={nodeRefSlideDisplay6}>
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             {GoBackArrow()}
             <h3>{sectionHeaders[6].title}</h3>
             <div className="expertiseContainer">
@@ -462,7 +469,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay8}>
             {GoBackArrow()}
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[8].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[3])}
@@ -478,7 +485,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay9}>
             {GoBackArrow()}
-            {GoBackArrow('top')}
+            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[9].title}</h3>
             <ul className="affiliationsContainer">
               {russKRyanAffiliations.map(affiliation => (
