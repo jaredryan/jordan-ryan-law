@@ -10,6 +10,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-google-maps/api": "^2.20.5",
+    "@sendgrid/mail": "^8.1.4",
     "@vis.gl/react-google-maps": "^1.5.0",
     "next": "latest",
     "pure-react-carousel": "^1.32.0",
@@ -19,7 +20,8 @@
     "react-transition-group": "^4.4.5",
     "slick-carousel": "^1.8.1",
     "typescript": "5.7.2",
-    "use-debounce": "^10.0.4"
+    "use-debounce": "^10.0.4",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/google.maps": "^3.58.1",
