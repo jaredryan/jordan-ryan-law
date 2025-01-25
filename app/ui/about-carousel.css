@@ -157,13 +157,21 @@
   margin-top: 12px;
 }
 
-.carouselComponent.aboutCarousel .clientsContainer {
+.carouselComponent.aboutCarousel .clientsContainer,
+.carouselComponent.aboutCarousel .barAdmissionsContainer,
+.carouselComponent.aboutCarousel .courtAdmissionsContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto;
   width: 100%;
   max-width: 450px;
+}
+
+@media (max-width: 850px) {
+  .carouselComponent.aboutCarousel .barAdmissionsContainer {
+    max-width: 310px;
+  }
 }
 
 .carouselComponent.aboutCarousel h4 {
