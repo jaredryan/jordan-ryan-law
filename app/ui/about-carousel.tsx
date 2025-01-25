@@ -20,6 +20,8 @@ import {
   faPeopleGroup,
   faPeopleCarryBox,
   faHandshakeSimple,
+  faArrowLeft,
+  faCircleArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 import 'slick-carousel/slick/slick.css'
@@ -108,7 +110,7 @@ const renderSideNavItem = (
   const title = header.title
   const icon = header.icon
 
-  if (subSectionHeaders.map(header => header.title).includes(header.title)) {
+  if (subSectionHeaders.map(thisHeader => thisHeader.title).includes(title)) {
     className = !open
       ? 'hidden'
       : 'nested'
@@ -120,18 +122,22 @@ const renderSideNavItem = (
         timeout={500}
         classNames="fade-bounce-down"
       >
-        <a className={`tab ${className} mobile`} ref={nodeRef} onClick={toggleSlide}>
-          <div className="icon">{icon}</div>
-          <p>{title}</p>
-        </a>
+        <div>
+          <a className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
+            <div className="icon">{icon}</div>
+            <p>{title}</p>
+          </a>
+        </div>
       </CSSTransition>
     )
   } else {
     tab = (
-      <a className="tab" onClick={toggleSlide}>
-        <div className="icon">{icon}</div>
-        <p>{title}</p>
-      </a>
+      <div>
+        <a className="tab" onClick={toggleSlide}>
+          <div className="icon">{icon}</div>
+          <p>{title}</p>
+        </a>
+      </div>
     )
   }
 
@@ -144,7 +150,7 @@ const renderSideNavItem = (
   return (
     <div>
       <a
-        className="tab neverChosen desktop"
+        className="tab neverChosen"
         onClick={(e) => { 
           toggleOpen()
           e.stopPropagation()
@@ -158,14 +164,7 @@ const renderSideNavItem = (
             : <FontAwesomeIcon icon={faCaretDown} />}
         </div>
       </a>
-      <CSSTransition 
-        nodeRef={nodeRef}
-        in={open}
-        timeout={500}
-        classNames="fade-bounce-down"
-      >
-        {tab}
-      </CSSTransition>
+      {tab}
     </div>
   )
 }
@@ -196,15 +195,15 @@ const mapExpertise = (expertise: { name: string, content: (string | string[] | {
 
 export default function Carousel() {
   const [open, setOpen] = useState(false)
-  const [slide, setSlide] = useState(true)
+  const [slide, setSlide] = useState<boolean | string>(true)
   const nodeRef5 = useRef(null);
   const nodeRef6 = useRef(null);
   const nodeRef7 = useRef(null);
   const nodeRef8 = useRef(null);
-  const nodeRefSlide = useRef(null);
+  const nodeRefSlideMenu = useRef(null);
+  const nodeRefSlideDisplay = useRef(null);
 
   const toggleOpen = () => setOpen(!open)
-  const toggleSlide = () => setSlide(!open)
 
   const nodeRefs = {
     '5': nodeRef5,
@@ -220,7 +219,7 @@ export default function Carousel() {
         open,
         toggleOpen,
         nodeRefs[i.toString() as keyof typeof nodeRefs] || null,
-        toggleSlide
+        () => setSlide('loading')
       )
     },
     dots: true,
@@ -234,179 +233,213 @@ export default function Carousel() {
     prevArrow: <BlankArrow />,
     appendDots: (dots: ReactNode) => (
       <CSSTransition 
-        nodeRef={nodeRefSlide}
-        in={slide}
+        nodeRef={nodeRefSlideMenu}
+        in={slide === true}
         timeout={500}
         classNames="fade-bounce-left"
+        onExited={() => setSlide(false)}
       >
-        <ul className="customThumbnails">
+        <ul className="customThumbnails" ref={nodeRefSlideMenu}>
           {dots}
         </ul>
       </CSSTransition>
     ),
   }
 
+  const GoBackArrow = (location: 'top' | 'bottom' = 'bottom') => (
+    <div className={`backIconContainer ${location}`} onClick={() => setSlide(true)}>
+      <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
+      <span>See Menu</span>
+    </div>
+  )
+
   return (
     <div className="aboutCarousel carouselComponent">
-      <Slider {...settings}>
-        <div className="slide">
-          <h2>{sectionHeaders[0].title}</h2>
-          <ul className="educationContainer">
-            {russKRyanEducation.map(education => (
-              <li className="education" key={education.institution}>
-                {education.degree} - {education.rank} — {education.institution} — {education.year}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[1].title}</h2>
-          <ul className="barAdmissionsContainer">
-            {russKRyanBarAdmissions.map(barAdmission => (
-              <li
-                key={barAdmission.state}
-                className="barAdmission"
-              >
-                {barAdmission.state}, {barAdmission.year}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[2].title}</h2>
-          <ul className="ratingsAndDesignationsContainer">
-            {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
-              <li
-                key={ratingOrDesignation.title}
-                className="ratingOrDesignation"
-              >
-                {ratingOrDesignation.title} — {ratingOrDesignation.years}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[3].title}</h2>
-          <ul className="courtAdmissionsContainer">
-            {russKRyanCourtAdmissions.map(courtAdmission => (
-              <li
-                key={courtAdmission}
-                className="courtAdmission"
-              >
-                {courtAdmission}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[4].title}</h2>
-          <ul className="experienceContainer">
-            {russKRyanPriorExperience.map(experience => (
-              <li className="experience" key={experience.years}>
-                {experience.position} — {experience.institution} — {experience.years}
-              </li>
-            ))}
-          </ul>      
-        </div>
-        {/* <div className="slide">
-          <h2>{sectionHeaders[8].title}</h2>
-          <div className="expertiseContainer">
-            {russKRyanExpertise.map(expertise => (
-              <div className="expertise" key={expertise.name}>
-                <h4>{expertise.name}</h4>
-                <div className="expertiseContentContainer">
-                  {expertise.content.map(paragraphOrList => (
-                    typeof paragraphOrList == 'string' 
-                      ? <p key={paragraphOrList}>{paragraphOrList}</p>
-                      : <ul key={typeof paragraphOrList[0] === 'string' ? paragraphOrList[0] : paragraphOrList[0].title}>
-                        {paragraphOrList.map(item => (
-                          typeof item === 'string'
-                            ? <li key={item}>{item}</li>
-                            : <li key={item.title}>
-                                {item.title}
-                                <ul className="nested"><li key={item.content}>{item.content}</li></ul>
-                              </li>
-                        ))}
-                      </ul>
-                  ))}
+      <CSSTransition 
+        nodeRef={nodeRefSlideDisplay}
+        in={!slide}
+        timeout={500}
+        classNames="fade-bounce-left"
+      >
+        <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            <h3>{sectionHeaders[0].title}</h3>
+            <ul className="educationContainer">
+              {russKRyanEducation.map(education => (
+                <li className="education" key={education.institution}>
+                  {education.degree} - {education.rank} — {education.institution} — {education.year}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            <h3>{sectionHeaders[1].title}</h3>
+            <ul className="barAdmissionsContainer">
+              {russKRyanBarAdmissions.map(barAdmission => (
+                <li
+                  key={barAdmission.state}
+                  className="barAdmission"
+                >
+                  {barAdmission.state}, {barAdmission.year}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            {GoBackArrow('top')}
+            <h3>{sectionHeaders[2].title}</h3>
+            <ul className="ratingsAndDesignationsContainer">
+              {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
+                <li
+                  key={ratingOrDesignation.title}
+                  className="ratingOrDesignation"
+                >
+                  {ratingOrDesignation.title} — {ratingOrDesignation.years}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            <h3>{sectionHeaders[3].title}</h3>
+            <ul className="courtAdmissionsContainer">
+              {russKRyanCourtAdmissions.map(courtAdmission => (
+                <li
+                  key={courtAdmission}
+                  className="courtAdmission"
+                >
+                  {courtAdmission}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            {GoBackArrow('top')}
+            <h3>{sectionHeaders[4].title}</h3>
+            <ul className="experienceContainer">
+              {russKRyanPriorExperience.map(experience => (
+                <li className="experience" key={experience.years}>
+                  {experience.position} — {experience.institution} — {experience.years}
+                </li>
+              ))}
+            </ul>      
+          </div>
+          {/* <div className="slide" ref={nodeRefSlideDisplay}>
+            <h3>{sectionHeaders[8].title}</h3>
+            <div className="expertiseContainer">
+              {russKRyanExpertise.map(expertise => (
+                <div className="expertise" key={expertise.name}>
+                  <h4>{expertise.name}</h4>
+                  <div className="expertiseContentContainer">
+                    {expertise.content.map(paragraphOrList => (
+                      typeof paragraphOrList == 'string' 
+                        ? <p key={paragraphOrList}>{paragraphOrList}</p>
+                        : <ul key={typeof paragraphOrList[0] === 'string' ? paragraphOrList[0] : paragraphOrList[0].title}>
+                          {paragraphOrList.map(item => (
+                            typeof item === 'string'
+                              ? <li key={item}>{item}</li>
+                              : <li key={item.title}>
+                                  {item.title}
+                                  <ul className="nested"><li key={item.content}>{item.content}</li></ul>
+                                </li>
+                          ))}
+                        </ul>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div> */}
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow('top')}
+            {GoBackArrow()}
+            <h3>{sectionHeaders[5].title}</h3>
+            <div className="expertiseContainer">
+              {mapExpertise(russKRyanExpertise[0])}
+            </div>
           </div>
-        </div> */}
-        <div className="slide">
-          <h2>{sectionHeaders[5].title}</h2>
-          <div className="expertiseContainer">
-            {mapExpertise(russKRyanExpertise[0])}
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow('top')}
+            {GoBackArrow()}
+            <h3>{sectionHeaders[6].title}</h3>
+            <div className="expertiseContainer">
+              {mapExpertise(russKRyanExpertise[1])}
+            </div>
           </div>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[6].title}</h2>
-          <div className="expertiseContainer">
-            {mapExpertise(russKRyanExpertise[1])}
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            <h3>{sectionHeaders[7].title}</h3>
+            <div className="expertiseContainer">
+              {mapExpertise(russKRyanExpertise[2])}
+            </div>
           </div>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[7].title}</h2>
-          <div className="expertiseContainer">
-            {mapExpertise(russKRyanExpertise[2])}
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            {GoBackArrow('top')}
+            <h3>{sectionHeaders[8].title}</h3>
+            <div className="expertiseContainer">
+              {mapExpertise(russKRyanExpertise[3])}
+            </div>
           </div>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[8].title}</h2>
-          <div className="expertiseContainer">
-            {mapExpertise(russKRyanExpertise[3])}
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            {GoBackArrow('top')}
+            <h3>{sectionHeaders[9].title}</h3>
+            <ul className="affiliationsContainer">
+              {russKRyanAffiliations.map(affiliation => (
+                <li
+                  key={affiliation}
+                  className="affiliation"
+                >
+                  {affiliation}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[9].title}</h2>
-          <ul className="affiliationsContainer">
-            {russKRyanAffiliations.map(affiliation => (
-              <li
-                key={affiliation}
-                className="affiliation"
-              >
-                {affiliation}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[10].title}</h2>
-          <ul className="serviceContainer">
-            {russKRyanPublicAndCommunityService.map(service => (
-              <li className="service" key={service.years}>
-                {service.position} — {service.institution} — {service.years}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="slide">
-          <h2>{sectionHeaders[11].title}</h2>
-          <h3>Present</h3>
-          <ul className="clientsContainer past">
-            {russKRyanClients.current.map(client => (
-              <li
-                key={client}
-                className="client"
-              >
-                {client}
-              </li>
-            ))}
-          </ul>
-          <h3>Past</h3>
-          <ul className="clientsContainer present">
-            {russKRyanClients.past.map(client => (
-              <li
-                key={client}
-                className="client"
-              >
-                {client}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Slider>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow()}
+            <h3>{sectionHeaders[10].title}</h3>
+            <ul className="serviceContainer">
+              {russKRyanPublicAndCommunityService.map(service => (
+                <li className="service" key={service.years}>
+                  {service.position} — {service.institution} — {service.years}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="slide" ref={nodeRefSlideDisplay}>
+            {GoBackArrow('top')}
+            {GoBackArrow()}
+            <h3>{sectionHeaders[11].title}</h3>
+            <h4>Present</h4>
+            <ul className="clientsContainer past">
+              {russKRyanClients.current.map(client => (
+                <li
+                  key={client}
+                  className="client"
+                >
+                  {client}
+                </li>
+              ))}
+            </ul>
+            <h4>Past</h4>
+            <ul className="clientsContainer present">
+              {russKRyanClients.past.map(client => (
+                <li
+                  key={client}
+                  className="client"
+                >
+                  {client}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Slider>
+      </CSSTransition>
     </div>
   )
 }

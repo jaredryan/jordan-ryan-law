@@ -153,39 +153,39 @@ main {
   visibility: hidden;
 }
 
-.fade-bounce-right-enter {
+.fade-bounce-left-enter {
     opacity: 0;
     visibility: visible !important;
     transform: translateX(-10%);
 }
 
-.fade-bounce-right-enter-active {
+.fade-bounce-left-enter-active {
     opacity: 1;
     transform: translateX(0);
     transition: 500ms ease;
     visibility: visible !important;
 }
 
-.fade-bounce-right-enter-done {
+.fade-bounce-left-enter-done {
     opacity: 1;
     transform: translateX(0);
     visibility: visible !important;
 }
 
-.fade-bounce-right-exit {
+.fade-bounce-left-exit {
     opacity: 1;
     transform: translateX(0%);
     visibility: visible !important;
 }
 
-.fade-bounce-right-exit-active {
+.fade-bounce-left-exit-active {
     opacity: 0;
     transform: translateX(-10%);
     transition: 500ms ease;
     visibility: visible !important;
 }
 
-.fade-bounce-right-exit-done {
+.fade-bounce-left-exit-done {
     opacity: 0;
     transform: translateX(-10%);
     visibility: hidden;

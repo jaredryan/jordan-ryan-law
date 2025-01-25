@@ -122,12 +122,6 @@
   line-height: 24px;
 }
 
-.aboutPage h2 {
-  margin-bottom: 24px;
-  font-size: 24px;
-  text-align: center;
-}
-
 .aboutPage h1 {
   font-size: 48px;
   text-align: center;
@@ -136,11 +130,16 @@
 }
 
 .aboutPage h3 {
-  margin: 24px 0;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.aboutPage .slideFalse h3 {
+  margin-top: 24px;
 }
 
 .aboutPage h4 {
-  margin: 18px 0;
+  margin: 18px auto;
 }
 
 .aboutPage h3,

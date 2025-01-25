@@ -1,3 +1,7 @@
+.carouselComponent.aboutCarousel {
+  margin-top: 48px;
+}
+
 .carouselComponent.aboutCarousel .customThumbnails {
     display: flex !important;
     flex-direction: column;
@@ -9,6 +13,8 @@
 .carouselComponent.aboutCarousel .slick-list {
   display: block;
   flex: 1;
+  margin: -50px 0 -60px;
+  padding: 50px 0 60px;
 }
 
 @media (max-width: 1075px) {
@@ -22,17 +28,20 @@
     flex-direction: row-reverse;
 }
 
+.carouselComponent.aboutCarousel .customThumbnails .tab,
+.carouselComponent.aboutCarousel .backIconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 12px;
+  border: 2px solid var(--background-secondary-color);
+  border-radius: 3px;
+  cursor: pointer;
+  justify-content: flex-start;
+}
+
 .carouselComponent.aboutCarousel .customThumbnails .tab {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-    /* width: 215px; */
-    padding: 4px 12px;
-    border: 2px solid var(--background-secondary-color);
-    border-radius: 3px;
-    cursor: pointer;
+  gap: 12px;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .tab.hidden {
@@ -115,49 +124,96 @@
     flex: 1;
 }
 
-@media (max-width: 850px) {
-  .carouselComponent.aboutCarousel > div {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 30px;
-  }
+.carouselComponent.aboutCarousel .backIconContainer {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+  color: var(--primary-color);
+}
 
+.carouselComponent.aboutCarousel .backIconContainer:hover {
+  background-color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+.carouselComponent.aboutCarousel .backIconContainer.top {
+  left: 0;
+  top: -30px;
+}
+
+.carouselComponent.aboutCarousel .backIconContainer.bottom {
+  left: 0;
+  bottom: -20px;
+  transform: translateY(100%);
+}
+
+.carouselComponent.aboutCarousel .fade-bounce-left-exit-done {
+  visibility: visible;
+  opacity: 1;
+}
+
+.carouselComponent.aboutCarousel li {
+  margin: 0;
+  margin-top: 4px;
+}
+
+.carouselComponent.aboutCarousel p {
+  margin: 0;
+  margin-top: 12px;
+}
+
+.carouselComponent.aboutCarousel .clientsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 450px;
+}
+
+.carouselComponent.aboutCarousel h4 {
+  text-align: left;
+  width: 100%;
+  max-width: 450px;
+}
+
+@media (max-width: 850px) {
   .carouselComponent.aboutCarousel .customThumbnails {
+    display: flex !important;
     margin-right: 0;
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
     width: 100%;
-    gap: 0;
+    align-items: center;
   }
 
   .carouselComponent.aboutCarousel .customThumbnails li {
     width: 100% !important;
-    height: 100%;
+    max-width: 400px;
   }
 
-  .carouselComponent.aboutCarousel .customThumbnails li a {
-    height: 100%;
+  .carouselComponent.aboutCarousel .slideTrue .slick-list {
+    visibility: hidden;
   }
 
-  .carouselComponent.aboutCarousel .tab.mobile {
-    display: flex !important;
-    padding-left: 12px !important;
+  .carouselComponent.aboutCarousel .slideFalse .slick-list {
+    visibility: visible;
   }
 
-  .carouselComponent.aboutCarousel .tab.mobile.hidden {
-    display: flex !important;
-    padding-left: 12px !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-}
-
-@media (max-width: 550px) {
-  .carouselComponent.aboutCarousel .customThumbnails {
-    display: flex !important;
+  .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done {
+    display: none !important;
   }
 
-  .carouselComponent.aboutCarousel .slick-list {
-    display: none;
+  .carouselComponent.aboutCarousel .slide {
+    position: relative;
+  }
+
+  .carouselComponent.aboutCarousel .backIconContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .carouselComponent.aboutCarousel h4 {
+    text-align: center;
   }
 }
