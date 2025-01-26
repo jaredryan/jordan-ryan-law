@@ -2,14 +2,15 @@
 
 import { useActionState, useState } from 'react';
 import { sendContactUsEmail, State } from '@/app/lib/utils';
-import '@/app/ui/contact-us-form.css';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useQueryState } from 'nuqs'
 
-function SubmitButton({ pending, message, resetMessage, ignoreMessage }: {
+import '@/app/ui/contact-us-form.css';
+
+function SubmitButton({ pending, message, ignoreMessage }: {
   pending: boolean,
   message: string | null | undefined,
-  resetMessage: () => void,
   ignoreMessage: boolean,
 }) {
   if (pending) {
@@ -19,14 +20,12 @@ function SubmitButton({ pending, message, resetMessage, ignoreMessage }: {
       </button>
     )
   } else if (message === 'success' && !ignoreMessage) {
-    setTimeout(resetMessage, 3000)
     return (
       <button type="submit" className="success" disabled aria-disabled>
         Success!
       </button>
     )
   } else if (message === 'failure' && !ignoreMessage) {
-    setTimeout(resetMessage, 3000)
     return (
       <button type="submit" className="failure" disabled aria-disabled>
         Failure
@@ -42,15 +41,35 @@ function SubmitButton({ pending, message, resetMessage, ignoreMessage }: {
 }
 
 
-export default function Form() {
+export default function ContactUsForm() {
+  const [hasbeenReset, setReset] = useState(false)
+  const [name, setName] = useQueryState('name', { defaultValue: '' })
+  const [phone, setPhone] = useQueryState('phone', { defaultValue: '' })
+  const [email, setEmail] = useQueryState('email', { defaultValue: '' })
+  const [description, setDescription] = useQueryState('description', { defaultValue: '' })
+
   const [ignoreMessage, setIgnoreMessage] = useState(false)
   const initialState: State = { message: null, errors: {} };
   // @ts-ignore
   const [state, formAction, pending] = useActionState(sendContactUsEmail, initialState);
-  const action = (...args: any) => {
+  const action = async (...args: any) => {
+    setReset(false)
     setIgnoreMessage(false)
     // @ts-ignore
     formAction(...args);
+  }
+
+  if (state?.message === 'success' && !hasbeenReset) {
+    setReset(true)
+    setTimeout(() => setIgnoreMessage(true), 3000)
+    if (state && state.message == 'success') {
+      Promise.all([
+        setName(null),
+        setPhone(null),
+        setEmail(null),
+        setDescription(null),
+      ])
+    }
   }
 
   return (
@@ -64,6 +83,8 @@ export default function Form() {
             id="name"
             name="name"
             type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name || ''}
           />
           {/* @ts-ignore */}
           {state && state.errors?.name && state.errors.name[0] && !pending &&
@@ -83,7 +104,8 @@ export default function Form() {
             id="phone"
             name="phone"
             type="tel"
-            // pattern="[0-9]{3}[0-9]{4}[0-9]{4}"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone || ''}
           />
           {/* @ts-ignore */}
           {state && state.errors?.phone && state.errors.phone[0] && !pending &&
@@ -103,6 +125,8 @@ export default function Form() {
             id="email"
             name="email"
             type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email || ''}
           />
           {/* @ts-ignore */}
           {state && state.errors?.email && state.errors.email[0] && !pending &&
@@ -122,6 +146,8 @@ export default function Form() {
             id="description"
             name="description"
             rows={3}
+            onChange={(e) => setDescription(e.target.value)}
+            value={description || ''}
           />
           {/* @ts-ignore */}
           {state && state.errors?.description && state.errors.description[0] && !pending &&
@@ -138,7 +164,6 @@ export default function Form() {
         <SubmitButton
           pending={pending}
           message={state.message}
-          resetMessage={() => setIgnoreMessage(true)}
           ignoreMessage={ignoreMessage}
         />
         {/* @ts-ignore */}

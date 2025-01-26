@@ -74,6 +74,7 @@ const parseSendGridError = (error: SendGridError) => {
 }
 
 export async function sendContactUsEmail(_prevState: State, formData: FormData) {
+  
   // Get Email data from FormData
 
   const validatedFields = SendEmail.safeParse({
@@ -107,11 +108,11 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   }
 
   try {
-    // sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
-    // await sgMail.send(msg)
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
+    await sgMail.send(msg)
  
     return {
-      message: 'success',
+      message: 'failure',
       errors: {}
     }
   } catch (error) {
