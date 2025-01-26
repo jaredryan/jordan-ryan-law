@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react';
 import ContactUsForm from '@/app/ui/contact-us-form';
 import GoogleMapsAddress from '@/app/ui/google-maps-address';
 import Image from 'next/image';
@@ -66,7 +67,9 @@ export default function Page() {
           </div>
           <div className="pagePadding">
             <h2>Request a Consultation</h2>
-            <ContactUsForm />
+            <Suspense>
+              <ContactUsForm />
+            </Suspense>
           </div>
           <GoogleMapsAddress />
         </div>

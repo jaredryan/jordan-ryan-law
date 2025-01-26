@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Head from 'next/head';
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 import { openSans, prata } from '@/app/ui/fonts';
@@ -43,13 +42,13 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={`${openSans.variable} ${prata.variable}`}>
-        <NuqsAdapter>
-          <Navbar />
-          <main>
+        <Navbar />
+        <main>
+          <NuqsAdapter>
             {children}
-          </main>
-          <Footer />
-        </NuqsAdapter>
+          </NuqsAdapter>
+        </main>
+        <Footer />
       </body>
     </html>
   );
