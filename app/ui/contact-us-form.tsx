@@ -1,17 +1,60 @@
 'use client';
 
-import { useActionState } from 'react';
-import { useFormStatus } from "react-dom";
+import { useActionState, useState } from 'react';
 import { sendContactUsEmail, State } from '@/app/lib/utils';
 import '@/app/ui/contact-us-form.css';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+function SubmitButton({ pending, message, resetMessage, ignoreMessage }: {
+  pending: boolean,
+  message: string | null | undefined,
+  resetMessage: () => void,
+  ignoreMessage: boolean,
+}) {
+  if (pending) {
+    return (
+      <button type="submit" disabled aria-disabled className="pending">
+        <FontAwesomeIcon icon={faSpinner} spin pulse />
+      </button>
+    )
+  } else if (message === 'success' && !ignoreMessage) {
+    setTimeout(resetMessage, 3000)
+    return (
+      <button type="submit" className="success" disabled aria-disabled>
+        Success!
+      </button>
+    )
+  } else if (message === 'failure' && !ignoreMessage) {
+    setTimeout(resetMessage, 3000)
+    return (
+      <button type="submit" className="failure" disabled aria-disabled>
+        Failure
+      </button>
+    )
+  } else {
+    return (
+      <button type="submit">
+        Submit
+      </button>
+    )
+  }
+}
+
 
 export default function Form() {
+  const [ignoreMessage, setIgnoreMessage] = useState(false)
   const initialState: State = { message: null, errors: {} };
   // @ts-ignore
   const [state, formAction, pending] = useActionState(sendContactUsEmail, initialState);
+  const action = (...args: any) => {
+    setIgnoreMessage(false)
+    // @ts-ignore
+    formAction(...args);
+  }
 
   return (
-    <form className="contactUsForm" action={formAction}>
+    <form className="contactUsForm" action={action}>
       <div className="inputFields">
         <div className="input" key="name">
           <label htmlFor="name">
@@ -91,11 +134,16 @@ export default function Form() {
           }
         </div>
       </div>
-      <button type="submit" disabled={pending} aria-disabled={pending}>
-        {pending ? 'Please Wait' : 'Submit'}
-      </button>
-      {state.message === 'success' && <p>Success</p>}
-      {state.message === 'failure' && <p>Failure</p>}
+      <div className="buttonContainer">
+        <SubmitButton
+          pending={pending}
+          message={state.message}
+          resetMessage={() => setIgnoreMessage(true)}
+          ignoreMessage={ignoreMessage}
+        />
+        {/* @ts-ignore */}
+        {state.message === 'failure' && <p className="formError">{state?.errors?.sendGrid}</p>}
+      </div>
     </form>
   );
 }

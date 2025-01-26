@@ -16,6 +16,16 @@ export type State = {
   message?: string | null;
 };
 
+type SendGridError = {
+  response: {
+    body: {
+      errors: {
+        message: 'string',
+      }[]
+    }
+  }
+}
+
 const isAValidPhoneNumber = (str: string) => (
   validator.isMobilePhone(str, "en-US")
 )
@@ -45,15 +55,26 @@ const FormSchema = z.object({
 
 const SendEmail = FormSchema.omit({})
 
+const parseSendGridError = (error: SendGridError) => {
+  try {
+    return {
+      message: 'failure',
+      errors: {
+        sendGrid: error?.response?.body?.errors.map(error => `${error.message}.`).join('\n')
+      }
+    }
+  } catch(err) {
+    return {
+      message: 'failure',
+      errors: {
+        sendGrid: "Unknown error. Please try again later."
+      }
+    }
+  }  
+}
+
 export async function sendContactUsEmail(_prevState: State, formData: FormData) {
-  // We artificially delay a response for demo purposes.
-  // Don't do this in production :)
-  
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   // Get Email data from FormData
-
-  console.dir(validator.isMobilePhone)
 
   const validatedFields = SendEmail.safeParse({
     name: formData.get("name"),
@@ -65,7 +86,6 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Invoice.",
     };
   }
 
@@ -89,8 +109,6 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
   try {
     // sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
     // await sgMail.send(msg)
-
-    console.log(`And it's submitted`)
  
     return {
       message: 'success',
@@ -100,21 +118,6 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
     console.error('SendGrid Error:', error);
 
     // @ts-ignore
-    if (error.response) {
-      return {
-        message: 'failure',
-        errors: {
-          // @ts-ignore
-          sendGrid: error.response?.body
-        }
-      }
-    }
-
-    return {
-      message: 'failure',
-      errors: {
-        sendGrid: "Unknown error"
-      }
-    }
+    return parseSendGridError(error)
   }
 }

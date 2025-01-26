@@ -51,21 +51,37 @@
     width: 100%;
 }
 
-.contactUsForm .inputError p {
+.contactUsForm .inputError p,
+.contactUsForm .formError {
     color: var(--error-font-color) !important;
     padding-top: 4px !important;
-    height: 28px;
-    margin-bottom: -28px;
+    height: 28px !important;
+    margin-bottom: -28px !important;
 }
 
-.contactUsForm .inputFields .input {
-    
-}
-
-.contactUsForm .inputFields .textareaInput {
-
+.contactUsForm .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .contactUsForm button {
+    width: 100px;
+    transition: 500ms ease;
+}
 
+.contactUsForm button.pending {
+    background-color: grey;
+    cursor: default;
+}
+
+.contactUsForm button.success {
+    background-color: green;
+    cursor: default;
+}
+
+.contactUsForm button.failure {
+    background-color: red;
+    cursor: default;
 }
