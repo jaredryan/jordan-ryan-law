@@ -3,6 +3,7 @@ import {
     InfoWindow,
     Marker,
     Map,
+    ColorScheme,
 } from '@vis.gl/react-google-maps';
 import '@/app/ui/google-maps-address.css';
 
@@ -21,6 +22,7 @@ export default function GoogleMapsAddress() {
                     defaultCenter={{ lat: 36.808851391005625, lng: -119.82297917748616 }}
                     mapId={'DEMO_MAP_ID'}
                     style={{ width: '100%', height: 'auto' }}
+                    colorScheme={ColorScheme.FOLLOW_SYSTEM}
                 >
                     <Marker
                         key="officeMarker"

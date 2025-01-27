@@ -5,7 +5,7 @@ nav {
   left: 0;
   z-index: 10;
   width: 100%;
-  background-color: var(--primary-color);
+  background-color: var(--navbar-color);
   margin: 0;
   justify-content: center;
 }
@@ -21,12 +21,16 @@ nav .pagePadding {
 
 nav a {
   padding: 16px;
-  color: var(--font-tertiary-color);
+  color: var(--navbar-font-color);
 }
 
 nav a.highlighted,
 nav a:hover {
-  background-color: var(--primary-hover-color);
+  background-color: var(--navbar-hover-color);
+}
+
+nav a:hover {
+  transition: 500ms ease;
 }
 
 nav .home {
@@ -75,14 +79,18 @@ nav .barsContainer {
   }
 
   nav .barsContainer:hover, nav .barsContainer.open {
-    background-color: var(--primary-hover-color);
+    background-color: var(--navbar-hover-color);
+  }
+
+  nav .barsContainer:hover {
+    transition: 500ms ease;
   }
 
   nav .barsIconContainer,
   nav .barsIconContainer svg {
     width: 28px;
     height: 28px;
-    color: var(--font-tertiary-color);
+    color: var(--navbar-font-color);
   }
 
   nav .dropdownContent {
@@ -94,7 +102,7 @@ nav .barsContainer {
     bottom: 0;
     translate: 0 calc(100% + 4px);
     right: 0;
-    background-color: var(--primary-color);
+    background-color: var(--navbar-color);
     border-radius: 3px;
     width: 150px;
   }

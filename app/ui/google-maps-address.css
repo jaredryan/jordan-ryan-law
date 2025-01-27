@@ -35,6 +35,7 @@
 
 .googleMapsComponent a:hover {
     color: var(--google-maps-color);
+    transition: 500ms ease;
 }
 
 .googleMapsComponent .gm-style-iw-chr {

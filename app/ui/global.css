@@ -1,20 +1,68 @@
 :root {
   --primary-color: #133862;
   --primary-hover-color: #184981;
+  --navbar-color: #133862;
+  --navbar-hover-color: #184981;
+  --navbar-font-color: #fff;
+  --footer-font-color: #fff;
   --secondary-color: #3b4147;
   --tertiary-color: #222222;
-  --accent-color: #feb615;
+  --accent-color: #FEB615;
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
   --font-primary-color: #333;
   --font-secondary-color: #505050;
-  --font-tertiary-color: #fff;
+  --font-image-color: #fff;
+  --font-button-color: #fff;
+  --button-image-background: #133862;
+  --button-image-background-hover: #184981;
+  --button-image-font: #fff;
   --google-maps-color: #1a73e8;
   --input-border-color: #6F6F6F;
   --focused-input-border-color: #222222;
   --error-color: #A60000;
   --loading-button: #505050;
   --success-button: #005E00;
+}
+
+.dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #FEB615;
+    --primary-hover-color: #FED57B;
+    --navbar-color: #133862;
+    --navbar-hover-color: #184981;
+    --navbar-font-color: #fff;
+    --footer-font-color: #fff;
+    --secondary-color: #3b4147;
+    --tertiary-color: #222222;
+    --accent-color: #184981;
+    --background-primary-color: black;
+    --background-secondary-color: #333;
+    --font-primary-color: white;
+    --font-secondary-color: lightgrey;
+    --font-image-color: #fff;
+    --font-button-color: black;
+    --button-image-background: #133862;
+    --button-image-font: #fff;
+    --google-maps-color: #1a73e8;
+    --input-border-color: lightgrey;
+    --focused-input-border-color: white;
+    --error-color: #A60000;
+    --loading-button: #505050;
+    --success-button: #005E00;
+  }
+
+  .dark {
+    display: block;
+  }
+
+  .light {
+    display: none;
+  }
 }
 
 html {
@@ -46,7 +94,25 @@ h1, h2, h3, h4, h5, h6, label, input, textarea {
 }
 
 .imageContainer h1, .imageContainer h2, button {
-  color: var(--font-tertiary-color);
+  color: var(--font-image-color);
+}
+
+button {
+  color: var(--font-button-color);
+}
+
+.imageContainer button {
+  background-color: var(--button-image-background);
+  color: var(--button-image-font);
+}
+
+.imageContainer button:hover {
+  background-color: var(--button-image-background-hover);
+  transition: 500ms ease;
+}
+
+button {
+  color: var(--font-button-color);
 }
 
 div, p, li {
@@ -84,6 +150,7 @@ button {
 
 button:hover {
   background-color: var(--primary-hover-color);
+  transition: 500ms ease;
 }
 
 main {

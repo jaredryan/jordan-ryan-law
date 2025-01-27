@@ -14,6 +14,7 @@ import '@/app/ui/home.css';
 
 import upperFalls from '@/public/upper-falls.webp'
 import fullLogo from '@/public/full-logo.webp'
+import fullLogoWhite from '@/public/full-logo-white.webp'
 import attorneyWriting from '@/public/attorney-writing.webp'
 
 export default function Page() {
@@ -44,7 +45,15 @@ export default function Page() {
         <Image
           src={fullLogo}
           alt="Ryan Legal, PC Logo"
-          className="logoTitle"
+          className="logoTitle light"
+          loading="eager"
+          priority={true}
+          placeholder="blur"
+        />
+        <Image
+          src={fullLogoWhite}
+          alt="Ryan Legal, PC Logo"
+          className="logoTitle dark"
           loading="eager"
           priority={true}
           placeholder="blur"

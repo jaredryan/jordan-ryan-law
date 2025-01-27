@@ -73,6 +73,7 @@
 .carouselComponent.aboutCarousel .customThumbnails .tab:hover {
     background-color: var(--accent-color);
     border: 2px solid var(--accent-color);
+    transition: 500ms ease;
 }
 
 .carouselComponent.aboutCarousel .icon,
@@ -134,6 +135,7 @@
 .carouselComponent.aboutCarousel .backIconContainer:hover {
   background-color: var(--accent-color);
   border: 2px solid var(--accent-color);
+  transition: 500ms ease;
 }
 
 .carouselComponent.aboutCarousel .backIconContainer.top {

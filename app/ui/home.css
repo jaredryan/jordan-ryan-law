@@ -183,7 +183,7 @@
 
 .homePage .requestConsultation h1 {
   z-index: 2;
-  color: var(--font-tertiary-color);
+  color: var(--font-image-color);
   margin: 0px auto 50px;
   text-align: center;
 }
