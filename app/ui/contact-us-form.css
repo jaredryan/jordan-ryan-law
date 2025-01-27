@@ -53,7 +53,7 @@
 
 .contactUsForm .inputError p,
 .contactUsForm .formError {
-    color: var(--error-font-color) !important;
+    color: var(--error-color) !important;
     padding-top: 4px !important;
     height: 28px !important;
     margin-bottom: -28px !important;
@@ -72,16 +72,16 @@
 }
 
 .contactUsForm button.pending {
-    background-color: grey;
+    background-color: var(--loading-button);
     cursor: default;
 }
 
 .contactUsForm button.success {
-    background-color: green;
+    background-color: var(--success-button);
     cursor: default;
 }
 
 .contactUsForm button.failure {
-    background-color: red;
+    background-color: var(--error-color);
     cursor: default;
 }

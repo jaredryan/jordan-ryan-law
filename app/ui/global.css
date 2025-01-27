@@ -7,12 +7,14 @@
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
   --font-primary-color: #333;
-  --font-secondary-color: #666;
+  --font-secondary-color: #505050;
   --font-tertiary-color: #fff;
   --google-maps-color: #1a73e8;
-  --input-border-color: #bbb;
+  --input-border-color: #6F6F6F;
   --focused-input-border-color: #222222;
-  --error-font-color: #A60000;
+  --error-color: #A60000;
+  --loading-button: #505050;
+  --success-button: #005E00;
 }
 
 html {
