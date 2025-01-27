@@ -5,7 +5,7 @@ nav {
   left: 0;
   z-index: 10;
   width: 100%;
-  background-color: var(--navbar-color);
+  background-color: var(--navbar-background-color);
   margin: 0;
   justify-content: center;
 }
@@ -102,7 +102,7 @@ nav .barsContainer {
     bottom: 0;
     translate: 0 calc(100% + 4px);
     right: 0;
-    background-color: var(--navbar-color);
+    background-color: var(--navbar-background-color);
     border-radius: 3px;
     width: 150px;
   }

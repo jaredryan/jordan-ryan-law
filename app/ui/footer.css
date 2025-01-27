@@ -1,7 +1,7 @@
 footer {
   display: block;
   width: 100%;
-  background-color: var(--tertiary-color);
+  background-color: var(--footer-background-color);
   color: var(--footer-font-color);
   font-family: var(--font-opensans), Arial, sans-serif;
   padding: 16px 32px;

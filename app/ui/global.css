@@ -1,12 +1,12 @@
 :root {
   --primary-color: #1E275E;
   --primary-hover-color: #2D3A8F;
-  --navbar-color: #1E275E;
+  --navbar-background-color: #1E275E;
   --navbar-hover-color: #2D3A8F;
   --navbar-font-color: #fff;
   --footer-font-color: #fff;
   --secondary-color: #3b4147;
-  --tertiary-color: #222222;
+  --footer-background-color: #222222;
   --accent-color: #FDB613;
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
@@ -33,12 +33,12 @@
   :root {
     --primary-color: #FDB613;
     --primary-hover-color: #FDD577;
-    --navbar-color: #1E275E;
+    --navbar-background-color: #1E275E;
     --navbar-hover-color: #2D3A8F;
     --navbar-font-color: #fff;
     --footer-font-color: #fff;
     --secondary-color: #3b4147;
-    --tertiary-color: #222222;
+    --footer-background-color: #222222;
     --accent-color: #2D3A8F;
     --background-primary-color: black;
     --background-secondary-color: #333;
@@ -76,7 +76,7 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--tertiary-color);
+  background-color: var(--footer-background-color);
   display: flex;
   flex-direction: column;
   margin: 0;
