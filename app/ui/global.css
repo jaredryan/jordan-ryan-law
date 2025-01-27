@@ -1,21 +1,21 @@
 :root {
-  --primary-color: #133862;
-  --primary-hover-color: #184981;
-  --navbar-color: #133862;
-  --navbar-hover-color: #184981;
+  --primary-color: #1E275E;
+  --primary-hover-color: #2D3A8F;
+  --navbar-color: #1E275E;
+  --navbar-hover-color: #2D3A8F;
   --navbar-font-color: #fff;
   --footer-font-color: #fff;
   --secondary-color: #3b4147;
   --tertiary-color: #222222;
-  --accent-color: #FEB615;
+  --accent-color: #FDB613;
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
   --font-primary-color: #333;
   --font-secondary-color: #505050;
   --font-image-color: #fff;
   --font-button-color: #fff;
-  --button-image-background: #133862;
-  --button-image-background-hover: #184981;
+  --button-image-background: #1E275E;
+  --button-image-background-hover: #2D3A8F;
   --button-image-font: #fff;
   --google-maps-color: #1a73e8;
   --input-border-color: #6F6F6F;
@@ -31,22 +31,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-color: #FEB615;
-    --primary-hover-color: #FED57B;
-    --navbar-color: #133862;
-    --navbar-hover-color: #184981;
+    --primary-color: #FDB613;
+    --primary-hover-color: #FDD577;
+    --navbar-color: #1E275E;
+    --navbar-hover-color: #2D3A8F;
     --navbar-font-color: #fff;
     --footer-font-color: #fff;
     --secondary-color: #3b4147;
     --tertiary-color: #222222;
-    --accent-color: #184981;
+    --accent-color: #2D3A8F;
     --background-primary-color: black;
     --background-secondary-color: #333;
     --font-primary-color: white;
     --font-secondary-color: lightgrey;
     --font-image-color: #fff;
     --font-button-color: black;
-    --button-image-background: #133862;
+    --button-image-background: #1E275E;
     --button-image-font: #fff;
     --google-maps-color: #77abff;
     --input-border-color: lightgrey;
