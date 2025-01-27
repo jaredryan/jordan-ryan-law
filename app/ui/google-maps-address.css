@@ -49,6 +49,7 @@
     padding-top: 0 !important;
     padding-right: 0 !important;
     padding-bottom: 0 !important;
+    background-color: var(--background-primary-color);
 }
 
 .googleMapsComponent .gm-style-iw-d {
