@@ -111,4 +111,8 @@ nav .barsContainer {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  nav .dropdownContent {
+    right: 4px;
+  }
 }
