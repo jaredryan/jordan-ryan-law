@@ -38,23 +38,18 @@
   text-shadow: 0 1px 3px rgba(0,0,0,.3);
   padding: 48px 0;
   z-index: 2;
-}
-
-.homePage h1 {
-  font-size: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
 }
 
 .homePage .imageText h1 {
   font-size: 48px;
-  margin: 0 0 24px;
 }
 
 .homePage .imageText h2 {
   font-size: 24px;
-}
-
-.homePage .imageContainer button {
-  margin-top: 24px;
 }
 
 .homePage .contentSection,
@@ -204,7 +199,7 @@
   text-align: center;
 }
 
-.homePage .practiceAreaContainer h3 {
+.homePage .practiceAreaContainer h2 {
   font-weight: 500;
   font-family: var(--font-opensans);
   font-size: 20px;

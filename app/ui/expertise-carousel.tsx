@@ -28,10 +28,10 @@ export default function Carousel() {
     customPaging: function(i: number) {
         const areaOfPractice = areasOfPractice[i]
         return (
-          <a className="tab">
+          <button className="tab">
             <div className="icon">{areaOfPractice.icon}</div>
             <p>{areaOfPractice.name}</p>
-          </a>
+          </button>
         );
       },
     dots: true,

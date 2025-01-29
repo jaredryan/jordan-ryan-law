@@ -38,6 +38,11 @@
   border-radius: 3px;
   cursor: pointer;
   justify-content: flex-start;
+  background-color: var(--background-secondary-color);
+}
+
+.carouselComponent.aboutCarousel .customThumbnails .tab {
+  width: 100%;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .tab {

@@ -118,22 +118,18 @@ const renderSideNavItem = (
         timeout={1000}
         classNames="fade-bounce-down"
       >
-        <div>
-          <a className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
-            <div className="icon">{icon}</div>
-            <p>{title}</p>
-          </a>
-        </div>
+        <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
+          <div className="icon">{icon}</div>
+          <p>{title}</p>
+        </button>
       </CSSTransition>
     )
   } else {
     tab = (
-      <div>
-        <a className="tab" onClick={toggleSlide}>
-          <div className="icon">{icon}</div>
-          <p>{title}</p>
-        </a>
-      </div>
+      <button className="tab" onClick={toggleSlide}>
+        <div className="icon">{icon}</div>
+        <p>{title}</p>
+      </button>
     )
   }
 
@@ -145,7 +141,7 @@ const renderSideNavItem = (
 
   return (
     <div>
-      <a
+      <button
         className="tab neverChosen"
         onClick={(e) => { 
           toggleOpen()
@@ -159,7 +155,7 @@ const renderSideNavItem = (
             ? <FontAwesomeIcon icon={faCaretUp} />
             : <FontAwesomeIcon icon={faCaretDown} />}
         </div>
-      </a>
+      </button>
       {tab}
     </div>
   )

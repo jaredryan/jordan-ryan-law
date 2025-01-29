@@ -36,8 +36,9 @@ export default function Page() {
           <Link
             key="Contact Us"
             href="/contact-us"
+            className="button"
           >
-            <button>Contact Us</button>
+            Contact Us
           </Link>
         </div>
       </div>
@@ -72,7 +73,7 @@ export default function Page() {
               className={areaOfPractice.className || ''}
             >
               <div className="icon">{areaOfPractice.icon}</div>
-              <h3>{areaOfPractice.name}</h3>
+              <h2>{areaOfPractice.name}</h2>
             </Link>
           ))}
           {Array.from({ length: 4 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}

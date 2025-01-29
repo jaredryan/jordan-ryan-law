@@ -24,10 +24,13 @@ export default function Page() {
         <p>We are partnering with Lawpay to make payment quick and easy, but it's not ready yet.</p>
         <br />
         <p>We'll let you know when it is available!</p>
-        {/* <a href="https://www.lawpay.com">
-          <button>
-            Pay Now
-          </button>
+        {/* <a
+          href="https://www.lawpay.com"
+          className="button"
+          target='_blank'
+          aria-label='Go to our payment portal, provided by Lawpay.'   
+        >
+          Pay Now
         </a> */}
       </div>
     </div>

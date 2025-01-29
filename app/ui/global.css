@@ -93,25 +93,25 @@ h1, h2, h3, h4, h5, h6, label, input, textarea {
   color: var(--font-primary-color);
 }
 
-.imageContainer h1, .imageContainer h2, button {
+.imageContainer h1, .imageContainer h2, button, .button {
   color: var(--font-image-color);
 }
 
-button {
+button, .button {
   color: var(--font-button-color);
 }
 
-.imageContainer button {
+.imageContainer button, .imageContainer .button {
   background-color: var(--button-image-background);
   color: var(--button-image-font);
 }
 
-.imageContainer button:hover {
+.imageContainer button:hover, .imageContainer .button:hover {
   background-color: var(--button-image-background-hover);
   transition: 500ms ease;
 }
 
-button {
+button, .button {
   color: var(--font-button-color);
 }
 
@@ -137,7 +137,12 @@ a {
   color: var(--font-primary-color);
 }
 
-button {
+.button {
+  display: block;
+  width: max-content;
+}
+
+button, .button {
   cursor: pointer;
   padding: 8px 16px;
   border-radius: 3px;
@@ -148,7 +153,7 @@ button {
   font-family: var(--font-opensans), Arial, sans-serif;
 }
 
-button:hover {
+button:hover, .button:hover {
   background-color: var(--primary-hover-color);
   transition: 500ms ease;
 }

@@ -26,11 +26,12 @@
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
-    /* width: 215px; */
     padding: 4px 12px;
     border: 2px solid var(--background-primary-color);
+    background-color: var(--background-primary-color);
     border-radius: 3px;
     cursor: pointer;
+    width: 100%;
 }
 
 .carouselComponent.expertiseCarousel .customThumbnails .slick-active .tab {
