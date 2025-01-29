@@ -70,7 +70,7 @@ html {
   scroll-behavior: smooth;
 }
 
-*, *:before, *:after {
+*, *::before, *::after {
   box-sizing: inherit;
 }
 
@@ -97,10 +97,6 @@ h1, h2, h3, h4, h5, h6, label, input, textarea {
   color: var(--font-image-color);
 }
 
-button, .button {
-  color: var(--font-button-color);
-}
-
 .imageContainer button, .imageContainer .button {
   background-color: var(--button-image-background);
   color: var(--button-image-font);
@@ -114,10 +110,6 @@ button, .button {
   transition: 500ms ease;
 }
 
-button, .button {
-  color: var(--font-button-color);
-}
-
 div, p, li {
   color: var(--font-secondary-color);
 }
@@ -126,10 +118,6 @@ div, p, li, label, input, textarea {
   font-family: var(--font-opensans), Arial, sans-serif;
   margin: 0;
   font-size: 16px;
-}
-
-div, p, li {
-  color: var(--font-secondary-color);
 }
 
 ul {
@@ -157,6 +145,7 @@ button, .button {
   font-size: 16px;
   font-weight: 400;
   font-family: var(--font-opensans), Arial, sans-serif;
+  color: var(--font-button-color);
 }
 
 button:hover,

@@ -103,8 +103,7 @@
 .homePage .contentSection .practiceAreaContainer {
   margin: auto;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: center;
   max-width: 950px;
 }
@@ -115,9 +114,6 @@
   margin-bottom: 8px;
   cursor: pointer;
   border-radius: 3px;
-}
-
-.homePage .contentSection .practiceAreaContainer > * {
   margin-left: 8px;
   margin-right: 8px;
 }

@@ -120,6 +120,7 @@
 .aboutPage p {
   color: var(--font-secondary-color);
   line-height: 24px;
+  margin: 12px 0;
 }
 
 .aboutPage h1 {
@@ -132,9 +133,6 @@
 .aboutPage h3 {
   text-align: center;
   margin-bottom: 24px;
-}
-
-.aboutPage h3 {
   margin-top: 0;
 }
 
@@ -147,10 +145,6 @@
   font-weight: 600;
 }
 
-.aboutPage p {
-  margin: 12px 0;
-}
-
 .aboutPage .introduction .desktop,
 .aboutPage .introduction .mobile {
   margin: 12px 0 0;
@@ -159,6 +153,7 @@
 
 .aboutPage li {
   margin: 4px 0;
+  padding-left: 4px;
 }
 
 .aboutPage ul {
@@ -168,10 +163,6 @@
 
 .aboutPage ul.nested {
   list-style: circle;
-}
-
-.aboutPage li {
-  padding-left: 4px;
 }
 
 .aboutPage .desktop {

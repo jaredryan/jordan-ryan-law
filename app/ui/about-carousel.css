@@ -43,9 +43,6 @@
 
 .carouselComponent.aboutCarousel .customThumbnails .tab {
   width: 100%;
-}
-
-.carouselComponent.aboutCarousel .customThumbnails .tab {
   gap: 12px;
 }
 

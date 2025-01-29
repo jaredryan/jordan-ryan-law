@@ -32,7 +32,9 @@
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "@types/react-slick": "^0.23.13",
-    "@types/react-transition-group": "^4.4.12"
+    "@types/react-transition-group": "^4.4.12",
+    "stylelint": "^16.14.1",
+    "stylelint-config-standard": "^37.0.0"
   },
   "pnpm": {
     "patchedDependencies": {
