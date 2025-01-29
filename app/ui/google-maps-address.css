@@ -5,24 +5,21 @@
     min-height: 400px;
 }
 
-.googleMapsComponent .gm-style-iw-tc {
-    /* display: none; */
-}
-
 .googleMapsComponent > div {
     width: 100%;
     height: auto !important;
 }
 
-.googleMapsComponent p {
+.googleMapsComponent h2 {
     margin: 0 !important;
     padding: 0 !important;
     line-height: normal !important;
-    color: var(--primary-font-color) !important;
+    color: var(--font-primary-color) !important;
     font-weight: 400;
     font-size: 16px !important;
     margin-bottom: 6px !important;
     text-align: center;
+    font-family: var(--font-opensans);
 }
 
 .googleMapsComponent a {

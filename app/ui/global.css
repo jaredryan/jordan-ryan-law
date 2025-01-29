@@ -126,6 +126,9 @@ div, p, li, label, input, textarea {
   font-family: var(--font-opensans), Arial, sans-serif;
   margin: 0;
   font-size: 16px;
+}
+
+div, p, li {
   color: var(--font-secondary-color);
 }
 

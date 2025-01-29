@@ -66,7 +66,6 @@ export default function Page() {
           {areasOfPractice.map(areaOfPractice => (
             <li key={areaOfPractice.name}>
               <Link
-                
                 href={{
                   pathname: '/expertise',
                   query: { topic: transformTextToUrlParams(areaOfPractice.name) },
@@ -78,7 +77,6 @@ export default function Page() {
               </Link>
             </li>
           ))}
-          {Array.from({ length: 4 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}
         </ul>
       </div>
       <div className="requestConsultation">

@@ -32,9 +32,9 @@ export default function GoogleMapsAddress() {
                         onCloseClick={() => {}}
                         pixelOffset={[0, -24]}
                         position={{ lat: 36.8085374, lng: -119.8240786 }}
+                        ariaLabel="Legal, PC office location with link to getting directions on Google Maps"
                     >
-                        <div>
-                            <p>Ryan Legal, PC</p>
+                            <h2>Ryan Legal, PC</h2>
                             <a
                                 href="https://www.google.com/maps/dir//MMWB%26R,+1690+W+Shaw+Ave+%23200,+Fresno,+CA+93711/@36.8086968,-119.8234727,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x809467c626e1d33f:0x89ac52a38630fad!2m2!1d-119.8232368!2d36.8086987!3e0?entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D"
                                 target='_blank'
@@ -42,7 +42,6 @@ export default function GoogleMapsAddress() {
                             >
                                 Get Directions
                             </a>
-                        </div>
                     </InfoWindow>
                 </Map>
             </div>
