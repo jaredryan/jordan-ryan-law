@@ -65,7 +65,10 @@ export default function Page() {
           {areasOfPractice.map(areaOfPractice => (
             <Link
               key={areaOfPractice.name}
-              href={`/expertise?topic=${transformTextToUrlParams(areaOfPractice.name)}`}
+              href={{
+                pathname: '/expertise',
+                query: { topic: transformTextToUrlParams(areaOfPractice.name) },
+              }}
               className={areaOfPractice.className || ''}
             >
               <div className="icon">{areaOfPractice.icon}</div>
