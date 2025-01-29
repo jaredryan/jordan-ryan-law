@@ -1,3 +1,7 @@
+.carouselComponent.expertiseCarousel {
+  scroll-margin: 100px;
+}
+
 .carouselComponent.expertiseCarousel .customThumbnails {
     display: flex !important;
     flex-direction: column;
@@ -89,6 +93,10 @@
 
   .carouselComponent.expertiseCarousel .customThumbnails li a {
     height: 100%;
+  }
+
+  .carouselComponent.expertiseCarousel {
+    scroll-margin: 75px;
   }
 }
 

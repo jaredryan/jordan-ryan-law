@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Suspense } from 'react';
 import '@/app/ui/about.css';
 
 import { russKRyanProfileSummary } from '@/app/content';
@@ -69,7 +70,9 @@ export default function Page() {
       <div className="carouselSection pagePadding" id="topic-menu">
         <h2 className="desktop">Click any topic on the left menu below to learn more.</h2>
         <h2 className="mobile">Click any topic on the menu below to learn more.</h2>
-        <AboutCarousel />
+        <Suspense>
+          <AboutCarousel />
+        </Suspense>
       </div>
     </div>
   );

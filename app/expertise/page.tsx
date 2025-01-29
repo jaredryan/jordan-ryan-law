@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { Suspense } from 'react';
 import ExpertiseCarousel from '@/app/ui/expertise-carousel';
+
 
 import '@/app/ui/expertise.css';
 
@@ -23,7 +25,9 @@ export default function Page() {
         </div>
       </div>
       <div className="contentSection">
-        <ExpertiseCarousel />
+        <Suspense>
+          <ExpertiseCarousel />
+        </Suspense>
       </div>
     </div>
   );

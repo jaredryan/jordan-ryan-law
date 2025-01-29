@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useState } from 'react';
-import { sendContactUsEmail, State } from '@/app/lib/utils';
+import { sendContactUsEmail, State } from '@/app/lib/contact-form-utils';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQueryState } from 'nuqs'

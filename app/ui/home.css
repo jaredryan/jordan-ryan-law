@@ -111,44 +111,60 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 800px;
+  max-width: 950px;
 }
 
-.homePage .contentSection .practiceAreaContainer > div {
+.homePage .contentSection .practiceAreaContainer > a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 215px;
+  width: 265px;
   text-align: center;
-  margin-bottom: 32px;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+  cursor: pointer;
+  padding: 24px;
+  border-radius: 3px;
 }
 
-.homePage .contentSection .practiceAreaContainer > div.fillEmptySpace {
+.homePage .contentSection .practiceAreaContainer > a:hover {
+  background-color: var(--background-secondary-color);
+}
+
+.homePage .contentSection .practiceAreaContainer > a:hover .icon {
+  color: var(--primary-hover-color);
+}
+
+.homePage .contentSection .practiceAreaContainer > a:hover, 
+.homePage .contentSection .practiceAreaContainer > a:hover .icon {
+  transition: 500ms ease;
+}
+
+.homePage .contentSection .practiceAreaContainer > a.fillEmptySpace {
   height: 0; 
   margin: 0 16px;
 }
 
-.homePage .contentSection .practiceAreaContainer > div .icon,
-.homePage .contentSection .practiceAreaContainer > div .icon svg {
+.homePage .contentSection .practiceAreaContainer > a .icon,
+.homePage .contentSection .practiceAreaContainer > a .icon svg {
   width: 48px;
   height: 48px;
 }
 
-.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon,
-.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon svg {
+.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon,
+.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon svg {
   width: 36px;
 }
 
-.homePage .contentSection .practiceAreaContainer > div .icon {
+.homePage .contentSection .practiceAreaContainer > a .icon {
   width: 48px;
   height: 48px;
   margin-bottom: 24px;
   color: var(--primary-color);
 }
 
-.homePage .contentSection .practiceAreaContainer > div.businessTransactions .icon {
+.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon {
   width: 36px;
 }
 

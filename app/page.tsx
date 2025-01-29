@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ContactUsForm from '@/app/ui/contact-us-form';
-import GoogleMapsAddress from '@/app/ui/google-maps-address';
+import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
   businessExplanation, businessName, businessSlogan,
   businessSummary, areasOfPractice
@@ -63,10 +63,14 @@ export default function Page() {
         <h1>Our Practice Areas</h1>
         <div className="practiceAreaContainer">
           {areasOfPractice.map(areaOfPractice => (
-            <div key={areaOfPractice.name} className={areaOfPractice.className || ''}>
+            <Link
+              key={areaOfPractice.name}
+              href={`/expertise?topic=${transformTextToUrlParams(areaOfPractice.name)}`}
+              className={areaOfPractice.className || ''}
+            >
               <div className="icon">{areaOfPractice.icon}</div>
               <h3>{areaOfPractice.name}</h3>
-            </div>
+            </Link>
           ))}
           {Array.from({ length: 4 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}
         </div>
@@ -86,7 +90,6 @@ export default function Page() {
           </Suspense>
         </div>
       </div>
-      <GoogleMapsAddress />
     </div>
   );
 }

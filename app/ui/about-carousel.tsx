@@ -1,7 +1,9 @@
 'use client'
 
 import Slider from 'react-slick'
-import { useRef, useState, RefObject, ReactNode } from 'react'
+import { useEffect, useRef, useState, RefObject, ReactNode } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useQueryState } from 'nuqs'
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -38,7 +40,7 @@ import {
 } from '@/app/content';
 
 import '@/app/ui/about-carousel.css';
-import React from 'react'
+import { transformTextToUrlParams } from '@/app/lib/utils'
 
 const subSectionHeaders = [
   {
@@ -188,8 +190,15 @@ const mapExpertise = (expertise: { name: string, content: (string | string[] | {
 )
 
 export default function Carousel() {
-  const [open, setOpen] = useState(false)
+  const componentRef = useRef(null);
+  const searchParams = useSearchParams()
+  const initialSlideTopic = searchParams.get('topic')
+  const initialExpand = searchParams.get('expand')
+  const [topic, setTopic] = useQueryState('topic', { defaultValue: initialSlideTopic || '' })
+  const [expand, setExpand] = useQueryState('expand', { defaultValue: initialExpand === 'true' ? 'true' : 'false' })
+  const [open, setOpen] = useState(initialExpand === 'true')
   const [slide, setSlide] = useState<boolean | string>(true)
+
   const nodeRef5 = useRef(null);
   const nodeRef6 = useRef(null);
   const nodeRef7 = useRef(null);
@@ -207,7 +216,11 @@ export default function Carousel() {
   const nodeRefSlideDisplay10 = useRef(null);
   const nodeRefSlideDisplay11 = useRef(null);
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = () => {
+    const newValue = !open
+    setOpen(newValue)
+    setExpand(newValue ? 'true' : 'false')
+  }
 
   const nodeRefs = {
     '4': nodeRef5,
@@ -248,6 +261,17 @@ export default function Carousel() {
         </ul>
       </CSSTransition>
     ),
+    beforeChange: (_current: number, next: number) =>
+      setTopic(transformTextToUrlParams(sectionHeaders[next].title)),
+  }
+
+  if (initialSlideTopic) {
+    const initialSlideIndex = sectionHeaders
+      .findIndex(sectionHeader => 
+        transformTextToUrlParams(sectionHeader.title) === topic
+      )
+    // @ts-ignore
+    settings.initialSlide = initialSlideIndex
   }
 
   const GoBackArrow = (location: 'top' | 'bottom' = 'top') => location === 'top'
@@ -264,8 +288,15 @@ export default function Carousel() {
       </a>
     )
 
+  useEffect(() => {
+    if (initialSlideTopic && componentRef.current) {
+      // @ts-ignore
+      componentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
-    <div className="aboutCarousel carouselComponent">
+    <div className="aboutCarousel carouselComponent" ref={componentRef}>
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
           <CSSTransition 
               nodeRef={nodeRefSlideDisplay0}
