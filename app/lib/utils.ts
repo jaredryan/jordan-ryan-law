@@ -112,7 +112,7 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
     await sgMail.send(msg)
  
     return {
-      message: 'failure',
+      message: 'success',
       errors: {}
     }
   } catch (error) {
