@@ -96,7 +96,7 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
 
   const msg = {
     to: 'rkr@mmwbr.com', // Change to your recipient
-    from: 'jryantennis@gmail.com', // Change to your verified sender
+    from: 'info@ryanlegalpc.com', // Change to your verified sender
     subject: 'Consultation Request from Ryan Legal Website',
     templateId: 'd-f0a05944301b4a1d8ef0f727f0a0191f',
     dynamicTemplateData: {

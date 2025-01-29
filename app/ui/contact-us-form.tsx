@@ -70,6 +70,8 @@ export default function ContactUsForm() {
         setDescription(null),
       ])
     }
+  } else if (state?.message === 'failure') {
+    setTimeout(() => setIgnoreMessage(true), 3000)
   }
 
   return (
