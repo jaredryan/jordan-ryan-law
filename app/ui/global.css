@@ -74,10 +74,6 @@ html {
   box-sizing: inherit;
 }
 
-*:focus-visible {
-  /* outline: none; */
-}
-
 body {
   min-height: 100vh;
   background-color: var(--footer-background-color);

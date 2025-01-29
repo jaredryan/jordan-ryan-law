@@ -126,7 +126,7 @@
   padding: 24px;
 }
 
-.homePage .contentSection .practiceAreaContainer > *:hover
+.homePage .contentSection .practiceAreaContainer > *:hover,
 .homePage .contentSection .practiceAreaContainer > *:focus-visible {
   background-color: var(--background-secondary-color);
 }
