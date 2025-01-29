@@ -33,7 +33,8 @@
     font-size: 14px;
 }
 
-.googleMapsComponent a:hover {
+.googleMapsComponent a:hover,
+.googleMapsComponent a:focus-visible {
     color: var(--google-maps-color);
     transition: 500ms ease;
 }

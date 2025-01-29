@@ -19,17 +19,23 @@ nav .pagePadding {
   padding: 0 85px;
 }
 
+nav li {
+  display: flex;
+}
+
 nav a {
   padding: 16px;
   color: var(--navbar-font-color);
 }
 
 nav a.highlighted,
-nav a:hover {
+nav a:hover,
+nav a:focus-visible {
   background-color: var(--navbar-hover-color);
 }
 
-nav a:hover {
+nav a:hover,
+nav a:focus-visible {
   transition: 500ms ease;
 }
 
@@ -78,11 +84,14 @@ nav .barsContainer {
     cursor: pointer;
   }
 
-  nav .barsContainer:hover, nav .barsContainer.open {
+  nav .barsContainer:hover,
+  nav .barsContainer:focus-visible,
+  nav .barsContainer.open {
     background-color: var(--navbar-hover-color);
   }
 
-  nav .barsContainer:hover {
+  nav .barsContainer:hover,
+  nav .barsContainer:focus-visible {
     transition: 500ms ease;
   }
 

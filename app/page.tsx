@@ -62,22 +62,24 @@ export default function Page() {
         <h2>{businessSummary}</h2>
         {businessExplanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         <h1>Our Practice Areas</h1>
-        <div className="practiceAreaContainer">
+        <ul className="practiceAreaContainer">
           {areasOfPractice.map(areaOfPractice => (
-            <Link
-              key={areaOfPractice.name}
-              href={{
-                pathname: '/expertise',
-                query: { topic: transformTextToUrlParams(areaOfPractice.name) },
-              }}
-              className={areaOfPractice.className || ''}
-            >
-              <div className="icon">{areaOfPractice.icon}</div>
-              <h2>{areaOfPractice.name}</h2>
-            </Link>
+            <li key={areaOfPractice.name}>
+              <Link
+                
+                href={{
+                  pathname: '/expertise',
+                  query: { topic: transformTextToUrlParams(areaOfPractice.name) },
+                }}
+                className={areaOfPractice.className || ''}
+              >
+                <div className="icon">{areaOfPractice.icon}</div>
+                <h2>{areaOfPractice.name}</h2>
+              </Link>
+            </li>
           ))}
           {Array.from({ length: 4 }).map((_, index) => <div key={index} className="fillEmptySpace" />)}
-        </div>
+        </ul>
       </div>
       <div className="requestConsultation">
         <Image

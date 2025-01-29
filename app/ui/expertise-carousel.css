@@ -38,7 +38,8 @@
     border: 2px solid var(--primary-color) !important;
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails .tab:hover {
+.carouselComponent.expertiseCarousel .customThumbnails .tab:hover,
+.carouselComponent.expertiseCarousel .customThumbnails .tab:focus-visible {
     background-color: var(--accent-color);
     border: 2px solid var(--accent-color);
     transition: 500ms ease;

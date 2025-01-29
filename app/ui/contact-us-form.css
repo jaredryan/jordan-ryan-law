@@ -32,8 +32,8 @@
 
 .contactUsForm input:focus-visible,
 .contactUsForm textarea:focus-visible {
-    outline: none;
-    border: 1px solid var(--focused-input-border-color);
+    border: 1px solid var(--primary-hover-color);
+    outline: 1px solid var(--primary-hover-color);
 }
 
 .contactUsForm textarea {

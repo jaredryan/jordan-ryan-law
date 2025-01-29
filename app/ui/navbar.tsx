@@ -73,37 +73,39 @@ export default function Navbar() {
             Ryan Legal, PC
           </Link>
         </div>
-        <div className="desktopMenu">  
+        <ul className="desktopMenu">  
           {links.map((link) => {
             return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`${pathname === link.href ? 'highlighted' : ''}`}
-              >
-                {link.name}
-              </Link>
+              <li key={link.name}>
+                <Link                
+                  href={link.href}
+                  className={`${pathname === link.href ? 'highlighted' : ''}`}
+                >
+                  {link.name}
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
         <div onClick={() => setIsOpen(!isOpen)} className={`barsContainer ${isOpen ? "open" : "closed"}`}>
           <div ref={barsRef} className="barsIconContainer">
             <FontAwesomeIcon icon={faBars} />
           </div>
           <CSSTransition nodeRef={nodeRef} in={isOpen} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
-              <div ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`}>
+              <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`}>
                 {links.map((link) => {
                   return (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className={`${pathname === link.href ? 'highlighted' : ''}`}
-                    >
-                      {link.name}
-                    </Link>
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className={`${pathname === link.href ? 'highlighted' : ''}`}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
           </CSSTransition>
         </div>
       </div>

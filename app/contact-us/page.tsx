@@ -54,17 +54,17 @@ export default function Page() {
           </div>
         </div>
         <div className="contentSection">
-          <div className="cardsContainer pagePadding">
+          <ul className="cardsContainer pagePadding">
             {cards.map(card => (
-              <div className="card" key={card.name}>
+              <li className="card" key={card.name}>
                 <div className="icon">{card.icon}</div>
                 <h2>{card.name}</h2>
                 <ul>
                   {card.content.map(item => <li key={item}>{item}</li>)}
                 </ul>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
           <div className="pagePadding">
             <h2>Request a Consultation</h2>
             <Suspense>

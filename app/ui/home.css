@@ -109,57 +109,64 @@
   max-width: 950px;
 }
 
-.homePage .contentSection .practiceAreaContainer > a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.homePage .contentSection .practiceAreaContainer > * {
   width: 265px;
   text-align: center;
   margin-bottom: 8px;
   margin-left: 8px;
   margin-right: 8px;
   cursor: pointer;
-  padding: 24px;
   border-radius: 3px;
 }
 
-.homePage .contentSection .practiceAreaContainer > a:hover {
+.homePage .contentSection .practiceAreaContainer > * a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.homePage .contentSection .practiceAreaContainer > *:hover
+.homePage .contentSection .practiceAreaContainer > *:focus-visible {
   background-color: var(--background-secondary-color);
 }
 
-.homePage .contentSection .practiceAreaContainer > a:hover .icon {
+.homePage .contentSection .practiceAreaContainer > *:hover .icon,
+.homePage .contentSection .practiceAreaContainer > *:focus-visible .icon {
   color: var(--primary-hover-color);
 }
 
-.homePage .contentSection .practiceAreaContainer > a:hover, 
-.homePage .contentSection .practiceAreaContainer > a:hover .icon {
+.homePage .contentSection .practiceAreaContainer > *:hover, 
+.homePage .contentSection .practiceAreaContainer > *:hover .icon,
+.homePage .contentSection .practiceAreaContainer > *:focus-visible, 
+.homePage .contentSection .practiceAreaContainer > *:focus-visible .icon {
   transition: 500ms ease;
 }
 
-.homePage .contentSection .practiceAreaContainer > a.fillEmptySpace {
+.homePage .contentSection .practiceAreaContainer > *.fillEmptySpace {
   height: 0; 
   margin: 0 16px;
 }
 
-.homePage .contentSection .practiceAreaContainer > a .icon,
-.homePage .contentSection .practiceAreaContainer > a .icon svg {
+.homePage .contentSection .practiceAreaContainer > * .icon,
+.homePage .contentSection .practiceAreaContainer > * .icon svg {
   width: 48px;
   height: 48px;
 }
 
-.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon,
-.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon svg {
+.homePage .contentSection .practiceAreaContainer > *.businessTransactions .icon,
+.homePage .contentSection .practiceAreaContainer > *.businessTransactions .icon svg {
   width: 36px;
 }
 
-.homePage .contentSection .practiceAreaContainer > a .icon {
+.homePage .contentSection .practiceAreaContainer > * .icon {
   width: 48px;
   height: 48px;
   margin-bottom: 24px;
   color: var(--primary-color);
 }
 
-.homePage .contentSection .practiceAreaContainer > a.businessTransactions .icon {
+.homePage .contentSection .practiceAreaContainer > *.businessTransactions .icon {
   width: 36px;
 }
 

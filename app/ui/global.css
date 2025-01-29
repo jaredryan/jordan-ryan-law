@@ -74,6 +74,10 @@ html {
   box-sizing: inherit;
 }
 
+*:focus-visible {
+  /* outline: none; */
+}
+
 body {
   min-height: 100vh;
   background-color: var(--footer-background-color);
@@ -106,7 +110,10 @@ button, .button {
   color: var(--button-image-font);
 }
 
-.imageContainer button:hover, .imageContainer .button:hover {
+.imageContainer button:hover,
+.imageContainer .button:hover,
+.imageContainer button:focus-visible,
+.imageContainer .button:focus-visible {
   background-color: var(--button-image-background-hover);
   transition: 500ms ease;
 }
@@ -153,7 +160,10 @@ button, .button {
   font-family: var(--font-opensans), Arial, sans-serif;
 }
 
-button:hover, .button:hover {
+button:hover,
+.button:hover,
+button:focus-visible,
+.button:focus-visible {
   background-color: var(--primary-hover-color);
   transition: 500ms ease;
 }
