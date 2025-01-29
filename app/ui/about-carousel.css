@@ -170,12 +170,6 @@
   max-width: 450px;
 }
 
-@media (max-width: 850px) {
-  .carouselComponent.aboutCarousel .barAdmissionsContainer {
-    max-width: 310px;
-  }
-}
-
 .carouselComponent.aboutCarousel h4 {
   text-align: left;
   width: 100%;

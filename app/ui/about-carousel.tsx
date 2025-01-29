@@ -12,7 +12,6 @@ import {
   faHospital,
   faPersonChalkboard,
   faGraduationCap,
-  faFilePen,
   faStar,
   faBuildingColumns,
   faFileLines,
@@ -20,7 +19,6 @@ import {
   faPeopleGroup,
   faPeopleCarryBox,
   faHandshakeSimple,
-  faArrowLeft,
   faCircleArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -62,14 +60,11 @@ const sectionHeaders = [
     title: 'Education',
     icon: <FontAwesomeIcon icon={faGraduationCap} />,
   }, {
-    title: 'Bar Admissions',
-    icon: <FontAwesomeIcon icon={faFilePen} />,
+    title: 'Bar and Court Admissions',
+    icon: <FontAwesomeIcon icon={faBuildingColumns} />,
   }, {
     title: 'Ratings and Designations',
     icon: <FontAwesomeIcon icon={faStar} />,
-  }, {
-    title: 'Court Admissions',
-    icon: <FontAwesomeIcon icon={faBuildingColumns} />,
   }, {
     title: 'Positions',
     icon: <FontAwesomeIcon icon={faFileLines} />,
@@ -90,7 +85,7 @@ const sectionHeaders = [
 }]
 
 const allSections = sectionHeaders.slice()
-sectionHeaders.splice(5, 1)
+sectionHeaders.splice(4, 1)
 
 function BlankArrow(_props: any) {
     return <div style={{ display: "none" }} />
@@ -144,7 +139,7 @@ const renderSideNavItem = (
     return tab
   }
 
-  const experienceSection = allSections[5]
+  const experienceSection = allSections[4]
 
   return (
     <div>
@@ -203,7 +198,6 @@ export default function Carousel() {
   const nodeRefSlideDisplay0 = useRef(null);
   const nodeRefSlideDisplay1 = useRef(null);
   const nodeRefSlideDisplay2 = useRef(null);
-  const nodeRefSlideDisplay3 = useRef(null);
   const nodeRefSlideDisplay4 = useRef(null);
   const nodeRefSlideDisplay5 = useRef(null);
   const nodeRefSlideDisplay6 = useRef(null);
@@ -216,10 +210,10 @@ export default function Carousel() {
   const toggleOpen = () => setOpen(!open)
 
   const nodeRefs = {
-    '5': nodeRef5,
-    '6': nodeRef6,
-    '7': nodeRef7,
-    '8': nodeRef8,
+    '4': nodeRef5,
+    '5': nodeRef6,
+    '6': nodeRef7,
+    '7': nodeRef8,
   }
   
   const settings = {
@@ -302,6 +296,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay1}>
             {GoBackArrow()}
             <h3>{sectionHeaders[1].title}</h3>
+            <h4>Bar Admissions</h4>
             <ul className="barAdmissionsContainer">
               {russKRyanBarAdmissions.map(barAdmission => (
                 <li
@@ -312,6 +307,17 @@ export default function Carousel() {
                 </li>
               ))}
             </ul>
+            <h4>Court Admissions</h4>
+            <ul className="courtAdmissionsContainer">
+              {russKRyanCourtAdmissions.map(courtAdmission => (
+                <li
+                  key={courtAdmission}
+                  className="courtAdmission"
+                >
+                  {courtAdmission}
+                </li>
+              ))}
+            </ul>            
           </div>
           </CSSTransition>
           <CSSTransition 
@@ -338,28 +344,6 @@ export default function Carousel() {
           </div>
           </CSSTransition>
           <CSSTransition 
-            nodeRef={nodeRefSlideDisplay3}
-            in={!slide}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay3}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[3].title}</h3>
-            <ul className="courtAdmissionsContainer">
-              {russKRyanCourtAdmissions.map(courtAdmission => (
-                <li
-                  key={courtAdmission}
-                  className="courtAdmission"
-                >
-                  {courtAdmission}
-                </li>
-              ))}
-            </ul>
-          </div>
-          </CSSTransition>
-          <CSSTransition 
             nodeRef={nodeRefSlideDisplay4}
             in={!slide}
             timeout={1000}
@@ -369,7 +353,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay4}>
             {GoBackArrow()}
             {GoBackArrow('bottom')}
-            <h3>{sectionHeaders[4].title}</h3>
+            <h3>{sectionHeaders[3].title}</h3>
             <ul className="experienceContainer">
               {russKRyanPriorExperience.map(experience => (
                 <li className="experience" key={experience.years}>
@@ -423,7 +407,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay5}>
             {GoBackArrow('bottom')}
             {GoBackArrow()}
-            <h3>{sectionHeaders[5].title}</h3>
+            <h3>{sectionHeaders[4].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[0])}
             </div>
@@ -439,7 +423,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay6}>
             {GoBackArrow('bottom')}
             {GoBackArrow()}
-            <h3>{sectionHeaders[6].title}</h3>
+            <h3>{sectionHeaders[5].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[1])}
             </div>
@@ -454,7 +438,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay7}>
             {GoBackArrow()}
-            <h3>{sectionHeaders[7].title}</h3>
+            <h3>{sectionHeaders[6].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[2])}
             </div>
@@ -470,7 +454,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay8}>
             {GoBackArrow()}
             {GoBackArrow('bottom')}
-            <h3>{sectionHeaders[8].title}</h3>
+            <h3>{sectionHeaders[7].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[3])}
             </div>
@@ -486,7 +470,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay9}>
             {GoBackArrow()}
             {GoBackArrow('bottom')}
-            <h3>{sectionHeaders[9].title}</h3>
+            <h3>{sectionHeaders[8].title}</h3>
             <ul className="affiliationsContainer">
               {russKRyanAffiliations.map(affiliation => (
                 <li
@@ -508,7 +492,7 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay10}>
             {GoBackArrow()}
-            <h3>{sectionHeaders[10].title}</h3>
+            <h3>{sectionHeaders[9].title}</h3>
             <ul className="serviceContainer">
               {russKRyanPublicAndCommunityService.map(service => (
                 <li className="service" key={service.years}>
@@ -528,7 +512,7 @@ export default function Carousel() {
           <div className="slide" ref={nodeRefSlideDisplay11}>
             {GoBackArrow('bottom')}
             {GoBackArrow()}
-            <h3>{sectionHeaders[11].title}</h3>
+            <h3>{sectionHeaders[10].title}</h3>
             <h4>Present</h4>
             <ul className="clientsContainer past">
               {russKRyanClients.current.map(client => (
