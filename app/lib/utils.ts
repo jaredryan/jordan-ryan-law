@@ -60,7 +60,7 @@ const parseSendGridError = (error: SendGridError) => {
     return {
       message: 'failure',
       errors: {
-        sendGrid: error?.response?.body?.errors.map(error => `${error.message}.`).join('\n')
+        sendGrid: error?.response?.body?.errors.map(error => `${error.message}.`).join('\n') || "Unknown error. Please try again later."
       }
     }
   } catch(err) {
