@@ -62,13 +62,15 @@ export default function Navbar() {
             key={homeLink.name}
             href={homeLink.href}
             className={`homeLink${pathname === homeLink.href ? ' highlighted' : ''}`}
+            aria-label="Ryan Legal, PC home"
           >
             <Image
               src={logoWhite}
-              alt="Screenshots of the dashboard project showing desktop version"
+              alt="Ryan Legal, PC logo"
               loading="eager"
               priority={true}
               placeholder="blur"
+              aria-hidden="true"
             />
             Ryan Legal, PC
           </Link>
@@ -91,14 +93,16 @@ export default function Navbar() {
           <button
             ref={barsRef}
             className="barsIconContainer"
-            aria-label="Open or close link menu button"
+            aria-label={`${isOpen ? 'Close' : 'Open'} link menu`}
             onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen ? 'true' : 'false'}
+            aria-controls="link-menu"
+            aria-haspopup="menu"
           >
-            <FontAwesomeIcon icon={faBars} />
-            <label id="menulabel" className="sr-only">Link Menu</label>
+            <FontAwesomeIcon icon={faBars} aria-hidden="true" />
           </button>
           <CSSTransition nodeRef={nodeRef} in={isOpen} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
-              <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`}>
+              <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`} id="link-menu">
                 {links.map((link) => {
                   return (
                     <li key={link.name}>

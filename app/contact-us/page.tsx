@@ -42,7 +42,7 @@ export default function Page() {
         <div className="imageContainer">
           <Image
             src={fp2}
-            alt="Attorneys Writing Image"
+            alt="Writing on paper"
             className="bannerImage"
             loading="eager"
             priority={true}
@@ -57,7 +57,7 @@ export default function Page() {
           <ul className="cardsContainer pagePadding">
             {cards.map(card => (
               <li className="card" key={card.name}>
-                <div className="icon">{card.icon}</div>
+                <div className="icon" aria-hidden="true">{card.icon}</div>
                 <h2>{card.name}</h2>
                 <ul>
                   {card.content.map(item => <li key={item}>{item}</li>)}

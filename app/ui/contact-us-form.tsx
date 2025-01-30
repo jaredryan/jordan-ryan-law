@@ -15,25 +15,49 @@ function SubmitButton({ pending, message, ignoreMessage }: {
 }) {
   if (pending) {
     return (
-      <button type="submit" disabled aria-disabled className="pending">
-        <FontAwesomeIcon icon={faSpinner} spin pulse />
+      <button
+        type="submit"
+        aria-label="Submit button: pending"
+        aria-live="polite"
+        className="pending"
+        disabled
+        aria-disabled="true"
+      >
+        <FontAwesomeIcon icon={faSpinner} spin pulse aria-hidden="true" />
       </button>
     )
   } else if (message === 'success' && !ignoreMessage) {
     return (
-      <button type="submit" className="success" disabled aria-disabled>
+      <button
+        type="submit"
+        aria-label="Submit button: success"
+        aria-live="polite"
+        className="success"
+        disabled
+        aria-disabled="true"
+      >
         Success!
       </button>
     )
   } else if (message === 'failure' && !ignoreMessage) {
     return (
-      <button type="submit" className="failure" disabled aria-disabled>
+      <button
+        type="submit"
+        aria-label="Submit button: failure"
+        aria-live="polite"
+        className="failure"
+        disabled
+        aria-disabled="true"
+      >
         Failure
       </button>
     )
   } else {
     return (
-      <button type="submit">
+      <button
+        type="submit"
+        aria-live="polite"
+      >
         Submit
       </button>
     )
@@ -87,6 +111,11 @@ export default function ContactUsForm() {
             type="text"
             onChange={(e) => setName(e.target.value)}
             value={name || ''}
+            // @ts-ignore
+            aria-invalid={(state && state.errors?.name && state.errors.name[0] && !pending)
+              ? 'true'
+              : 'false'}
+            aria-errormessage="name-error"
           />
           {/* @ts-ignore */}
           {state && state.errors?.name && state.errors.name[0] && !pending &&
@@ -108,6 +137,11 @@ export default function ContactUsForm() {
             type="tel"
             onChange={(e) => setPhone(e.target.value)}
             value={phone || ''}
+            // @ts-ignore
+            aria-invalid={(state && state.errors?.phone && state.errors.phone[0] && !pending)
+              ? 'true'
+              : 'false'}
+            aria-errormessage="phone-error"
           />
           {/* @ts-ignore */}
           {state && state.errors?.phone && state.errors.phone[0] && !pending &&
@@ -129,6 +163,11 @@ export default function ContactUsForm() {
             type="text"
             onChange={(e) => setEmail(e.target.value)}
             value={email || ''}
+            // @ts-ignore
+            aria-invalid={(state && state.errors?.email && state.errors.email[0] && !pending)
+              ? 'true'
+              : 'false'}
+            aria-errormessage="email-error"
           />
           {/* @ts-ignore */}
           {state && state.errors?.email && state.errors.email[0] && !pending &&
@@ -150,6 +189,11 @@ export default function ContactUsForm() {
             rows={3}
             onChange={(e) => setDescription(e.target.value)}
             value={description || ''}
+            // @ts-ignore
+            aria-invalid={(state && state.errors?.description && state.errors.description[0] && !pending)
+              ? 'true'
+              : 'false'}
+            aria-errormessage="description-error"
           />
           {/* @ts-ignore */}
           {state && state.errors?.description && state.errors.description[0] && !pending &&

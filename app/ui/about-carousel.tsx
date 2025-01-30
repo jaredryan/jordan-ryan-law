@@ -119,8 +119,14 @@ const renderSideNavItem = (
         classNames="fade-bounce-down"
       >
         <div>
-          <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide} id={transformTextToUrlParams(title)}>
-            <div className="icon">{icon}</div>
+          <button
+            className={`tab ${className}`}
+            ref={nodeRef}
+            onClick={toggleSlide}
+            id={transformTextToUrlParams(title)}
+            aria-hidden={!expanded}
+          >
+            <div className="icon" aria-hidden="true">{icon}</div>
             <p>{title}</p>
           </button>
         </div>
@@ -130,7 +136,7 @@ const renderSideNavItem = (
     tab = (
       <div>
         <button className="tab" onClick={toggleSlide} id={transformTextToUrlParams(title)}>
-          <div className="icon">{icon}</div>
+          <div className="icon" aria-hidden="true">{icon}</div>
           <p>{title}</p>
         </button>
       </div>
@@ -151,10 +157,13 @@ const renderSideNavItem = (
           toggleExpanded()
           e.stopPropagation()
         }}
+        aria-expanded={expanded ? 'true' : 'false'}
+        aria-label='Menu for Professional Practice topics'
+        aria-controls={subSectionHeaders.map(header => transformTextToUrlParams(header.title)).join(' ')}
       >
-        <div className="icon">{experienceSection.icon}</div>
+        <div className="icon" aria-hidden="true">{experienceSection.icon}</div>
         <p>{experienceSection.title}</p>
-        <div className="dropdownIcon" >
+        <div className="dropdownIcon" aria-hidden="true">
           {expanded
             ? <FontAwesomeIcon icon={faCaretUp} />
             : <FontAwesomeIcon icon={faCaretDown} />}
@@ -278,7 +287,7 @@ export default function Carousel() {
           setTopic(null)
         }}
       >
-        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
+        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} aria-hidden="true" />
         <span>See Menu</span>
       </button>
     )
@@ -292,7 +301,7 @@ export default function Carousel() {
           element?.scrollIntoView({ behavior: 'smooth' })
         }}
       >
-        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
+        <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} aria-hidden="true" />
         <span>See Menu</span>
       </button>
     )

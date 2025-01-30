@@ -13,7 +13,7 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src={practice}
-          alt="Legal System Image"
+          alt="Legal system"
           className="bannerImage"
           loading="eager"
           priority={true}

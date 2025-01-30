@@ -23,7 +23,7 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src={upperFalls}
-          alt="Yosemite Waterfall Image"
+          alt="Yosemite waterfall, located in central california"
           className="heroImage"
           loading="eager"
           priority={true}
@@ -72,7 +72,7 @@ export default function Page() {
                 }}
                 className={areaOfPractice.className || ''}
               >
-                <div className="icon">{areaOfPractice.icon}</div>
+                <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
                 <h2>{areaOfPractice.name}</h2>
               </Link>
             </li>
@@ -82,9 +82,10 @@ export default function Page() {
       <div className="requestConsultation">
         <Image
           src={attorneyWriting}
-          alt="Attorneys Writing Image"
+          alt="Writing on paper"
           className="bannerImage"
           loading="eager"
+          aria-hidden="true"
         />
         <div className="after" />
         <div className="pagePadding">

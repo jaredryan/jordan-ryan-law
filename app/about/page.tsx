@@ -16,7 +16,7 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src={penOnNotebook}
-          alt="Attorneys Writing Image"
+          alt="Pen resting on paper"
           className="bannerImage"
           loading="eager"
           priority={true}
@@ -32,7 +32,7 @@ export default function Page() {
           <div className="profileImages">
             <Image
               src={squareProfile}
-              alt="Russ Ryan Image"
+              alt="Russell K. Ryan"
               className="squareProfileImage"
               loading="eager"
               priority={true}
@@ -41,7 +41,7 @@ export default function Page() {
             <div className="badgeContainer">
               <Image
                 src={superLawyersBadge}
-                alt="Super Lawyers Badge Image"
+                alt="Super Lawyers Badge"
                 className="superLawyersBadge"
                 loading="eager"
                 priority={true}
@@ -49,7 +49,7 @@ export default function Page() {
               />
               <Image
                 src={avPreeminent}
-                alt="AV Preeminent Image"
+                alt="AV Preeminent Badge"
                 className="avPreeminentBadge"
                 loading="eager"
                 priority={true}

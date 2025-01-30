@@ -29,7 +29,7 @@ export default function Carousel() {
         const areaOfPractice = areasOfPractice[i]
         return (
           <button className="tab">
-            <div className="icon">{areaOfPractice.icon}</div>
+            <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
             <p>{areaOfPractice.name}</p>
           </button>
         );

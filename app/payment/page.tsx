@@ -9,7 +9,7 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src={pens}
-          alt="Classy pen image"
+          alt="Pen on surface"
           className="bannerImage"
           loading="eager"
           priority={true}
