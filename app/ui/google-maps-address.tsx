@@ -15,7 +15,7 @@ import '@/app/ui/google-maps-address.css';
 
 export default function GoogleMapsAddress() {
     return (
-        <APIProvider apiKey={'AIzaSyBFT4isOBiPPTttkihHnsl9WboOWUc-ZeY'} onLoad={() => console.log('Maps API has loaded.')}>
+        <APIProvider apiKey={'AIzaSyBFT4isOBiPPTttkihHnsl9WboOWUc-ZeY'}>
             <div className="googleMapsComponent">
                 <Map
                     defaultZoom={13}

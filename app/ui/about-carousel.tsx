@@ -95,8 +95,8 @@ function BlankArrow(_props: any) {
 
 const renderSideNavItem = (
   header: { title: string, icon: ReactNode },
-  open: boolean,
-  toggleOpen: () => void,
+  expanded: boolean,
+  toggleExpanded: () => void,
   nodeRef: RefObject<null> | null,
   toggleSlide: () => void,
 ) => {
@@ -107,19 +107,19 @@ const renderSideNavItem = (
   const icon = header.icon
 
   if (subSectionHeaders.map(thisHeader => thisHeader.title).includes(title)) {
-    className = !open
+    className = !expanded
       ? 'hidden'
       : 'nested'
 
     tab = (
       <CSSTransition 
         nodeRef={nodeRef}
-        in={open}
+        in={expanded}
         timeout={1000}
         classNames="fade-bounce-down"
       >
         <div>
-          <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
+          <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide} id={transformTextToUrlParams(title)}>
             <div className="icon">{icon}</div>
             <p>{title}</p>
           </button>
@@ -129,7 +129,7 @@ const renderSideNavItem = (
   } else {
     tab = (
       <div>
-        <button className="tab" onClick={toggleSlide}>
+        <button className="tab" onClick={toggleSlide} id={transformTextToUrlParams(title)}>
           <div className="icon">{icon}</div>
           <p>{title}</p>
         </button>
@@ -148,14 +148,14 @@ const renderSideNavItem = (
       <button
         className="tab neverChosen"
         onClick={(e) => { 
-          toggleOpen()
+          toggleExpanded()
           e.stopPropagation()
         }}
       >
         <div className="icon">{experienceSection.icon}</div>
         <p>{experienceSection.title}</p>
         <div className="dropdownIcon" >
-          {open
+          {expanded
             ? <FontAwesomeIcon icon={faCaretUp} />
             : <FontAwesomeIcon icon={faCaretDown} />}
         </div>
@@ -193,11 +193,10 @@ export default function Carousel() {
   const componentRef = useRef(null);
   const searchParams = useSearchParams()
   const initialSlideTopic = searchParams.get('topic')
-  const initialExpand = searchParams.get('expand')
-  const [topic, setTopic] = useQueryState('topic', { defaultValue: initialSlideTopic || '' })
-  const [expand, setExpand] = useQueryState('expand', { defaultValue: initialExpand === 'true' ? 'true' : 'false' })
-  const [open, setOpen] = useState(initialExpand === 'true')
-  const [slide, setSlide] = useState<boolean | string>(true)
+  const initialExpanded = searchParams.get('expanded')
+  const [topic, setTopic] = useQueryState('topic')
+  const [expanded, setExpanded] = useQueryState('expanded', { defaultValue: 'false' })
+  const [slide, setSlide] = useState<boolean | string>(false)
 
   const nodeRef5 = useRef(null);
   const nodeRef6 = useRef(null);
@@ -216,11 +215,7 @@ export default function Carousel() {
   const nodeRefSlideDisplay10 = useRef(null);
   const nodeRefSlideDisplay11 = useRef(null);
 
-  const toggleOpen = () => {
-    const newValue = !open
-    setOpen(newValue)
-    setExpand(newValue ? 'true' : 'false')
-  }
+  const toggleExpanded = () => setExpanded(expanded === 'true' ? 'false' : 'true')
 
   const nodeRefs = {
     '4': nodeRef5,
@@ -233,8 +228,8 @@ export default function Carousel() {
     customPaging: function(i: number) {
       return renderSideNavItem(
         sectionHeaders[i],
-        open,
-        toggleOpen,
+        expanded === 'true',
+        toggleExpanded,
         nodeRefs[i.toString() as keyof typeof nodeRefs] || null,
         () => setSlide('loading')
       )
@@ -251,10 +246,10 @@ export default function Carousel() {
     appendDots: (dots: ReactNode) => (
       <CSSTransition 
         nodeRef={nodeRefSlideMenu}
-        in={slide === true}
+        in={slide === false}
         timeout={1000}
         classNames="fade-bounce-left"
-        onExited={() => setSlide(false)}
+        onExited={() => setSlide(true)}
       >
         <ul className="customThumbnails" ref={nodeRefSlideMenu}>
           {dots}
@@ -278,7 +273,10 @@ export default function Carousel() {
     ? (
       <button
         className={`backIconContainer ${location}`}
-        onClick={() => setSlide('loading')}
+        onClick={() => { 
+          setSlide('loading')
+          setTopic(null)
+        }}
       >
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
         <span>See Menu</span>
@@ -289,6 +287,7 @@ export default function Carousel() {
         className={`backIconContainer ${location}`}
         onClick={() => {
           setTimeout(() => setSlide('loading'), 750)
+          setTopic(null)
           const element = document.getElementById('topic-menu')
           element?.scrollIntoView({ behavior: 'smooth' })
         }}
@@ -299,9 +298,19 @@ export default function Carousel() {
     )
 
   useEffect(() => {
-    if (initialSlideTopic && componentRef.current) {
-      // @ts-ignore
-      componentRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (initialSlideTopic) {
+      const topicMenu = document.getElementById('topic-menu')
+      topicMenu?.scrollIntoView({ behavior: 'smooth' })
+
+      const topicButton = document.getElementById(initialSlideTopic)
+      topicButton?.click()
+    }
+    if (initialExpanded === 'true' ||
+        (initialSlideTopic && subSectionHeaders.some(header => 
+          transformTextToUrlParams(header.title) === initialSlideTopic
+        ))
+    ) {
+      setExpanded('true')
     }
   }, []);
 
@@ -309,30 +318,30 @@ export default function Carousel() {
     <div className="aboutCarousel carouselComponent" ref={componentRef}>
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
           <CSSTransition 
-              nodeRef={nodeRefSlideDisplay0}
-              in={!slide}
-              timeout={1000}
-              classNames="fade-bounce-left"
-              onExited={() => setSlide(true)}
-            >
-          <div className="slide" ref={nodeRefSlideDisplay0}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[0].title}</h3>
-            <ul className="educationContainer">
-              {russKRyanEducation.map(education => (
-                <li className="education" key={education.institution}>
-                  {education.degree} - {education.rank} — {education.institution} — {education.year}
-                </li>
-              ))}
-            </ul>
-          </div>
+            nodeRef={nodeRefSlideDisplay0}
+            in={slide === true}
+            timeout={1000}
+            classNames="fade-bounce-left"
+            onExited={() => setSlide(false)}
+          >
+            <div className="slide" ref={nodeRefSlideDisplay0}>
+              {GoBackArrow()}
+              <h3>{sectionHeaders[0].title}</h3>
+              <ul className="educationContainer">
+                {russKRyanEducation.map(education => (
+                  <li className="education" key={education.institution}>
+                    {education.degree} - {education.rank} — {education.institution} — {education.year}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay1}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay1}>
             {GoBackArrow()}
@@ -363,10 +372,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay2}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay2}>
             {GoBackArrow()}
@@ -386,10 +395,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay4}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay4}>
             {GoBackArrow()}
@@ -406,10 +415,10 @@ export default function Carousel() {
           </CSSTransition>
           {/* <CSSTransition 
             nodeRef={nodeRefSlideDisplay}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay}>
             <h3>{sectionHeaders[8].title}</h3>
@@ -440,10 +449,10 @@ export default function Carousel() {
           </CSSTransition> */}
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay5}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
             <div className="slide" ref={nodeRefSlideDisplay5}>
               {GoBackArrow()}
@@ -456,10 +465,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay6}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay6}>
             {GoBackArrow()}
@@ -472,10 +481,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay7}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay7}>
             {GoBackArrow()}
@@ -487,10 +496,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay8}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay8}>
             {GoBackArrow()}
@@ -503,10 +512,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay9}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay9}>
             {GoBackArrow()}
@@ -526,10 +535,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay10}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay10}>
             {GoBackArrow()}
@@ -545,10 +554,10 @@ export default function Carousel() {
           </CSSTransition>
           <CSSTransition
             nodeRef={nodeRefSlideDisplay11}
-            in={!slide}
+            in={slide === true}
             timeout={1000}
             classNames="fade-bounce-left"
-            onExited={() => setSlide(true)}
+            onExited={() => setSlide(false)}
           >
           <div className="slide" ref={nodeRefSlideDisplay11}>
             {GoBackArrow()}

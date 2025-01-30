@@ -199,11 +199,11 @@
   }
 
   .carouselComponent.aboutCarousel .slideTrue .slick-list {
-    visibility: hidden;
+    visibility: visible;
   }
 
   .carouselComponent.aboutCarousel .slideFalse .slick-list {
-    visibility: visible;
+    visibility: hidden;
   }
 
   .carouselComponent.aboutCarousel .slick-slide:not(.slick-active),
