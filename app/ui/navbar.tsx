@@ -87,10 +87,16 @@ export default function Navbar() {
             );
           })}
         </ul>
-        <button onClick={() => setIsOpen(!isOpen)} className={`barsContainer ${isOpen ? "open" : "closed"}`}>
-          <div ref={barsRef} className="barsIconContainer">
+        <div className={`barsContainer ${isOpen ? 'open' : 'closed'}`}>
+          <button
+            ref={barsRef}
+            className="barsIconContainer"
+            aria-label="Open or close link menu button"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <FontAwesomeIcon icon={faBars} />
-          </div>
+            <label id="menulabel" className="sr-only">Link Menu</label>
+          </button>
           <CSSTransition nodeRef={nodeRef} in={isOpen} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
               <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`}>
                 {links.map((link) => {
@@ -107,7 +113,7 @@ export default function Navbar() {
                 })}
               </ul>
           </CSSTransition>
-        </button>
+        </div>
       </div>
     </nav>
   );
