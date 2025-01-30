@@ -27,8 +27,18 @@ export default function Carousel() {
   const settings = {
     customPaging: function(i: number) {
         const areaOfPractice = areasOfPractice[i]
+        const transformedName = transformTextToUrlParams(areaOfPractice.name)
         return (
-          <button className="tab">
+          <button
+            className="tab"
+            role="tab"
+            aria-controls={`tabpanel-${transformedName}`}
+            id={`tab-${transformedName}`}
+            aria-selected={topic === transformedName || (!topic && i === 0)
+              ? 'true'
+              : 'false'
+            }
+          >
             <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
             <p>{areaOfPractice.name}</p>
           </button>
@@ -41,7 +51,7 @@ export default function Carousel() {
     fade: true,
     speed: 1000,
     appendDots: (dots: any) => (
-      <ul className="customThumbnails">
+      <ul className="customThumbnails" role="tablist" aria-orientation="vertical">
         {dots}
       </ul>
     ),
@@ -67,23 +77,79 @@ export default function Carousel() {
       const topicMenu = document.getElementById('topic-menu')
       topicMenu?.scrollIntoView({ behavior: 'smooth' })
     }
+
+    const tabList = document.querySelector('[role="tablist"]')
+    const tabs = document.querySelectorAll('[role="tab"]')
+
+    const handleArrowNavigation = (e: { key: string }) => {
+      const activeElement = document.activeElement
+
+      let currentIndex = 0
+      for (let i = 0; i < tabs.length; i++) {
+        const tab = tabs[i]
+        if (tab === activeElement) {
+          currentIndex = i
+        }
+      }
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (e.key === 'ArrowDown') {
+          currentIndex += 1
+
+          if (currentIndex >= tabs.length) {
+            currentIndex = 0
+          }
+        } else if (e.key === 'ArrowUp') {
+          currentIndex -= 1
+
+          if (currentIndex < 0) {
+            currentIndex = tabs.length - 1
+          }
+        }
+        
+        // @ts-ignore
+        tabs[currentIndex].focus();
+        // @ts-ignore
+        e.preventDefault()
+      }
+    }
+
+    // @ts-ignore
+    tabList.addEventListener('keydown', handleArrowNavigation)
+
+    return () => {
+      // @ts-ignore
+      tabList.removeEventListener('keydown', handleArrowNavigation)
+    }
   }, []);
 
   return (
-    <div className="expertiseCarousel carouselComponent" ref={componentRef}>
+    <div className="expertiseCarousel carouselComponent" ref={componentRef} role="tabs">
       <Slider 
         ref={sliderRef}
         {...settings}
       >
-        {areasOfPractice.map(section => (
-          <div
-            className="slide"
-            key={section.name}
-          >
-              <h2>{section.name}</h2>
-              <p>{section.content}</p>
-          </div>
-        ))}
+        {areasOfPractice.map(section => {
+          const transformedName = transformTextToUrlParams(section.name)
+
+          const tabSettings = {
+            className: "slide",
+            role: "tabpanel",
+            'aria-labelledby': `tab-${transformedName}`,
+            id: `tabpanel-${transformedName}`,
+          }
+
+          if (topic === transformedName) {
+            // @ts-ignore
+            tabSettings.hidden = true
+          }
+
+          return (
+            <div key={section.name} {...tabSettings}>
+                <h2>{section.name}</h2>
+                <p>{section.content}</p>
+            </div>
+          )})}
       </Slider>
     </div>
   )

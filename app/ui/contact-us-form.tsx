@@ -18,7 +18,7 @@ function SubmitButton({ pending, message, ignoreMessage }: {
       <button
         type="submit"
         aria-label="Submit button: pending"
-        aria-live="polite"
+        aria-live="assertive"
         className="pending"
         disabled
         aria-disabled="true"
@@ -31,7 +31,7 @@ function SubmitButton({ pending, message, ignoreMessage }: {
       <button
         type="submit"
         aria-label="Submit button: success"
-        aria-live="polite"
+        aria-live="assertive"
         className="success"
         disabled
         aria-disabled="true"
@@ -44,7 +44,7 @@ function SubmitButton({ pending, message, ignoreMessage }: {
       <button
         type="submit"
         aria-label="Submit button: failure"
-        aria-live="polite"
+        aria-live="assertive"
         className="failure"
         disabled
         aria-disabled="true"
@@ -119,7 +119,7 @@ export default function ContactUsForm() {
           />
           {/* @ts-ignore */}
           {state && state.errors?.name && state.errors.name[0] && !pending &&
-            <div id="name-error" aria-live="polite" aria-atomic="true" className="inputError">
+            <div id="name-error" aria-live="assertive" aria-atomic="true" className="inputError">
               <p>
                 {/* @ts-ignore */}
                 {state.errors.name[0]}
@@ -145,7 +145,7 @@ export default function ContactUsForm() {
           />
           {/* @ts-ignore */}
           {state && state.errors?.phone && state.errors.phone[0] && !pending &&
-            <div id="phone-error" aria-live="polite" aria-atomic="true" className="inputError">
+            <div id="phone-error" aria-live="assertive" aria-atomic="true" className="inputError">
               <p>
                 {/* @ts-ignore */}
                 {state.errors.phone[0]}
@@ -171,7 +171,7 @@ export default function ContactUsForm() {
           />
           {/* @ts-ignore */}
           {state && state.errors?.email && state.errors.email[0] && !pending &&
-            <div id="email-error" aria-live="polite" aria-atomic="true" className="inputError">
+            <div id="email-error" aria-live="assertive" aria-atomic="true" className="inputError">
               <p>
                 {/* @ts-ignore */}
                 {state.errors.email[0]}
@@ -197,7 +197,7 @@ export default function ContactUsForm() {
           />
           {/* @ts-ignore */}
           {state && state.errors?.description && state.errors.description[0] && !pending &&
-            <div id="description-error" aria-live="polite" aria-atomic="true" className="inputError">
+            <div id="description-error" aria-live="assertive" aria-atomic="true" className="inputError">
               <p>
                 {/* @ts-ignore */}
                 {state.errors.description[0]}
