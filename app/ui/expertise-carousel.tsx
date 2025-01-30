@@ -22,7 +22,7 @@ export default function Carousel() {
   const sliderRef = useRef(null);
   const searchParams = useSearchParams()
   const initialSlideTopic = searchParams.get('topic')
-  const [topic, setTopic] = useQueryState('topic', { defaultValue: initialSlideTopic || '' })
+  const [topic, setTopic] = useQueryState('topic')
 
   const settings = {
     customPaging: function(i: number) {
@@ -61,9 +61,11 @@ export default function Carousel() {
   }
 
   useEffect(() => {
-    if (initialSlideTopic && componentRef.current) {
-      // @ts-ignore
-      componentRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (initialSlideTopic) {
+      setTopic(initialSlideTopic)
+
+      const topicMenu = document.getElementById('topic-menu')
+      topicMenu?.scrollIntoView({ behavior: 'smooth' })
     }
   }, []);
 

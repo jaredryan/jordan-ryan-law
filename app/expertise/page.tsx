@@ -24,7 +24,7 @@ export default function Page() {
           <h1>Expertise</h1>
         </div>
       </div>
-      <div className="contentSection">
+      <div className="contentSection" id="topic-menu">
         <Suspense>
           <ExpertiseCarousel />
         </Suspense>
