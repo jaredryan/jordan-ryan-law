@@ -267,6 +267,13 @@ main {
       display: none !important;
   }
 
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done a,
+  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done button {
+      opacity: 0;
+      visibility: hidden;
+      display: none !important;
+  }
+
   .aboutPage .slide.fade-bounce-left-enter {
       opacity: 0;
       visibility: visible !important;
@@ -306,5 +313,12 @@ main {
       opacity: 0;
       transform: translateX(-30%);
       visibility: hidden;
+  }
+
+  .aboutPage .slide.fade-bounce-left-exit-done button,
+  .aboutPage .slide.fade-bounce-left-exit-done a {
+    opacity: 0;
+    visibility: hidden;
+    display: none !important;
   }
 }

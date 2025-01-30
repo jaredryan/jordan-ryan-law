@@ -1,1 +1,1 @@
-export const transformTextToUrlParams = (text: string) => text.toLowerCase().split(' ').join('-')
+export const transformTextToUrlParams = (text: string) => text.toLowerCase().split(' ').join('-').replace(/,/g, "");

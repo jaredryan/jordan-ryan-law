@@ -14,7 +14,7 @@ import { transformTextToUrlParams } from '@/app/lib/utils'
 import '@/app/ui/expertise-carousel.css';
 
 function BlankArrow(_props: any) {
-    return <div style={{ display: "none" }} />
+    return <></>
 }
 
 export default function Carousel() {

@@ -84,6 +84,10 @@ nav .barsContainer {
     cursor: pointer;
   }
 
+  nav button.barsContainer {
+    background-color: var(--navbar-background-color);
+  }
+
   nav .barsContainer:hover,
   nav .barsContainer:focus-visible,
   nav .barsContainer.open {

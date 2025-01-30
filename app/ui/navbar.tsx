@@ -87,7 +87,7 @@ export default function Navbar() {
             );
           })}
         </ul>
-        <div onClick={() => setIsOpen(!isOpen)} className={`barsContainer ${isOpen ? "open" : "closed"}`}>
+        <button onClick={() => setIsOpen(!isOpen)} className={`barsContainer ${isOpen ? "open" : "closed"}`}>
           <div ref={barsRef} className="barsIconContainer">
             <FontAwesomeIcon icon={faBars} />
           </div>
@@ -107,7 +107,7 @@ export default function Navbar() {
                 })}
               </ul>
           </CSSTransition>
-        </div>
+        </button>
       </div>
     </nav>
   );

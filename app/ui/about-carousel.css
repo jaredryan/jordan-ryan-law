@@ -8,6 +8,7 @@
     align-items: stretch;
     margin-right: 36px;
     padding-left: 0;
+    gap: 1px;
 }
 
 .carouselComponent.aboutCarousel .slick-list {
@@ -25,7 +26,7 @@
 
 .carouselComponent.aboutCarousel > div {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .tab,
@@ -66,6 +67,10 @@
 .carouselComponent.aboutCarousel ul.customThumbnails li {
   padding: 0;
   width: 300px;
+}
+
+.carouselComponent.aboutCarousel .customThumbnails .neverChosen {
+  margin-bottom: 1px;
 }
 
 .carouselComponent.aboutCarousel .customThumbnails .slick-active .tab:not(.neverChosen) {
@@ -143,12 +148,12 @@
 }
 
 .carouselComponent.aboutCarousel .backIconContainer.top {
-  left: 0;
+  left: 1px;
   top: -30px;
 }
 
 .carouselComponent.aboutCarousel .backIconContainer.bottom {
-  left: 0;
+  left: 1px;
   bottom: -20px;
   transform: translateY(100%);
 }
@@ -180,11 +185,6 @@
   max-width: 450px;
 }
 
-.carouselComponent.aboutCarousel .fade-bounce-left-exit-done {
-  visibility: visible;
-  opacity: 1;
-}
-
 @media (max-width: 850px) {
   .carouselComponent.aboutCarousel .customThumbnails {
     display: flex !important;
@@ -204,6 +204,12 @@
 
   .carouselComponent.aboutCarousel .slideFalse .slick-list {
     visibility: visible;
+  }
+
+  .carouselComponent.aboutCarousel .slick-slide:not(.slick-active),
+  .carouselComponent.aboutCarousel .slick-slide:not(.slick-active) button,
+  .carouselComponent.aboutCarousel .slick-slide:not(.slick-active) a {
+    visibility: hidden;
   }
 
   .carouselComponent.aboutCarousel .slide {

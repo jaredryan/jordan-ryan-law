@@ -90,7 +90,7 @@ const allSections = sectionHeaders.slice()
 sectionHeaders.splice(4, 1)
 
 function BlankArrow(_props: any) {
-    return <div style={{ display: "none" }} />
+    return <></>
 }
 
 const renderSideNavItem = (
@@ -118,18 +118,22 @@ const renderSideNavItem = (
         timeout={1000}
         classNames="fade-bounce-down"
       >
-        <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
-          <div className="icon">{icon}</div>
-          <p>{title}</p>
-        </button>
+        <div>
+          <button className={`tab ${className}`} ref={nodeRef} onClick={toggleSlide}>
+            <div className="icon">{icon}</div>
+            <p>{title}</p>
+          </button>
+        </div>
       </CSSTransition>
     )
   } else {
     tab = (
-      <button className="tab" onClick={toggleSlide}>
-        <div className="icon">{icon}</div>
-        <p>{title}</p>
-      </button>
+      <div>
+        <button className="tab" onClick={toggleSlide}>
+          <div className="icon">{icon}</div>
+          <p>{title}</p>
+        </button>
+      </div>
     )
   }
 
@@ -272,16 +276,26 @@ export default function Carousel() {
 
   const GoBackArrow = (location: 'top' | 'bottom' = 'top') => location === 'top'
     ? (
-      <div className={`backIconContainer ${location}`} onClick={() => setSlide('loading')}>
+      <button
+        className={`backIconContainer ${location}`}
+        onClick={() => setSlide('loading')}
+      >
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
         <span>See Menu</span>
-      </div>
+      </button>
     )
     : (
-      <a className={`backIconContainer ${location}`} onClick={() => setTimeout(() => setSlide('loading'), 750)} href="#topic-menu">
+      <button
+        className={`backIconContainer ${location}`}
+        onClick={() => {
+          setTimeout(() => setSlide('loading'), 750)
+          const element = document.getElementById('topic-menu')
+          element?.scrollIntoView({ behavior: 'smooth' })
+        }}
+      >
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} />
         <span>See Menu</span>
-      </a>
+      </button>
     )
 
   useEffect(() => {
@@ -356,7 +370,6 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay2}>
             {GoBackArrow()}
-            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[2].title}</h3>
             <ul className="ratingsAndDesignationsContainer">
               {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
@@ -368,6 +381,7 @@ export default function Carousel() {
                 </li>
               ))}
             </ul>
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
           <CSSTransition 
@@ -379,7 +393,6 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay4}>
             {GoBackArrow()}
-            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[3].title}</h3>
             <ul className="experienceContainer">
               {russKRyanPriorExperience.map(experience => (
@@ -388,6 +401,7 @@ export default function Carousel() {
                 </li>
               ))}
             </ul>      
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
           {/* <CSSTransition 
@@ -431,14 +445,14 @@ export default function Carousel() {
             classNames="fade-bounce-left"
             onExited={() => setSlide(true)}
           >
-          <div className="slide" ref={nodeRefSlideDisplay5}>
-            {GoBackArrow('bottom')}
-            {GoBackArrow()}
-            <h3>{sectionHeaders[4].title}</h3>
-            <div className="expertiseContainer">
-              {mapExpertise(russKRyanExpertise[0])}
+            <div className="slide" ref={nodeRefSlideDisplay5}>
+              {GoBackArrow()}
+              <h3>{sectionHeaders[4].title}</h3>
+              <div className="expertiseContainer">
+                {mapExpertise(russKRyanExpertise[0])}
+              </div>
+              {GoBackArrow('bottom')}
             </div>
-          </div>
           </CSSTransition>
           <CSSTransition 
             nodeRef={nodeRefSlideDisplay6}
@@ -448,12 +462,12 @@ export default function Carousel() {
             onExited={() => setSlide(true)}
           >
           <div className="slide" ref={nodeRefSlideDisplay6}>
-            {GoBackArrow('bottom')}
             {GoBackArrow()}
             <h3>{sectionHeaders[5].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[1])}
             </div>
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
           <CSSTransition 
@@ -480,11 +494,11 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay8}>
             {GoBackArrow()}
-            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[7].title}</h3>
             <div className="expertiseContainer">
               {mapExpertise(russKRyanExpertise[3])}
             </div>
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
           <CSSTransition 
@@ -496,7 +510,6 @@ export default function Carousel() {
           >
           <div className="slide" ref={nodeRefSlideDisplay9}>
             {GoBackArrow()}
-            {GoBackArrow('bottom')}
             <h3>{sectionHeaders[8].title}</h3>
             <ul className="affiliationsContainer">
               {russKRyanAffiliations.map(affiliation => (
@@ -508,6 +521,7 @@ export default function Carousel() {
                 </li>
               ))}
             </ul>
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
           <CSSTransition 
@@ -537,7 +551,6 @@ export default function Carousel() {
             onExited={() => setSlide(true)}
           >
           <div className="slide" ref={nodeRefSlideDisplay11}>
-            {GoBackArrow('bottom')}
             {GoBackArrow()}
             <h3>{sectionHeaders[10].title}</h3>
             <h4>Present</h4>
@@ -562,6 +575,7 @@ export default function Carousel() {
                 </li>
               ))}
             </ul>
+            {GoBackArrow('bottom')}
           </div>
           </CSSTransition>
         </Slider>
