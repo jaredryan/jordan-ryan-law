@@ -468,7 +468,7 @@ export default function Carousel() {
       const topicMenu = document.getElementById('topic-menu')
       topicMenu?.scrollIntoView({ behavior: 'smooth' })
 
-      const topicButton = document.getElementById(initialSlideTopic)
+      const topicButton = document.getElementById(`tab-${initialSlideTopic}`)
       topicButton?.click()
     }
 
