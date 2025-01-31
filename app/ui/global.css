@@ -243,47 +243,47 @@ main {
 }
 
 @media (max-width: 850px) {
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter {
       opacity: 0;
       visibility: visible !important;
       transform: translateX(-30%);
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-active {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter-active {
       opacity: 1;
       transform: translateX(0);
       transition: 1000ms ease;
       visibility: visible !important;
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-enter-done {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter-done {
       opacity: 1;
       transform: translateX(0);
       visibility: visible !important;
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit {
       opacity: 1;
       transform: translateX(0%);
       visibility: visible !important;
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-active {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-active {
       opacity: 0;
       transform: translateX(-30%);
       transition: 1000ms ease;
       visibility: visible !important;
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done {
       opacity: 0;
       transform: translateX(-30%);
       visibility: hidden;
       display: none !important;
   }
 
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done a,
-  .aboutPage .carouselComponent.aboutCarousel .customThumbnails.fade-bounce-left-exit-done button {
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done a,
+  .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done button {
       opacity: 0;
       visibility: hidden;
       display: none !important;

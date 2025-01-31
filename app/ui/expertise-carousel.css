@@ -2,7 +2,7 @@
   scroll-margin: 100px;
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails {
+.carouselComponent.expertiseCarousel .customTabs {
     display: flex !important;
     flex-direction: column;
     align-items: flex-start;
@@ -11,7 +11,7 @@
 }
 
 @media (max-width: 1075px) {
-  .carouselComponent.expertiseCarousel .customThumbnails {
+  .carouselComponent.expertiseCarousel .customTabs {
     margin-right: 24px;
   }
 }
@@ -21,7 +21,7 @@
     flex-direction: row;
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails .tab {
+.carouselComponent.expertiseCarousel .customTabs .tab {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -35,12 +35,12 @@
     width: 100%;
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails .slick-active .tab {
+.carouselComponent.expertiseCarousel .customTabs .slick-active .tab {
     border: 2px solid var(--primary-color) !important;
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails .tab:hover,
-.carouselComponent.expertiseCarousel .customThumbnails .tab:focus-visible {
+.carouselComponent.expertiseCarousel .customTabs .tab:hover,
+.carouselComponent.expertiseCarousel .customTabs .tab:focus-visible {
     background-color: var(--accent-color);
     border: 2px solid var(--accent-color);
     transition: 500ms ease;
@@ -63,7 +63,7 @@
   color: var(--primary-color);
 }
 
-.carouselComponent.expertiseCarousel .customThumbnails p {
+.carouselComponent.expertiseCarousel .customTabs p {
     padding-top: 0 !important;
     font-weight: 500;
     line-height: normal !important;
@@ -81,19 +81,19 @@
     gap: 30px;
   }
 
-  .carouselComponent.expertiseCarousel .customThumbnails {
+  .carouselComponent.expertiseCarousel .customTabs {
     margin-right: 0;
     display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }
 
-  .carouselComponent.expertiseCarousel .customThumbnails li {
+  .carouselComponent.expertiseCarousel .customTabs li {
     width: 100%;
     height: 100%;
   }
 
-  .carouselComponent.expertiseCarousel .customThumbnails li a {
+  .carouselComponent.expertiseCarousel .customTabs li a {
     height: 100%;
   }
 
@@ -103,7 +103,7 @@
 }
 
 @media (max-width: 550px) {
-  .carouselComponent.expertiseCarousel .customThumbnails {
+  .carouselComponent.expertiseCarousel .customTabs {
     display: flex !important;
   }
 }

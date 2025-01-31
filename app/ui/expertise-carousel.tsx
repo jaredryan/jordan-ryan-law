@@ -51,7 +51,7 @@ export default function Carousel() {
     fade: true,
     speed: 1000,
     appendDots: (dots: any) => (
-      <ul className="customThumbnails" role="tablist" aria-orientation="vertical">
+      <ul className="customTabs" role="tablist" aria-orientation="vertical">
         {dots}
       </ul>
     ),

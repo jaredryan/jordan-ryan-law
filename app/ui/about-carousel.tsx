@@ -256,13 +256,13 @@ const renderSideNavItem = (
         timeout={1000}
         classNames="fade-bounce-down"
       >
-        <div>
+        <div role="presentation">
           {/* @ts-ignore */}
           <button
             className={`tab ${className}`}
             ref={nodeRef}
             onClick={toggleSlide}
-            aria-hidden={!expanded}
+            hidden={!expanded}
             {...commonProps}
           >
             <div className="icon" aria-hidden="true">{icon}</div>
@@ -273,7 +273,7 @@ const renderSideNavItem = (
     )
   } else {
     tab = (
-      <div>
+      <div role="presentation">
         {/* @ts-ignore */}
         <button className="tab" onClick={toggleSlide} {...commonProps}>
           <div className="icon" aria-hidden="true">{icon}</div>
@@ -290,7 +290,7 @@ const renderSideNavItem = (
   const experienceSection = allSections[4]
 
   return (
-    <div>
+    <div role="presentation">
       <button
         className="tab neverChosen"
         onClick={(e) => { 
@@ -395,7 +395,7 @@ export default function Carousel() {
         expanded === 'true',
         toggleExpanded,
         topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
-        () => setSlide('loading'),
+        () => window.innerWidth < 850 && setSlide('loading'),
         topic,
         i
       )
@@ -406,7 +406,7 @@ export default function Carousel() {
     slidesToScroll: 1,
     fade: true,
     speed: 1000,
-    // dotsClass: "customThumbnails",
+    // dotsClass: "customTabs",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
     appendDots: (dots: ReactNode) => (
@@ -415,9 +415,16 @@ export default function Carousel() {
         in={slide === false}
         timeout={1000}
         classNames="fade-bounce-left"
-        onExited={() => setSlide(true)}
+        onExited={() => window.innerWidth < 850 && setSlide(true)}
       >
-        <ul className="customThumbnails" ref={nodeRefSlideMenu} role="tablist" aria-orientation="vertical">
+        <ul
+          className="customTabs"
+          ref={nodeRefSlideMenu}
+          role="tablist"
+          aria-orientation="vertical"
+          id="custom-tabs"
+          hidden={slide === true}
+        >
           {dots}
         </ul>
       </CSSTransition>
@@ -443,6 +450,9 @@ export default function Carousel() {
           setSlide('loading')
           setTopic(null)
         }}
+        aria-controls="custom-tabs"
+        aria-expanded={slide === false ? 'true' : 'false'}
+        aria-haspopup="menu"
       >
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} aria-hidden="true" />
         <span>See Menu</span>
@@ -457,6 +467,9 @@ export default function Carousel() {
           const element = document.getElementById('topic-menu')
           element?.scrollIntoView({ behavior: 'smooth' })
         }}
+        aria-controls="custom-tabs"
+        aria-expanded={slide === false ? 'true' : 'false'}
+        aria-haspopup="menu"
       >
         <FontAwesomeIcon className="icon" icon={faCircleArrowLeft} aria-hidden="true" />
         <span>See Menu</span>
@@ -500,7 +513,7 @@ export default function Carousel() {
         if (e.key === 'ArrowDown') {
           currentIndex += 1
 
-          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('aria-hidden') === 'true') {
+          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('hidden') !== null) {
             currentIndex += 1
           }
 
@@ -510,7 +523,7 @@ export default function Carousel() {
         } else if (e.key === 'ArrowUp') {
           currentIndex -= 1
 
-          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('aria-hidden') === 'true') {
+          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('hidden') !== null) {
             currentIndex -= 1
           }
 

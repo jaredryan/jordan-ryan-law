@@ -55,14 +55,15 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <nav>
-      <div className="pagePadding">
-        <div className='home'>
+    <nav role="menubar">
+      <div className="pagePadding" role="presentation">
+        <div className='home' role="presentation">
           <Link
             key={homeLink.name}
             href={homeLink.href}
             className={`homeLink${pathname === homeLink.href ? ' highlighted' : ''}`}
             aria-label="Ryan Legal, PC home"
+            role="menuitem"
           >
             <Image
               src={logoWhite}
@@ -75,13 +76,14 @@ export default function Navbar() {
             Ryan Legal, PC
           </Link>
         </div>
-        <ul className="desktopMenu">  
+        <ul className="desktopMenu" role="presentation">  
           {links.map((link) => {
             return (
-              <li key={link.name}>
+              <li key={link.name} role="presentation">
                 <Link                
                   href={link.href}
                   className={`${pathname === link.href ? 'highlighted' : ''}`}
+                  role="menuitem"
                 >
                   {link.name}
                 </Link>
@@ -102,13 +104,14 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faBars} aria-hidden="true" />
           </button>
           <CSSTransition nodeRef={nodeRef} in={isOpen} mountOnEnter unmountOnExit timeout={500} classNames="fade-bounce-down">
-              <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`} id="link-menu">
+              <ul ref={nodeRef} className={`dropdownContent ${isOpen ? "open" : "closed"}`} id="link-menu" role="menu">
                 {links.map((link) => {
                   return (
-                    <li key={link.name}>
+                    <li key={link.name} role="presentation">
                       <Link
                         href={link.href}
                         className={`${pathname === link.href ? 'highlighted' : ''}`}
+                        role="menuitem"
                       >
                         {link.name}
                       </Link>
