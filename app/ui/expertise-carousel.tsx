@@ -34,7 +34,7 @@ export default function Carousel() {
             role="tab"
             aria-controls={`tabpanel-${transformedName}`}
             id={`tab-${transformedName}`}
-            aria-selected={topic === transformedName || (!topic && i === 0)
+            aria-selected={(topic === transformedName || (!topic && i === 0))
               ? 'true'
               : 'false'
             }
@@ -139,7 +139,7 @@ export default function Carousel() {
             id: `tabpanel-${transformedName}`,
           }
 
-          if (topic === transformedName) {
+          if (topic !== transformedName) {
             // @ts-ignore
             tabSettings.hidden = true
           }

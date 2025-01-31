@@ -42,52 +42,178 @@ import {
 import '@/app/ui/about-carousel.css';
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
-const subSectionHeaders = [
+const subSections = [
   {
     title: 'Employment',
     icon: <FontAwesomeIcon icon={faBriefcase} />,
+    content: (bottomArrow: ReactNode) => <>
+      <div className="expertiseContainer">
+        {mapExpertise(russKRyanExpertise[0])}
+      </div>
+      {bottomArrow}
+    </>,
   }, {
     title: 'Training',
     icon: <FontAwesomeIcon icon={faPersonChalkboard} />,
+    content: (bottomArrow: ReactNode) => <>
+      <div className="expertiseContainer">
+        {mapExpertise(russKRyanExpertise[1])}
+      </div>
+      {bottomArrow}
+    </>,
   }, {
     title: 'Health Care, Business and Real Estate',
     icon: <FontAwesomeIcon icon={faHospital} />,
+    content: () => <>
+      <div className="expertiseContainer">
+        {mapExpertise(russKRyanExpertise[2])}
+      </div>
+    </>,
   }, {
     title: 'Litigation',
     icon: <FontAwesomeIcon icon={faGavel} />,
+    content: (bottomArrow: ReactNode) => <>
+      <div className="expertiseContainer">
+        {mapExpertise(russKRyanExpertise[3])}
+      </div>
+      {bottomArrow}
+    </>,
 }]
 
-const sectionHeaders = [
+const section = [
   {
     title: 'Education',
     icon: <FontAwesomeIcon icon={faGraduationCap} />,
+    content: () => <>
+      <ul className="educationContainer">
+        {russKRyanEducation.map(education => (
+          <li className="education" key={education.institution}>
+            {education.degree} - {education.rank} — {education.institution} — {education.year}
+          </li>
+        ))}
+      </ul>
+    </>,
   }, {
     title: 'Bar and Court Admissions',
     icon: <FontAwesomeIcon icon={faBuildingColumns} />,
+    content: () => <>
+      <h4>Bar Admissions</h4>
+      <ul className="barAdmissionsContainer">
+        {russKRyanBarAdmissions.map(barAdmission => (
+          <li
+            key={barAdmission.state}
+            className="barAdmission"
+          >
+            {barAdmission.state}, {barAdmission.year}
+          </li>
+        ))}
+      </ul>
+      <h4>Court Admissions</h4>
+      <ul className="courtAdmissionsContainer">
+        {russKRyanCourtAdmissions.map(courtAdmission => (
+          <li
+            key={courtAdmission}
+            className="courtAdmission"
+          >
+            {courtAdmission}
+          </li>
+        ))}
+      </ul>   
+    </>,
   }, {
     title: 'Ratings and Designations',
     icon: <FontAwesomeIcon icon={faStar} />,
+    content: (bottomArrow: ReactNode) => <>
+      <ul className="ratingsAndDesignationsContainer">
+        {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
+          <li
+            key={ratingOrDesignation.title}
+            className="ratingOrDesignation"
+          >
+            {ratingOrDesignation.title} — {ratingOrDesignation.years}
+          </li>
+        ))}
+      </ul>
+      {bottomArrow}
+    </>,
   }, {
     title: 'Positions',
     icon: <FontAwesomeIcon icon={faFileLines} />,
+    content: (bottomArrow: ReactNode) => <>
+      <ul className="experienceContainer">
+        {russKRyanPriorExperience.map(experience => (
+          <li className="experience" key={experience.years}>
+            {experience.position} — {experience.institution} — {experience.years}
+          </li>
+        ))}
+      </ul>      
+      {bottomArrow}
+    </>,
   }, {
     title: 'Professional Practice',
     icon: <FontAwesomeIcon icon={faPenFancy} />,
   }, 
-  ...subSectionHeaders,
+  ...subSections,
   {
     title: 'Affiliations',
     icon: <FontAwesomeIcon icon={faPeopleGroup} />,
+    content: (bottomArrow: ReactNode) => <>
+      <ul className="affiliationsContainer">
+        {russKRyanAffiliations.map(affiliation => (
+          <li
+            key={affiliation}
+            className="affiliation"
+          >
+            {affiliation}
+          </li>
+        ))}
+      </ul>
+      {bottomArrow}
+    </>,
   }, {
     title: 'Public and Community Service',
     icon: <FontAwesomeIcon icon={faPeopleCarryBox} />,
+    content: () => <>
+      <ul className="serviceContainer">
+        {russKRyanPublicAndCommunityService.map(service => (
+          <li className="service" key={service.years}>
+            {service.position} — {service.institution} — {service.years}
+          </li>
+        ))}
+      </ul>
+    </>,
   }, {
     title: 'Clients',
     icon: <FontAwesomeIcon icon={faHandshakeSimple} />,
+    content: (bottomArrow: ReactNode) => <>
+      <h4>Present</h4>
+      <ul className="clientsContainer past">
+        {russKRyanClients.current.map(client => (
+          <li
+            key={client}
+            className="client"
+          >
+            {client}
+          </li>
+        ))}
+      </ul>
+      <h4>Past</h4>
+      <ul className="clientsContainer present">
+        {russKRyanClients.past.map(client => (
+          <li
+            key={client}
+            className="client"
+          >
+            {client}
+          </li>
+        ))}
+      </ul>
+      {bottomArrow}
+    </>,
 }]
 
-const allSections = sectionHeaders.slice()
-sectionHeaders.splice(4, 1)
+const allSections = section.slice()
+section.splice(4, 1)
 
 function BlankArrow(_props: any) {
     return <></>
@@ -99,14 +225,26 @@ const renderSideNavItem = (
   toggleExpanded: () => void,
   nodeRef: RefObject<null> | null,
   toggleSlide: () => void,
+  topic: string | null,
+  index: number
 ) => {
   let tab
   let className
 
   const title = header.title
+  const transformedTitle = transformTextToUrlParams(title)
   const icon = header.icon
 
-  if (subSectionHeaders.map(thisHeader => thisHeader.title).includes(title)) {
+  const commonProps = {
+    role: "tab",
+    'aria-controls': `tabpanel-${transformedTitle}`,
+    id: `tab-${transformedTitle}`,
+    'aria-selected': (topic === transformedTitle || (!topic && index === 0))
+      ? 'true'
+      : 'false'
+  }
+
+  if (subSections.map(thisHeader => thisHeader.title).includes(title)) {
     className = !expanded
       ? 'hidden'
       : 'nested'
@@ -119,12 +257,13 @@ const renderSideNavItem = (
         classNames="fade-bounce-down"
       >
         <div>
+          {/* @ts-ignore */}
           <button
             className={`tab ${className}`}
             ref={nodeRef}
             onClick={toggleSlide}
-            id={transformTextToUrlParams(title)}
             aria-hidden={!expanded}
+            {...commonProps}
           >
             <div className="icon" aria-hidden="true">{icon}</div>
             <p>{title}</p>
@@ -135,7 +274,8 @@ const renderSideNavItem = (
   } else {
     tab = (
       <div>
-        <button className="tab" onClick={toggleSlide} id={transformTextToUrlParams(title)}>
+        {/* @ts-ignore */}
+        <button className="tab" onClick={toggleSlide} {...commonProps}>
           <div className="icon" aria-hidden="true">{icon}</div>
           <p>{title}</p>
         </button>
@@ -158,8 +298,9 @@ const renderSideNavItem = (
           e.stopPropagation()
         }}
         aria-expanded={expanded ? 'true' : 'false'}
-        aria-label='Menu for Professional Practice topics'
-        aria-controls={subSectionHeaders.map(header => transformTextToUrlParams(header.title)).join(' ')}
+        aria-label={`${expanded ? 'Close' : 'Open'} menu for Professional Practice topics`}
+        aria-controls={subSections.map(header => transformTextToUrlParams(header.title)).join(' ')}
+        aria-haspopup="menu"
       >
         <div className="icon" aria-hidden="true">{experienceSection.icon}</div>
         <p>{experienceSection.title}</p>
@@ -226,21 +367,37 @@ export default function Carousel() {
 
   const toggleExpanded = () => setExpanded(expanded === 'true' ? 'false' : 'true')
 
-  const nodeRefs = {
+  const topicMenuNodeRefs = {
     '4': nodeRef5,
     '5': nodeRef6,
     '6': nodeRef7,
     '7': nodeRef8,
   }
+
+  const slideNodeRefs = [
+    nodeRefSlideDisplay0,
+    nodeRefSlideDisplay1,
+    nodeRefSlideDisplay2,
+    nodeRefSlideDisplay4,
+    nodeRefSlideDisplay5,
+    nodeRefSlideDisplay6,
+    nodeRefSlideDisplay7,
+    nodeRefSlideDisplay8,
+    nodeRefSlideDisplay9,
+    nodeRefSlideDisplay10,
+    nodeRefSlideDisplay11,
+  ]
   
   const settings = {
     customPaging: function(i: number) {
       return renderSideNavItem(
-        sectionHeaders[i],
+        section[i],
         expanded === 'true',
         toggleExpanded,
-        nodeRefs[i.toString() as keyof typeof nodeRefs] || null,
-        () => setSlide('loading')
+        topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
+        () => setSlide('loading'),
+        topic,
+        i
       )
     },
     dots: true,
@@ -260,17 +417,17 @@ export default function Carousel() {
         classNames="fade-bounce-left"
         onExited={() => setSlide(true)}
       >
-        <ul className="customThumbnails" ref={nodeRefSlideMenu}>
+        <ul className="customThumbnails" ref={nodeRefSlideMenu} role="tablist" aria-orientation="vertical">
           {dots}
         </ul>
       </CSSTransition>
     ),
     beforeChange: (_current: number, next: number) =>
-      setTopic(transformTextToUrlParams(sectionHeaders[next].title)),
+      setTopic(transformTextToUrlParams(section[next].title)),
   }
 
   if (initialSlideTopic) {
-    const initialSlideIndex = sectionHeaders
+    const initialSlideIndex = section
       .findIndex(sectionHeader => 
         transformTextToUrlParams(sectionHeader.title) === topic
       )
@@ -314,290 +471,100 @@ export default function Carousel() {
       const topicButton = document.getElementById(initialSlideTopic)
       topicButton?.click()
     }
+
     if (initialExpanded === 'true' ||
-        (initialSlideTopic && subSectionHeaders.some(header => 
+        (initialSlideTopic && subSections.some(header => 
           transformTextToUrlParams(header.title) === initialSlideTopic
         ))
     ) {
       setExpanded('true')
     }
+
+    const tabList = document.querySelector('[role="tablist"]')
+    const tabs = document.querySelectorAll('.tab')
+
+    const handleArrowNavigation = (e: { key: string }) => {
+      const activeElement = document.activeElement
+
+      let currentIndex = 0
+      for (let i = 0; i < tabs.length; i++) {
+        const tab = tabs[i]
+        if (tab === activeElement) {
+          currentIndex = i
+        }
+      }
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (e.key === 'ArrowDown') {
+          currentIndex += 1
+
+          if (currentIndex >= tabs.length) {
+            currentIndex = 0
+          }
+        } else if (e.key === 'ArrowUp') {
+          currentIndex -= 1
+
+          if (currentIndex < 0) {
+            currentIndex = tabs.length - 1
+          }
+        }
+        
+        // @ts-ignore
+        tabs[currentIndex].focus();
+        // @ts-ignore
+        e.preventDefault()
+      }
+    }
+
+    // @ts-ignore
+    tabList.addEventListener('keydown', handleArrowNavigation)
+
+    return () => {
+      // @ts-ignore
+      tabList.removeEventListener('keydown', handleArrowNavigation)
+    }
   }, []);
 
   return (
-    <div className="aboutCarousel carouselComponent" ref={componentRef}>
+    <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay0}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-            <div className="slide" ref={nodeRefSlideDisplay0}>
-              {GoBackArrow()}
-              <h3>{sectionHeaders[0].title}</h3>
-              <ul className="educationContainer">
-                {russKRyanEducation.map(education => (
-                  <li className="education" key={education.institution}>
-                    {education.degree} - {education.rank} — {education.institution} — {education.year}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay1}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay1}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[1].title}</h3>
-            <h4>Bar Admissions</h4>
-            <ul className="barAdmissionsContainer">
-              {russKRyanBarAdmissions.map(barAdmission => (
-                <li
-                  key={barAdmission.state}
-                  className="barAdmission"
-                >
-                  {barAdmission.state}, {barAdmission.year}
-                </li>
-              ))}
-            </ul>
-            <h4>Court Admissions</h4>
-            <ul className="courtAdmissionsContainer">
-              {russKRyanCourtAdmissions.map(courtAdmission => (
-                <li
-                  key={courtAdmission}
-                  className="courtAdmission"
-                >
-                  {courtAdmission}
-                </li>
-              ))}
-            </ul>            
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay2}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay2}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[2].title}</h3>
-            <ul className="ratingsAndDesignationsContainer">
-              {russKRyanRatingsAndDesignations.map(ratingOrDesignation => (
-                <li
-                  key={ratingOrDesignation.title}
-                  className="ratingOrDesignation"
-                >
-                  {ratingOrDesignation.title} — {ratingOrDesignation.years}
-                </li>
-              ))}
-            </ul>
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay4}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay4}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[3].title}</h3>
-            <ul className="experienceContainer">
-              {russKRyanPriorExperience.map(experience => (
-                <li className="experience" key={experience.years}>
-                  {experience.position} — {experience.institution} — {experience.years}
-                </li>
-              ))}
-            </ul>      
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
-          {/* <CSSTransition 
-            nodeRef={nodeRefSlideDisplay}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay}>
-            <h3>{sectionHeaders[8].title}</h3>
-            <div className="expertiseContainer">
-              {russKRyanExpertise.map(expertise => (
-                <div className="expertise" key={expertise.name}>
-                  <h4>{expertise.name}</h4>
-                  <div className="expertiseContentContainer">
-                    {expertise.content.map(paragraphOrList => (
-                      typeof paragraphOrList == 'string' 
-                        ? <p key={paragraphOrList}>{paragraphOrList}</p>
-                        : <ul key={typeof paragraphOrList[0] === 'string' ? paragraphOrList[0] : paragraphOrList[0].title}>
-                          {paragraphOrList.map(item => (
-                            typeof item === 'string'
-                              ? <li key={item}>{item}</li>
-                              : <li key={item.title}>
-                                  {item.title}
-                                  <ul className="nested"><li key={item.content}>{item.content}</li></ul>
-                                </li>
-                          ))}
-                        </ul>
-                    ))}
-                  </div>
+          {section.map((section, index) => {
+            const nodeRef = slideNodeRefs[index]
+
+            const transformedTitle = transformTextToUrlParams(section.title)
+
+            const tabSettings = {
+              className: "slide",
+              role: "tabpanel",
+              'aria-labelledby': `tab-${transformedTitle}`,
+              id: `tabpanel-${transformedTitle}`,
+              ref: nodeRef
+            }
+
+            if (topic !== transformedTitle) {
+              // @ts-ignore
+              tabSettings.hidden = true
+            }
+
+            return (
+              <CSSTransition 
+                nodeRef={nodeRef}
+                in={slide === true}
+                timeout={1000}
+                classNames="fade-bounce-left"
+                onExited={() => setSlide(false)}
+                key={transformedTitle}
+              >
+                <div {...tabSettings}>
+                  {GoBackArrow()}
+                  <h3>{section.title}</h3>
+                  {/* @ts-ignore */}
+                  {section.content(GoBackArrow('bottom'))}
                 </div>
-              ))}
-            </div>
-          </div>
-          </CSSTransition> */}
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay5}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-            <div className="slide" ref={nodeRefSlideDisplay5}>
-              {GoBackArrow()}
-              <h3>{sectionHeaders[4].title}</h3>
-              <div className="expertiseContainer">
-                {mapExpertise(russKRyanExpertise[0])}
-              </div>
-              {GoBackArrow('bottom')}
-            </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay6}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay6}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[5].title}</h3>
-            <div className="expertiseContainer">
-              {mapExpertise(russKRyanExpertise[1])}
-            </div>
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay7}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay7}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[6].title}</h3>
-            <div className="expertiseContainer">
-              {mapExpertise(russKRyanExpertise[2])}
-            </div>
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay8}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay8}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[7].title}</h3>
-            <div className="expertiseContainer">
-              {mapExpertise(russKRyanExpertise[3])}
-            </div>
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay9}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay9}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[8].title}</h3>
-            <ul className="affiliationsContainer">
-              {russKRyanAffiliations.map(affiliation => (
-                <li
-                  key={affiliation}
-                  className="affiliation"
-                >
-                  {affiliation}
-                </li>
-              ))}
-            </ul>
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
-          <CSSTransition 
-            nodeRef={nodeRefSlideDisplay10}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay10}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[9].title}</h3>
-            <ul className="serviceContainer">
-              {russKRyanPublicAndCommunityService.map(service => (
-                <li className="service" key={service.years}>
-                  {service.position} — {service.institution} — {service.years}
-                </li>
-              ))}
-            </ul>
-          </div>
-          </CSSTransition>
-          <CSSTransition
-            nodeRef={nodeRefSlideDisplay11}
-            in={slide === true}
-            timeout={1000}
-            classNames="fade-bounce-left"
-            onExited={() => setSlide(false)}
-          >
-          <div className="slide" ref={nodeRefSlideDisplay11}>
-            {GoBackArrow()}
-            <h3>{sectionHeaders[10].title}</h3>
-            <h4>Present</h4>
-            <ul className="clientsContainer past">
-              {russKRyanClients.current.map(client => (
-                <li
-                  key={client}
-                  className="client"
-                >
-                  {client}
-                </li>
-              ))}
-            </ul>
-            <h4>Past</h4>
-            <ul className="clientsContainer present">
-              {russKRyanClients.past.map(client => (
-                <li
-                  key={client}
-                  className="client"
-                >
-                  {client}
-                </li>
-              ))}
-            </ul>
-            {GoBackArrow('bottom')}
-          </div>
-          </CSSTransition>
+              </CSSTransition>
+            )
+          })}
         </Slider>
-      
     </div>
   )
 }
