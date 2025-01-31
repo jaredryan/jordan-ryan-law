@@ -347,7 +347,6 @@ export default function Carousel() {
   const [topic, setTopic] = useQueryState('topic')
   const [expanded, setExpanded] = useQueryState('expanded', { defaultValue: 'false' })
   const [slide, setSlide] = useState<boolean | string>(false)
-  const [windowWidth, setWindowWidth] = useState<number>(window?.innerWidth || 0);
 
   const nodeRef5 = useRef(null);
   const nodeRef6 = useRef(null);
@@ -396,7 +395,7 @@ export default function Carousel() {
         expanded === 'true',
         toggleExpanded,
         topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
-        () => windowWidth < 850 && setSlide('loading'),
+        () => window.innerWidth < 850 && setSlide('loading'),
         topic,
         i
       )
@@ -405,8 +404,8 @@ export default function Carousel() {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    speed: 1000,
     fade: true,
-    speed: windowWidth < 850 ? 1 : 1000,
     // dotsClass: "customTabs",
     nextArrow: <BlankArrow />,
     prevArrow: <BlankArrow />,
@@ -416,7 +415,7 @@ export default function Carousel() {
         in={slide === false}
         timeout={1000}
         classNames="fade-bounce-left"
-        onExited={() => windowWidth < 850 && setSlide(true)}
+        onExited={() => window.innerWidth < 850 && setSlide(true)}
       >
         <ul
           className="customTabs"
@@ -492,14 +491,6 @@ export default function Carousel() {
         ))
     ) {
       setExpanded('true')
-    }
-
-    const handleResize = () => setWindowWidth(window.innerWidth);
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
     }
   }, [])
 
@@ -582,6 +573,7 @@ export default function Carousel() {
               <CSSTransition 
                 nodeRef={nodeRef}
                 in={slide === true}
+                appear={slide === true}
                 timeout={1000}
                 classNames="fade-bounce-left"
                 onExited={() => setSlide(false)}

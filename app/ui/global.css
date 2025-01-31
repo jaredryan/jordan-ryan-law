@@ -244,96 +244,106 @@ main {
 
 @media (max-width: 850px) {
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter {
-      opacity: 0;
+      opacity: 0 !important;
       visibility: visible !important;
       transform: translateX(-30%);
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter-active {
-      opacity: 1;
-      transform: translateX(0);
-      transition: 1000ms ease;
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      transition: 1000ms ease !important;
       visibility: visible !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter-done {
-      opacity: 1;
-      transform: translateX(0);
+      opacity: 1 !important;
+      transform: translateX(0) !important;
       visibility: visible !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit {
-      opacity: 1;
-      transform: translateX(0%);
+      opacity: 1 !important;
+      transform: translateX(0%) !important;
       visibility: visible !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-active {
-      opacity: 0;
-      transform: translateX(-30%);
-      transition: 1000ms ease;
+      opacity: 0 !important;
+      transform: translateX(-30%) !important;
+      transition: 1000ms ease !important;
       visibility: visible !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done {
-      opacity: 0;
-      transform: translateX(-30%);
-      visibility: hidden;
+      opacity: 0 !important;
+      transform: translateX(-30%) !important;
+      visibility: hidden !important;
       display: none !important;
   }
 
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done a,
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-exit-done button {
-      opacity: 0;
-      visibility: hidden;
+      opacity: 0 !important;
+      visibility: hidden !important;
       display: none !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-enter {
-      opacity: 0;
+  .carouselComponent.aboutCarousel .slick-track,
+  .carouselComponent.aboutCarousel .slick-track * {
+    transition: none !important;
+  }
+
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-enter {
+      opacity: 0 !important;
       visibility: visible !important;
-      transform: translateX(-30%);
+      transform: translateX(-30%) !important;
+      display: inline-block !important;
+      transition: 1000ms ease !important;
+  }
+
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-enter-active {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      transition: 1000ms ease !important;
+      visibility: visible !important;
       display: inline-block !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-enter-active {
-      opacity: 1;
-      transform: translateX(0);
-      transition: 1000ms ease;
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-enter-done {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      transition: 1000ms ease !important;
       visibility: visible !important;
       display: inline-block !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-enter-done {
-      opacity: 1;
-      transform: translateX(0);
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-exit {
+      opacity: 1 !important;
+      transform: translateX(0%) !important;
       visibility: visible !important;
-      display: inline-block !important;
+      transition: 1000ms ease !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-exit {
-      opacity: 1;
-      transform: translateX(0%);
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-exit-active {
+      opacity: 0 !important;
+      transform: translateX(-30%) !important;
+      transition: 1000ms ease !important;
       visibility: visible !important;
+      transition: 1000ms ease !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-exit-active {
-      opacity: 0;
-      transform: translateX(-30%);
-      transition: 1000ms ease;
-      visibility: visible !important;
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-exit-done,
+  .aboutPage .carouselComponent.aboutCarousel .slide {
+      opacity: 0 !important;
+      transform: translateX(-30%) !important;
+      visibility: hidden !important;
   }
 
-  .aboutPage .slide.fade-bounce-left-exit-done {
-      opacity: 0;
-      transform: translateX(-30%);
-      visibility: hidden;
-  }
-
-  .aboutPage .slide.fade-bounce-left-exit-done button,
-  .aboutPage .slide.fade-bounce-left-exit-done a {
-    opacity: 0;
-    visibility: hidden;
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-exit-done button,
+  .aboutPage .carouselComponent.aboutCarousel .slide.fade-bounce-left-exit-done a {
+    opacity: 0 !important;
+    visibility: hidden !important;
     display: none !important;
   }
 }
