@@ -479,7 +479,9 @@ export default function Carousel() {
     ) {
       setExpanded('true')
     }
+  }, [])
 
+  useEffect(() => {
     const tabList = document.querySelector('[role="tablist"]')
     const tabs = document.querySelectorAll('.tab')
 
@@ -498,11 +500,19 @@ export default function Carousel() {
         if (e.key === 'ArrowDown') {
           currentIndex += 1
 
+          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('aria-hidden') === 'true') {
+            currentIndex += 1
+          }
+
           if (currentIndex >= tabs.length) {
             currentIndex = 0
           }
         } else if (e.key === 'ArrowUp') {
           currentIndex -= 1
+
+          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('aria-hidden') === 'true') {
+            currentIndex -= 1
+          }
 
           if (currentIndex < 0) {
             currentIndex = tabs.length - 1
@@ -523,7 +533,7 @@ export default function Carousel() {
       // @ts-ignore
       tabList.removeEventListener('keydown', handleArrowNavigation)
     }
-  }, []);
+  }, [expanded]);
 
   return (
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">

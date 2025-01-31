@@ -99,7 +99,7 @@ export default function ContactUsForm() {
   }
 
   return (
-    <form className="contactUsForm" action={action}>
+    <form className="contactUsForm" action={action} noValidate>
       <div className="inputFields">
         <div className="input" key="name">
           <label htmlFor="name">
@@ -116,6 +116,7 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="name-error"
+            required
           />
           {/* @ts-ignore */}
           {state && state.errors?.name && state.errors.name[0] && !pending &&
@@ -142,6 +143,8 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="phone-error"
+            aria-required="true"
+            required
           />
           {/* @ts-ignore */}
           {state && state.errors?.phone && state.errors.phone[0] && !pending &&
@@ -168,6 +171,8 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="email-error"
+            aria-required="true"
+            required
           />
           {/* @ts-ignore */}
           {state && state.errors?.email && state.errors.email[0] && !pending &&
@@ -194,6 +199,8 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="description-error"
+            aria-required="true"
+            required
           />
           {/* @ts-ignore */}
           {state && state.errors?.description && state.errors.description[0] && !pending &&
