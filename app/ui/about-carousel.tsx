@@ -522,7 +522,7 @@ export default function Carousel() {
         if (e.key === 'ArrowDown') {
           currentIndex += 1
 
-          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('hidden') !== null) {
+          while (tabs[currentIndex] && tabs[currentIndex].hasAttribute('hidden')) {
             currentIndex += 1
           }
 
@@ -532,7 +532,7 @@ export default function Carousel() {
         } else if (e.key === 'ArrowUp') {
           currentIndex -= 1
 
-          while (tabs[currentIndex] && tabs[currentIndex].getAttribute('hidden') !== null) {
+          while (tabs[currentIndex] && tabs[currentIndex].hasAttribute('hidden')) {
             currentIndex -= 1
           }
 
