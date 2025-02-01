@@ -92,7 +92,42 @@ export default function Carousel() {
         }
       }
 
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (window.innerWidth > 550 && window.innerWidth < 850) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+            e.key === 'ArrowRight' || e.key === 'ArrowLeft'
+        ) {
+          if (e.key === 'ArrowDown') {
+            currentIndex += 2
+  
+            if (currentIndex >= tabs.length) {
+              currentIndex = currentIndex - tabs.length
+            }
+          } else if (e.key === 'ArrowUp') {
+            currentIndex -= 2
+  
+            if (currentIndex < 0) {
+              currentIndex = currentIndex + tabs.length
+            }
+          } else if (e.key === 'ArrowRight') {
+            currentIndex += 1
+  
+            if (currentIndex >= tabs.length) {
+              currentIndex = 0
+            }
+          } else if (e.key === 'ArrowLeft') {
+            currentIndex -= 1
+  
+            if (currentIndex < 0) {
+              currentIndex = tabs.length - 1
+            }
+          }
+        }
+  
+        // @ts-ignore
+        tabs[currentIndex].focus();
+        // @ts-ignore
+        e.preventDefault()
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         if (e.key === 'ArrowDown') {
           currentIndex += 1
 
@@ -106,12 +141,12 @@ export default function Carousel() {
             currentIndex = tabs.length - 1
           }
         }
-        
+
         // @ts-ignore
         tabs[currentIndex].focus();
         // @ts-ignore
         e.preventDefault()
-      }
+      }    
     }
 
     // @ts-ignore
