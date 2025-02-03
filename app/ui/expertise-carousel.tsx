@@ -121,12 +121,12 @@ export default function Carousel() {
               currentIndex = tabs.length - 1
             }
           }
+
+          // @ts-ignore
+          tabs[currentIndex].focus();
+          // @ts-ignore
+          e.preventDefault()
         }
-  
-        // @ts-ignore
-        tabs[currentIndex].focus();
-        // @ts-ignore
-        e.preventDefault()
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         if (e.key === 'ArrowDown') {
           currentIndex += 1

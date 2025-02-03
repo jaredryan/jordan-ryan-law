@@ -253,7 +253,7 @@ const renderSideNavItem = (
       <CSSTransition 
         nodeRef={nodeRef}
         in={expanded}
-        timeout={1000}
+        timeout={500}
         classNames="fade-bounce-down"
       >
         <div role="presentation">
@@ -293,7 +293,13 @@ const renderSideNavItem = (
     <div role="presentation">
       <button
         className="tab neverChosen"
-        onClick={(e) => { 
+        onClick={(e) => {
+          if (!expanded) {
+            setTimeout(() => {
+              // @ts-ignore
+              document.querySelector('button.nested')?.focus()
+            }, 100)
+          }
           toggleExpanded()
           e.stopPropagation()
         }}
@@ -395,7 +401,15 @@ export default function Carousel() {
         expanded === 'true',
         toggleExpanded,
         topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
-        () => window.innerWidth < 850 && setSlide('loading'),
+        () => {
+          if (window.innerWidth < 850) {
+            setSlide('loading')
+            setTimeout(() => {
+              // @ts-ignore
+              document.querySelector('div.slick-active').querySelector('button.backIconContainer.top')?.focus()
+            }, 1000 + 100)
+          }
+        },
         topic,
         i
       )
@@ -446,9 +460,12 @@ export default function Carousel() {
     ? (
       <button
         className={`backIconContainer ${location}`}
-        onClick={() => { 
-          setSlide('loading')
+        onClick={() => {
           setTopic(null)
+          setSlide('loading')
+          setTimeout(() => {
+            document.querySelector('li.slick-active')?.querySelector('button')?.focus()
+          }, 1000 + 100)
         }}
         aria-controls="custom-tabs"
         aria-expanded={slide === false ? 'true' : 'false'}
@@ -462,8 +479,14 @@ export default function Carousel() {
       <button
         className={`backIconContainer ${location}`}
         onClick={() => {
-          setTimeout(() => setSlide('loading'), 750)
+          const timeToScroll = 750
+
           setTopic(null)
+          setTimeout(() => setSlide('loading'), timeToScroll)
+          setTimeout(() => {
+            document.querySelector('li.slick-active')?.querySelector('button')?.focus()
+          }, 1000 + 100 + 750)
+
           const element = document.getElementById('topic-menu')
           element?.scrollIntoView({ behavior: 'smooth' })
         }}

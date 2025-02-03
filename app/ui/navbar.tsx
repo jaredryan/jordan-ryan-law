@@ -127,9 +127,6 @@ export default function Navbar() {
         // @ts-ignore
         const mobileLinks = mobileList?.querySelectorAll('[role="menuitem"]')
         const mobileLinksLength = 6
-        // @ts-ignore
-        const mobileMenu = mobileList?.querySelector('[role="menu"]')
-        const mobileMenuItems = mobileMenu?.querySelectorAll('[role="menuitem"]')
 
         const activeElement = document.activeElement
 
@@ -250,7 +247,21 @@ export default function Navbar() {
             ref={barsRef}
             className="barsIconContainer"
             aria-label={`${isOpen ? 'Close' : 'Open'} link menu`}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              const wasOpen = isOpen
+              setIsOpen(!isOpen)
+
+              if (!wasOpen) {
+                setTimeout(() => {
+                  const nav = document.querySelector('[role="menubar"]')
+                  const mobileMenu = nav?.querySelector('[role="menu"]')
+                  const mobileMenuFirstItem = mobileMenu?.querySelector('[role="menuitem"]')
+
+                  // @ts-ignore
+                  mobileMenuFirstItem?.focus()
+                }, 100)
+              }
+            }}
             aria-expanded={isOpen ? 'true' : 'false'}
             aria-controls="link-menu"
             aria-haspopup="menu"
