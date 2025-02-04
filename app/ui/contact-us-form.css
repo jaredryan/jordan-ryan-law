@@ -1,6 +1,7 @@
 .contactUsForm {
     padding: 36px;
     max-width: 1200px;
+    border-radius: 3px;
 }
 
 .contactUsForm,

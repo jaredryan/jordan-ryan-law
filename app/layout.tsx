@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
-import { openSans, prata } from '@/app/ui/fonts';
+import { openSans, charlesSil } from '@/app/ui/fonts';
 import Navbar from '@/app/ui/navbar'
 import Footer from '@/app/ui/footer'
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Ryan Legal" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={`${openSans.variable} ${prata.variable}`}>
+      <body className={`${openSans.variable} ${charlesSil.variable}`}>
         <Navbar />
         <main>
           <NuqsAdapter>

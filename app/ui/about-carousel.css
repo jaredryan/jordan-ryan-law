@@ -35,11 +35,13 @@
   flex-direction: row;
   align-items: center;
   padding: 4px 12px;
-  border: 2px solid var(--background-secondary-color);
   border-radius: 3px;
   cursor: pointer;
   justify-content: flex-start;
+  border: 2px solid var(--background-secondary-color);
   background-color: var(--background-secondary-color);
+  /* border: 2px solid var(--background-primary-color);
+  background-color: var(--background-primary-color); */
 }
 
 .carouselComponent.aboutCarousel .customTabs .tab {

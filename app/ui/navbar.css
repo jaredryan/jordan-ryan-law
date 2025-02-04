@@ -1,11 +1,11 @@
 nav {
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
   width: 100%;
-  background-color: var(--navbar-background-color);
+  background-color: transparent;
   margin: 0;
   justify-content: center;
 }
@@ -15,7 +15,6 @@ nav .pagePadding {
   max-width: 1200px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   padding: 0 85px;
 }
 
@@ -26,11 +25,16 @@ nav li {
 nav a {
   padding: 16px;
   color: var(--navbar-font-color);
+  border-radius: 3px;
 }
 
 nav a.highlighted,
 nav a:hover,
 nav a:focus-visible {
+  background-color: var(--navbar-background-color);
+}
+
+nav a.highlighted:focus-visible {
   background-color: var(--navbar-hover-color);
 }
 
@@ -61,14 +65,31 @@ nav .desktopMenu {
   flex-direction: row;
 }
 
+nav .desktopMenu::before {
+  content: '|';
+  color: var(--navbar-font-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  position: relative;
+  bottom: 2px;
+  width: 2px;
+}
+
 nav .barsContainer {
   display: none;
 }
 
 @media (max-width: 850px) {
   nav .pagePadding {
-    padding-left: 35px !important;
-    padding-right: 35px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    justify-content: space-between;
+  }
+
+  nav .dropdownContent {
+    right: 4px;
   }
 
   nav .desktopMenu {
@@ -83,8 +104,9 @@ nav .barsContainer {
     width: 56px;
   }
 
-  nav .barsContainer button {
-    background-color: var(--navbar-background-color);
+  nav .dropdownContent a:hover,
+  nav .dropdownContent a:focus-visible {
+    background-color: var(--navbar-hover-color);
   }
 
   nav .barsContainer button:hover,
@@ -101,11 +123,11 @@ nav .barsContainer {
   nav .barsIconContainer {
     width: 100%;
     height: 100%;
-    background-color: var(--navbar-background-color);
     padding: 6px 12px;
     cursor: pointer;
     color: var(--navbar-font-color);
     flex: 1;
+    background-color: transparent;
   }
 
   nav .barsIconContainer svg {
@@ -141,12 +163,5 @@ nav .barsContainer {
 }
 
 @media (max-width: 750px) {
-  nav .pagePadding {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  nav .dropdownContent {
-    right: 4px;
-  }
+  
 }

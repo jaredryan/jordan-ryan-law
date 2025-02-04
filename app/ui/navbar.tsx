@@ -8,6 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import '@/app/ui/navbar.css';
 
 import logoWhite from '@/public/logo-white.webp'
+import { homeLink, links } from '@/app/content';
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,28 +27,6 @@ function useWindowWidth() {
 
   return windowWidth;
 }
-
-const homeLink = {
-  name: 'Home',
-  href: '/',
-}
-
-const links = [{
-  name: 'Expertise',
-  href: '/expertise',
-},
-{
-  name: 'About Us',
-  href: '/about'
-},
-{
-  name: 'Contact Us',
-  href: '/contact-us'
-},
-{
-  name: 'Payment',
-  href: '/payment'
-}]
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -224,7 +203,6 @@ export default function Navbar() {
               placeholder="blur"
               aria-hidden="true"
             />
-            Ryan Legal, PC
           </Link>
         </div>
         <ul className="desktopMenu" role="presentation">  

@@ -25,6 +25,8 @@ export default function Page() {
         </div>
       </div>
       <div className="contentSection" id="topic-menu">
+        <h2 className="desktop">Click any topic on the left menu below to learn more.</h2>
+        <h2 className="mobile">Click any topic on the menu below to learn more.</h2>
         <Suspense>
           <ExpertiseCarousel />
         </Suspense>

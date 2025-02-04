@@ -1,10 +1,129 @@
 footer {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   background-color: var(--footer-background-color);
-  color: var(--footer-font-color);
   font-family: var(--font-opensans), Arial, sans-serif;
-  padding: 16px 32px;
+  padding: 36px 0 16px;
+  gap: 36px;
   text-align: center;
   margin: 0;
+}
+
+footer .pagePadding {
+  padding-left: 100px;
+  padding-right: 100px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+footer .pagePadding > *{
+  flex: 1;
+}
+
+footer p,
+footer a,
+footer h2 {
+  color: var(--footer-font-color);
+}
+
+footer .imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 250px;
+}
+
+footer .linksMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+footer .linksMenu a:hover {
+  text-decoration: underline;
+  transition: 500ms ease;
+}
+
+footer a.button {
+  background-color: var(--footer-button-background-color);
+  margin-top: 16px;
+  color: var(--footer-button-color);
+}
+
+footer a.button:hover {
+  background-color: var(--footer-button-hover-background-color);
+  text-decoration: none;
+}
+
+footer .logoTitle {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+}
+
+footer p {
+  padding-top: 16px;
+  border-top: 1px solid var(--footer-font-color);
+  width: fit-content;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+
+footer .contactUsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+}
+
+@media (max-width: 850px) {
+  footer p {
+    width: calc(100% - 32px - 32px);
+  }
+}
+
+@media (max-width: 775px) {
+  footer p {
+    padding-left: 37.5px !important;
+    padding-right: 37.5px !important;
+  }
+
+  footer .linksMenu {
+    min-width: 175px;
+  }
+
+  footer .pagePadding {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 575px) {
+  footer p {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    margin-left: 25px;
+    margin-right: 25px;
+    width: calc(100% - 25px - 25px);
+  }
+}
+
+@media (max-width: 550px) {
+  footer .pagePadding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
 }

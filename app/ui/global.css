@@ -5,11 +5,16 @@
   --navbar-hover-color: #2D3A8F;
   --navbar-font-color: #fff;
   --footer-font-color: #fff;
+  --footer-button-color: #1E275E;
+  --footer-button-background-color: #FDB613;
+  --footer-button-hover-background-color: #FDD577;
   --secondary-color: #3b4147;
-  --footer-background-color: #222222;
+  --footer-background-color: #1E275E;
   --accent-color: #FDB613;
+  --accent-hover-color: #FDD577;
   --background-primary-color: #fff;
   --background-secondary-color: #f7f7f7;
+  --background-accent-color: #E6ECF4;
   --font-primary-color: #333;
   --font-secondary-color: #505050;
   --font-image-color: #fff;
@@ -37,15 +42,19 @@
     --navbar-hover-color: #2D3A8F;
     --navbar-font-color: #fff;
     --footer-font-color: #fff;
+    --footer-button-color: #1E275E;
+    --footer-button-background-color: #FDB613;
+    --footer-button-hover-background-color: #FDD577;
     --secondary-color: #3b4147;
     --footer-background-color: #222222;
     --accent-color: #2D3A8F;
-    --background-primary-color: black;
+    --accent-hover-color: #1E275E;
+    --background-primary-color: #000;
     --background-secondary-color: #333;
     --font-primary-color: white;
     --font-secondary-color: lightgrey;
     --font-image-color: #fff;
-    --font-button-color: black;
+    --font-button-color: #000;
     --button-image-background: #1E275E;
     --button-image-font: #fff;
     --google-maps-color: #77abff;
@@ -84,7 +93,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-prata), Georgia, "Times New Roman", serif;
+  font-family: var(--font-ibm-plex-serif), Georgia, "Times New Roman", serif;
   font-weight: 400;
   margin: 0;
 }
@@ -159,7 +168,6 @@ button:focus-visible,
 main {
   background-color: var(--background-primary-color);
   flex: 1;
-  padding-top: 53.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,14 +181,24 @@ main {
   }
 }
 
+@media (max-width: 850px) {
+  h1 {
+    font-size: 60px !important;
+  }
+}
+
 @media (max-width: 750px) {
+  h1 {
+    font-size: 48px !important;
+  }
+
   .pagePadding {
     padding-left: 37.5px !important;
     padding-right: 37.5px !important;
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575px) {  
   .pagePadding {
     padding-left: 25px !important;
     padding-right: 25px !important;

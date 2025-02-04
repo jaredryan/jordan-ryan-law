@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faLaptop, faFileInvoiceDollar, faGavel, faScaleBalanced, faHandHoldingMedical } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBriefcase, faLaptop, faFileInvoiceDollar,
+  faGavel, faScaleBalanced, faHandHoldingMedical,
+  faPhone, faLocationDot, faEnvelope
+} from '@fortawesome/free-solid-svg-icons'
 
 export const businessName = `Ryan Legal, PC`
 export const businessSlogan = `Premier Representation of Employers, Health Care Providers
@@ -346,3 +350,50 @@ export const russKRyanClients = {
     'Varsity Contractors',
   ]
 }
+
+export const contactCards = [{
+  icon: <FontAwesomeIcon icon={faPhone} />,
+  name: 'Contact Us',
+  content: [
+    'Telephone: (559) 439-4000',
+    'Facsimile: (559) 439-5654',
+    'info@mmwbr.com'
+  ]
+}, {
+  icon: <FontAwesomeIcon icon={faLocationDot} />,
+  name: 'Address',
+  content: [
+    '1690 West Shaw Avenue',
+    'Suite 200',
+    'Fresno, California 93711'
+  ]
+}, {
+  icon: <FontAwesomeIcon icon={faEnvelope} />,
+  name: 'Mail',
+  content: [
+    'Post Office Box 9099',
+    'Fresno, California 93790-9099',
+  ]
+}]
+
+export const homeLink = {
+  name: 'Home',
+  href: '/',
+}
+
+export const links = [{
+  name: 'Expertise',
+  href: '/expertise',
+},
+{
+  name: 'About Us',
+  href: '/about'
+},
+{
+  name: 'Contact Us',
+  href: '/contact-us'
+},
+{
+  name: 'Payment',
+  href: '/payment'
+}]
