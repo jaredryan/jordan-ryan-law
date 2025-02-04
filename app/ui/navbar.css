@@ -88,10 +88,6 @@ nav .barsContainer {
     justify-content: space-between;
   }
 
-  nav .dropdownContent {
-    right: 4px;
-  }
-
   nav .desktopMenu {
     display: none;
   }
@@ -143,8 +139,8 @@ nav .barsContainer {
     text-align: center;
     margin: 0;
     bottom: 0;
+    right: 4px;
     translate: 0 calc(100% + 4px);
-    right: 0;
     background-color: var(--navbar-background-color);
     border-radius: 3px;
     width: 150px;
