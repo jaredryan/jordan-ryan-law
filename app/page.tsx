@@ -42,42 +42,48 @@ export default function Page() {
           </Link>
         </div>
       </div>
-      <div className="contentSection">
-        <Image
-          src={fullLogo}
-          alt="Ryan Legal, PC Logo"
-          className="logoTitle light"
-          loading="eager"
-          priority={true}
-          placeholder="blur"
-        />
-        <Image
-          src={fullLogoWhite}
-          alt="Ryan Legal, PC Logo"
-          className="logoTitle dark"
-          loading="eager"
-          priority={true}
-          placeholder="blur"
-        />
-        <h2>{businessSummary}</h2>
-        {businessExplanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-        <h1>Our Practice Areas</h1>
-        <ul className="practiceAreaContainer">
-          {areasOfPractice.map(areaOfPractice => (
-            <li key={areaOfPractice.name}>
-              <Link
-                href={{
-                  pathname: '/expertise',
-                  query: { topic: transformTextToUrlParams(areaOfPractice.name) },
-                }}
-                className={areaOfPractice.className || ''}
-              >
-                <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
-                <h2>{areaOfPractice.name}</h2>
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <div className="contentSection primary">
+        <div className="pagePadding">
+          <Image
+            src={fullLogo}
+            alt="Ryan Legal, PC Logo"
+            className="logoTitle light"
+            loading="eager"
+            priority={true}
+            placeholder="blur"
+          />
+          <Image
+            src={fullLogoWhite}
+            alt="Ryan Legal, PC Logo"
+            className="logoTitle dark"
+            loading="eager"
+            priority={true}
+            placeholder="blur"
+          />
+          <h2>{businessSummary}</h2>
+          {businessExplanation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+        </div>
+      </div>
+      <div className="contentSection secondary">
+        <div className="pagePadding">
+          <h1>Our Practice Areas</h1>
+          <ul className="practiceAreaContainer">
+            {areasOfPractice.map(areaOfPractice => (
+              <li key={areaOfPractice.name}>
+                <Link
+                  href={{
+                    pathname: '/expertise',
+                    query: { topic: transformTextToUrlParams(areaOfPractice.name) },
+                  }}
+                  className={areaOfPractice.className || ''}
+                >
+                  <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
+                  <h2>{areaOfPractice.name}</h2>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="requestConsultation">
         <Image

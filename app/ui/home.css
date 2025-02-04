@@ -1,6 +1,9 @@
 .homePage {
   width: 100%;
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .homePage .imageContainer {
@@ -52,21 +55,33 @@
   font-size: 24px;
 }
 
-.homePage .contentSection,
 .homePage .pagePadding {
   padding-left: 100px;
   padding-right: 100px;
   width: 100%;
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .homePage .contentSection {
   padding-top: 50px;
   padding-bottom: 50px;
-  margin: auto;
+  margin: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.homePage .contentSection.primary {
+  background-color: var(--background-primary-color);
+  padding-top: 10px;
+}
+
+.homePage .contentSection.secondary {
+  background-color: var(--background-secondary-color);
 }
 
 .homePage .contentSection .logoTitle {
@@ -91,7 +106,6 @@
   font-size: 48px;
   text-align: center;
   margin-bottom: 64px;
-  margin-top: 64px;
 }
 
 .homePage .contentSection .practiceAreasSection {
