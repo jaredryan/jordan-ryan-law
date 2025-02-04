@@ -65,11 +65,13 @@ export default function Page() {
               </li>
             ))}
           </ul>
-          <div className="pagePadding">
-            <h2>Request a Consultation</h2>
-            <Suspense>
-              <ContactUsForm />
-            </Suspense>
+          <div className="pagePadding primary">
+            <div className="contactFormContainer">
+              <h2>Request a Consultation</h2>
+              <Suspense>
+                <ContactUsForm />
+              </Suspense>
+            </div>
           </div>
           <GoogleMapsAddress />
         </div>

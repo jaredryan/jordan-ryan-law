@@ -91,6 +91,10 @@
   max-width: 1200px;
 }
 
+.contactUsPage .contactFormContainer {
+  box-shadow: 0 10px 60px 0 rgba(29,61,71,0.1);
+}
+
 .contactUsPage .cardsContainer .card {
   background-color: var(--background-primary-color);
   padding: 48px 32px;
