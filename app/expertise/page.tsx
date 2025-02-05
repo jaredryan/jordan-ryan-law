@@ -2,10 +2,15 @@ import Image from 'next/image'
 import { Suspense } from 'react'
 import ExpertiseCarousel from '@/app/ui/expertise-carousel'
 
-
 import '@/app/ui/expertise.css'
 
 import practice from '@/public/practice.webp'
+
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+}
 
 export default function Page() {
   return (

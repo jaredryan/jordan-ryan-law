@@ -3,14 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRoadBarrier } from '@fortawesome/free-solid-svg-icons'
 import '@/app/ui/payment.css'
 
-import pens from '@/public/pens2.webp'
+import penOnSurface from '@/public/pen-on-surface.webp'
+
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+}
 
 export default function Page() {
   return (
     <div className="paymentPage">
       <div className="imageContainer">
         <Image
-          src={pens}
+          src={penOnSurface}
           alt="Pen on surface"
           className="bannerImage"
           loading="eager"

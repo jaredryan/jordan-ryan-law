@@ -7,7 +7,13 @@ import { contactCards } from '@/app/content'
 import Image from 'next/image'
 import '@/app/ui/contact-us.css'
 
-import fp2 from '@/public/fp2.webp'
+import writingOnPaper from '@/public/writing-on-paper.webp'
+
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+}
 
 export default function Page() {
   return (
@@ -15,7 +21,7 @@ export default function Page() {
       <div className="contactUsPage">
         <div className="imageContainer">
           <Image
-            src={fp2}
+            src={writingOnPaper}
             alt="Writing on paper"
             className="bannerImage"
             loading="eager"

@@ -10,6 +10,12 @@ import squareProfile from '@/public/square-profile.webp'
 import superLawyersBadge from '@/public/super-lawyers-badge.png'
 import avPreeminent from '@/public/av-preeminent.png'
 
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+}
+
 export default function Page() {
   return (
     <div className="aboutPage">
