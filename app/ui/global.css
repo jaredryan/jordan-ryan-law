@@ -260,6 +260,72 @@ main {
   visibility: hidden;
 }
 
+.errorPage {
+  padding-top: 75px;
+  padding-bottom: 50px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+}
+
+.errorPage .iconContainer {
+  position: relative;
+}
+
+.errorPage .iconContainer .icon.xMark {
+  margin-top: 0;
+  position: absolute;
+  color: var(--primary-color);
+  right: 33px;
+  bottom: 33px;
+}
+
+.errorPage .iconContainer .icon.xMark,
+.errorPage .iconContainer .icon.xMark svg {
+  width: 48px;
+  height: 48px;
+}
+
+.errorPage .icon {
+  margin-top: 36px;
+}
+
+.errorPage .icon,
+.errorPage .icon svg {
+  width: 96px;
+  height: 96px;
+  color: var(--primary-color);
+}
+
+.errorPage h2 {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.errorPage p {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.errorPage .buttonContainer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.errorPage .button,
+.errorPage button {
+  width: 100px;
+  text-align: center;
+}
+
 @media (max-width: 850px) {
   .aboutPage .carouselComponent.aboutCarousel .customTabs.fade-bounce-left-enter {
       opacity: 0 !important;
