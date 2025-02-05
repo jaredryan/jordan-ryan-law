@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { Suspense } from 'react';
-import '@/app/ui/about.css';
+import Image from 'next/image'
+import { Suspense } from 'react'
+import '@/app/ui/about.css'
 
-import { russKRyanProfileSummary } from '@/app/content';
-import AboutCarousel from '@/app/ui/about-carousel';
+import { russKRyanProfileSummary } from '@/app/content'
+import AboutCarousel from '@/app/ui/about-carousel'
 
 import penOnNotebook from '@/public/pen-on-notebook.webp'
 import squareProfile from '@/public/square-profile.webp'
@@ -75,5 +75,5 @@ export default function Page() {
         </Suspense>
       </div>
     </div>
-  );
+  )
 }

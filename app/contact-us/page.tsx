@@ -1,11 +1,11 @@
 'use client'
 
-import { Suspense } from 'react';
-import ContactUsForm from '@/app/ui/contact-us-form';
-import GoogleMapsAddress from '@/app/ui/google-maps-address';
-import { contactCards } from '@/app/content';
-import Image from 'next/image';
-import '@/app/ui/contact-us.css';
+import { Suspense } from 'react'
+import ContactUsForm from '@/app/ui/contact-us-form'
+import GoogleMapsAddress from '@/app/ui/google-maps-address'
+import { contactCards } from '@/app/content'
+import Image from 'next/image'
+import '@/app/ui/contact-us.css'
 
 import fp2 from '@/public/fp2.webp'
 
@@ -51,5 +51,5 @@ export default function Page() {
         </div>
       </div>
     </>
-  );
+  )
 }

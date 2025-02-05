@@ -4,7 +4,7 @@ import Slider from 'react-slick'
 import { useEffect, useRef, useState, RefObject, ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useQueryState } from 'nuqs'
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faBriefcase,
@@ -37,9 +37,9 @@ import {
   russKRyanAffiliations,
   russKRyanExpertise,
   russKRyanClients,
-} from '@/app/content';
+} from '@/app/content'
 
-import '@/app/ui/about-carousel.css';
+import '@/app/ui/about-carousel.css'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
 const subSections = [
@@ -322,8 +322,8 @@ const renderSideNavItem = (
 }
 
 const mapExpertise = (expertise: { name: string, content: (string | string[] | {
-  title: string;
-  content: string;
+  title: string,
+  content: string,
 }[])[]}) => (
   <div className="expertise" key={expertise.name}>
     <div className="expertiseContentContainer">
@@ -346,30 +346,30 @@ const mapExpertise = (expertise: { name: string, content: (string | string[] | {
 )
 
 export default function Carousel() {
-  const componentRef = useRef(null);
+  const componentRef = useRef(null)
   const searchParams = useSearchParams()
-  const initialSlideTopic = searchParams.get('topic')
-  const initialExpanded = searchParams.get('expanded')
+  const initialSlideTopic = searchParams?.get('topic')
+  const initialExpanded = searchParams?.get('expanded')
   const [topic, setTopic] = useQueryState('topic')
   const [expanded, setExpanded] = useQueryState('expanded', { defaultValue: 'false' })
   const [slide, setSlide] = useState<boolean | string>(false)
 
-  const nodeRef5 = useRef(null);
-  const nodeRef6 = useRef(null);
-  const nodeRef7 = useRef(null);
-  const nodeRef8 = useRef(null);
-  const nodeRefSlideMenu = useRef(null);
-  const nodeRefSlideDisplay0 = useRef(null);
-  const nodeRefSlideDisplay1 = useRef(null);
-  const nodeRefSlideDisplay2 = useRef(null);
-  const nodeRefSlideDisplay4 = useRef(null);
-  const nodeRefSlideDisplay5 = useRef(null);
-  const nodeRefSlideDisplay6 = useRef(null);
-  const nodeRefSlideDisplay7 = useRef(null);
-  const nodeRefSlideDisplay8 = useRef(null);
-  const nodeRefSlideDisplay9 = useRef(null);
-  const nodeRefSlideDisplay10 = useRef(null);
-  const nodeRefSlideDisplay11 = useRef(null);
+  const nodeRef5 = useRef(null)
+  const nodeRef6 = useRef(null)
+  const nodeRef7 = useRef(null)
+  const nodeRef8 = useRef(null)
+  const nodeRefSlideMenu = useRef(null)
+  const nodeRefSlideDisplay0 = useRef(null)
+  const nodeRefSlideDisplay1 = useRef(null)
+  const nodeRefSlideDisplay2 = useRef(null)
+  const nodeRefSlideDisplay4 = useRef(null)
+  const nodeRefSlideDisplay5 = useRef(null)
+  const nodeRefSlideDisplay6 = useRef(null)
+  const nodeRefSlideDisplay7 = useRef(null)
+  const nodeRefSlideDisplay8 = useRef(null)
+  const nodeRefSlideDisplay9 = useRef(null)
+  const nodeRefSlideDisplay10 = useRef(null)
+  const nodeRefSlideDisplay11 = useRef(null)
 
   const toggleExpanded = () => setExpanded(expanded === 'true' ? 'false' : 'true')
 
@@ -513,7 +513,7 @@ export default function Carousel() {
           transformTextToUrlParams(header.title) === initialSlideTopic
         ))
     ) {
-      setExpanded('true')
+      if (setExpanded) setExpanded('true')
     }
   }, [])
 
@@ -556,7 +556,7 @@ export default function Carousel() {
         }
         
         // @ts-ignore
-        tabs[currentIndex].focus();
+        tabs[currentIndex].focus()
         // @ts-ignore
         e.preventDefault()
       }
@@ -569,7 +569,7 @@ export default function Carousel() {
       // @ts-ignore
       tabList.removeEventListener('keydown', handleArrowNavigation)
     }
-  }, [expanded]);
+  }, [expanded])
 
   return (
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">

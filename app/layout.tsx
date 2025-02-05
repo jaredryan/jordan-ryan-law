@@ -1,21 +1,21 @@
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
-import { openSans, charlesSil } from '@/app/ui/fonts';
+import { openSans, charlesSil } from '@/app/ui/fonts'
 import Navbar from '@/app/ui/navbar'
 import Footer from '@/app/ui/footer'
 
-import '@/app/ui/global.css';
+import '@/app/ui/global.css'
 
 export const metadata: Metadata = {
   title: 'Ryan Legal, PC',
   description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -51,5 +51,5 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
-  );
+  )
 }

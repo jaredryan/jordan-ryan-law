@@ -1,16 +1,16 @@
 'use client'
 
-import { Suspense } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import ContactUsForm from '@/app/ui/contact-us-form';
+import { Suspense } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import ContactUsForm from '@/app/ui/contact-us-form'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
   businessExplanation, businessName, businessSlogan,
   businessSummary, areasOfPractice
-} from '@/app/content';
+} from '@/app/content'
 
-import '@/app/ui/home.css';
+import '@/app/ui/home.css'
 
 import upperFalls from '@/public/upper-falls.webp'
 import fullLogo from '@/public/full-logo.webp'
@@ -102,5 +102,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { Suspense } from 'react';
-import ExpertiseCarousel from '@/app/ui/expertise-carousel';
+import Image from 'next/image'
+import { Suspense } from 'react'
+import ExpertiseCarousel from '@/app/ui/expertise-carousel'
 
 
-import '@/app/ui/expertise.css';
+import '@/app/ui/expertise.css'
 
 import practice from '@/public/practice.webp'
 
@@ -32,5 +32,5 @@ export default function Page() {
         </Suspense>
       </div>
     </div>
-  );
+  )
 }

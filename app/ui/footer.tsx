@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import '@/app/ui/footer.css';
-import { contactCards, homeLink, links } from '@/app/content';
+import Image from 'next/image'
+import Link from 'next/link'
+import '@/app/ui/footer.css'
+import { homeLink, links } from '@/app/content'
 
 import fullLogoWhite from '@/public/full-logo-white.webp'
 
@@ -30,20 +30,20 @@ export default function Footer() {
                   {link.name}
                 </Link>
               </li>
-            );
+            )
           })}
         </ul>
         <div className="contactUsContainer">
           <h2>Ready to get started?</h2>
-          <a
+          <Link
             href="/contact-us"
             className="button"  
           >
             Contact Us
-          </a>
+          </Link>
         </div>
       </div>
       <p>&copy; Ryan Legal, PC, a Professional Corporation. All Rights Reserved.</p>
     </footer>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
-import { CSSTransition } from 'react-transition-group';
-import '@/app/ui/navbar.css';
+import { CSSTransition } from 'react-transition-group'
+import '@/app/ui/navbar.css'
 
 import logoWhite from '@/public/logo-white.webp'
-import { homeLink, links } from '@/app/content';
+import { homeLink, links } from '@/app/content'
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,21 +19,21 @@ function useWindowWidth() {
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
+    window.addEventListener("resize", handleResize)
+    handleResize()
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
-  return windowWidth;
+  return windowWidth
 }
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const nodeRef = useRef(null)
   const barsRef = useRef(null)
-  const windowWidth = useWindowWidth();
+  const windowWidth = useWindowWidth()
 
   useEffect(() => {
       const closeMenuOnOutsideClick = (e: { target: string })=> {
@@ -44,10 +44,10 @@ export default function Navbar() {
       }
 
       // @ts-ignore — weird "window" code in React
-      window.addEventListener('mousedown', closeMenuOnOutsideClick);
+      window.addEventListener('mousedown', closeMenuOnOutsideClick)
       // @ts-ignore — weird "window" code in React
-      return () => window.removeEventListener('mousedown', closeMenuOnOutsideClick);
-  }, [isOpen]);
+      return () => window.removeEventListener('mousedown', closeMenuOnOutsideClick)
+  }, [isOpen])
 
   useEffect(() => {
     // @ts-ignore
@@ -182,7 +182,7 @@ export default function Navbar() {
         mobileList?.removeEventListener('keydown', handleMobileMenuArrowNavigation)
       }
     }
-  }, [windowWidth]);
+  }, [windowWidth])
 
   return (
     <nav role="menubar">
@@ -217,7 +217,7 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               </li>
-            );
+            )
           })}
         </ul>
         <div className={`barsContainer ${isOpen ? 'open' : 'closed'}`}>
@@ -267,12 +267,12 @@ export default function Navbar() {
                       {link.name}
                     </Link>
                   </li>
-                );
+                )
               })}
             </ul>
           </CSSTransition>
         </div>
       </div>
     </nav>
-  );
+  )
 }

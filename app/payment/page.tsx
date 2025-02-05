@@ -1,7 +1,7 @@
-import Image from 'next/image';
+import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRoadBarrier } from '@fortawesome/free-solid-svg-icons'
-import '@/app/ui/payment.css';
+import '@/app/ui/payment.css'
 
 import pens from '@/public/pens2.webp'
 
@@ -28,7 +28,7 @@ export default function Page() {
         </div>
         <div className="text">
           <h2>Pay quickly and easily through Lawpay.</h2>
-          <p>But it's not ready yet. We'll let you know when it is available!</p>
+          <p>But it&apos;s not ready yet. We&apos;ll let you know when it is available!</p>
         </div>
         {/* <a
           href="https://www.lawpay.com"
@@ -40,5 +40,5 @@ export default function Page() {
         </a> */}
       </div>
     </div>
-  );
+  )
 }

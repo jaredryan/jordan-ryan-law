@@ -4,8 +4,8 @@ import {
     Marker,
     Map,
     ColorScheme,
-} from '@vis.gl/react-google-maps';
-import '@/app/ui/google-maps-address.css';
+} from '@vis.gl/react-google-maps'
+import '@/app/ui/google-maps-address.css'
 
 export function stub() {
     return <div style={{width: '100%', height: '400px', backgroundColor: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

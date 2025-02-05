@@ -8,20 +8,20 @@ import { useQueryState } from 'nuqs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { areasOfPractice } from '@/app/content';
+import { areasOfPractice } from '@/app/content'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
-import '@/app/ui/expertise-carousel.css';
+import '@/app/ui/expertise-carousel.css'
 
 function BlankArrow(_props: any) {
     return <></>
 }
 
 export default function Carousel() {
-  const componentRef = useRef(null);
-  const sliderRef = useRef(null);
+  const componentRef = useRef(null)
+  const sliderRef = useRef(null)
   const searchParams = useSearchParams()
-  const initialSlideTopic = searchParams.get('topic')
+  const initialSlideTopic = searchParams?.get('topic')
   const [topic, setTopic] = useQueryState('topic')
 
   const settings = {
@@ -42,7 +42,7 @@ export default function Carousel() {
             <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
             <p>{areaOfPractice.name}</p>
           </button>
-        );
+        )
       },
     dots: true,
     infinite: true,
@@ -72,7 +72,7 @@ export default function Carousel() {
 
   useEffect(() => {
     if (initialSlideTopic) {
-      setTopic(initialSlideTopic)
+      if (setTopic) setTopic(initialSlideTopic)
 
       const topicMenu = document.getElementById('topic-menu')
       topicMenu?.scrollIntoView({ behavior: 'smooth' })
@@ -123,7 +123,7 @@ export default function Carousel() {
           }
 
           // @ts-ignore
-          tabs[currentIndex].focus();
+          tabs[currentIndex].focus()
           // @ts-ignore
           e.preventDefault()
         }
@@ -143,7 +143,7 @@ export default function Carousel() {
         }
 
         // @ts-ignore
-        tabs[currentIndex].focus();
+        tabs[currentIndex].focus()
         // @ts-ignore
         e.preventDefault()
       }    
@@ -156,7 +156,7 @@ export default function Carousel() {
       // @ts-ignore
       tabList.removeEventListener('keydown', handleArrowNavigation)
     }
-  }, []);
+  }, [])
 
   return (
     <div className="expertiseCarousel carouselComponent" ref={componentRef} role="tabs">

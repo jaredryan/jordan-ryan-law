@@ -1,19 +1,8 @@
 'use server'
 
-import { z } from 'zod';
+import { z } from 'zod'
 import sgMail from '@sendgrid/mail'
 import validator from 'validator'
-
-export type State = {
-  errors?: {
-    name?: string[];
-    phone?: string[];
-    email?: string[];
-    description?: string[];
-    sendGrid?: any;
-  };
-  message?: string | null;
-};
 
 type SendGridError = {
   response: {
@@ -23,6 +12,17 @@ type SendGridError = {
       }[]
     }
   }
+}
+
+export type State = {
+  errors?: {
+    name?: string[];
+    phone?: string[];
+    email?: string[];
+    description?: string[];
+    sendGrid?: SendGridError;
+  };
+  message?: string | null;
 }
 
 const isAValidPhoneNumber = (str: string) => (
@@ -62,7 +62,7 @@ const parseSendGridError = (error: SendGridError) => {
         sendGrid: error?.response?.body?.errors.map(error => `${error.message}.`).join('\n') || "Unknown error. Please try again later."
       }
     }
-  } catch(err) {
+  } catch(_err) {
     return {
       message: 'failure',
       errors: {
@@ -81,15 +81,15 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
     phone: formData.get("phone"),
     email: formData.get("email"),
     description: formData.get("description"),
-  });
+  })
 
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-    };
+    }
   }
 
-  const { name, phone, email, description } = validatedFields.data;
+  const { name, phone, email, description } = validatedFields.data
 
   // Send Email
 
@@ -115,9 +115,8 @@ export async function sendContactUsEmail(_prevState: State, formData: FormData) 
       errors: {}
     }
   } catch (error) {
-    console.error('SendGrid Error:', error);
+    console.error('SendGrid Error:', error)
 
-    // @ts-ignore
-    return parseSendGridError(error)
+    return parseSendGridError(error as SendGridError)
   }
 }

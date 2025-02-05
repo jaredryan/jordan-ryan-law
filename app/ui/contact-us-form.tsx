@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { useActionState, useState } from 'react';
-import { sendContactUsEmail, State } from '@/app/lib/contact-form-utils';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { useActionState, useState } from 'react'
+import { sendContactUsEmail, State } from '@/app/lib/contact-form-utils'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQueryState } from 'nuqs'
 
-import '@/app/ui/contact-us-form.css';
+import '@/app/ui/contact-us-form.css'
 
 function SubmitButton({ pending, message, ignoreMessage }: {
   pending: boolean,
@@ -66,24 +66,24 @@ function SubmitButton({ pending, message, ignoreMessage }: {
 
 
 export default function ContactUsForm() {
-  const [hasbeenReset, setReset] = useState(false)
+  const [hasBeenReset, setReset] = useState(false)
   const [name, setName] = useQueryState('name', { defaultValue: '' })
   const [phone, setPhone] = useQueryState('phone', { defaultValue: '' })
   const [email, setEmail] = useQueryState('email', { defaultValue: '' })
   const [description, setDescription] = useQueryState('description', { defaultValue: '' })
 
   const [ignoreMessage, setIgnoreMessage] = useState(false)
-  const initialState: State = { message: null, errors: {} };
+  const initialState: State = { message: null, errors: {} }
   // @ts-ignore
-  const [state, formAction, pending] = useActionState(sendContactUsEmail, initialState);
+  const [state, formAction, pending] = useActionState(sendContactUsEmail, initialState)
   const action = async (...args: any) => {
     setReset(false)
     setIgnoreMessage(false)
     // @ts-ignore
-    formAction(...args);
+    formAction(...args)
   }
 
-  if (state?.message === 'success' && !hasbeenReset) {
+  if (state?.message === 'success' && !hasBeenReset) {
     setReset(true)
     setTimeout(() => setIgnoreMessage(true), 3000)
     if (state && state.message == 'success') {
@@ -116,6 +116,7 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="name-error"
+            aria-describedby="name-error"
             required
           />
           {/* @ts-ignore */}
@@ -143,6 +144,7 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="phone-error"
+            aria-describedby="phone-error"
             aria-required="true"
             required
           />
@@ -171,6 +173,7 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="email-error"
+            aria-describedby="email-error"
             aria-required="true"
             required
           />
@@ -199,6 +202,7 @@ export default function ContactUsForm() {
               ? 'true'
               : 'false'}
             aria-errormessage="description-error"
+            aria-describedby="description-error"
             aria-required="true"
             required
           />
@@ -223,5 +227,5 @@ export default function ContactUsForm() {
         {state.message === 'failure' && <p className="formError">{state?.errors?.sendGrid}</p>}
       </div>
     </form>
-  );
+  )
 }
