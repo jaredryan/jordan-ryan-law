@@ -1,5 +1,3 @@
-'use client'
-
 import { Suspense } from 'react'
 import ContactUsForm from '@/app/ui/contact-us-form'
 import GoogleMapsAddress from '@/app/ui/google-maps-address'
@@ -53,7 +51,9 @@ export default function Page() {
               </Suspense>
             </div>
           </div>
-          <GoogleMapsAddress />
+          <Suspense>
+            <GoogleMapsAddress />
+          </Suspense>
         </div>
       </div>
     </>
