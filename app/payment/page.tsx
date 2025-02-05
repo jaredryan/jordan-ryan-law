@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRoadBarrier } from '@fortawesome/free-solid-svg-icons'
 import '@/app/ui/payment.css';
 
 import pens from '@/public/pens2.webp'
@@ -21,9 +23,13 @@ export default function Page() {
         </div>
       </div>
       <div className="contentSection">
-        <p>We are partnering with Lawpay to make payment quick and easy, but it's not ready yet.</p>
-        <br />
-        <p>We'll let you know when it is available!</p>
+        <div className="icon" aria-hidden="true">
+          <FontAwesomeIcon icon={faRoadBarrier} />
+        </div>
+        <div className="text">
+          <h2>Pay quickly and easily through Lawpay.</h2>
+          <p>But it's not ready yet. We'll let you know when it is available!</p>
+        </div>
         {/* <a
           href="https://www.lawpay.com"
           className="button"
