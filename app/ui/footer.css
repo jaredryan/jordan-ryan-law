@@ -41,6 +41,12 @@ footer .imageContainer {
   min-width: 250px;
 }
 
+footer .imageContainer a:hover {
+  background-color: var(--primary-hover-color);
+  border-radius: 3px;
+  transition: 500ms ease;
+}
+
 footer .linksMenu {
   display: flex;
   flex-direction: column;

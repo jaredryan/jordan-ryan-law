@@ -34,7 +34,8 @@ nav a:focus-visible {
   background-color: var(--navbar-background-color);
 }
 
-nav a.highlighted:focus-visible {
+nav a.highlighted:focus-visible,
+nav a.highlighted:hover {
   background-color: var(--navbar-hover-color);
 }
 
@@ -101,7 +102,8 @@ nav .barsContainer {
   }
 
   nav .dropdownContent a:hover,
-  nav .dropdownContent a:focus-visible {
+  nav .dropdownContent a:focus-visible,
+  nav .dropdownContent a.highlighted {
     background-color: var(--navbar-hover-color);
   }
 

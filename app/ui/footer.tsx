@@ -10,14 +10,19 @@ export default function Footer() {
     <footer>
       <div className="contentContainer pagePadding">
         <div className="imageContainer">
-          <Image
-            src={fullLogoWhite}
-            alt="Ryan Legal, PC Logo"
-            className="logoTitle"
-            loading="eager"
-            priority={true}
-            placeholder="blur"
-          />
+          <Link
+            href={homeLink.href}
+            aria-label="Home Link"
+          >
+            <Image
+              src={fullLogoWhite}
+              alt="Ryan Legal, PC Logo"
+              className="logoTitle"
+              loading="eager"
+              priority={true}
+              placeholder="blur"
+            />
+          </Link>
         </div>
         <ul role="menu" className="linksMenu">
           {[homeLink, ...links].map((link) => {
