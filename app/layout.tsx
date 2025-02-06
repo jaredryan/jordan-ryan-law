@@ -41,23 +41,18 @@ export const metadata: Metadata = {
     // siteName: 'Ryan Legal, PC',
     images: [{
       url: 'https://ryanlegalpc.com/upper-falls.webp',
-      alt: 'Yosemite waterfall, located in central California'
+      alt: 'Yosemite waterfall, located in central California',
+      width: 1960,
+      height: 840,
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ryan Legal, PC',
-    description: homeMetadata.description as string,
-    // @ts-ignore
-    url: 'https://ryanlegalpc.com',
     images: [{
       url: 'https://ryanlegalpc.com/upper-falls.webp',
-      alt: 'Yosemite waterfall, located in central California'
+      alt: 'Yosemite waterfall, located in central California',
     }],
   },
-  other: {
-    'twitter:url': 'https://ryanlegalpc.com',
-  }  
 }
 
 const jsonLd: WithContext<WebSite> = {
