@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { WebSite, WithContext } from 'schema-dts'
+import { metadata as homeMetadata } from '@/app/page'
 
 import { openSans, charlesSil } from '@/app/ui/fonts'
 import Navbar from '@/app/ui/navbar'
@@ -31,6 +33,41 @@ export const metadata: Metadata = {
     title: 'Ryan Legal'
   },
   manifest: '/manifest.json',
+  openGraph: {
+    type: 'website',
+    url: 'https://ryanlegalpc.com',
+    title: 'Ryan Legal, PC',
+    description: homeMetadata.description as string,
+    // siteName: 'Ryan Legal, PC',
+    images: [{
+      url: 'https://ryanlegalpc.com/upper-falls.webp',
+      alt: 'Yosemite waterfall, located in central California'
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ryan Legal, PC',
+    description: homeMetadata.description as string,
+    // @ts-ignore
+    url: 'https://ryanlegalpc.com',
+    images: [{
+      url: 'https://ryanlegalpc.com/upper-falls.webp',
+      alt: 'Yosemite waterfall, located in central California'
+    }],
+  },
+  other: {
+    'twitter:url': 'https://ryanlegalpc.com',
+  }  
+}
+
+const jsonLd: WithContext<WebSite> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Ryan Legal, PC',
+  alternateName: "Ryan Legal",
+  url: "https://ryanlegalpc.com",
+  image: 'https://nextjs.org/imgs/sticker.png',
+  description: 'Dynamic at the speed of static.',
 }
 
 export default function RootLayout({
@@ -40,6 +77,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${openSans.variable} ${charlesSil.variable}`}>
         <Navbar />
         <main>

@@ -19,6 +19,7 @@
     "react-dom": "^19.0.0",
     "react-slick": "^0.30.3",
     "react-transition-group": "^4.4.5",
+    "schema-dts": "^1.1.2",
     "slick-carousel": "^1.8.1",
     "typescript": "5.7.2",
     "validator": "^13.12.0",

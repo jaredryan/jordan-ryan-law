@@ -29,7 +29,7 @@ export default function Page() {
       <div className="imageContainer">
         <Image
           src={upperFalls}
-          alt="Yosemite waterfall, located in central california"
+          alt="Yosemite waterfall, located in central California"
           className="heroImage"
           loading="eager"
           priority={true}
