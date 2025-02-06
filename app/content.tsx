@@ -397,3 +397,17 @@ export const links = [{
   name: 'Payment',
   href: '/payment'
 }]
+
+export const aboutTopics = [
+  'Education',
+  'Bar and Court Admissions',
+  'Ratings and Designations',
+  'Positions',
+  'Employment',
+  'Training',
+  'Health Care, Business and Real Estate',
+  'Litigation',
+  'Affiliations',
+  'Public and Community Service',
+  'Clients',
+]

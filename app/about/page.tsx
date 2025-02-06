@@ -12,16 +12,25 @@ import avPreeminent from '@/public/av-preeminent.png'
 
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.',
-  keywords: [
-    'Ratings', 'Designations', 'Russ Ryan', 'Russell Ryan', 'Training',
-    'Affiliations', 'Clients', 'Lawyer', 'Attorney', 'Education'
-  ],
-  alternates: {
-    canonical: '/about',
-  },
+type SearchParams = Promise<{ topic?: string }>
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  const params = await searchParams
+  const topicStringToAppend = params.topic
+    ? `&topic=${params.topic}`
+    : ''
+
+  return {
+    title: 'About',
+    description: 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.',
+    keywords: [
+      'Ratings', 'Designations', 'Russ Ryan', 'Russell Ryan', 'Training',
+      'Affiliations', 'Clients', 'Lawyer', 'Attorney', 'Education'
+    ],
+    alternates: {
+      canonical: `/about?expanded=true${topicStringToAppend}`,
+    },
+  }
 }
 
 export default function Page() {

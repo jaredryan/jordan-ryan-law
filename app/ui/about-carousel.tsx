@@ -80,7 +80,7 @@ const subSections = [
     </>,
 }]
 
-const section = [
+const sections = [
   {
     title: 'Education',
     icon: <FontAwesomeIcon icon={faGraduationCap} />,
@@ -212,8 +212,8 @@ const section = [
     </>,
 }]
 
-const allSections = section.slice()
-section.splice(4, 1)
+const allSections = sections.slice()
+sections.splice(4, 1)
 
 function BlankArrow(_props: any) {
     return <></>
@@ -397,7 +397,7 @@ export default function Carousel() {
   const settings = {
     customPaging: function(i: number) {
       return renderSideNavItem(
-        section[i],
+        sections[i],
         expanded === 'true',
         toggleExpanded,
         topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
@@ -444,11 +444,11 @@ export default function Carousel() {
       </CSSTransition>
     ),
     beforeChange: (_current: number, next: number) =>
-      setTopic(transformTextToUrlParams(section[next].title)),
+      setTopic(transformTextToUrlParams(sections[next].title)),
   }
 
   if (initialSlideTopic) {
-    const initialSlideIndex = section
+    const initialSlideIndex = sections
       .findIndex(sectionHeader => 
         transformTextToUrlParams(sectionHeader.title) === topic
       )
@@ -571,10 +571,10 @@ export default function Carousel() {
     }
   }, [expanded])
 
-  return (
+  return <>
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
-          {section.map((section, index) => {
+          {sections.map((section, index) => {
             const nodeRef = slideNodeRefs[index]
 
             const transformedTitle = transformTextToUrlParams(section.title)
@@ -613,5 +613,5 @@ export default function Carousel() {
           })}
         </Slider>
     </div>
-  )
+  </>
 }

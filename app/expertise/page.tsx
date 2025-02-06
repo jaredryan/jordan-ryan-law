@@ -8,16 +8,25 @@ import practice from '@/public/practice.webp'
 
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Expertise',
-  description: 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.',
-  keywords: [
-    'Law', 'Labor', 'Employment', 'Business', 'Transactions',
-    'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
-  ],
-  alternates: {
-    canonical: '/expertise',
-  },
+type SearchParams = Promise<{ topic?: string }>
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  const params = await searchParams
+  const topicStringToAppend = params.topic
+    ? `?topic=${params.topic}`
+    : ''
+
+  return {
+    title: 'Expertise',
+    description: 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.',
+    keywords: [
+      'Law', 'Labor', 'Employment', 'Business', 'Transactions',
+      'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
+    ],
+    alternates: {
+      canonical: `/expertise${topicStringToAppend}`,
+    },
+  }
 }
 
 export default function Page() {
