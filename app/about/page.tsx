@@ -13,7 +13,15 @@ import avPreeminent from '@/public/av-preeminent.png'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+  title: 'About',
+  description: 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.',
+  keywords: [
+    'Ratings', 'Designations', 'Russ Ryan', 'Russell Ryan', 'Training',
+    'Affiliations', 'Clients', 'Lawyer', 'Attorney', 'Education'
+  ],
+  alternates: {
+    canonical: '/about',
+  },
 }
 
 export default function Page() {

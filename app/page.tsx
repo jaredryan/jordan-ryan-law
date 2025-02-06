@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import ContactUsForm from '@/app/ui/contact-us-form'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
@@ -14,6 +15,13 @@ import upperFalls from '@/public/upper-falls.webp'
 import fullLogo from '@/public/full-logo.webp'
 import fullLogoWhite from '@/public/full-logo-white.webp'
 import attorneyWriting from '@/public/attorney-writing.webp'
+
+export const metadata: Metadata = {
+  description: 'Premier Legal Representation of Employers, Health Care Providers and Non-Profits throughout California',
+  alternates: {
+    canonical: '/',
+  },
+}
 
 export default function Page() {
   return (

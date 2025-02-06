@@ -9,7 +9,15 @@ import practice from '@/public/practice.webp'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+  title: 'Expertise',
+  description: 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.',
+  keywords: [
+    'Law', 'Labor', 'Employment', 'Business', 'Transactions',
+    'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
+  ],
+  alternates: {
+    canonical: '/expertise',
+  },
 }
 
 export default function Page() {

@@ -10,7 +10,15 @@ import writingOnPaper from '@/public/writing-on-paper.webp'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+  title: 'Contact Us',
+  description: 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.',
+  keywords: [
+    'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
+    'Fresno', 'Contact', 'Russ Ryan', 'Russell Ryan'
+  ],
+  alternates: {
+    canonical: '/contact-us',
+  },
 }
 
 export default function Page() {

@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: 'https://ryanlegalpc.com/about',
         lastModified: new Date(),
         changeFrequency: 'yearly',
-        priority: 0.8,
+        priority: 0.9,
         images: [
             'https://ryanlegalpc.com/logo-white.webp',
             'https://ryanlegalpc.com/full-logo-white.webp',
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: 'https://ryanlegalpc.com/contact-us',
         lastModified: new Date(),
         changeFrequency: 'yearly',
-        priority: 0.8,
+        priority: 0.4,
         images: [
             'https://ryanlegalpc.com/logo-white.webp',
             'https://ryanlegalpc.com/full-logo-white.webp',
@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: 'https://ryanlegalpc.com/expertise',
         lastModified: new Date(),
         changeFrequency: 'yearly',
-        priority: 0.8,
+        priority: 0.9,
         images: [
             'https://ryanlegalpc.com/logo-white.webp',
             'https://ryanlegalpc.com/full-logo-white.webp',
@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: 'https://ryanlegalpc.com/payment',
         lastModified: new Date(),
         changeFrequency: 'weekly',
-        priority: 0.8,
+        priority: 0.2,
         images: [
             'https://ryanlegalpc.com/logo-white.webp',
             'https://ryanlegalpc.com/full-logo-white.webp',

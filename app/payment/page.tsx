@@ -8,7 +8,15 @@ import penOnSurface from '@/public/pen-on-surface.webp'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  description: 'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California',
+  title: 'Payment',
+  description: 'Access quick and easy payment options serviced rendered.',
+  keywords: [
+    'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
+    'Russ Ryan', 'Russell Ryan', 'Payment', 'Lawpay'
+  ],
+  alternates: {
+    canonical: '/payment',
+  },
 }
 
 export default function Page() {
