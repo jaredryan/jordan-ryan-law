@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function Custom500() {
-    return (
+    return <>
+        <div className="stubNavbarBackground" />
         <div className="errorPage pagePadding">
             <div className="iconContainer" aria-label="Crossed-out Magnifying Glass">
                 <div className="icon"><FontAwesomeIcon icon={faMagnifyingGlass} /></div>
@@ -19,5 +20,5 @@ export default function Custom500() {
                 <Link href="/" className="button">Home</Link>
             </div>
         </div>
-    )
+    </>
 }

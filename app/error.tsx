@@ -10,7 +10,8 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 export default function Custom500() {
     const router = useRouter()
 
-    return (
+    return <>
+        <div className="stubNavbarBackground" />
         <div className="errorPage pagePadding">
             <div className="icon"><FontAwesomeIcon icon={faCircleXmark} /></div>
             <h2>Something went wrong</h2>
@@ -24,5 +25,5 @@ export default function Custom500() {
                 <button onClick={() => router.refresh()}>Refresh</button>
             </div>
         </div>
-    )
+    </>
 }

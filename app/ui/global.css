@@ -261,7 +261,7 @@ main {
 }
 
 .errorPage {
-  padding-top: 75px;
+  padding-top: 21.5px;
   padding-bottom: 50px;
   flex: 1;
   display: flex;
@@ -271,6 +271,12 @@ main {
   width: 100%;
   max-width: 550px;
   height: auto;
+}
+
+.stubNavbarBackground {
+  background-color: var(--navbar-background-color);
+  height: 53.5px;
+  width: 100%;
 }
 
 .errorPage .iconContainer {
