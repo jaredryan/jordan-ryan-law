@@ -39,19 +39,19 @@ export const metadata: Metadata = {
     title: 'Ryan Legal, PC',
     description: homeMetadata.description as string,
     // siteName: 'Ryan Legal, PC',
-    images: [{
-      url: 'https://ryanlegalpc.com/upper-falls.webp',
-      alt: 'Yosemite waterfall, located in central California',
-      width: 1960,
-      height: 840,
-    }],
+    // images: [{
+    //   url: 'https://ryanlegalpc.com/upper-falls.webp',
+    //   alt: 'Yosemite waterfall, located in central California',
+    //   width: 1960,
+    //   height: 840,
+    // }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: [{
-      url: 'https://ryanlegalpc.com/upper-falls.webp',
-      alt: 'Yosemite waterfall, located in central California',
-    }],
+    // images: [{
+    //   url: 'https://ryanlegalpc.com/upper-falls.webp',
+    //   alt: 'Yosemite waterfall, located in central California',
+    // }],
   },
 }
 
