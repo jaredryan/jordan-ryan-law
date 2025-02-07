@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Image from 'next/image'
 import squareProfile from '@/public/square-profile.webp'
 import fullLogo from '@/public/full-logo.webp'

@@ -28,6 +28,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# local original image files, if I ever need to modify those in public
+/original-images
+
 # vercel
 .vercel
 
