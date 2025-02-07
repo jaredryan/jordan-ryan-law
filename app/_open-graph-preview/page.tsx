@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import squareProfile from '@/public/square-profile.webp'
 import fullLogo from '@/public/full-logo.webp'
-import { height } from '@fortawesome/free-solid-svg-icons/fa0'
 
 const pageContainer = {
   margin: '100px',

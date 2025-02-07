@@ -35,3 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 sendgrid.env
+
+# Routes for generating opengraph/twitter images
+
+/app/open-graph-preview
+/app/twitter-preview
