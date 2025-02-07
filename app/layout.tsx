@@ -40,18 +40,18 @@ export const metadata: Metadata = {
     description: homeMetadata.description as string,
     siteName: 'Ryan Legal, PC',
     images: [{
-      url: 'https://ryanlegalpc.com/upper-falls.webp',
+      url: 'https://ryanlegalpc.com/open-graph.png',
       alt: 'Yosemite waterfall, located in central California',
-      width: 1960,
-      height: 840,
+      width: 1200,
+      height: 640,
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: [{
-      url: 'https://ryanlegalpc.com/upper-falls.webp',
-      alt: 'Yosemite waterfall, located in central California',
-    }],
+    // images: [{
+    //   url: 'https://ryanlegalpc.com/upper-falls.webp',
+    //   alt: 'Yosemite waterfall, located in central California',
+    // }],
   },
 }
 
@@ -77,6 +77,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <meta property="fb:app_id" content="553360804417837" />
       </head>
       <body className={`${openSans.variable} ${charlesSil.variable}`}>
         <Navbar />
