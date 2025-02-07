@@ -35,19 +35,19 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     type: 'website',
-    url: 'https://ryanlegalpc.com',
+    url: '/',
     title: 'Ryan Legal, PC',
     description: homeMetadata.description as string,
     siteName: 'Ryan Legal, PC',
     images: [{
-      url: 'https://ryanlegalpc.com/opengraph-image.png',
+      url: '/opengraph-image.png',
       alt: 'Ryan Legal, PC at ryanlegalpc.com, legal representation for employers, health care providers and non-profits throughout California',
     }],
   },
   twitter: {
     card: 'summary_large_image',
     images: [{
-      url: 'https://ryanlegalpc.com/twitter-image.png',
+      url: '/twitter-image.png',
       alt: 'Ryan Legal, PC at ryanlegalpc.com, legal representation for employers, health care providers and non-profits throughout California',
     }],
   },

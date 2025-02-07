@@ -4,19 +4,28 @@ import { faRoadBarrier } from '@fortawesome/free-solid-svg-icons'
 import '@/app/ui/payment.css'
 
 import penOnSurface from '@/public/pen-on-surface.webp'
+import { metadata as appMetadata } from '@/app/layout'
 
 import { Metadata } from 'next'
 
+const description = 'Access quick and easy payment options serviced rendered.'
+const url = '/payment'
+
 export const metadata: Metadata = {
   title: 'Payment',
-  description: 'Access quick and easy payment options serviced rendered.',
+  description,
   keywords: [
     'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
     'Russ Ryan', 'Russell Ryan', 'Payment', 'Lawpay'
   ],
   alternates: {
-    canonical: '/payment',
+    canonical: url,
   },
+  openGraph: {
+    ...appMetadata.openGraph,
+    description,
+    url,
+  }
 }
 
 export default function Page() {

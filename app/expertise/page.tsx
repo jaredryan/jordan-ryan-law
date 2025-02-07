@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Suspense } from 'react'
 import ExpertiseCarousel from '@/app/ui/expertise-carousel'
+import { metadata as appMetadata } from '@/app/layout'
 
 import '@/app/ui/expertise.css'
 
@@ -16,16 +17,24 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
     ? `?topic=${params.topic}`
     : ''
 
+  const description = 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.'
+  const url = `/expertise${topicStringToAppend}`
+
   return {
     title: 'Expertise',
-    description: 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.',
+    description,
     keywords: [
       'Law', 'Labor', 'Employment', 'Business', 'Transactions',
       'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
     ],
     alternates: {
-      canonical: `/expertise${topicStringToAppend}`,
+      canonical: url,
     },
+    openGraph: {
+      ...appMetadata.openGraph,
+      description,
+      url,
+    }
   }
 }
 

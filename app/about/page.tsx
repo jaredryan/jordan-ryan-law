@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Suspense } from 'react'
+import { metadata as appMetadata } from '@/app/layout'
 import '@/app/ui/about.css'
 
 import { russKRyanProfileSummary } from '@/app/content'
@@ -20,16 +21,24 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
     ? `&topic=${params.topic}`
     : ''
 
+  const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+  const url = `/about?expanded=true${topicStringToAppend}`
+
   return {
     title: 'About',
-    description: 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.',
+    description,
     keywords: [
       'Ratings', 'Designations', 'Russ Ryan', 'Russell Ryan', 'Training',
       'Affiliations', 'Clients', 'Lawyer', 'Attorney', 'Education'
     ],
     alternates: {
-      canonical: `/about?expanded=true${topicStringToAppend}`,
+      canonical: url,
     },
+    openGraph: {
+      ...appMetadata.openGraph,
+      description,
+      url,
+    }
   }
 }
 

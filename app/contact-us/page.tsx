@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import ContactUsForm from '@/app/ui/contact-us-form'
 import GoogleMapsAddress from '@/app/ui/google-maps-address'
 import { contactCards } from '@/app/content'
+import { metadata as appMetadata } from '@/app/layout'
 import Image from 'next/image'
 import '@/app/ui/contact-us.css'
 
@@ -9,16 +10,24 @@ import writingOnPaper from '@/public/writing-on-paper.webp'
 
 import { Metadata } from 'next'
 
+const description = 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.'
+const url = '/contact-us'
+
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.',
+  description,
   keywords: [
     'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
     'Fresno', 'Contact', 'Russ Ryan', 'Russell Ryan'
   ],
   alternates: {
-    canonical: '/contact-us',
+    canonical: url,
   },
+  openGraph: {
+    ...appMetadata.openGraph,
+    description,
+    url,
+  }
 }
 
 export default function Page() {
