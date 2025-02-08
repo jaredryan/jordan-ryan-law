@@ -11,7 +11,46 @@ import 'slick-carousel/slick/slick-theme.css'
 import { areasOfPractice } from '@/app/content'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
+import CanonLinkInjector from '@/app/ui/canon-link-injector'
+import JsonLDInjector from '@/app/ui/json-ld-injector'
+
+import { LegalService, WithContext } from 'schema-dts'
+
 import '@/app/ui/expertise-carousel.css'
+
+const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const getPageUrl = (topicParams: string | undefined | null) => 
+  `/expertise${topicParams ? `?topic=${topicParams}` : ''}`
+const description = 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.'
+const keywords = [
+  'Law', 'Labor', 'Employment', 'Business', 'Transactions',
+  'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
+]
+
+const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<LegalService> => ({
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: 'Ryan Legal, PC',
+  alternateName: 'Ryan Legal',
+  url: `${baseUrl}${getPageUrl(topicParams)}`,
+  image: `${baseUrl}/opengraph-image.png`,
+  description,
+  keywords,
+
+  // Refine these to be correct and relevant
+  // TO-DO: switch makesOffer to hasOfferCatalog if it needs to be more detailed/has nested stuff
+  // makesOffer: [{
+  //   '@type': 'LegalService',
+  //   name: 'Business Law',
+  //   description: 'Legal services for businesses, including contracts and compliance.'
+  // }, {
+  //   '@type': 'LegalService',
+  //   name: 'Real Estate Law',
+  //   description: 'Handling property transactions, disputes, and zoning matters.'
+  // }],
+  
+  // TO-DO -- whatever other specific Expertise fields I need to do
+})
 
 function BlankArrow(_props: any) {
     return <></>
@@ -158,7 +197,9 @@ export default function Carousel() {
     }
   }, [])
 
-  return (
+  return <>
+    <CanonLinkInjector url={getPageUrl(topic)} />
+    <JsonLDInjector json={expertiseJsonLd(topic)} />
     <div className="expertiseCarousel carouselComponent" ref={componentRef} role="tabs">
       <Slider 
         ref={sliderRef}
@@ -187,5 +228,5 @@ export default function Carousel() {
           )})}
       </Slider>
     </div>
-  )
+  </>
 }

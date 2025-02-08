@@ -425,8 +425,10 @@ export const aboutTopics = [
   'Clients',
 ]
 
+export const specialty = areasOfPractice.map(areaOfPractice => areaOfPractice.name)
+
 export const knowsAbout = [
-  ...areasOfPractice.map(areaOfPractice => areaOfPractice.name),
+  ...specialty,
   'Real Estate',
   'Training',
 ]

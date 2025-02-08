@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 import { aboutTopics, areasOfPractice } from '@/app/content'
 
-const url = process.env.CURRENT_URL || ''
+const url = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 
 const aboutMetadata: MetadataRoute.Sitemap = {
     // @ts-ignore

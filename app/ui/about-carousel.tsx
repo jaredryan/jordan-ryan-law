@@ -42,6 +42,106 @@ import {
 import '@/app/ui/about-carousel.css'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
+import CanonLinkInjector from '@/app/ui/canon-link-injector'
+import JsonLDInjector from '@/app/ui/json-ld-injector'
+
+import { Person, WithContext } from 'schema-dts'
+
+import { 
+  russKRyanProfileSummary,
+  russKRyanRatingsAndDesignationsSimplifiedWithYears,
+  contactCards,
+  knowsAbout,
+} from '@/app/content'
+
+const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+const getPageUrl = (topicParams: string | undefined | null) => 
+  `/about?expanded=true${topicParams ? `&topic=${topicParams}` : ''}`
+
+
+const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person> => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Russell Ryan',
+  alternateName: 'Russ Ryan',
+  url: `${baseUrl}${getPageUrl(topicParams)}`,
+  image: [
+    `${baseUrl}/square-profile.webp`,
+    `${baseUrl}/super-lawyers-badge.png`,
+    `${baseUrl}/av-preeminent.png`,
+  ],
+  description,
+  address: [{
+    '@type': 'PostalAddress',
+    addressLocality: contactCards[1].content[2].split(',')[0],
+    addressRegion: 'CA',
+    postalCode: contactCards[1].content[2].split(' ')[2],
+    streetAddress: contactCards[1].content[0]
+  }, {
+    '@type': 'PostalAddress',
+    postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
+    addressLocality: contactCards[2].content[1].split(',')[0],
+    addressRegion: 'CA',
+    postalCode: contactCards[2].content[1].split(' ')[2],
+  }],
+  email: contactCards[0].content[2],
+  telephone: contactCards[0].content[0].split(':')[1].slice(1),
+  faxNumber: contactCards[0].content[1].split(':')[1].slice(1),
+  knowsLanguage: ['English', 'Spanish'],
+  award: russKRyanRatingsAndDesignationsSimplifiedWithYears,
+  alumniOf: [{
+    "@type": "CollegeOrUniversity",
+    "name": "University of California, Berkeley School of Law",
+    "sameAs": "https://www.law.berkeley.edu"
+  }, {
+    "@type": "CollegeOrUniversity",
+    "name": "Brigham Young University",
+    "sameAs": "https://www.byu.edu"
+  }],
+  memberOf: [{
+    '@type': 'LegalService',
+    name: 'California Bar Association'
+  }, {
+    '@type': 'LegalService',
+    name: 'Utah Bar Association'
+  }, {
+    '@type': 'LegalService',
+    name: 'Fresno County Bar Association'
+  }, {
+    '@type': 'LegalService',
+    name: 'Madera County Bar Association',
+    'description': 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
+  }, {
+    '@type': 'Organization',
+    name: 'American Business Trial Lawyers',
+    'description': 'Board of Directors, Fresno Chapter (2008)'
+  }, {
+    '@type': 'Organization',
+    name: 'Heartland Opportunity Center',
+    'description': 'Board of Directors, Vice President (2001)'
+  }, {
+    '@type': 'Organization',
+    name: 'Resources for Independence Central Valley',
+    'description': 'Board of Directors (2009-present)'
+  }, {
+    '@type': 'Corporation',
+    name: 'Kimberlite Corporation (dba Sonitrol)',
+    'description': 'Board Chairperson (2010-present)'
+  }, {
+    '@type': 'EducationalOrganization',
+    name: 'Center for Disability Innovation at California State University, Fresno',
+    'description': 'Steering Committee (2008-present)'
+  }],
+  knowsAbout,
+  // TO-DO -- whatever other specific Profile / Person fields I need to do
+})
+
+
+
+
+
+
 const subSections = [
   {
     title: 'Employment',
@@ -572,6 +672,8 @@ export default function Carousel() {
   }, [expanded])
 
   return <>
+    <CanonLinkInjector url={getPageUrl(topic)} />
+    <JsonLDInjector json={aboutJsonId(topic)} />
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
           {sections.map((section, index) => {
