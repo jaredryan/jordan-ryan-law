@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next'
+
+const url = process.env.CURRENT_URL || ''
  
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -19,6 +21,6 @@ export default function robots(): MetadataRoute.Robots {
         '/about?topic=*&expanded=false',
       ],
     },
-    sitemap: 'https://ryanlegalpc.com/sitemap.xml',
+    sitemap: `${url}/sitemap.xml`,
   }
 }

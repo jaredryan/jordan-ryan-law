@@ -142,27 +142,40 @@ export const russKRyanCourtAdmissions = [
 export const russKRyanRatingsAndDesignations = [{
   title: `Designated "Super Lawyer" in California as selected by Super Lawyers Magazine, which uses a patented
     third party nomination and selection process to rate the top 5% of attorneys in each state`,
+  simplified: `"Super Lawyer" in California, as selected by Super Lawyers Magazine`,
   years: '2014-present',
 }, {
   title: `"AV Preeminent" rated attorney signifying the highest possible rating of professional
     excellence in both legal ability and ethical standards, which is Martindale-Hubbell Law Directory's highest
     accolade afforded to only the top 5% of all attorneys and law firms nationwide, based on peer
     review ratings provided by the area's judges and attorneys`,
+  simplified: `"AV Preeminent" rated attorney, as selected by Martindale-Hubbell`,
   years: '2012-present',
 }, {
   title: `Martindale-Hubbell Top Rated Lawyers in Labor and Employment`,
+  simplified: `Martindale-Hubbell Top Rated Lawyers in Labor and Employment`,
   years: '2016-present',
 }, {
   title: `Martindale-Hubbell Top Rated Lawyers in Litigation`,
+  simplified: `Martindale-Hubbell Top Rated Lawyers in Litigation`,
   years: '2016-present',
 }, {
   title: `America's Most Honored Lawyers - Top 1%`,
+  simplified: `America's Most Honored Lawyers - Top 1%`,
   years: '2016-Present',
 }, {
   title: `Designated as one of "Top Lawyers in California" by The Legal Network from 2014 to the present as
     Highest in Ethical Standards and Professional Excellence.`,
+  simplified: `"Top Lawyers in California", as selected by The Legal Network`,
   years: '2014-present'
 }]
+
+// If the awards are significant and represent the business, list them.
+export const russKRyanRatingsAndDesignationsSimplified = russKRyanRatingsAndDesignations
+  .map(ratingOrDesignation => ratingOrDesignation.simplified)
+
+export const russKRyanRatingsAndDesignationsSimplifiedWithYears = russKRyanRatingsAndDesignations
+  .map(ratingOrDesignation => `${ratingOrDesignation.simplified} — ${ratingOrDesignation.years}`)
 
 export const russKRyanPriorExperience = [{
   position: 'Partner',
@@ -357,7 +370,7 @@ export const contactCards = [{
   content: [
     'Telephone: (559) 439-4000',
     'Facsimile: (559) 439-5654',
-    'info@mmwbr.com'
+    'rkr@mmwbr.com'
   ]
 }, {
   icon: <FontAwesomeIcon icon={faLocationDot} />,
@@ -410,4 +423,10 @@ export const aboutTopics = [
   'Affiliations',
   'Public and Community Service',
   'Clients',
+]
+
+export const knowsAbout = [
+  ...areasOfPractice.map(areaOfPractice => areaOfPractice.name),
+  'Real Estate',
+  'Training',
 ]
