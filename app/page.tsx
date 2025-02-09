@@ -22,7 +22,7 @@ import {
   russKRyanRatingsAndDesignationsSimplified,
   knowsAbout,
 } from '@/app/content'
-import { LegalService, WithContext } from 'schema-dts'
+import { LegalService, WebSite, WebPage, WithContext } from 'schema-dts'
 import JsonLDInjector from '@/app/ui/json-ld-injector'
 
 const url = process.env.NEXT_PUBLIC_CURRENT_URL || ''
@@ -101,18 +101,67 @@ const businessJsonLd: WithContext<LegalService> = {
   // ]
 }
 
-// const websiteJsonLd: WithContext<WebSite> = {
+const websiteJsonLd: WithContext<WebSite> = {
+  '@context': 'https://schema.org',
+  '@id': `${url}/#WebSite`,
+  '@type': 'WebSite',
+  url,
+  name: 'Ryan Legal, PC',
+  alternateName: 'Ryan Legal',
+  description: 'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profiles, and how to get in touch to get started.',
+  publisher: {
+    '@type': 'LegalService',
+    '@id': `${url}#RyanLegalPC`,
+    name: 'Ryan Legal, PC'
+  },
+  isPartOf: {
+    '@id': `${url}#RyanLegalPC`,
+  },
+  inLanguage: 'en',
+  thumbnailUrl: `${url}/thumbnail.webp`,
+}
 
-// }
-
-// const webpageJsonLd: WithContext<WebSite> = {
-
-// }
+const webpageJsonLd: WithContext<WebPage> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${url}/#home`,
+  url,
+  name: 'Ryan Legal, PC - California Employment & Business Law Firm',
+  description: 'Ryan Legal, PC provides premier legal representation for employers, health care providers, and non-profits throughout California. Expert legal services in employment law, business transactions, and litigation.',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [{
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: url
+    }]
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: `${url}/opengraph-image.png`,
+    caption: 'Ryan Legal, PC - Legal Services'
+  },
+  isPartOf: {
+    '@id': `${url}/#website`,
+  },
+  about: {
+    '@id': `${url}#RyanLegalPC`,
+  },
+  datePublished: '2024-02-01',
+  dateModified: '2024-02-09',
+  inLanguage: 'en',
+  publisher: {
+    '@id': `${url}#RyanLegalPC`
+  }
+}
 
 export default function Page() {
   return (
     <div className="homePage">
       <JsonLDInjector json={businessJsonLd} />
+      <JsonLDInjector json={websiteJsonLd} />
+      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={upperFalls}

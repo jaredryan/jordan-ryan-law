@@ -10,13 +10,18 @@ import {
   russKRyanProfileSummary,
 } from '@/app/content'
 import AboutCarousel from '@/app/ui/about-carousel'
+import JsonLDInjector from '@/app/ui/json-ld-injector'
+import { WebPage, WithContext } from 'schema-dts'
 
 import penOnNotebook from '@/public/pen-on-notebook.webp'
 import squareProfile from '@/public/square-profile.webp'
 import superLawyersBadge from '@/public/super-lawyers-badge.png'
 import avPreeminent from '@/public/av-preeminent.png'
 
+const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+const getPageUrl = (topicParams: string | undefined | null) => 
+  `/about?expanded=true${topicParams ? `&topic=${topicParams}` : ''}`
 
 export const metadata: Metadata = {
   title: 'About',
@@ -28,9 +33,51 @@ export const metadata: Metadata = {
   },
 }
 
+const webpageJsonLd: WithContext<WebPage> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${baseUrl}/about`,
+  url: `${baseUrl}/about`,
+  name: 'About Ryan Legal, PC',
+  description,
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `${baseUrl}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'About',
+        item: `${baseUrl}/about`
+      }
+    ]
+  },
+  isPartOf: {
+    '@type': 'WebSite',
+    '@id': `${baseUrl}#Website`
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: `${baseUrl}/square-profile.webp`,
+    caption: 'Russ Ryan - Founder and Owner of Ryan Legal, PC'
+  },
+  about: {
+    '@type': 'Person',
+    '@id': `${baseUrl}#RussellRyan`
+  },
+  lastReviewed: '2024-02-09'
+}
+
+
 export default async function Page() {
   return (
     <div className="aboutPage">
+      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={penOnNotebook}
