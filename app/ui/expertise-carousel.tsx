@@ -64,6 +64,8 @@ export default function Carousel() {
   const [topic, setTopic] = useQueryState('topic')
 
   const settings = {
+    draggable: false,
+    swipe: false,
     customPaging: function(i: number) {
         const areaOfPractice = areasOfPractice[i]
         const transformedName = transformTextToUrlParams(areaOfPractice.name)

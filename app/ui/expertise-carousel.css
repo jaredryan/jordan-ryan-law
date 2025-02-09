@@ -35,6 +35,13 @@
     width: 100%;
 }
 
+.carouselComponent.expertiseCarousel .slick-slider {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 .carouselComponent.expertiseCarousel .customTabs .slick-active .tab {
     border: 2px solid var(--primary-color) !important;
 }

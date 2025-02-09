@@ -495,6 +495,8 @@ export default function Carousel() {
   ]
   
   const settings = {
+    draggable: false,
+    swipe: false,
     customPaging: function(i: number) {
       return renderSideNavItem(
         sections[i],
