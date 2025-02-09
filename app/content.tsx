@@ -425,10 +425,38 @@ export const aboutTopics = [
   'Clients',
 ]
 
-export const specialty = areasOfPractice.map(areaOfPractice => areaOfPractice.name)
-
 export const knowsAbout = [
-  ...specialty,
-  'Real Estate',
-  'Training',
+  "Labor and Employment Law",
+  "Business Transactions and Finance",
+  "Health Care Law",
+  "Technology Law",
+  "Business Litigation",
+  "Appellate Litigation",
+  "Real Estate Law"
+]
+
+export const skills = [
+  'Workplace Training & Employment Policies',
+  'Employment Litigation',
+  'Corporate Compliance & Business Transactions',
+  'Health Care Compliance & HIPAA',
+  'Mediation & Arbitration',
+  'Jury Trials & Appellate Litigation',
+  'Business Formation & Mergers',
+  'Financial Transaction Representation',
+  'Trade Secrets & Intellectual Property Law',
+  'Software Agreements & Trademark Licensing'
+]
+
+export const aboutKeywords = [
+  'Russell Ryan Attorney',
+  'Labor and Employment Lawyer',
+  'Business Litigation Attorney',
+  'Health Care Legal Expert',
+  'California Employment Law',
+  'Corporate Compliance Attorney',
+  'Trade Secret Lawyer',
+  'Real Estate Legal Counsel',
+  'Arbitration and Mediation Expert',
+  'Appellate Litigation Attorney'
 ]

@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import '@/app/ui/about.css'
 
 import { 
+  aboutKeywords,
   russKRyanProfileSummary,
 } from '@/app/content'
 import AboutCarousel from '@/app/ui/about-carousel'
@@ -16,15 +17,11 @@ import superLawyersBadge from '@/public/super-lawyers-badge.png'
 import avPreeminent from '@/public/av-preeminent.png'
 
 const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
-const keywords = [
-  'Ratings', 'Designations', 'Russ Ryan', 'Russell Ryan', 'Training',
-  'Affiliations', 'Clients', 'Lawyer', 'Attorney', 'Education'
-]
 
 export const metadata: Metadata = {
   title: 'About',
   description,
-  keywords,
+  keywords: aboutKeywords,
   openGraph: {
     ...appMetadata.openGraph,
     description,
@@ -79,7 +76,7 @@ export default async function Page() {
             </div>
           </div>  
           <div className="profileInformation">
-            <h2>Russell K. Ryan — Partner and Founder</h2>
+            <h2>Russell K. Ryan — Founder and Owner</h2>
             <div className="introduction">
               {russKRyanProfileSummary.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>

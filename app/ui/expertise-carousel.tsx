@@ -30,6 +30,7 @@ const keywords = [
 const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<LegalService> => ({
   '@context': 'https://schema.org',
   '@type': 'LegalService',
+  '@id': `${baseUrl}#RyanLegalPC`,
   name: 'Ryan Legal, PC',
   alternateName: 'Ryan Legal',
   url: `${baseUrl}${getPageUrl(topicParams)}`,

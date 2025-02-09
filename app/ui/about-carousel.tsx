@@ -52,6 +52,8 @@ import {
   russKRyanRatingsAndDesignationsSimplifiedWithYears,
   contactCards,
   knowsAbout,
+  skills,
+  aboutKeywords,
 } from '@/app/content'
 
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
@@ -63,33 +65,17 @@ const getPageUrl = (topicParams: string | undefined | null) =>
 const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person> => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${baseUrl}#RussellRyan`,
   name: 'Russell Ryan',
-  alternateName: 'Russ Ryan',
+  alternateName: 'Russ',
+  givenName: 'Russell',
+  familyName: 'Ryan',
   url: `${baseUrl}${getPageUrl(topicParams)}`,
-  image: [
-    `${baseUrl}/square-profile.webp`,
-    `${baseUrl}/super-lawyers-badge.png`,
-    `${baseUrl}/av-preeminent.png`,
-  ],
+  image: `${baseUrl}/square-profile.webp`,
   description,
-  address: [{
-    '@type': 'PostalAddress',
-    addressLocality: contactCards[1].content[2].split(',')[0],
-    addressRegion: 'CA',
-    postalCode: contactCards[1].content[2].split(' ')[2],
-    streetAddress: contactCards[1].content[0]
-  }, {
-    '@type': 'PostalAddress',
-    postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
-    addressLocality: contactCards[2].content[1].split(',')[0],
-    addressRegion: 'CA',
-    postalCode: contactCards[2].content[1].split(' ')[2],
-  }],
-  email: contactCards[0].content[2],
-  telephone: contactCards[0].content[0].split(':')[1].slice(1),
-  faxNumber: contactCards[0].content[1].split(':')[1].slice(1),
   knowsLanguage: ['English', 'Spanish'],
   award: russKRyanRatingsAndDesignationsSimplifiedWithYears,
+  jobTitle: 'Founder and Owner',
   alumniOf: [{
     "@type": "CollegeOrUniversity",
     "name": "University of California, Berkeley School of Law",
@@ -100,16 +86,16 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
     "sameAs": "https://www.byu.edu"
   }],
   memberOf: [{
-    '@type': 'LegalService',
+    '@type': 'ProfessionalOrganization',
     name: 'California Bar Association'
   }, {
-    '@type': 'LegalService',
+    '@type': 'ProfessionalOrganization',
     name: 'Utah Bar Association'
   }, {
-    '@type': 'LegalService',
+    '@type': 'ProfessionalOrganization',
     name: 'Fresno County Bar Association'
   }, {
-    '@type': 'LegalService',
+    '@type': 'ProfessionalOrganization',
     name: 'Madera County Bar Association',
     'description': 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
   }, {
@@ -125,7 +111,7 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
     name: 'Resources for Independence Central Valley',
     'description': 'Board of Directors (2009-present)'
   }, {
-    '@type': 'Corporation',
+    '@type': 'Organization',
     name: 'Kimberlite Corporation (dba Sonitrol)',
     'description': 'Board Chairperson (2010-present)'
   }, {
@@ -134,11 +120,16 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
     'description': 'Steering Committee (2008-present)'
   }],
   knowsAbout,
+  keywords: aboutKeywords,
+  honorificSuffix: "JD, Esq.",
+  worksFor: {
+    '@type': 'LegalService',
+    '@id': `${baseUrl}#RyanLegalPC`,
+    name: 'Ryan Legal, PC',
+    url: `${baseUrl}`
+  },
   // TO-DO -- whatever other specific Profile / Person fields I need to do
 })
-
-
-
 
 
 

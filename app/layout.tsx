@@ -12,8 +12,16 @@ export const description = 'Premier Legal Representation of Employers, Health Ca
 const url = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 
 export const keywords = [
-  'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
-  'Fresno', 'Central California', 'Central Valley'
+  'Employment Lawyer Fresno',
+  'Business Attorney California',
+  'Health Care Legal Services',
+  'Litigation Attorney Central Valley',
+  'Real Estate Attorney California',
+  'Corporate Compliance Lawyer',
+  'Trade Secret Litigation',
+  'Technology Attorney California',
+  'Workplace Disputes Legal Help',
+  'HR Compliance Lawyer'
 ]
 
 export const metadata: Metadata = {

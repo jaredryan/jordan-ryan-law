@@ -40,17 +40,19 @@ export const metadata: Metadata = {
 const businessJsonLd: WithContext<LegalService> = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
+  '@id': `${url}#RyanLegalPC`,
   name: 'Ryan Legal, PC',
   alternateName: 'Ryan Legal',
   url,
   image: `${url}/opengraph-image.png`,
   description,
   currenciesAccepted: 'USD',
-  openingHours: 'Mo-Fr 8:00-17:00',
+  openingHours: 'Mo-Fr 08:00-17:00',
   address: [{
     '@type': 'PostalAddress',
     addressLocality: contactCards[1].content[2].split(',')[0],
     addressRegion: 'CA',
+    addressCountry: 'US',
     postalCode: contactCards[1].content[2].split(' ')[2],
     streetAddress: contactCards[1].content[0]
   }, {
@@ -58,6 +60,7 @@ const businessJsonLd: WithContext<LegalService> = {
     postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
     addressLocality: contactCards[2].content[1].split(',')[0],
     addressRegion: 'CA',
+    addressCountry: 'US',
     postalCode: contactCards[2].content[1].split(' ')[2],
   }],
   email: contactCards[0].content[2],
@@ -75,6 +78,12 @@ const businessJsonLd: WithContext<LegalService> = {
   knowsAbout,
   keywords,
   award: russKRyanRatingsAndDesignationsSimplified,
+  founder: {
+    "@type": 'Person',
+    '@id': `${url}#RussellRyan`,
+    name: 'Russell Ryan',
+    url: `${url}/about?expanded=true`,
+  },
 
   // TO-DO In Future:
 
