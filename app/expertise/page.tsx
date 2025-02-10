@@ -69,7 +69,7 @@ const webpageJsonLd: WithContext<WebPage> = {
     caption: 'Ryan Legal, PC - Legal Services'
   },
   keywords,
-  about: {
+  mainEntity: {
     '@id': `${baseUrl}#RyanLegalPC`,
     '@type': 'LegalService',
     url: baseUrl,

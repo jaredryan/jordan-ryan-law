@@ -63,10 +63,15 @@ const webpageJsonLd: WithContext<WebPage> = {
     url: `${baseUrl}/square-profile.webp`,
     caption: 'Russ Ryan - Founder and Owner of Ryan Legal, PC'
   },
-  about: {
+  mainEntity: {
     '@id': `${baseUrl}/about#RussellRyan`,
     '@type': 'Person',
     url: `${baseUrl}/about`,
+  },
+  about: {
+    '@id': `${baseUrl}#RyanLegalPC`,
+    '@type': 'LegalService',
+    url: baseUrl,
   },
 }
 

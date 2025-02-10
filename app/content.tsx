@@ -470,3 +470,19 @@ export const physicalAddressJSON = {
   postalCode: contactCards[1].content[2].split(' ')[2],
   streetAddress: contactCards[1].content[0]
 } as PostalAddress
+
+export const mailingAddressJSON = {
+  '@type': 'PostalAddress',
+  postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
+  addressLocality: contactCards[2].content[1].split(',')[0],
+  addressRegion: 'CA',
+  addressCountry: 'US',
+  postalCode: contactCards[2].content[1].split(' ')[2],
+} as PostalAddress
+
+export const contactDetailsJSON = {
+  openingHours: 'Mo-Fr 08:00-17:00',
+  email: contactCards[0].content[2],
+  telephone: contactCards[0].content[0].split(':')[1].slice(1),
+  faxNumber: contactCards[0].content[1].split(':')[1].slice(1),
+}

@@ -1,7 +1,10 @@
 import { Suspense } from 'react'
 import ContactUsForm from '@/app/ui/contact-us-form'
 import GoogleMapsAddress from '@/app/ui/google-maps-address'
-import { contactCards, physicalAddressJSON } from '@/app/content'
+import { 
+  contactCards, contactDetailsJSON, 
+  physicalAddressJSON, mailingAddressJSON
+} from '@/app/content'
 import { metadata as appMetadata } from '@/app/layout'
 import Image from 'next/image'
 import { WebPage, WithContext } from 'schema-dts'
@@ -87,7 +90,11 @@ const webpageJsonLd: WithContext<WebPage> = {
       name: 'Ryan Legal, PC',
       url: baseUrl,
       image: `${baseUrl}/opengraph-image.png`,
-      address: physicalAddressJSON,
+      address: [
+        physicalAddressJSON,
+        mailingAddressJSON,
+      ],
+      ...contactDetailsJSON,
       subjectOf: {
         '@type': 'WebPage',
         '@id': `${baseUrl}/expertise#webpage`,

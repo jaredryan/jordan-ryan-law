@@ -7,6 +7,7 @@ import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
   businessExplanation, businessName, businessSlogan,
   businessSummary, areasOfPractice, physicalAddressJSON,
+  mailingAddressJSON, contactDetailsJSON
 } from '@/app/content'
 
 import '@/app/ui/home.css'
@@ -18,7 +19,6 @@ import attorneyWriting from '@/public/attorney-writing.webp'
 import { description, keywords } from '@/app/layout'
 
 import {
-  contactCards,
   russKRyanRatingsAndDesignationsSimplified,
   knowsAbout,
 } from '@/app/content'
@@ -47,7 +47,6 @@ const businessJsonLd: WithContext<LegalService> = {
   image: `${url}/opengraph-image.png`,
   description,
   currenciesAccepted: 'USD',
-  openingHours: 'Mo-Fr 08:00-17:00',
   subjectOf: {
     '@type': 'WebPage',
     '@id': `${url}/expertise#webpage`,
@@ -56,16 +55,9 @@ const businessJsonLd: WithContext<LegalService> = {
   },
   address: [
     physicalAddressJSON,
-  {
-    '@type': 'PostalAddress',
-    postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
-    addressLocality: contactCards[2].content[1].split(',')[0],
-    addressRegion: 'CA',
-    addressCountry: 'US',
-    postalCode: contactCards[2].content[1].split(' ')[2],
-  }],
-  email: contactCards[0].content[2],
-  telephone: contactCards[0].content[0].split(':')[1].slice(1),
+    mailingAddressJSON,
+  ],
+  ...contactDetailsJSON,
   serviceArea: [{
     '@type': 'AdministrativeArea',
     name: 'California',
@@ -73,7 +65,6 @@ const businessJsonLd: WithContext<LegalService> = {
     '@type': 'AdministrativeArea',
     name: 'Utah',
   }],
-  faxNumber: contactCards[0].content[1].split(':')[1].slice(1),
   knowsLanguage: ['English', 'Spanish'],
   logo: `${url}/full-logo.webp`,
   knowsAbout,
@@ -109,7 +100,7 @@ const websiteJsonLd: WithContext<WebSite> = {
   name: 'Ryan Legal, PC',
   alternateName: 'Ryan Legal',
   description: 'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profiles, and how to get in touch to get started.',
-  about: {
+  mainEntity: {
     '@id': `${url}#RyanLegalPC`,
     '@type': 'LegalService',
   },
@@ -148,7 +139,7 @@ const webpageJsonLd: WithContext<WebPage> = {
     '@id': `${url}/#website`,
     '@type': 'WebSite',
   },
-  about: {
+  mainEntity: {
     '@id': `${url}#RyanLegalPC`,
     '@type': 'LegalService',
   },
