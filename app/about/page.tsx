@@ -54,7 +54,6 @@ const webpageJsonLd: WithContext<WebPage> = {
     }]
   },
   isPartOf: {
-    '@type': 'WebSite',
     '@id': `${baseUrl}/#website`
   },
   primaryImageOfPage: {
@@ -63,7 +62,6 @@ const webpageJsonLd: WithContext<WebPage> = {
     caption: 'Russ Ryan - Founder and Owner of Ryan Legal, PC'
   },
   about: {
-    '@type': 'Person',
     '@id': `${baseUrl}#RussellRyan`
   },
 }

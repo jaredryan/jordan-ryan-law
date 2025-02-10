@@ -64,10 +64,6 @@ const webpageJsonLd: WithContext<WebPage> = {
       }
     ]
   },
-  about: {
-    '@type': 'LegalService',
-    '@id': `${baseUrl}#RyanLegalPC`
-  },
   primaryImageOfPage: {
     '@type': 'ImageObject',
     url: `${baseUrl}/opengraph-image.png`,

@@ -118,10 +118,7 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
   knowsAbout,
   honorificSuffix: "JD, Esq.",
   worksFor: {
-    '@type': 'LegalService',
     '@id': `${baseUrl}#RyanLegalPC`,
-    name: 'Ryan Legal, PC',
-    url: `${baseUrl}`
   },
   // TO-DO -- whatever other specific Profile / Person fields I need to do
 })

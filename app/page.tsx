@@ -79,10 +79,7 @@ const businessJsonLd: WithContext<LegalService> = {
   keywords,
   award: russKRyanRatingsAndDesignationsSimplified,
   founder: {
-    "@type": 'Person',
     '@id': `${url}#RussellRyan`,
-    name: 'Russell Ryan',
-    url: `${url}/about?expanded=true`,
   },
 
   // TO-DO In Future:
@@ -110,9 +107,7 @@ const websiteJsonLd: WithContext<WebSite> = {
   alternateName: 'Ryan Legal',
   description: 'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profiles, and how to get in touch to get started.',
   publisher: {
-    '@type': 'LegalService',
     '@id': `${url}#RyanLegalPC`,
-    name: 'Ryan Legal, PC'
   },
   isPartOf: {
     '@id': `${url}#RyanLegalPC`,

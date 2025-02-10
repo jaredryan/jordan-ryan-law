@@ -59,7 +59,6 @@ const webpageJsonLd: WithContext<WebPage> = {
     }]
   },
   isPartOf: {
-    '@type': 'WebSite',
     '@id': `${baseUrl}/#website`
   },
   primaryImageOfPage: {
