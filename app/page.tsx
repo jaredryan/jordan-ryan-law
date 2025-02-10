@@ -103,7 +103,7 @@ const businessJsonLd: WithContext<LegalService> = {
 
 const websiteJsonLd: WithContext<WebSite> = {
   '@context': 'https://schema.org',
-  '@id': `${url}/#WebSite`,
+  '@id': `${url}/#website`,
   '@type': 'WebSite',
   url,
   name: 'Ryan Legal, PC',
@@ -124,7 +124,7 @@ const websiteJsonLd: WithContext<WebSite> = {
 const webpageJsonLd: WithContext<WebPage> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  '@id': `${url}/#home`,
+  '@id': `${url}/#webpage`,
   url,
   name: 'Ryan Legal, PC - California Employment & Business Law Firm',
   description: 'Ryan Legal, PC provides premier legal representation for employers, health care providers, and non-profits throughout California. Expert legal services in employment law, business transactions, and litigation.',
@@ -153,6 +153,25 @@ const webpageJsonLd: WithContext<WebPage> = {
   inLanguage: 'en',
   publisher: {
     '@id': `${url}#RyanLegalPC`
+  },
+  potentialAction: {
+    '@type': 'CommunicateAction',
+    name: 'Request Consultation',
+    description: 'Submit a consultation request form including name, email, phone, and a message.',
+    agent: {
+      '@type': 'Person'
+    },
+    recipient: {
+      '@id': `${url}#RyanLegalPC`
+    },
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${url}/#request-consultation`,
+      actionPlatform: [
+        'https://schema.org/DesktopWebPlatform',
+        'https://schema.org/MobileWebPlatform'
+      ]
+    }
   }
 }
 

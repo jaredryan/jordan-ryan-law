@@ -99,7 +99,7 @@ export default function ContactUsForm() {
   }
 
   return (
-    <form className="contactUsForm" action={action} noValidate>
+    <form className="contactUsForm" action={action} noValidate id="request-consultation">
       <div className="inputFields">
         <div className="input" key="name">
           <label htmlFor="name">

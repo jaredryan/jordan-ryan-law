@@ -20,8 +20,6 @@ import avPreeminent from '@/public/av-preeminent.png'
 
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
-const getPageUrl = (topicParams: string | undefined | null) => 
-  `/about?expanded=true${topicParams ? `&topic=${topicParams}` : ''}`
 
 export const metadata: Metadata = {
   title: 'About',
@@ -36,30 +34,27 @@ export const metadata: Metadata = {
 const webpageJsonLd: WithContext<WebPage> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  '@id': `${baseUrl}/about`,
+  '@id': `${baseUrl}/about#webpage`,
   url: `${baseUrl}/about`,
   name: 'About Ryan Legal, PC',
   description,
   breadcrumb: {
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: `${baseUrl}`
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'About',
-        item: `${baseUrl}/about`
-      }
-    ]
+    itemListElement: [{
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${baseUrl}`
+    }, {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'About',
+      item: `${baseUrl}/about`
+    }]
   },
   isPartOf: {
     '@type': 'WebSite',
-    '@id': `${baseUrl}#Website`
+    '@id': `${baseUrl}/#website`
   },
   primaryImageOfPage: {
     '@type': 'ImageObject',
@@ -70,7 +65,6 @@ const webpageJsonLd: WithContext<WebPage> = {
     '@type': 'Person',
     '@id': `${baseUrl}#RussellRyan`
   },
-  lastReviewed: '2024-02-09'
 }
 
 

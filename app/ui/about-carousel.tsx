@@ -86,41 +86,40 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
     "sameAs": "https://www.byu.edu"
   }],
   memberOf: [{
-    '@type': 'ProfessionalOrganization',
+    '@type': 'Organization',
     name: 'California Bar Association'
   }, {
-    '@type': 'ProfessionalOrganization',
+    '@type': 'Organization',
     name: 'Utah Bar Association'
   }, {
-    '@type': 'ProfessionalOrganization',
+    '@type': 'Organization',
     name: 'Fresno County Bar Association'
   }, {
-    '@type': 'ProfessionalOrganization',
+    '@type': 'Organization',
     name: 'Madera County Bar Association',
-    'description': 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
+    description: 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
   }, {
     '@type': 'Organization',
     name: 'American Business Trial Lawyers',
-    'description': 'Board of Directors, Fresno Chapter (2008)'
+    description: 'Board of Directors, Fresno Chapter (2008)'
   }, {
     '@type': 'Organization',
     name: 'Heartland Opportunity Center',
-    'description': 'Board of Directors, Vice President (2001)'
+    description: 'Board of Directors, Vice President (2001)'
   }, {
     '@type': 'Organization',
     name: 'Resources for Independence Central Valley',
-    'description': 'Board of Directors (2009-present)'
+    description: 'Board of Directors (2009-present)'
   }, {
     '@type': 'Organization',
     name: 'Kimberlite Corporation (dba Sonitrol)',
-    'description': 'Board Chairperson (2010-present)'
+    description: 'Board Chairperson (2010-present)'
   }, {
-    '@type': 'EducationalOrganization',
+    '@type': 'Organization',
     name: 'Center for Disability Innovation at California State University, Fresno',
-    'description': 'Steering Committee (2008-present)'
+    description: 'Steering Committee (2008-present)'
   }],
   knowsAbout,
-  keywords: aboutKeywords,
   honorificSuffix: "JD, Esq.",
   worksFor: {
     '@type': 'LegalService',

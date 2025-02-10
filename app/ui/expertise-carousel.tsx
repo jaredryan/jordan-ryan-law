@@ -21,10 +21,18 @@ import '@/app/ui/expertise-carousel.css'
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 const getPageUrl = (topicParams: string | undefined | null) => 
   `/expertise${topicParams ? `?topic=${topicParams}` : ''}`
-const description = 'Learn about which areas of the law Ryan Legal, PC works in, to see if they are a good fit for your needs.'
+const description = `Explore Ryan Legal, PC's expertise in employment law, business transactions, health care law, technology law, and litigation.`
 const keywords = [
-  'Law', 'Labor', 'Employment', 'Business', 'Transactions',
-  'Finance', 'Health care', 'Technology', 'Litigation', 'Appellate'
+  'Employment Law',
+  'Business Law',
+  'Healthcare Law',
+  'Technology Law',
+  'Litigation',
+  'Appellate Law',
+  'Corporate Transactions',
+  'Real Estate Law',
+  'Regulatory Compliance',
+  'Trade Secret Protection'
 ]
 
 const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<LegalService> => ({
@@ -37,20 +45,42 @@ const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<Le
   image: `${baseUrl}/opengraph-image.png`,
   description,
   keywords,
-
-  // Refine these to be correct and relevant
-  // TO-DO: switch makesOffer to hasOfferCatalog if it needs to be more detailed/has nested stuff
-  // makesOffer: [{
-  //   '@type': 'LegalService',
-  //   name: 'Business Law',
-  //   description: 'Legal services for businesses, including contracts and compliance.'
-  // }, {
-  //   '@type': 'LegalService',
-  //   name: 'Real Estate Law',
-  //   description: 'Handling property transactions, disputes, and zoning matters.'
-  // }],
-  
-  // TO-DO -- whatever other specific Expertise fields I need to do
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Legal Services Offered',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: 'Labor and Employment Law',
+        description: 'Providing legal counsel to employers on workplace policies, disputes, and compliance with state and federal labor laws.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Business Transactions and Finance',
+        description: 'Advising businesses on contracts, corporate governance, mergers, acquisitions, and financial structuring.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Healthcare Law',
+        description: 'Assisting healthcare providers with regulatory compliance, risk management, and contractual matters.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Technology Law',
+        description: 'Guiding businesses on data privacy, intellectual property protection, software agreements, and tech-related disputes.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Business Litigation',
+        description: 'Representing clients in commercial disputes, contract enforcement, and corporate litigation.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Appellate Litigation',
+        description: 'Handling appeals in state and federal courts to challenge or defend prior legal decisions.'
+      },
+    ]
+  }
 })
 
 function BlankArrow(_props: any) {
