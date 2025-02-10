@@ -107,12 +107,18 @@ const websiteJsonLd: WithContext<WebSite> = {
   name: 'Ryan Legal, PC',
   alternateName: 'Ryan Legal',
   description: 'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profiles, and how to get in touch to get started.',
+  about: {
+    '@id': `${url}#RyanLegalPC`,
+    '@type': 'LegalService',
+  },
   publisher: {
     '@id': `${url}#RyanLegalPC`,
     '@type': 'LegalService',
   },
   inLanguage: 'en',
   thumbnailUrl: `${url}/thumbnail.webp`,
+  datePublished: '2024-02-01',
+  dateModified: '2024-02-09',
 }
 
 const webpageJsonLd: WithContext<WebPage> = {
@@ -141,13 +147,6 @@ const webpageJsonLd: WithContext<WebPage> = {
     '@type': 'WebSite',
   },
   about: {
-    '@id': `${url}#RyanLegalPC`,
-    '@type': 'LegalService',
-  },
-  datePublished: '2024-02-01',
-  dateModified: '2024-02-09',
-  inLanguage: 'en',
-  publisher: {
     '@id': `${url}#RyanLegalPC`,
     '@type': 'LegalService',
   },

@@ -68,6 +68,10 @@ const webpageJsonLd: WithContext<WebPage> = {
     caption: 'Ryan Legal, PC - Legal Services'
   },
   keywords,
+  about: {
+    '@id': `${baseUrl}#RyanLegalPC`,
+    '@type': 'LegalService',
+  },
 }
 
 export default function Page() {
