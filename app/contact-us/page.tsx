@@ -47,6 +47,10 @@ const webpageJsonLd: WithContext<WebPage> = {
   name: 'Contact Ryan Legal, PC',
   keywords,
   description: 'Get in touch with Ryan Legal, PC. Schedule a consultation or ask about our legal services.',
+  isPartOf: {
+    '@id': `${baseUrl}/#website`,
+    '@type': 'WebSite',
+  },
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -77,7 +81,8 @@ const webpageJsonLd: WithContext<WebPage> = {
       '@type': 'Person'
     },
     recipient: {
-      '@id': `${baseUrl}#RyanLegalPC`
+      '@id': `${baseUrl}#RyanLegalPC`,
+      '@type': 'LegalService',
     },
     target: {
       '@type': 'EntryPoint',

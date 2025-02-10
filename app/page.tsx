@@ -80,6 +80,7 @@ const businessJsonLd: WithContext<LegalService> = {
   award: russKRyanRatingsAndDesignationsSimplified,
   founder: {
     '@id': `${url}#RussellRyan`,
+    '@type': 'Person',
   },
 
   // TO-DO In Future:
@@ -108,9 +109,7 @@ const websiteJsonLd: WithContext<WebSite> = {
   description: 'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profiles, and how to get in touch to get started.',
   publisher: {
     '@id': `${url}#RyanLegalPC`,
-  },
-  isPartOf: {
-    '@id': `${url}#RyanLegalPC`,
+    '@type': 'LegalService',
   },
   inLanguage: 'en',
   thumbnailUrl: `${url}/thumbnail.webp`,
@@ -139,15 +138,18 @@ const webpageJsonLd: WithContext<WebPage> = {
   },
   isPartOf: {
     '@id': `${url}/#website`,
+    '@type': 'WebSite',
   },
   about: {
     '@id': `${url}#RyanLegalPC`,
+    '@type': 'LegalService',
   },
   datePublished: '2024-02-01',
   dateModified: '2024-02-09',
   inLanguage: 'en',
   publisher: {
-    '@id': `${url}#RyanLegalPC`
+    '@id': `${url}#RyanLegalPC`,
+    '@type': 'LegalService',
   },
   potentialAction: {
     '@type': 'CommunicateAction',
@@ -157,7 +159,8 @@ const webpageJsonLd: WithContext<WebPage> = {
       '@type': 'Person'
     },
     recipient: {
-      '@id': `${url}#RyanLegalPC`
+      '@id': `${url}#RyanLegalPC`,
+      '@type': 'LegalService',
     },
     target: {
       '@type': 'EntryPoint',

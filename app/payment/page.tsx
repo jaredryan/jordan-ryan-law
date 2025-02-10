@@ -44,7 +44,8 @@ const webpageJsonLd: WithContext<WebPage> = {
   description,
   keywords,
   isPartOf: {
-    '@id': `${baseUrl}/#website`
+    '@id': `${baseUrl}/#website`,
+    '@type': 'WebSite',
   },
   primaryImageOfPage: {
     '@type': 'ImageObject',
@@ -72,7 +73,8 @@ const webpageJsonLd: WithContext<WebPage> = {
   //   name: 'Make a Payment',
   //   description: 'Securely pay Ryan Legal, PC via LawPay.',
   //   recipient: {
-  //     '@id': `${baseUrl}#RyanLegalPC`
+  //     '@id': `${baseUrl}#RyanLegalPC`,
+  //     '@type': 'LegalService',
   //   },
   //   target: {
   //     '@type': 'EntryPoint',
