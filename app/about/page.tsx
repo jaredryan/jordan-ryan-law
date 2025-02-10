@@ -38,6 +38,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   url: `${baseUrl}/about`,
   name: 'About Ryan Legal, PC',
   description,
+  keywords: aboutKeywords,
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [{

@@ -13,14 +13,18 @@ import { Metadata } from 'next'
 const description = 'Securely make a payment for legal services provided by Ryan Legal, PC.'
 const url = '/payment'
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const keywords = [
+  'Ryan Legal PC Payment',
+  'Pay Attorney Fees Online',
+  'Secure Legal Payment',
+  'Legal Invoice Payment',
+  'LawPay Attorney Payments'
+]
 
 export const metadata: Metadata = {
   title: 'Payment',
   description,
-  keywords: [
-    'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
-    'Russ Ryan', 'Russell Ryan', 'Payment', 'Lawpay'
-  ],
+  keywords,
   alternates: {
     canonical: url,
   },
@@ -38,6 +42,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   url: `${baseUrl}/payment`,
   name: 'Make a Payment',
   description,
+  keywords,
   isPartOf: {
     '@id': `${baseUrl}/#website`
   },

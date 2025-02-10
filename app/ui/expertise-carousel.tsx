@@ -22,18 +22,6 @@ const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 const getPageUrl = (topicParams: string | undefined | null) => 
   `/expertise${topicParams ? `?topic=${topicParams}` : ''}`
 const description = `Explore Ryan Legal, PC's expertise in employment law, business transactions, health care law, technology law, and litigation.`
-const keywords = [
-  'Employment Law',
-  'Business Law',
-  'Healthcare Law',
-  'Technology Law',
-  'Litigation',
-  'Appellate Law',
-  'Corporate Transactions',
-  'Real Estate Law',
-  'Regulatory Compliance',
-  'Trade Secret Protection'
-]
 
 const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<LegalService> => ({
   '@context': 'https://schema.org',
@@ -44,7 +32,6 @@ const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<Le
   url: `${baseUrl}${getPageUrl(topicParams)}`,
   image: `${baseUrl}/opengraph-image.png`,
   description,
-  keywords,
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Legal Services Offered',

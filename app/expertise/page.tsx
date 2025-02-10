@@ -67,6 +67,7 @@ const webpageJsonLd: WithContext<WebPage> = {
     url: `${baseUrl}/opengraph-image.png`,
     caption: 'Ryan Legal, PC - Legal Services'
   },
+  keywords,
 }
 
 export default function Page() {

@@ -47,13 +47,9 @@ import JsonLDInjector from '@/app/ui/json-ld-injector'
 
 import { Person, WithContext } from 'schema-dts'
 
-import { 
-  russKRyanProfileSummary,
+import {
   russKRyanRatingsAndDesignationsSimplifiedWithYears,
-  contactCards,
   knowsAbout,
-  skills,
-  aboutKeywords,
 } from '@/app/content'
 
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''

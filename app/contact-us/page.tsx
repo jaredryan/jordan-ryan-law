@@ -16,14 +16,19 @@ import { Metadata } from 'next'
 const description = 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.'
 const url = '/contact-us'
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const keywords = [
+  "Contact Ryan Legal PC",
+  "Schedule Legal Consultation",
+  "Employment Lawyer Consultation",
+  "Business Attorney Contact",
+  "Legal Services California",
+  "Legal Services Utah"
+]
 
 export const metadata: Metadata = {
   title: 'Contact Us',
   description,
-  keywords: [
-    'Legal', 'California', 'Law', 'Attorney', 'Lawyer',
-    'Fresno', 'Contact', 'Russ Ryan', 'Russell Ryan'
-  ],
+  keywords,
   alternates: {
     canonical: url,
   },
@@ -40,6 +45,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   '@id': `${baseUrl}/contact-us#webpage`,
   url: `${baseUrl}/contact-us`,
   name: 'Contact Ryan Legal, PC',
+  keywords,
   description: 'Get in touch with Ryan Legal, PC. Schedule a consultation or ask about our legal services.',
   breadcrumb: {
     '@type': 'BreadcrumbList',
