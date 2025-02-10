@@ -7,6 +7,7 @@ import '@/app/ui/payment.css'
 
 import penOnSurface from '@/public/pen-on-surface.webp'
 import { metadata as appMetadata } from '@/app/layout'
+import { physicalAddressJSON } from '@/app/content'
 
 import { Metadata } from 'next'
 
@@ -46,6 +47,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   isPartOf: {
     '@id': `${baseUrl}/#website`,
     '@type': 'WebSite',
+    url: baseUrl,
   },
   primaryImageOfPage: {
     '@type': 'ImageObject',
@@ -67,24 +69,34 @@ const webpageJsonLd: WithContext<WebPage> = {
     }]
   },
   // Uncomment once LawPay is live 
-  // significantLink: 'https://secure.lawpay.com/pages/ryanlegalpc/pay',
-  // potentialAction: {
-  //   '@type': 'PayAction',
-  //   name: 'Make a Payment',
-  //   description: 'Securely pay Ryan Legal, PC via LawPay.',
-  //   recipient: {
-  //     '@id': `${baseUrl}#RyanLegalPC`,
-  //     '@type': 'LegalService',
-  //   },
-  //   target: {
-  //     '@type': 'EntryPoint',
-  //     urlTemplate: 'https://secure.lawpay.com/pages/ryanlegalpc/pay',
-  //     actionPlatform: [
-  //       'https://schema.org/DesktopWebPlatform',
-  //       'https://schema.org/MobileWebPlatform'
-  //     ]
-  //   }
-  // }
+  significantLink: 'https://secure.lawpay.com/pages/ryanlegalpc/pay',
+  potentialAction: {
+    '@type': 'PayAction',
+    name: 'Make a Payment',
+    description: 'Securely pay Ryan Legal, PC via LawPay.',
+    recipient: {
+      '@id': `${baseUrl}#RyanLegalPC`,
+      '@type': 'LegalService',
+      name: 'Ryan Legal, PC',
+      url: baseUrl,
+      image: `${baseUrl}/opengraph-image.png`,
+      address: physicalAddressJSON,
+      subjectOf: {
+        '@type': 'WebPage',
+        '@id': `${baseUrl}/expertise#webpage`,
+        url: `${baseUrl}/expertise`,
+        name: 'Ryan Legal, PC Expertise'
+      },
+    },
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://secure.lawpay.com/pages/ryanlegalpc/pay',
+      actionPlatform: [
+        'https://schema.org/DesktopWebPlatform',
+        'https://schema.org/MobileWebPlatform'
+      ]
+    }
+  }
 }
 
 

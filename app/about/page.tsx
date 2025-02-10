@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 const webpageJsonLd: WithContext<WebPage> = {
   '@context': 'https://schema.org',
-  '@type': 'WebPage',
+  '@type': 'ProfilePage',
   '@id': `${baseUrl}/about#webpage`,
   url: `${baseUrl}/about`,
   name: 'About Ryan Legal, PC',
@@ -56,6 +56,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   isPartOf: {
     '@id': `${baseUrl}/#website`,
     '@type': 'WebSite',
+    url: baseUrl,
   },
   primaryImageOfPage: {
     '@type': 'ImageObject',
@@ -63,8 +64,9 @@ const webpageJsonLd: WithContext<WebPage> = {
     caption: 'Russ Ryan - Founder and Owner of Ryan Legal, PC'
   },
   about: {
-    '@id': `${baseUrl}#RussellRyan`,
+    '@id': `${baseUrl}/about#RussellRyan`,
     '@type': 'Person',
+    url: `${baseUrl}/about`,
   },
 }
 

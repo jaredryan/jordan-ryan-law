@@ -37,6 +37,7 @@ import {
   russKRyanAffiliations,
   russKRyanExpertise,
   russKRyanClients,
+  physicalAddressJSON,
 } from '@/app/content'
 
 import '@/app/ui/about-carousel.css'
@@ -61,7 +62,7 @@ const getPageUrl = (topicParams: string | undefined | null) =>
 const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person> => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${baseUrl}#RussellRyan`,
+  '@id': `${baseUrl}/about#RussellRyan`,
   name: 'Russell Ryan',
   alternateName: 'Russ',
   givenName: 'Russell',
@@ -120,6 +121,16 @@ const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person
   worksFor: {
     '@id': `${baseUrl}#RyanLegalPC`,
     '@type': 'LegalService',
+    name: 'Ryan Legal, PC',
+    url: baseUrl,
+    image: `${baseUrl}/opengraph-image.png`,
+    address: physicalAddressJSON,
+    subjectOf: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/expertise#webpage`,
+      url: `${baseUrl}/expertise`,
+      name: 'Ryan Legal, PC Expertise'
+    },
   },
   // TO-DO -- whatever other specific Profile / Person fields I need to do
 })

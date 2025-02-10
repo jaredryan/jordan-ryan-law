@@ -4,6 +4,7 @@ import {
   faGavel, faScaleBalanced, faHandHoldingMedical,
   faPhone, faLocationDot, faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
+import { PostalAddress } from 'schema-dts'
 
 export const businessName = `Ryan Legal, PC`
 export const businessSlogan = `Premier Representation of Employers, Health Care Providers
@@ -460,3 +461,12 @@ export const aboutKeywords = [
   'Arbitration and Mediation Expert',
   'Appellate Litigation Attorney'
 ]
+
+export const physicalAddressJSON = {
+  '@type': 'PostalAddress',
+  addressLocality: contactCards[1].content[2].split(',')[0],
+  addressRegion: 'CA',
+  addressCountry: 'US',
+  postalCode: contactCards[1].content[2].split(' ')[2],
+  streetAddress: contactCards[1].content[0]
+} as PostalAddress

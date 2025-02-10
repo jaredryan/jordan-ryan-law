@@ -6,7 +6,7 @@ import ContactUsForm from '@/app/ui/contact-us-form'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
   businessExplanation, businessName, businessSlogan,
-  businessSummary, areasOfPractice
+  businessSummary, areasOfPractice, physicalAddressJSON,
 } from '@/app/content'
 
 import '@/app/ui/home.css'
@@ -48,14 +48,15 @@ const businessJsonLd: WithContext<LegalService> = {
   description,
   currenciesAccepted: 'USD',
   openingHours: 'Mo-Fr 08:00-17:00',
-  address: [{
-    '@type': 'PostalAddress',
-    addressLocality: contactCards[1].content[2].split(',')[0],
-    addressRegion: 'CA',
-    addressCountry: 'US',
-    postalCode: contactCards[1].content[2].split(' ')[2],
-    streetAddress: contactCards[1].content[0]
-  }, {
+  subjectOf: {
+    '@type': 'WebPage',
+    '@id': `${url}/expertise#webpage`,
+    url: `${url}/expertise`,
+    name: 'Ryan Legal, PC Expertise'
+  },
+  address: [
+    physicalAddressJSON,
+  {
     '@type': 'PostalAddress',
     postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
     addressLocality: contactCards[2].content[1].split(',')[0],
@@ -79,8 +80,9 @@ const businessJsonLd: WithContext<LegalService> = {
   keywords,
   award: russKRyanRatingsAndDesignationsSimplified,
   founder: {
-    '@id': `${url}#RussellRyan`,
+    '@id': `${url}/about#RussellRyan`,
     '@type': 'Person',
+    url: `${url}/about`
   },
 
   // TO-DO In Future:
@@ -160,6 +162,10 @@ const webpageJsonLd: WithContext<WebPage> = {
     recipient: {
       '@id': `${url}#RyanLegalPC`,
       '@type': 'LegalService',
+      name: 'Ryan Legal, PC',
+      url,
+      image: `${url}/opengraph-image.png`,
+      address: physicalAddressJSON,
     },
     target: {
       '@type': 'EntryPoint',

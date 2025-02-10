@@ -8,7 +8,7 @@ import { useQueryState } from 'nuqs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { areasOfPractice } from '@/app/content'
+import { areasOfPractice, physicalAddressJSON } from '@/app/content'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
 import CanonLinkInjector from '@/app/ui/canon-link-injector'
@@ -29,9 +29,16 @@ const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<Le
   '@id': `${baseUrl}#RyanLegalPC`,
   name: 'Ryan Legal, PC',
   alternateName: 'Ryan Legal',
-  url: `${baseUrl}${getPageUrl(topicParams)}`,
+  url: baseUrl,
+  subjectOf: {
+    '@type': 'WebPage',
+    '@id': `${baseUrl}/expertise#webpage`,
+    url: `${baseUrl}/${getPageUrl(topicParams)}`,
+    name: 'Ryan Legal, PC Expertise'
+  },
   image: `${baseUrl}/opengraph-image.png`,
   description,
+  address: physicalAddressJSON,
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Legal Services Offered',

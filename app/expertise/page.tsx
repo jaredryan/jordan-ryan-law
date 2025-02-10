@@ -42,7 +42,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   '@type': 'WebPage',
   '@id': `${baseUrl}/expertise#webpage`,
   url: `${baseUrl}/expertise`,
-  name: 'Expertise Ryan Legal, PC',
+  name: 'Ryan Legal, PC Expertise',
   description,
   breadcrumb: {
     '@type': 'BreadcrumbList',
@@ -61,6 +61,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   isPartOf: {
     '@id': `${baseUrl}/#website`,
     '@type': 'WebSite',
+    url: baseUrl,
   },
   primaryImageOfPage: {
     '@type': 'ImageObject',
@@ -71,6 +72,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   about: {
     '@id': `${baseUrl}#RyanLegalPC`,
     '@type': 'LegalService',
+    url: baseUrl,
   },
 }
 
