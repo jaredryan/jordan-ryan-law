@@ -22,6 +22,7 @@ import superLawyersBadge from '@/public/super-lawyers-badge.png'
 import avPreeminent from '@/public/av-preeminent.png'
 
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const pageUrl = '/about'
 const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
 
 export const metadata: Metadata = {
@@ -31,9 +32,11 @@ export const metadata: Metadata = {
   openGraph: {
     ...appMetadata.openGraph,
     description,
+    url: pageUrl,
+    title: 'About Ryan Legal, PC',
   },
   alternates: {
-    canonical: '/about',
+    canonical: pageUrl,
   },
 }
 

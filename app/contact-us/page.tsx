@@ -39,6 +39,7 @@ export const metadata: Metadata = {
     ...appMetadata.openGraph,
     description,
     url,
+    title: 'Contact Ryan Legal, PC',
   }
 }
 

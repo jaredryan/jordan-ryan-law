@@ -14,6 +14,7 @@ import practice from '@/public/practice.webp'
 import { Metadata } from 'next'
 
 const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const pageUrl = '/expertise'
 const description = `Explore Ryan Legal, PC's expertise in employment law, business transactions, health care law, technology law, and litigation.`
 const keywords = [
   "Employment Law",
@@ -26,6 +27,7 @@ const keywords = [
   "Real Estate Law",
   "Regulatory Compliance",
   "Trade Secret Protection"
+
 ]
 
 export const metadata: Metadata = {
@@ -35,9 +37,11 @@ export const metadata: Metadata = {
   openGraph: {
     ...appMetadata.openGraph,
     description,
+    url: pageUrl,
+    title: 'Ryan Legal, PC Expertise',
   },
   alternates: {
-    canonical: '/expertise',
+    canonical: pageUrl,
   },
 }
 

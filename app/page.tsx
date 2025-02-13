@@ -9,6 +9,7 @@ import {
   businessSummary, areasOfPractice, physicalAddressJSON,
   mailingAddressJSON, contactDetailsJSON
 } from '@/app/content'
+import { metadata as appMetadata } from '@/app/layout'
 
 import '@/app/ui/home.css'
 
@@ -26,16 +27,20 @@ import { LegalService, WebSite, WebPage, WithContext } from 'schema-dts'
 import JsonLDInjector from '@/app/ui/json-ld-injector'
 
 const url = process.env.NEXT_PUBLIC_CURRENT_URL || ''
+const pageUrl = '/'
 
 export const metadata: Metadata = {
+  description,
+  keywords,
   openGraph: {
-    url: '/',
+    ...appMetadata.openGraph,
+    description,
+    url: pageUrl,
   },
   alternates: {
-    canonical: '/',
+    canonical: pageUrl,
   },
 }
-
 
 const businessJsonLd: WithContext<LegalService> = {
   '@context': 'https://schema.org',
