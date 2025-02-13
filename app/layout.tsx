@@ -34,11 +34,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(url),
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
-      { url: '/icon.png', type: "image/png", sizes: "96x96" },
-      { url: '/icon.svg', type: "image/svg+xml" },
+      { url: '/icon.png', type: 'image/png', sizes: '96x96' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: 'any' },
     ],
     other: [{
+      rel: 'shortcut icon',
+      url: '/favicon.ico',
+      type: 'image/x-icon',
+    }, {
       rel: 'apple-touch-icon',
       url: '/apple-icon.png',
       type: 'image/png',
