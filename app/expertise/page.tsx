@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import { Suspense } from 'react'
-import { WebPage, WithContext } from 'schema-dts'
+import { WebPage, WithContext, LegalService } from 'schema-dts'
 import JsonLDInjector from '@/app/ui/json-ld-injector'
+import { physicalAddressJSON } from '@/app/content'
 
 import ExpertiseCarousel from '@/app/ui/expertise-carousel'
 import { metadata as appMetadata } from '@/app/layout'
@@ -34,7 +35,10 @@ export const metadata: Metadata = {
   openGraph: {
     ...appMetadata.openGraph,
     description,
-  }
+  },
+  alternates: {
+    canonical: '/expertise',
+  },
 }
 
 const webpageJsonLd: WithContext<WebPage> = {
@@ -76,10 +80,65 @@ const webpageJsonLd: WithContext<WebPage> = {
   },
 }
 
+const expertiseJsonLd: WithContext<LegalService> = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  '@id': `${baseUrl}#RyanLegalPC`,
+  name: 'Ryan Legal, PC',
+  alternateName: 'Ryan Legal',
+  url: baseUrl,
+  subjectOf: {
+    '@type': 'WebPage',
+    '@id': `${baseUrl}/expertise#webpage`,
+    url: `${baseUrl}/expertise`,
+    name: 'Ryan Legal, PC Expertise'
+  },
+  image: `${baseUrl}/opengraph-image.png`,
+  description,
+  address: physicalAddressJSON,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Legal Services Offered',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: 'Labor and Employment Law',
+        description: 'Providing legal counsel to employers on workplace policies, disputes, and compliance with state and federal labor laws.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Business Transactions and Finance',
+        description: 'Advising businesses on contracts, corporate governance, mergers, acquisitions, and financial structuring.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Healthcare Law',
+        description: 'Assisting healthcare providers with regulatory compliance, risk management, and contractual matters.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Technology Law',
+        description: 'Guiding businesses on data privacy, intellectual property protection, software agreements, and tech-related disputes.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Business Litigation',
+        description: 'Representing clients in commercial disputes, contract enforcement, and corporate litigation.'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Appellate Litigation',
+        description: 'Handling appeals in state and federal courts to challenge or defend prior legal decisions.'
+      },
+    ]
+  }
+}
+
 export default function Page() {
-  return (
+  return <>
+    <JsonLDInjector json={webpageJsonLd} />
+    <JsonLDInjector json={expertiseJsonLd} />
     <div className="expertisePage">
-      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={practice}
@@ -102,5 +161,5 @@ export default function Page() {
         </Suspense>
       </div>
     </div>
-  )
+  </>
 }

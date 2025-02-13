@@ -115,9 +115,9 @@ const webpageJsonLd: WithContext<WebPage> = {
 
 
 export default function Page() {
-  return (
+  return <>
+    <JsonLDInjector json={webpageJsonLd} />
     <div className="contactUsPage">
-      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={writingOnPaper}
@@ -157,5 +157,5 @@ export default function Page() {
         </Suspense>
       </div>
     </div>
-  )
+  </>
 }

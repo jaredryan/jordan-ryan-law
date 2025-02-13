@@ -8,74 +8,10 @@ import { useQueryState } from 'nuqs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { areasOfPractice, physicalAddressJSON } from '@/app/content'
+import { areasOfPractice } from '@/app/content'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
-import CanonLinkInjector from '@/app/ui/canon-link-injector'
-import JsonLDInjector from '@/app/ui/json-ld-injector'
-
-import { LegalService, WithContext } from 'schema-dts'
-
 import '@/app/ui/expertise-carousel.css'
-
-const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
-const getPageUrl = (topicParams: string | undefined | null) => 
-  `/expertise${topicParams ? `?topic=${topicParams}` : ''}`
-const description = `Explore Ryan Legal, PC's expertise in employment law, business transactions, health care law, technology law, and litigation.`
-
-const expertiseJsonLd = (topicParams: string | undefined | null): WithContext<LegalService> => ({
-  '@context': 'https://schema.org',
-  '@type': 'LegalService',
-  '@id': `${baseUrl}#RyanLegalPC`,
-  name: 'Ryan Legal, PC',
-  alternateName: 'Ryan Legal',
-  url: baseUrl,
-  subjectOf: {
-    '@type': 'WebPage',
-    '@id': `${baseUrl}/expertise#webpage`,
-    url: `${baseUrl}/${getPageUrl(topicParams)}`,
-    name: 'Ryan Legal, PC Expertise'
-  },
-  image: `${baseUrl}/opengraph-image.png`,
-  description,
-  address: physicalAddressJSON,
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Legal Services Offered',
-    itemListElement: [
-      {
-        '@type': 'Offer',
-        name: 'Labor and Employment Law',
-        description: 'Providing legal counsel to employers on workplace policies, disputes, and compliance with state and federal labor laws.'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Business Transactions and Finance',
-        description: 'Advising businesses on contracts, corporate governance, mergers, acquisitions, and financial structuring.'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Healthcare Law',
-        description: 'Assisting healthcare providers with regulatory compliance, risk management, and contractual matters.'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Technology Law',
-        description: 'Guiding businesses on data privacy, intellectual property protection, software agreements, and tech-related disputes.'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Business Litigation',
-        description: 'Representing clients in commercial disputes, contract enforcement, and corporate litigation.'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Appellate Litigation',
-        description: 'Handling appeals in state and federal courts to challenge or defend prior legal decisions.'
-      },
-    ]
-  }
-})
 
 function BlankArrow(_props: any) {
     return <></>
@@ -225,8 +161,6 @@ export default function Carousel() {
   }, [])
 
   return <>
-    <CanonLinkInjector url={getPageUrl(topic)} />
-    <JsonLDInjector json={expertiseJsonLd(topic)} />
     <div className="expertiseCarousel carouselComponent" ref={componentRef} role="tabs">
       <Slider 
         ref={sliderRef}

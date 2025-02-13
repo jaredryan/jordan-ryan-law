@@ -41,7 +41,7 @@ const webpageJsonLd: WithContext<WebPage> = {
   '@type': 'WebPage',
   '@id': `${baseUrl}/payment#webpage`,
   url: `${baseUrl}/payment`,
-  name: 'Make a Payment',
+  name: 'Make a Payment to Ryan Legal, PC',
   description,
   keywords,
   isPartOf: {
@@ -107,9 +107,9 @@ const webpageJsonLd: WithContext<WebPage> = {
 
 
 export default function Page() {
-  return (
+  return <>
+    <JsonLDInjector json={webpageJsonLd} />
     <div className="paymentPage">
-      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={penOnSurface}
@@ -142,5 +142,5 @@ export default function Page() {
         </a> */}
       </div>
     </div>
-  )
+  </>
 }

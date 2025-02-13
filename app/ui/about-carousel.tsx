@@ -37,105 +37,10 @@ import {
   russKRyanAffiliations,
   russKRyanExpertise,
   russKRyanClients,
-  physicalAddressJSON,
 } from '@/app/content'
 
 import '@/app/ui/about-carousel.css'
 import { transformTextToUrlParams } from '@/app/lib/utils'
-
-import CanonLinkInjector from '@/app/ui/canon-link-injector'
-import JsonLDInjector from '@/app/ui/json-ld-injector'
-
-import { Person, WithContext } from 'schema-dts'
-
-import {
-  russKRyanRatingsAndDesignationsSimplifiedWithYears,
-  knowsAbout,
-} from '@/app/content'
-
-const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
-const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
-const getPageUrl = (topicParams: string | undefined | null) => 
-  `/about?expanded=true${topicParams ? `&topic=${topicParams}` : ''}`
-
-
-const aboutJsonId = (topicParams: string | undefined | null): WithContext<Person> => ({
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  '@id': `${baseUrl}/about#RussellRyan`,
-  name: 'Russell Ryan',
-  alternateName: 'Russ',
-  givenName: 'Russell',
-  familyName: 'Ryan',
-  url: `${baseUrl}${getPageUrl(topicParams)}`,
-  image: `${baseUrl}/square-profile.webp`,
-  description,
-  knowsLanguage: ['English', 'Spanish'],
-  award: russKRyanRatingsAndDesignationsSimplifiedWithYears,
-  jobTitle: 'Founder and Owner',
-  alumniOf: [{
-    "@type": "CollegeOrUniversity",
-    "name": "University of California, Berkeley School of Law",
-    "sameAs": "https://www.law.berkeley.edu"
-  }, {
-    "@type": "CollegeOrUniversity",
-    "name": "Brigham Young University",
-    "sameAs": "https://www.byu.edu"
-  }],
-  memberOf: [{
-    '@type': 'Organization',
-    name: 'California Bar Association'
-  }, {
-    '@type': 'Organization',
-    name: 'Utah Bar Association'
-  }, {
-    '@type': 'Organization',
-    name: 'Fresno County Bar Association'
-  }, {
-    '@type': 'Organization',
-    name: 'Madera County Bar Association',
-    description: 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
-  }, {
-    '@type': 'Organization',
-    name: 'American Business Trial Lawyers',
-    description: 'Board of Directors, Fresno Chapter (2008)'
-  }, {
-    '@type': 'Organization',
-    name: 'Heartland Opportunity Center',
-    description: 'Board of Directors, Vice President (2001)'
-  }, {
-    '@type': 'Organization',
-    name: 'Resources for Independence Central Valley',
-    description: 'Board of Directors (2009-present)'
-  }, {
-    '@type': 'Organization',
-    name: 'Kimberlite Corporation (dba Sonitrol)',
-    description: 'Board Chairperson (2010-present)'
-  }, {
-    '@type': 'Organization',
-    name: 'Center for Disability Innovation at California State University, Fresno',
-    description: 'Steering Committee (2008-present)'
-  }],
-  knowsAbout,
-  honorificSuffix: "JD, Esq.",
-  worksFor: {
-    '@id': `${baseUrl}#RyanLegalPC`,
-    '@type': 'LegalService',
-    name: 'Ryan Legal, PC',
-    url: baseUrl,
-    image: `${baseUrl}/opengraph-image.png`,
-    address: physicalAddressJSON,
-    subjectOf: {
-      '@type': 'WebPage',
-      '@id': `${baseUrl}/expertise#webpage`,
-      url: `${baseUrl}/expertise`,
-      name: 'Ryan Legal, PC Expertise'
-    },
-  },
-  // TO-DO -- whatever other specific Profile / Person fields I need to do
-})
-
-
 
 const subSections = [
   {
@@ -669,8 +574,6 @@ export default function Carousel() {
   }, [expanded])
 
   return <>
-    <CanonLinkInjector url={getPageUrl(topic)} />
-    <JsonLDInjector json={aboutJsonId(topic)} />
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">
         <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
           {sections.map((section, index) => {

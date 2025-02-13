@@ -8,10 +8,13 @@ import '@/app/ui/about.css'
 import { 
   aboutKeywords,
   russKRyanProfileSummary,
+  russKRyanRatingsAndDesignationsSimplifiedWithYears,
+  physicalAddressJSON,
+  knowsAbout,
 } from '@/app/content'
 import AboutCarousel from '@/app/ui/about-carousel'
 import JsonLDInjector from '@/app/ui/json-ld-injector'
-import { WebPage, WithContext } from 'schema-dts'
+import { WebPage, WithContext, Person } from 'schema-dts'
 
 import penOnNotebook from '@/public/pen-on-notebook.webp'
 import squareProfile from '@/public/square-profile.webp'
@@ -28,6 +31,9 @@ export const metadata: Metadata = {
   openGraph: {
     ...appMetadata.openGraph,
     description,
+  },
+  alternates: {
+    canonical: '/about',
   },
 }
 
@@ -75,11 +81,88 @@ const webpageJsonLd: WithContext<WebPage> = {
   },
 }
 
+const profileJsonLd: WithContext<Person> = {
+  '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${baseUrl}/about#RussellRyan`,
+    name: 'Russell Ryan',
+    alternateName: 'Russ',
+    givenName: 'Russell',
+    familyName: 'Ryan',
+    url: `${baseUrl}/about`,
+    image: `${baseUrl}/square-profile.webp`,
+    description,
+    knowsLanguage: ['English', 'Spanish'],
+    award: russKRyanRatingsAndDesignationsSimplifiedWithYears,
+    jobTitle: 'Founder and Owner',
+    alumniOf: [{
+      "@type": "CollegeOrUniversity",
+      "name": "University of California, Berkeley School of Law",
+      "sameAs": "https://www.law.berkeley.edu"
+    }, {
+      "@type": "CollegeOrUniversity",
+      "name": "Brigham Young University",
+      "sameAs": "https://www.byu.edu"
+    }],
+    memberOf: [{
+      '@type': 'Organization',
+      name: 'California Bar Association'
+    }, {
+      '@type': 'Organization',
+      name: 'Utah Bar Association'
+    }, {
+      '@type': 'Organization',
+      name: 'Fresno County Bar Association'
+    }, {
+      '@type': 'Organization',
+      name: 'Madera County Bar Association',
+      description: 'Secretary/Treasurer (1992-1993), Vice President (1994), President (1995)'
+    }, {
+      '@type': 'Organization',
+      name: 'American Business Trial Lawyers',
+      description: 'Board of Directors, Fresno Chapter (2008)'
+    }, {
+      '@type': 'Organization',
+      name: 'Heartland Opportunity Center',
+      description: 'Board of Directors, Vice President (2001)'
+    }, {
+      '@type': 'Organization',
+      name: 'Resources for Independence Central Valley',
+      description: 'Board of Directors (2009-present)'
+    }, {
+      '@type': 'Organization',
+      name: 'Kimberlite Corporation (dba Sonitrol)',
+      description: 'Board Chairperson (2010-present)'
+    }, {
+      '@type': 'Organization',
+      name: 'Center for Disability Innovation at California State University, Fresno',
+      description: 'Steering Committee (2008-present)'
+    }],
+    knowsAbout,
+    honorificSuffix: "JD, Esq.",
+    worksFor: {
+      '@id': `${baseUrl}#RyanLegalPC`,
+      '@type': 'LegalService',
+      name: 'Ryan Legal, PC',
+      url: baseUrl,
+      image: `${baseUrl}/opengraph-image.png`,
+      address: physicalAddressJSON,
+      subjectOf: {
+        '@type': 'WebPage',
+        '@id': `${baseUrl}/expertise#webpage`,
+        url: `${baseUrl}/expertise`,
+        name: 'Ryan Legal, PC Expertise'
+      },
+    },
+}
+
 
 export default async function Page() {
-  return (
+  return <>
+    <JsonLDInjector json={webpageJsonLd} />
+    <JsonLDInjector json={profileJsonLd} />
     <div className="aboutPage">
-      <JsonLDInjector json={webpageJsonLd} />
+      
       <div className="imageContainer">
         <Image
           src={penOnNotebook}
@@ -142,5 +225,5 @@ export default async function Page() {
         </Suspense>
       </div>
     </div>
-  )
+  </>
 }

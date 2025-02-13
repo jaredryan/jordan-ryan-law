@@ -1,6 +1,4 @@
 import type { MetadataRoute } from 'next'
-import { transformTextToUrlParams } from '@/app/lib/utils'
-import { aboutTopics, areasOfPractice } from '@/app/content'
 
 const url = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 
@@ -50,10 +48,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // @ts-ignore
     aboutMetadata,
     // @ts-ignore
-    ...aboutTopics.map(topic => ({
-        ...aboutMetadata,
-        url: `${url}/about?expanded=true&amp;topic=${transformTextToUrlParams(topic)}`
-    })), 
+    // ...aboutTopics.map(topic => ({
+    //     ...aboutMetadata,
+    //     url: `${url}/about?expanded=true&amp;topic=${transformTextToUrlParams(topic)}`
+    // })), 
     // @ts-ignore
     {
         url: `${url}/contact-us`,
@@ -69,10 +67,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // @ts-ignore
     expertiseMetadata,
     // @ts-ignore
-    ...areasOfPractice.map(section => ({
-        ...expertiseMetadata,
-        url: `${url}/expertise?topic=${transformTextToUrlParams(section.name)}`
-    })), 
+    // ...areasOfPractice.map(section => ({
+    //     ...expertiseMetadata,
+    //     url: `${url}/expertise?topic=${transformTextToUrlParams(section.name)}`
+    // })), 
     // @ts-ignore
     {
         url: `${url}/payment`,

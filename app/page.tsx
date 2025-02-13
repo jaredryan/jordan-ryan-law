@@ -170,11 +170,11 @@ const webpageJsonLd: WithContext<WebPage> = {
 }
 
 export default function Page() {
-  return (
+  return <>
+    <JsonLDInjector json={businessJsonLd} />
+    <JsonLDInjector json={websiteJsonLd} />
+    <JsonLDInjector json={webpageJsonLd} />
     <div className="homePage">
-      <JsonLDInjector json={businessJsonLd} />
-      <JsonLDInjector json={websiteJsonLd} />
-      <JsonLDInjector json={webpageJsonLd} />
       <div className="imageContainer">
         <Image
           src={upperFalls}
@@ -257,5 +257,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  )
+  </>
 }
