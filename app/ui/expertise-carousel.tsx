@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Slider from 'react-slick'
 import { useQueryState } from 'nuqs'
 
 import 'slick-carousel/slick/slick.css'
@@ -13,64 +12,35 @@ import { transformTextToUrlParams } from '@/app/lib/utils'
 
 import '@/app/ui/expertise-carousel.css'
 
-function BlankArrow(_props: any) {
-    return <></>
+import { Transition } from 'react-transition-group';
+
+const duration = 1000;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0,
 }
 
+const transitionStyles = {
+  entering: { opacity: 1, visibility: 'visible' },
+  entered:  { opacity: 1, visibility: 'visible' },
+  exiting:  { opacity: 0, visibility: 'visible' },
+  exited:  { opacity: 0, visibility: 'hidden' },
+};
+
 export default function Carousel() {
-  const componentRef = useRef(null)
-  const sliderRef = useRef(null)
   const searchParams = useSearchParams()
   const initialSlideTopic = searchParams?.get('topic')
   const [topic, setTopic] = useQueryState('topic')
 
-  const settings = {
-    draggable: false,
-    swipe: false,
-    customPaging: function(i: number) {
-        const areaOfPractice = areasOfPractice[i]
-        const transformedName = transformTextToUrlParams(areaOfPractice.name)
-        return (
-          <button
-            className="tab"
-            role="tab"
-            aria-controls={`tabpanel-${transformedName}`}
-            id={`tab-${transformedName}`}
-            aria-selected={(topic === transformedName || (!topic && i === 0))
-              ? 'true'
-              : 'false'
-            }
-          >
-            <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
-            <p>{areaOfPractice.name}</p>
-          </button>
-        )
-      },
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    fade: true,
-    speed: 1000,
-    appendDots: (dots: any) => (
-      <ul className="customTabs" role="tablist" aria-orientation="vertical">
-        {dots}
-      </ul>
-    ),
-    nextArrow: <BlankArrow />,
-    prevArrow: <BlankArrow />,
-    beforeChange: (_current: number, next: number) =>
-      setTopic(transformTextToUrlParams(areasOfPractice[next].name)),
-  }
-
-  if (initialSlideTopic) {
-    const initialSlideIndex = areasOfPractice
-      .findIndex(areaOfPractice => 
-        transformTextToUrlParams(areaOfPractice.name) === topic
-      )
-    // @ts-ignore
-    settings.initialSlide = initialSlideIndex
-  }
+  const nodeRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ]
 
   useEffect(() => {
     if (initialSlideTopic) {
@@ -78,6 +48,8 @@ export default function Carousel() {
 
       const topicMenu = document.getElementById('topic-menu')
       topicMenu?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      setTopic(transformTextToUrlParams(areasOfPractice[0].name))
     }
 
     const tabList = document.querySelector('[role="tablist"]')
@@ -161,33 +133,68 @@ export default function Carousel() {
   }, [])
 
   return <>
-    <div className="expertiseCarousel carouselComponent" ref={componentRef} role="tabs">
-      <Slider 
-        ref={sliderRef}
-        {...settings}
-      >
-        {areasOfPractice.map(section => {
-          const transformedName = transformTextToUrlParams(section.name)
+    <div className="carouselComponent expertiseCarousel" role="tabs">
+      <ul className="customTabs" role="tablist" aria-orientation="vertical">
+          {areasOfPractice.map((areaOfPractice, i) => {
+            const transformedName = transformTextToUrlParams(areaOfPractice.name)
+            const id = `tab-${transformedName}`
+            
+            return (
+              <li role="presentation" key={id}>
+                <button
+                  className="tab"
+                  role="tab"
+                  aria-controls={`tabpanel-${transformedName}`}
+                  id={id}
+                  aria-selected={(topic === transformedName || (!topic && i === 0))
+                    ? 'true'
+                    : 'false'
+                  }
+                  onClick={() => setTopic(transformTextToUrlParams(transformedName))}
+                >
+                  <div className="icon" aria-hidden="true">{areaOfPractice.icon}</div>
+                  <p>{areaOfPractice.name}</p>
+                </button>
+              </li>
+            )
+          })}
+      </ul>
+      <div className="tabPanelContainer">
+          {areasOfPractice.map((section, i) => {
+            const transformedName = transformTextToUrlParams(section.name)
+            const nodeRef = nodeRefs[i]
 
-          const tabSettings = {
-            className: "slide",
-            role: "tabpanel",
-            'aria-labelledby': `tab-${transformedName}`,
-            id: `tabpanel-${transformedName}`,
-          }
+            const tabSettings = {
+              className: "slide",
+              role: "tabpanel",
+              'aria-labelledby': `tab-${transformedName}`,
+              id: `tabpanel-${transformedName}`,
+            }
 
-          if (topic !== transformedName) {
-            // @ts-ignore
-            tabSettings.hidden = true
-          }
+            const visible = topic === transformedName
 
-          return (
-            <div key={section.name} {...tabSettings}>
-                <h2>{section.name}</h2>
-                <p>{section.content}</p>
-            </div>
-          )})}
-      </Slider>
+            if (!visible) {
+              // @ts-ignore
+              tabSettings.hidden = true
+              // @ts-ignore
+              tabSettings['aria-hidden'] = true
+            }
+
+            return (
+              <Transition nodeRef={nodeRef} in={visible} timeout={duration} key={section.name}>
+                {state => 
+                <div key={section.name} {...tabSettings} ref={nodeRef} style={{
+                  ...defaultStyle,
+                  // @ts-ignore
+                  ...transitionStyles[state]
+                }}>
+                    <h3>{section.name}</h3>
+                    <p>{section.content}</p>
+                </div>
+                }
+              </Transition>
+            )})}
+      </div>
     </div>
   </>
 }

@@ -1,5 +1,7 @@
 .carouselComponent.expertiseCarousel {
-  scroll-margin: 100px;
+    display: flex;
+    flex-direction: row;
+    scroll-margin: 100px;
 }
 
 .carouselComponent.expertiseCarousel .customTabs {
@@ -16,11 +18,6 @@
   }
 }
 
-.carouselComponent.expertiseCarousel > div {
-    display: flex;
-    flex-direction: row;
-}
-
 .carouselComponent.expertiseCarousel .customTabs .tab {
     display: flex;
     flex-direction: row;
@@ -35,14 +32,7 @@
     width: 100%;
 }
 
-.carouselComponent.expertiseCarousel .slick-slider {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-.carouselComponent.expertiseCarousel .customTabs .slick-active .tab {
+.carouselComponent.expertiseCarousel .customTabs .tab[aria-selected="true"] {
     border: 2px solid var(--primary-color) !important;
 }
 
@@ -81,8 +71,22 @@
     flex: 1;
 }
 
+.carouselComponent.expertiseCarousel .tabPanelContainer { 
+  display: grid;
+}
+
+.carouselComponent.expertiseCarousel .tabPanelContainer > * { 
+  grid-column: 1/1;
+  grid-row: 1/1;
+}
+
+.carouselComponent.expertiseCarousel .tabPanelContainer > *[hidden] {
+  display: block;
+  visibility: hidden;
+}
+
 @media (max-width: 850px) {
-  .carouselComponent.expertiseCarousel > div {
+  .carouselComponent.expertiseCarousel {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -101,7 +105,7 @@
     display: flex;
   }
 
-  .carouselComponent.expertiseCarousel .customTabs li a {
+  .carouselComponent.expertiseCarousel .customTabs li button {
     height: 100%;
   }
 

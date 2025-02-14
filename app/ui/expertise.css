@@ -81,9 +81,14 @@
   line-height: 24px;
 }
 
-.expertisePage .contentSection h2 {
+.expertisePage h2 {
   font-size: 24px;
   text-align: center;
+}
+
+.expertisePage h3 {
+  text-align: center;
+  font-weight: 600;
 }
 
 .expertisePage .contentSection h1 {
