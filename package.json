@@ -3,7 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbopack",
-    "start": "next start",
+    "start": "[ ! -d './.next' ] && next build; next start",
     "lint": "next lint",
     "analyze": "export ANALYZE=true && next build"
   },
