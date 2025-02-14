@@ -1,3 +1,5 @@
+/* autoprefixer grid: autoplace */
+
 .carouselComponent.expertiseCarousel {
     display: flex;
     flex-direction: row;
