@@ -4,9 +4,6 @@ import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useQueryState } from 'nuqs'
 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import { areasOfPractice } from '@/app/content'
 import { transformTextToUrlParams } from '@/app/lib/utils'
 
@@ -160,29 +157,29 @@ export default function Carousel() {
           })}
       </ul>
       <div className="tabPanelContainer">
-          {areasOfPractice.map((section, i) => {
-            const transformedName = transformTextToUrlParams(section.name)
-            const nodeRef = nodeRefs[i]
+        {areasOfPractice.map((section, i) => {
+          const transformedName = transformTextToUrlParams(section.name)
+          const nodeRef = nodeRefs[i]
 
-            const tabSettings = {
-              className: "slide",
-              role: "tabpanel",
-              'aria-labelledby': `tab-${transformedName}`,
-              id: `tabpanel-${transformedName}`,
-            }
+          const tabSettings = {
+            className: "slide",
+            role: "tabpanel",
+            'aria-labelledby': `tab-${transformedName}`,
+            id: `tabpanel-${transformedName}`,
+          }
 
-            const visible = topic === transformedName
+          const visible = topic === transformedName || (!topic && i === 0)
 
-            if (!visible) {
-              // @ts-ignore
-              tabSettings.hidden = true
-              // @ts-ignore
-              tabSettings['aria-hidden'] = true
-            }
+          if (!visible) {
+            // @ts-ignore
+            tabSettings.hidden = true
+            // @ts-ignore
+            tabSettings['aria-hidden'] = true
+          }
 
-            return (
-              <Transition nodeRef={nodeRef} in={visible} timeout={duration} key={section.name}>
-                {state => 
+          return (
+            <Transition nodeRef={nodeRef} in={visible} timeout={duration} key={section.name}>
+              {state => 
                 <div key={section.name} {...tabSettings} ref={nodeRef} style={{
                   ...defaultStyle,
                   // @ts-ignore
@@ -191,9 +188,10 @@ export default function Carousel() {
                     <h3>{section.name}</h3>
                     <p>{section.content}</p>
                 </div>
-                }
-              </Transition>
-            )})}
+              }
+            </Transition>
+          )
+        })}
       </div>
     </div>
   </>

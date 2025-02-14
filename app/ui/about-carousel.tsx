@@ -1,10 +1,9 @@
 'use client'
 
-import Slider from 'react-slick'
 import { useEffect, useRef, useState, RefObject, ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useQueryState } from 'nuqs'
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition, Transition } from 'react-transition-group'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faBriefcase,
@@ -24,9 +23,6 @@ import {
   faCircleArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import {
   russKRyanEducation,
   russKRyanBarAdmissions,
@@ -41,6 +37,20 @@ import {
 
 import '@/app/ui/about-carousel.css'
 import { transformTextToUrlParams } from '@/app/lib/utils'
+
+const duration = 1000;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0,
+}
+
+const transitionStyles = {
+  entering: { opacity: 1, visibility: 'visible' },
+  entered:  { opacity: 1, visibility: 'visible' },
+  exiting:  { opacity: 0, visibility: 'visible' },
+  exited:  { opacity: 0, visibility: 'hidden' },
+};
 
 const subSections = [
   {
@@ -212,23 +222,16 @@ const sections = [
     </>,
 }]
 
-const allSections = sections.slice()
-sections.splice(4, 1)
-
-function BlankArrow(_props: any) {
-    return <></>
-}
-
 const renderSideNavItem = (
   header: { title: string, icon: ReactNode },
   expanded: boolean,
   toggleExpanded: () => void,
   nodeRef: RefObject<null> | null,
-  toggleSlide: () => void,
+  toggleSlide: (transformedTitle: string) => void,
   topic: string | null,
-  index: number
+  index: number,
+  setCurrentTopic: () => void
 ) => {
-  let tab
   let className
 
   const title = header.title
@@ -244,80 +247,85 @@ const renderSideNavItem = (
       : 'false'
   }
 
+  if (title === 'Professional Practice') {
+    return (
+      <li role="presentation" key={title}>
+        <button
+          className="tab neverChosen"
+          onClick={() => {
+            if (!expanded) {
+              setTimeout(() => {
+                // @ts-ignore
+                document.querySelector('button.nested')?.focus()
+              }, 100)
+            }
+            toggleExpanded()
+          }}
+          aria-expanded={expanded ? 'true' : 'false'}
+          aria-label={`${expanded ? 'Close' : 'Open'} menu for Professional Practice topics`}
+          aria-controls={subSections.map(header => transformTextToUrlParams(header.title)).join(' ')}
+          aria-haspopup="menu"
+        >
+          <div className="icon" aria-hidden="true">{icon}</div>
+          <p>{title}</p>
+          <div className="dropdownIcon" aria-hidden="true">
+            {expanded
+              ? <FontAwesomeIcon icon={faCaretUp} />
+              : <FontAwesomeIcon icon={faCaretDown} />}
+          </div>
+        </button>
+      </li>
+    )
+  }
+
   if (subSections.map(thisHeader => thisHeader.title).includes(title)) {
     className = !expanded
       ? 'hidden'
       : 'nested'
 
-    tab = (
+    return (
       <CSSTransition 
         nodeRef={nodeRef}
         in={expanded}
         timeout={500}
         classNames="fade-bounce-down"
+        key={title}
       >
-        <div role="presentation">
+        <li role="presentation" key={title}>
           {/* @ts-ignore */}
           <button
             className={`tab ${className}`}
             ref={nodeRef}
-            onClick={toggleSlide}
+            onClick={() => {
+              toggleSlide(transformedTitle)
+              setCurrentTopic()
+            }}
             hidden={!expanded}
             {...commonProps}
           >
             <div className="icon" aria-hidden="true">{icon}</div>
             <p>{title}</p>
           </button>
-        </div>
+        </li>
       </CSSTransition>
     )
-  } else {
-    tab = (
-      <div role="presentation">
-        {/* @ts-ignore */}
-        <button className="tab" onClick={toggleSlide} {...commonProps}>
-          <div className="icon" aria-hidden="true">{icon}</div>
-          <p>{title}</p>
-        </button>
-      </div>
-    )
   }
-
-  if (title !== 'Employment') {
-    return tab
-  }
-
-  const experienceSection = allSections[4]
 
   return (
-    <div role="presentation">
+    <li role="presentation" key={title}>
+      {/* @ts-ignore */}
       <button
-        className="tab neverChosen"
-        onClick={(e) => {
-          if (!expanded) {
-            setTimeout(() => {
-              // @ts-ignore
-              document.querySelector('button.nested')?.focus()
-            }, 100)
-          }
-          toggleExpanded()
-          e.stopPropagation()
+        className="tab"
+        onClick={() => {
+          toggleSlide(transformedTitle)
+          setCurrentTopic()
         }}
-        aria-expanded={expanded ? 'true' : 'false'}
-        aria-label={`${expanded ? 'Close' : 'Open'} menu for Professional Practice topics`}
-        aria-controls={subSections.map(header => transformTextToUrlParams(header.title)).join(' ')}
-        aria-haspopup="menu"
+        {...commonProps}
       >
-        <div className="icon" aria-hidden="true">{experienceSection.icon}</div>
-        <p>{experienceSection.title}</p>
-        <div className="dropdownIcon" aria-hidden="true">
-          {expanded
-            ? <FontAwesomeIcon icon={faCaretUp} />
-            : <FontAwesomeIcon icon={faCaretDown} />}
-        </div>
+        <div className="icon" aria-hidden="true">{icon}</div>
+        <p>{title}</p>
       </button>
-      {tab}
-    </div>
+    </li>
   )
 }
 
@@ -359,6 +367,7 @@ export default function Carousel() {
   const nodeRef7 = useRef(null)
   const nodeRef8 = useRef(null)
   const nodeRefSlideMenu = useRef(null)
+  const nodeRefContent = useRef(null)
   const nodeRefSlideDisplay0 = useRef(null)
   const nodeRefSlideDisplay1 = useRef(null)
   const nodeRefSlideDisplay2 = useRef(null)
@@ -374,10 +383,10 @@ export default function Carousel() {
   const toggleExpanded = () => setExpanded(expanded === 'true' ? 'false' : 'true')
 
   const topicMenuNodeRefs = {
-    '4': nodeRef5,
-    '5': nodeRef6,
-    '6': nodeRef7,
-    '7': nodeRef8,
+    '5': nodeRef5,
+    '6': nodeRef6,
+    '7': nodeRef7,
+    '8': nodeRef8,
   }
 
   const slideNodeRefs = [
@@ -393,80 +402,17 @@ export default function Carousel() {
     nodeRefSlideDisplay10,
     nodeRefSlideDisplay11,
   ]
-  
-  const settings = {
-    draggable: false,
-    swipe: false,
-    customPaging: function(i: number) {
-      return renderSideNavItem(
-        sections[i],
-        expanded === 'true',
-        toggleExpanded,
-        topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
-        () => {
-          if (window.innerWidth < 850) {
-            setSlide('loading')
-            setTimeout(() => {
-              // @ts-ignore
-              document.querySelector('div.slick-active').querySelector('button.backIconContainer.top')?.focus()
-            }, 1000 + 100)
-          }
-        },
-        topic,
-        i
-      )
-    },
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    speed: 1000,
-    fade: true,
-    // dotsClass: "customTabs",
-    nextArrow: <BlankArrow />,
-    prevArrow: <BlankArrow />,
-    appendDots: (dots: ReactNode) => (
-      <CSSTransition 
-        nodeRef={nodeRefSlideMenu}
-        in={slide === false}
-        timeout={1000}
-        classNames="fade-bounce-left"
-        onExited={() => window.innerWidth < 850 && setSlide(true)}
-      >
-        <ul
-          className="customTabs"
-          ref={nodeRefSlideMenu}
-          role="tablist"
-          aria-orientation="vertical"
-          id="custom-tabs"
-          hidden={slide === true}
-        >
-          {dots}
-        </ul>
-      </CSSTransition>
-    ),
-    beforeChange: (_current: number, next: number) =>
-      setTopic(transformTextToUrlParams(sections[next].title)),
-  }
-
-  if (initialSlideTopic) {
-    const initialSlideIndex = sections
-      .findIndex(sectionHeader => 
-        transformTextToUrlParams(sectionHeader.title) === topic
-      )
-    // @ts-ignore
-    settings.initialSlide = initialSlideIndex
-  }
 
   const GoBackArrow = (location: 'top' | 'bottom' = 'top') => location === 'top'
     ? (
       <button
         className={`backIconContainer ${location}`}
         onClick={() => {
-          setTopic(null)
+          const getCurrentTopic = topic
+
           setSlide('loading')
           setTimeout(() => {
-            document.querySelector('li.slick-active')?.querySelector('button')?.focus()
+            document.getElementById(`tab-${getCurrentTopic}`)?.focus()
           }, 1000 + 100)
         }}
         aria-controls="custom-tabs"
@@ -482,11 +428,11 @@ export default function Carousel() {
         className={`backIconContainer ${location}`}
         onClick={() => {
           const timeToScroll = 750
+          const getCurrentTopic = topic
 
-          setTopic(null)
           setTimeout(() => setSlide('loading'), timeToScroll)
           setTimeout(() => {
-            document.querySelector('li.slick-active')?.querySelector('button')?.focus()
+            document.getElementById(`tab-${getCurrentTopic}`)?.focus()
           }, 1000 + 100 + 750)
 
           const element = document.getElementById('topic-menu')
@@ -508,6 +454,8 @@ export default function Carousel() {
 
       const topicButton = document.getElementById(`tab-${initialSlideTopic}`)
       topicButton?.click()
+    } else {
+      setTopic(transformTextToUrlParams(sections[0].title))
     }
 
     if (initialExpanded === 'true' ||
@@ -575,8 +523,57 @@ export default function Carousel() {
 
   return <>
     <div className="aboutCarousel carouselComponent" ref={componentRef} role="tabs">
-        <Slider {...settings} className={slide !== false ? 'slideTrue' : 'slideFalse'}>
-          {sections.map((section, index) => {
+      <CSSTransition 
+        nodeRef={nodeRefSlideMenu}
+        in={slide === false}
+        timeout={1000}
+        classNames="fade-bounce-left"
+        onExited={() => window.innerWidth < 850 && setSlide(true)}
+      >
+        <ul
+          className="customTabs"
+          ref={nodeRefSlideMenu}
+          role="tablist"
+          aria-orientation="vertical"
+          id="custom-tabs"
+          hidden={slide === true}
+        >
+          {sections.map((section, i) => {
+            return renderSideNavItem(
+              section,
+              expanded === 'true',
+              toggleExpanded,
+              topicMenuNodeRefs[i.toString() as keyof typeof topicMenuNodeRefs] || null,
+              (transformedTitle) => {
+                if (window.innerWidth < 850) {
+                  setSlide('loading')
+                  setTimeout(() => {
+                    // @ts-ignore
+                    document.getElementById(`tabpanel-${transformedTitle}`)?.querySelector('button.backIconContainer.top')?.focus()
+                  }, 1000 + 100)
+                }
+              },
+              topic,
+              i,
+              () => setTopic(transformTextToUrlParams(section.title)),
+            )
+          })}
+        </ul>
+      </CSSTransition>
+      <CSSTransition 
+        nodeRef={nodeRefContent}
+        in={slide === true}
+        timeout={1000}
+        classNames="fade-bounce-left"
+        onExited={() => window.innerWidth < 850 && setSlide(false)}
+      >
+        <div
+          id="tab-panel-container"
+          className="tabPanelContainer"
+          ref={nodeRefContent}
+          hidden={slide === false}
+        >
+          {sections.filter(section => section.title !== 'Professional Practice').map((section, index) => {
             const nodeRef = slideNodeRefs[index]
 
             const transformedTitle = transformTextToUrlParams(section.title)
@@ -589,31 +586,34 @@ export default function Carousel() {
               ref: nodeRef
             }
 
-            if (topic !== transformedTitle) {
+            const visible = topic === transformedTitle || (!topic && index === 0)
+
+            if (!visible) {
               // @ts-ignore
               tabSettings.hidden = true
+              // @ts-ignore
+              tabSettings['aria-hidden'] = true
             }
 
             return (
-              <CSSTransition 
-                nodeRef={nodeRef}
-                in={slide === true}
-                appear={slide === true}
-                timeout={1000}
-                classNames="fade-bounce-left"
-                onExited={() => setSlide(false)}
-                key={transformedTitle}
-              >
-                <div {...tabSettings}>
-                  {GoBackArrow()}
-                  <h3>{section.title}</h3>
-                  {/* @ts-ignore */}
-                  {section.content(GoBackArrow('bottom'))}
-                </div>
-              </CSSTransition>
+              <Transition nodeRef={nodeRef} in={visible} timeout={duration} key={transformedTitle}>
+                {state => 
+                  <div key={transformedTitle} {...tabSettings} ref={nodeRef} style={{
+                    ...defaultStyle,
+                    // @ts-ignore
+                    ...transitionStyles[state]
+                  }}>
+                    {GoBackArrow()}
+                    <h3>{section.title}</h3>
+                    {/* @ts-ignore */}
+                    {section.content(GoBackArrow('bottom'))}
+                  </div>
+                }
+              </Transition>
             )
           })}
-        </Slider>
+        </div>
+      </CSSTransition>
     </div>
   </>
 }

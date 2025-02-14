@@ -7,7 +7,6 @@ const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL || ''
 export default function CanonLinkInjector({ url }) {
   useEffect(() => {
     const getCurrentUrl = `${baseUrl}${url}`
-    console.log(getCurrentUrl)
 
     const link = document.createElement("link")
     link.rel = "canonical"
