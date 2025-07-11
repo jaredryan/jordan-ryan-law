@@ -75,7 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
         url: `${url}/payment`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
+        changeFrequency: 'yearly',
         priority: 0.2,
         images: [
             `${url}/logo-white.webp`,

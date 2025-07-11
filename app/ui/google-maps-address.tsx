@@ -17,7 +17,7 @@ export function stub() {
 
 export default function GoogleMapsAddress() {
     return (
-        <APIProvider apiKey={'AIzaSyBFT4isOBiPPTttkihHnsl9WboOWUc-ZeY'}>
+        <APIProvider apiKey={process.env.GOOGLE_API_KEY || ''}>
             <div className="googleMapsComponent">
                 <Map
                     defaultZoom={13}
