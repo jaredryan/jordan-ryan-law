@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBriefcase, faLaptop, faFileInvoiceDollar,
   faGavel, faScaleBalanced, faHandHoldingMedical,
-  faPhone, faLocationDot, faEnvelope
+  faPhone, faLocationDot,
 } from '@fortawesome/free-solid-svg-icons'
 import { PostalAddress } from 'schema-dts'
 
@@ -365,28 +365,23 @@ export const russKRyanClients = {
   ]
 }
 
+// contactCards
+
 export const contactCards = [{
   icon: <FontAwesomeIcon icon={faPhone} />,
   name: 'Contact Us',
   content: [
     'Telephone: (559) 439-4000',
-    'Facsimile: (559) 439-5654',
-    'rkr@mmwbr.com'
+    'russ@ryanlegalpc.com',
+    'crystal@ryanlegalpc.com'
   ]
 }, {
   icon: <FontAwesomeIcon icon={faLocationDot} />,
   name: 'Address',
   content: [
-    '1690 West Shaw Avenue',
-    'Suite 200',
-    'Fresno, California 93711'
-  ]
-}, {
-  icon: <FontAwesomeIcon icon={faEnvelope} />,
-  name: 'Mail',
-  content: [
-    'Post Office Box 9099',
-    'Fresno, California 93790-9099',
+    '5200 North Palm Avenue',
+    'Suite 306',
+    'Fresno, California 93704'
   ]
 }]
 
@@ -471,18 +466,11 @@ export const physicalAddressJSON = {
   streetAddress: contactCards[1].content[0]
 } as PostalAddress
 
-export const mailingAddressJSON = {
-  '@type': 'PostalAddress',
-  postOfficeBoxNumber: contactCards[2].content[0].split(' ')[3],
-  addressLocality: contactCards[2].content[1].split(',')[0],
-  addressRegion: 'CA',
-  addressCountry: 'US',
-  postalCode: contactCards[2].content[1].split(' ')[2],
-} as PostalAddress
-
 export const contactDetailsJSON = {
   openingHours: 'Mo-Fr 08:00-17:00',
-  email: contactCards[0].content[2],
+  email: [
+    contactCards[0].content[1],
+    contactCards[0].content[2],
+  ],
   telephone: contactCards[0].content[0].split(':')[1].slice(1),
-  faxNumber: contactCards[0].content[1].split(':')[1].slice(1),
 }

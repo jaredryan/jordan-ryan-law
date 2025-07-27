@@ -7,7 +7,7 @@ import { transformTextToUrlParams } from '@/app/lib/utils'
 import {
   businessExplanation, businessName, businessSlogan,
   businessSummary, areasOfPractice, physicalAddressJSON,
-  mailingAddressJSON, contactDetailsJSON
+  contactDetailsJSON
 } from '@/app/content'
 import { metadata as appMetadata } from '@/app/layout'
 
@@ -58,10 +58,7 @@ const businessJsonLd: WithContext<LegalService> = {
     url: `${url}/expertise`,
     name: 'Ryan Legal, PC Expertise'
   },
-  address: [
-    physicalAddressJSON,
-    mailingAddressJSON,
-  ],
+  address: physicalAddressJSON,
   ...contactDetailsJSON,
   serviceArea: [{
     '@type': 'AdministrativeArea',
