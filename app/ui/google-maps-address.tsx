@@ -15,25 +15,27 @@ export function stub() {
     </div>
 }
 
+const latAndLong = { lat: 36.81224531879936, lng: -119.80423819568016 }
+
 export default function GoogleMapsAddress() {
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
             <div className="googleMapsComponent">
                 <Map
                     defaultZoom={13}
-                    defaultCenter={{ lat: 36.808851391005625, lng: -119.82297917748616 }}
+                    defaultCenter={latAndLong}
                     mapId={'DEMO_MAP_ID'}
                     style={{ width: '100%', height: 'auto' }}
                     colorScheme={ColorScheme.FOLLOW_SYSTEM}
                 >
                     <Marker
                         key="officeMarker"
-                        position={{ lat: 36.8085374, lng: -119.8240786 }}
+                        position={latAndLong}
                     />
                     <InfoWindow
                         onCloseClick={() => {}}
                         pixelOffset={[0, -24]}
-                        position={{ lat: 36.8085374, lng: -119.8240786 }}
+                        position={latAndLong}
                         ariaLabel="Legal, PC office location with link to getting directions on Google Maps"
                     >
                             <h2>Ryan Legal, PC</h2>
