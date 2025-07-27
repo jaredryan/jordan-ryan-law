@@ -371,7 +371,7 @@ export const contactCards = [{
   icon: <FontAwesomeIcon icon={faPhone} />,
   name: 'Contact Us',
   content: [
-    'Telephone: (559) 439-4000',
+    'Telephone: (559) 499-4000',
     'russ@ryanlegalpc.com',
     'crystal@ryanlegalpc.com'
   ]
