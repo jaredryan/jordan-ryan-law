@@ -38,7 +38,7 @@ export default function GoogleMapsAddress() {
                     >
                             <h2>Ryan Legal, PC</h2>
                             <a
-                                href="https://www.google.com/maps/dir//MMWB%26R,+1690+W+Shaw+Ave+%23200,+Fresno,+CA+93711/@36.8086968,-119.8234727,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x809467c626e1d33f:0x89ac52a38630fad!2m2!1d-119.8232368!2d36.8086987!3e0?entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D"
+                                href="https://www.google.com/maps/place/5200+N+Palm+Ave+%23306,+Fresno,+CA+93704/@36.8115688,-119.8070387,17z/data=!3m1!4b1!4m6!3m5!1s0x809467ecc3fedb5d:0xed90dea4b3e0c483!8m2!3d36.8115645!4d-119.8044638!16s%2Fg%2F11qpw25lwf?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
                                 target='_blank'
                                 aria-label='Get directions to the Ryan Legal, PC office on Google Maps.'   
                             >

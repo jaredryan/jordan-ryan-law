@@ -3,7 +3,7 @@ import ContactUsForm from '@/app/ui/contact-us-form'
 import GoogleMapsAddress from '@/app/ui/google-maps-address'
 import { 
   contactCards, contactDetailsJSON, 
-  physicalAddressJSON, mailingAddressJSON
+  physicalAddressJSON,
 } from '@/app/content'
 import { metadata as appMetadata } from '@/app/layout'
 import Image from 'next/image'
@@ -91,10 +91,7 @@ const webpageJsonLd: WithContext<WebPage> = {
       name: 'Ryan Legal, PC',
       url: baseUrl,
       image: `${baseUrl}/opengraph-image.png`,
-      address: [
-        physicalAddressJSON,
-        mailingAddressJSON,
-      ],
+      address: physicalAddressJSON,
       ...contactDetailsJSON,
       subjectOf: {
         '@type': 'WebPage',
