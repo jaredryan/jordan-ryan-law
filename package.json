@@ -13,9 +13,10 @@
     "@sendgrid/mail": "^8.1.6",
     "@types/validator": "^13.12.2",
     "@vis.gl/react-google-maps": "^1.7.1",
-    "next": "^15.5.7",
+    "next": "^15.5.9",
     "nuqs": "^2.8.3",
-    "react": "^19.0.0",
+    "react": "^19.2.3",
+    "react-dom": "19.2.3",
     "react-transition-group": "^4.4.5",
     "schema-dts": "^1.1.5",
     "typescript": "^5.7.2",
@@ -32,5 +33,13 @@
     "eslint-config-next": "^15.1.6",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^37.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@babel/runtime@<7.26.10": ">=7.26.10",
+      "brace-expansion@>=1.0.0 <=1.1.11": ">=1.1.12",
+      "brace-expansion@>=2.0.0 <=2.0.1": ">=2.0.2",
+      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1"
+    }
   }
 }
