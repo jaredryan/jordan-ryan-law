@@ -33,50 +33,43 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
 <BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
   <section class="page-section page-section--narrow contact-hero">
     <span class="eyebrow">Get in touch</span>
-    <h1>Start with a conversation</h1>
+    <h1>Start a conversation</h1>
+    <p class="lead">Reach Russ or Crystal directly, or use the form to send a message.</p>
   </section>
 
   <section class="page-section contact-main">
     <div class="contact-main__info">
-      <div class="contact-primary-card">
-        <a href={`tel:${contact.phoneHref}`} class="contact-primary-card__phone">{contact.phoneDisplay}</a>
-      </div>
-
-      <ul class="contact-people">
-        <li class="contact-person">
-          <p class="contact-person__name">{russRyan.alternateName} Ryan</p>
-          <p class="contact-person__role">Attorney</p>
+      <ul class="contact-info-list">
+        <li class="contact-block">
+          <p class="contact-block__title">{russRyan.alternateName} Ryan</p>
+          <p class="contact-block__meta">Attorney</p>
           <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
         </li>
-        <li class="contact-person">
-          <p class="contact-person__name">{crystalBrightwell.name}</p>
-          <p class="contact-person__role">{crystalBrightwell.workingTitle}</p>
+        <li class="contact-block">
+          <p class="contact-block__title">{crystalBrightwell.name}</p>
+          <p class="contact-block__meta">{crystalBrightwell.workingTitle}</p>
           <a href={`mailto:${contact.emails.crystal}`}>{contact.emails.crystal}</a>
         </li>
+        <li class="contact-block">
+          <p class="contact-block__title">Phone</p>
+          <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+        </li>
+        <li class="contact-block">
+          <p class="contact-block__title">Office</p>
+          <a
+            href={address.googleMapsDirectionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open Ryan Legal's office in Google Maps: ${fullAddress}`}
+          >
+            {fullAddress}
+          </a>
+        </li>
       </ul>
-
-      <p class="contact-roles">
-        {russRyan.alternateName} is the sole attorney at the firm. {crystalBrightwell.name} can help answer questions
-        about scheduling and paperwork, and can help arrange a conversation with {russRyan.alternateName} — she does
-        not provide legal advice, and contacting the office does not by itself create an attorney-client relationship.
-      </p>
-
-      <div class="contact-office">
-        <span class="eyebrow">Office</span>
-        <a
-          href={address.googleMapsDirectionsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link-editorial"
-          aria-label={`Open Ryan Legal's office in Google Maps: ${fullAddress}`}
-        >
-          {fullAddress}
-        </a>
-      </div>
     </div>
 
     <div class="contact-main__form">
-      <h2>Request a Consultation</h2>
+      <h2>Send a message</h2>
       <ContactForm />
     </div>
   </section>
@@ -95,34 +88,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
     padding-top: var(--s4);
   }
 
-  .contact-primary-card {
-    background: var(--bg-raised);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--gold-accent);
-    border-radius: 4px;
-    padding: var(--s5) var(--s6);
-    margin-bottom: var(--s5);
-  }
-
-  .contact-primary-card__phone {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.375rem;
-    text-decoration: none;
-    color: var(--fg);
-  }
-
-  .contact-primary-card__phone:hover,
-  .contact-primary-card__phone:focus-visible {
-    color: var(--navy);
-  }
-
-  :root[data-theme='dark'] .contact-primary-card__phone:hover,
-  :root[data-theme='dark'] .contact-primary-card__phone:focus-visible {
-    color: var(--gold-accent);
-  }
-
-  .contact-people {
+  .contact-info-list {
     list-style: none;
     margin: 0 0 var(--s6);
     padding: 0;
@@ -131,55 +97,50 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
     gap: var(--s5);
   }
 
-  .contact-person {
+  .contact-info-list:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-block {
     border-top: 1px solid var(--rule);
     padding-top: var(--s3);
   }
 
-  .contact-person__name {
+  .contact-block__title {
     font-weight: 700;
     margin: 0;
   }
 
-  .contact-person__role {
+  .contact-block__meta {
     color: var(--fg-soft);
     font-size: 0.875rem;
     margin: 0 0 var(--s1);
   }
 
-  .contact-person a {
+  .contact-block a {
     color: var(--fg-soft);
     text-decoration: none;
     font-weight: 600;
+    word-break: break-word;
   }
 
-  .contact-person a:hover,
-  .contact-person a:focus-visible {
+  .contact-block a:hover,
+  .contact-block a:focus-visible {
     color: var(--navy);
   }
 
-  :root[data-theme='dark'] .contact-person a:hover,
-  :root[data-theme='dark'] .contact-person a:focus-visible {
+  :root[data-theme='dark'] .contact-block a:hover,
+  :root[data-theme='dark'] .contact-block a:focus-visible {
     color: var(--gold-accent);
-  }
-
-  .contact-roles {
-    color: var(--fg-soft);
-    font-size: 0.9375rem;
-  }
-
-  .contact-office {
-    margin-top: var(--s6);
-    padding-top: var(--s5);
-    border-top: 1px solid var(--rule);
-  }
-
-  .contact-office .eyebrow {
-    margin-bottom: var(--s2);
   }
 
   .contact-main__form h2 {
     margin-top: 0;
+    margin-bottom: var(--s5);
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 700;
   }
 
   @media (max-width: 899px) {

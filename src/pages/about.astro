@@ -66,7 +66,7 @@ function splitDecision(decision: string): { label: string; year: string } {
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd}>
   <div class="about-layout">
-    <aside class="about-rail" aria-label="On this page">
+    <aside class="about-rail" aria-label="On this page" data-spy-rail>
       <ol>
         {
           railSections.map((section) => (
@@ -78,7 +78,7 @@ function splitDecision(decision: string): { label: string; year: string } {
       </ol>
     </aside>
 
-    <details class="about-jump-nav">
+    <details class="about-jump-nav" data-spy-rail>
       <summary>On this page</summary>
       <ul>
         {
@@ -137,7 +137,6 @@ function splitDecision(decision: string): { label: string; year: string } {
         <div class="about-crystal">
           <div class="about-crystal__avatar" aria-hidden="true">CB</div>
           <div>
-            <span class="eyebrow">Firm voice</span>
             <h2>{crystalBrightwell.name}</h2>
             <p class="about-crystal__meta">
               {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
@@ -224,7 +223,7 @@ function splitDecision(decision: string): { label: string; year: string } {
           }
         </ul>
         <h3>Court Admissions</h3>
-        <ul class="tag-list">
+        <ul class="multi-column-list court-admissions-list">
           {courtAdmissions.map((item) => <li>{item}</li>)}
         </ul>
       </section>
@@ -253,6 +252,8 @@ function splitDecision(decision: string): { label: string; year: string } {
     </div>
   </div>
 </BaseLayout>
+
+<script src="@/scripts/scroll-spy.ts"></script>
 
 <style>
   .about-layout {
@@ -295,6 +296,14 @@ function splitDecision(decision: string): { label: string; year: string } {
     gap: var(--s6);
   }
 
+  /* Court Admissions: plain, ruled, two-up at width — related to the
+     editorial list system used elsewhere on the page, but deliberately not
+     using the label/meta archival-table shape, since there's no per-item
+     year or value to pair against a court name. */
+  .court-admissions-list {
+    columns: 2 220px;
+  }
+
   .about-crystal {
     display: grid;
     grid-template-columns: 88px 1fr;
@@ -304,6 +313,12 @@ function splitDecision(decision: string): { label: string; year: string } {
     padding: var(--s6);
     border-radius: 4px;
     border: 1px solid var(--rule);
+  }
+
+  /* The bio's last paragraph shouldn't add its own bottom margin on top of
+     the card's padding — that would visually double the bottom spacing. */
+  .about-crystal p:last-child {
+    margin-bottom: 0;
   }
 
   .about-crystal__avatar {
@@ -384,6 +399,15 @@ function splitDecision(decision: string): { label: string; year: string } {
       min-height: 44px;
       color: var(--fg);
     }
+
+    .about-jump-nav li a.is-active {
+      color: var(--navy);
+      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
+    }
+
+    :root[data-theme='dark'] .about-jump-nav li a.is-active {
+      color: var(--gold-accent);
+    }
   }
 
   @media (max-width: 880px) {
@@ -416,13 +440,10 @@ function splitDecision(decision: string): { label: string; year: string } {
       padding: 0;
     }
 
-    .about-rail li {
-      border-left: 2px solid transparent;
-    }
-
     .about-rail a {
       display: block;
       padding: var(--s2) 0 var(--s2) var(--s3);
+      border-left: 2px solid transparent;
       color: var(--fg-soft);
       text-decoration: none;
       font-size: 0.875rem;
@@ -431,6 +452,16 @@ function splitDecision(decision: string): { label: string; year: string } {
 
     .about-rail a:hover,
     .about-rail a:focus-visible {
+      color: var(--fg);
+    }
+
+    .about-rail a.is-active {
+      border-left-color: var(--gold-accent);
+      color: var(--navy);
+      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
+    }
+
+    :root[data-theme='dark'] .about-rail a.is-active {
       color: var(--fg);
     }
 

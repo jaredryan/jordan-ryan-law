@@ -24,7 +24,7 @@ export const russRyan = {
  */
 export const crystalBrightwell = {
   name: 'Crystal Brightwell',
-  workingTitle: 'Legal Support and Office Administration',
+  workingTitle: 'Senior Paralegal / Office Administrator',
   tenureYears: 24,
   bio: [
     `Crystal Brightwell has worked with Russ for 24 years, coordinating documents, scheduling, and client communication for the office.`,
