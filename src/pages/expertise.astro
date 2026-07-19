@@ -223,6 +223,15 @@ const pad = (n: number) => String(n).padStart(2, '0')
     margin: 0;
   }
 
+  /* .proof-callout's own gold top rule sits right under .exp-compare's gray
+     divider, reading as a double border. Swap it for a side accent here. */
+  .exp-compare__proof {
+    border-top: none;
+    padding-top: 0;
+    padding-left: var(--s4);
+    border-left: 2px solid var(--gold-accent);
+  }
+
   .exp-section__actions {
     display: flex;
     align-items: center;
