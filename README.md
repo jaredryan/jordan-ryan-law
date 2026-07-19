@@ -8,7 +8,7 @@ The site is live at [https://ryanlegalpc.com](https://ryanlegalpc.com).
 
 ### Stack
 
-Static [Astro](https://astro.build) site, deployed to Netlify, with a single Netlify Function (`netlify/functions/contact.ts`) handling the contact form via SendGrid. No client-side framework — interactivity is handled with small native scripts under `src/scripts/`.
+Static [Astro](https://astro.build) site, deployed to Netlify, with a single Netlify Function (`netlify/functions/contact.ts`) handling the contact form via [Resend](https://resend.com). No client-side framework — interactivity is handled with small native scripts under `src/scripts/`.
 
 This is currently a **foundation rebuild**: content, routes, and metadata are preserved from the previous Next.js implementation (see `docs/legacy-content-inventory.md`), but the visual design is an intentionally minimal placeholder shell. The approved visual redesign (see the design-phase deliverables in the repo root) has not been implemented yet.
 
@@ -17,7 +17,7 @@ This is currently a **foundation rebuild**: content, routes, and metadata are pr
 ```bash
 nvm use          # Node 24, see .nvmrc
 npm install
-cp .env.example .env   # fill in SENDGRID_API_KEY, etc.
+cp .env.example .env   # fill in RESEND_API_KEY, etc.
 npm run dev
 ```
 
@@ -28,4 +28,6 @@ npm run dev
 - `npm run preview` — preview the production build
 - `npm run check` — Astro + TypeScript type checking
 - `npm run lint` / `npm run format` — ESLint / Prettier
-- `npm test` — Playwright smoke tests
+- `npm run test:unit` — unit tests for the contact Netlify Function (Node's built-in test runner, Resend mocked — never sends real email)
+- `npm run test:e2e` — Playwright smoke tests
+- `npm test` — both of the above

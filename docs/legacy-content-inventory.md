@@ -33,19 +33,23 @@ presentational implementation that was intentionally discarded.
 ## Contact form (preserved behavior, rebuilt implementation)
 
 - Fields: `name`, `phone` (validated as US mobile via `validator.isMobilePhone`), `email` (validated), `description`. All required.
-- Old: Next.js Server Action (`'use server'`) + Zod schema + SendGrid dynamic template.
-- New: `netlify/functions/contact.ts`, same Zod validation, same SendGrid template ID (`d-f0a05944301b4a1d8ef0f727f0a0191f`), same dynamic fields.
-- **Resolved 2026-07-18**: the old recipient (`to:`) address, `rkr@mmwbr.com`, was Russ's *former* firm (Motschiedler, Michaelides, Wishon, Brewer & Ryan), which the credentials data itself lists as a position he left. That hard-coded fallback has been removed entirely. `CONTACT_TO_EMAIL` (intended value `russ@ryanlegalpc.com`) is now required — if unset, the function fails closed with the generic temporary-unavailable response instead of sending anywhere.
-- `from:` address unchanged: `info@ryanlegalpc.com` (verified SendGrid sender). The visitor's own email is now set as `replyTo` rather than only appearing in the template body, so a reply goes straight to them without exposing an unverified address as the sender.
+- Original (pre-migration): Next.js Server Action (`'use server'`) + Zod schema + SendGrid dynamic template.
+- **2026-07-18 — moved to Resend**: `netlify/functions/contact.ts` now sends via the official Resend Node SDK instead of `@sendgrid/mail`. Same Zod validation, same method/malformed-JSON/field-error handling, same fail-closed behavior and generic public error messages — only the email provider changed. Body content is now a small hand-written text/HTML template in `contact.ts` itself (visitor-controlled fields are HTML-escaped) rather than a SendGrid dynamic template, since Resend doesn't have an equivalent hosted-template feature in play here.
+- Recipient (`to:`) and sender (`from:`) are both `info@ryanlegalpc.com`, driven by `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL` — no hard-coded fallback for either. The visitor's own email is set as `replyTo`, never as `from`.
+- `ryanlegalpc.com` must be a **verified domain in Resend** before `CONTACT_FROM_EMAIL` will send successfully. The Resend API key should be scoped sending-only and, where Resend's dashboard allows it, restricted to that verified domain.
+- Unit coverage for the function lives in `tests/unit/contact.test.ts` (Node's built-in test runner, `npm run test:unit`) — the Resend client is always dependency-injected as a fake in tests, so no automated test run ever sends real email.
 
 ## Environment variables
 
-| Old name | New usage | Notes |
+| Old name | Current usage | Notes |
 |---|---|---|
 | `NEXT_PUBLIC_CURRENT_URL` | `SITE_URL` (build-time only, used in `astro.config.mjs` `site` + canonical/JSON-LD generation) | No longer needs a `PUBLIC_`/client-exposed prefix — it's only read in `.astro` frontmatter (build-time), never shipped to a client bundle. |
 | `NEXT_PUBLIC_GOOGLE_API_KEY` | *(dropped for this phase)* | The interactive `@vis.gl/react-google-maps` widget was React-only and out of scope for a React-free foundation. Replaced with a zero-JS Google Maps `output=embed` iframe (no API key required) + the same "Get Directions" link. A richer vanilla-JS map can come back in the redesign phase if wanted. |
-| `SENDGRID_API_KEY` | `SENDGRID_API_KEY` (server-only, Netlify Function) | Unchanged name, still never exposed to the client. |
-| *(new)* | `CONTACT_TO_EMAIL` | Required. No fallback — see contact-form section above. |
+| ~~`SENDGRID_API_KEY`~~ | `RESEND_API_KEY` (server-only, Netlify Function) | Provider swap, 2026-07-18 — see contact-form section above. `SENDGRID_API_KEY` can be deleted from Netlify once a deployed Resend test send has been confirmed working (keep it until then as a rollback path). |
+| *(new)* | `CONTACT_TO_EMAIL` | Required, no fallback. Currently `info@ryanlegalpc.com`. |
+| *(new)* | `CONTACT_FROM_EMAIL` | Required, no fallback. Currently `info@ryanlegalpc.com`; must be on a Resend-verified domain. |
+
+All three (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) must be set in Netlify for **both** the production context and the `claudeRevamp` branch-deploy context — they are not shared automatically between contexts unless explicitly scoped to "all deploy contexts" in Netlify's environment variable UI. A change to any of them requires a new deploy to take effect (Netlify Functions read `process.env` at deploy/build time, not per-request).
 
 `.env.example` previously contained an unrelated Postgres/NextAuth template left over from the original Next.js "dashboard course" starter — none of those variables were ever used by this app. Removed as dead/misleading.
 
