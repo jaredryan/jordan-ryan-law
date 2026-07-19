@@ -380,7 +380,7 @@ summary:focus-visible,
   color: var(--navy);
   text-decoration: none;
   padding-bottom: 1px;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   font-weight: 600;
   transition: border-color var(--transition-fast);
 }

@@ -51,6 +51,37 @@ function initScrollSpy() {
     }
   }
 
+  // A link click or hash change kicks off a scroll (smooth or, under
+  // reduced motion, instant) that passes through every section between the
+  // old and new one — without this, the observer would flag each of those
+  // as "active" in turn before landing on the intended target. While
+  // `suspended` is true the observer keeps its intersecting-ids bookkeeping
+  // current but stops calling `setActive`, so the reader's chosen section
+  // stays highlighted until the browser reports the scroll has actually
+  // settled (or, lacking that support, until the timeout ceiling below).
+  let suspended = false
+  let suspendTimer: number | undefined
+
+  function suspendUntilScrollSettles() {
+    suspended = true
+    window.clearTimeout(suspendTimer)
+    suspendTimer = window.setTimeout(() => {
+      suspended = false
+    }, 1000)
+  }
+
+  function resumeObserver() {
+    suspended = false
+    window.clearTimeout(suspendTimer)
+  }
+
+  window.addEventListener('scrollend', resumeObserver)
+
+  function activateAndSuspend(id: string) {
+    setActive(id)
+    suspendUntilScrollSettles()
+  }
+
   const intersecting = new Set<string>()
 
   const observer = new IntersectionObserver(
@@ -60,6 +91,7 @@ function initScrollSpy() {
         if (entry.isIntersecting) intersecting.add(id)
         else intersecting.delete(id)
       }
+      if (suspended) return
       const current = orderedIds.find((id) => intersecting.has(id))
       if (current) setActive(current)
     },
@@ -72,17 +104,21 @@ function initScrollSpy() {
   for (const section of sections) observer.observe(section)
 
   const initialId = location.hash.slice(1)
-  setActive(initialId && linksByHash.has(initialId) ? initialId : orderedIds[0]!)
+  if (initialId && linksByHash.has(initialId)) {
+    activateAndSuspend(initialId)
+  } else {
+    setActive(orderedIds[0]!)
+  }
 
   for (const [id, links] of linksByHash) {
     for (const link of links) {
-      link.addEventListener('click', () => setActive(id))
+      link.addEventListener('click', () => activateAndSuspend(id))
     }
   }
 
   window.addEventListener('hashchange', () => {
     const id = location.hash.slice(1)
-    if (id && linksByHash.has(id)) setActive(id)
+    if (id && linksByHash.has(id)) activateAndSuspend(id)
   })
 
   // Safety net for short final sections: guarantees the last section reads
@@ -96,6 +132,7 @@ function initScrollSpy() {
       ticking = true
       requestAnimationFrame(() => {
         ticking = false
+        if (suspended) return
         const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
         if (atBottom) setActive(orderedIds[orderedIds.length - 1]!)
       })

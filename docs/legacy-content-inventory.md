@@ -22,7 +22,7 @@ presentational implementation that was intentionally discarded.
 
 ## Business facts preserved (now in `src/data/`)
 
-- **Firm**: Ryan Legal, PC. Sole attorney: Russell K. Ryan ("Russ"). Support staff: Crystal Brightwell — **24 years with the firm** (per Jared, confirmed count as of 2026-07-18; working title **"Legal Support and Office Administration" still requires final confirmation** from Russ/Crystal before publishing).
+- **Firm**: Ryan Legal, PC. Sole attorney: Russell K. Ryan ("Russ"). Support staff: Crystal Brightwell — title **"Senior Paralegal / Office Administrator"** (corrected 2026-07-19; previously "Legal Support and Office Administration") and tenure **24 years with Ryan Legal** are both confirmed. Not an attorney; never imply she independently provides legal advice.
 - **Contact**: (559) 499-4000, russ@ryanlegalpc.com, crystal@ryanlegalpc.com.
 - **Address**: 5200 North Palm Avenue, Suite 306, Fresno, California 93704. Map coordinates `36.81224531879936, -119.80423819568016` (as previously placed via `@vis.gl/react-google-maps`).
 - **Practice areas** (6): Labor and Employment; Business Transactions and Finance; Health Care; Technology; Business Litigation; Appellate Litigation. Full descriptive copy carried over verbatim into `src/data/practice-areas.ts`.
@@ -58,6 +58,20 @@ All three (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) must be s
 **Milestone 1 (this pass, 2026-07-18):** visual redesign implementation — design tokens, dark theme, header/footer, and all five pages rebuilt per the approved Concept Revision 2 direction. `/payment` keeps the existing LawPay handoff link; LawPay is not embedded yet.
 
 > **Milestone 2:** Prototype LawPay's official supported embed inside `/payment`, with an external secure-payment fallback. Keep the embed only if responsive sizing, keyboard use, validation, authentication, completion behavior, privacy restrictions, and theme integration are satisfactory.
+
+## Pre-launch TODO
+
+Tracked here rather than in code comments so it survives independently of any one file. Update this list as items close out.
+
+- [ ] **Russ must approve or replace the provisional Home quotation** ("Clients don't want a law firm...") — it's a draft written in his likely voice, not something he actually said. Flagged in the page itself (`src/pages/index.astro`) and here until resolved.
+- [ ] **Perform a real deployed Contact-form submission** after this pass (post-polish) — do not rely on the earlier Milestone-1-era test alone.
+- [ ] **Confirm delivery to `info@ryanlegalpc.com`** from that deployed test.
+- [ ] **Confirm the Reply-To targets the visitor's submitted email**, not the firm's address, from that same deployed test.
+- [x] Crystal Brightwell's title ("Senior Paralegal / Office Administrator") and tenure (24 years) — confirmed, no longer provisional.
+- [x] Crystal's published email (`crystal@ryanlegalpc.com`) — confirmed 2026-07-19 (verified independently against the legacy `main` branch's `app/content.tsx`) and added to `/contact`.
+- [ ] **Conduct the upcoming comprehensive responsive audit** across the full range of widths and heights — this polish pass verified 1280×800 / 1366×768 / 1440×900 plus basic regression checks at 390 / 768 / 1024, but that is not a substitute for the full audit.
+- [ ] **Final factual and legal copy review with Russ** — response-time promises, confidentiality/no-attorney-client-relationship language, and any remaining marketing copy.
+- [ ] **Milestone 2 (LawPay embed) remains deferred** — see above.
 
 ## Assets preserved as-is
 
