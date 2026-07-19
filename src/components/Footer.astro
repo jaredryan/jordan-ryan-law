@@ -1,14 +1,22 @@
 ---
 import { businessName, navLinks, contact, address } from '@/data/site'
 
+interface Props {
+  // Removes the footer's top margin so it sits flush against whatever
+  // navy/dark surface precedes it (e.g. Home's consultation band, 404's
+  // compact content). Ordinary pages keep the default spaced margin.
+  flush?: boolean
+}
+
+const { flush = false } = Astro.props
 const year = new Date().getFullYear()
 ---
 
-<footer class="site-footer">
+<footer class:list={['site-footer', { 'site-footer--flush': flush }]}>
   <div class="site-footer__bar">
     <div class="site-footer__brand-block">
-      <a href="/" class="site-footer__brand">
-        <img src="/full-logo-white.webp" alt={businessName} width="230" height="120" class="site-footer__brand-mark" />
+      <a href="/" class="site-footer__brand" aria-label={`${businessName} — Home`}>
+        <img src="/footer-logo-white.webp" alt="" width="230" height="86" class="site-footer__brand-mark" />
       </a>
       <address class="site-footer__address">
         {address.street}, {address.suite}<br />
@@ -42,6 +50,10 @@ const year = new Date().getFullYear()
     background: var(--surface-navy);
     color: var(--surface-navy-fg);
     margin-top: var(--s9);
+  }
+
+  .site-footer--flush {
+    margin-top: 0;
   }
 
   .site-footer__bar {

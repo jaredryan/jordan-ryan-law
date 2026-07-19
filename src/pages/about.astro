@@ -92,7 +92,7 @@ function splitDecision(decision: string): { label: string; year: string } {
     </details>
 
     <div class="about-main">
-      <section class="about-section" id="intro">
+      <section class="about-section about-narrow" id="intro">
         <img src="/square-profile.webp" alt={russRyan.name} width="180" height="180" class="about-portrait" />
         <span class="eyebrow">{russRyan.jobTitle}</span>
         <h1>{russRyan.name}</h1>
@@ -133,7 +133,7 @@ function splitDecision(decision: string): { label: string; year: string } {
         </div>
       </section>
 
-      <section class="about-section about-section--crystal" id="crystal">
+      <section class="about-section about-section--crystal about-narrow" id="crystal">
         <div class="about-crystal">
           <div class="about-crystal__avatar" aria-hidden="true">CB</div>
           <div>
@@ -161,7 +161,7 @@ function splitDecision(decision: string): { label: string; year: string } {
         </span>
       </figure>
 
-      <section class="about-section" id="litigation-record">
+      <section class="about-section about-narrow" id="litigation-record">
         <h2>Litigation Record</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         {litigation?.reportedDecisions && (
@@ -179,7 +179,7 @@ function splitDecision(decision: string): { label: string; year: string } {
         )}
       </section>
 
-      <section class="about-section" id="training">
+      <section class="about-section about-narrow" id="training">
         <h2>Training</h2>
         {training?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         <dl class="about-training-list">
@@ -194,7 +194,7 @@ function splitDecision(decision: string): { label: string; year: string } {
         </dl>
       </section>
 
-      <section class="about-section" id="positions">
+      <section class="about-section about-narrow" id="positions">
         <h2>Positions</h2>
         <ul class="archival-table">
           {
@@ -226,8 +226,8 @@ function splitDecision(decision: string): { label: string; year: string } {
 
       <section class="about-section" id="admissions">
         <h2>Admissions</h2>
-        <h3>Bar Admissions</h3>
-        <ul class="archival-table">
+        <h3 class="about-narrow">Bar Admissions</h3>
+        <ul class="archival-table about-narrow">
           {
             barAdmissions.map((item) => (
               <li class="archival-table__row">
@@ -253,13 +253,13 @@ function splitDecision(decision: string): { label: string; year: string } {
         <ul class="multi-column-list">
           {pastClients.map((client) => <li>{client}</li>)}
         </ul>
-        <h3>Affiliations</h3>
-        <ul class="archival-table">
+        <h3 class="about-narrow">Affiliations</h3>
+        <ul class="archival-table about-narrow">
           {affiliations.map((item) => <li class="archival-table__row"><span class="archival-table__label">{item}</span></li>)}
         </ul>
       </section>
 
-      <section class="about-section about-close">
+      <section class="about-section about-close about-narrow">
         <h2>Talk with Russ directly</h2>
         <p class="lead">Every matter is handled by the attorney you meet — not passed down the chain.</p>
         <a href="/contact" class="btn btn-primary">Contact Us</a>
@@ -286,14 +286,34 @@ function splitDecision(decision: string): { label: string; year: string } {
     min-width: 0;
   }
 
+  /* Fills the editorial column (bounded by --content-width via the layout
+     grid) rather than capping to prose measure — structured content
+     (archival tables, the credentials grid, client lists, the waiting-room
+     photo) can use the full column, while .about-section p below holds
+     actual prose to a comfortable reading line length within it. */
   .about-section {
-    max-width: var(--content-narrow);
     padding: var(--s8) var(--s5);
     border-top: 1px solid var(--rule);
   }
 
   .about-section:first-child {
     border-top: none;
+  }
+
+  .about-section p {
+    max-width: var(--content-narrow);
+  }
+
+  /* Reusable prose-measure utility — applied to whole sections that are
+     primarily long-form reading or short one-column lists/tables (where a
+     full-width row would just leave an empty gap before a right-aligned
+     year), and to individual heading+list pairs within otherwise-wide
+     sections that mix short and wide content (e.g. Bar Admissions inside
+     Admissions, Affiliations inside Clients & Affiliations). Left edges
+     still align with the wide content around them — only the right edge
+     pulls in — so headings stay visually consistent down the page. */
+  .about-narrow {
+    max-width: var(--content-narrow);
   }
 
   .about-portrait {
@@ -381,7 +401,6 @@ function splitDecision(decision: string): { label: string; year: string } {
 
   .about-close {
     text-align: left;
-    max-width: var(--content-narrow);
   }
 
   /* A single deliberate chapter break between the personal introduction

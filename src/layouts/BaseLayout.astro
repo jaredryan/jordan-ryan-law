@@ -19,9 +19,14 @@ interface Props {
   path: string
   keywords?: string[]
   jsonLd?: JsonLd[]
+  // Renders the footer flush against the preceding section (no top margin)
+  // — for pages whose final section is itself a navy/dark surface, so the
+  // page ends in one continuous dark block rather than a page-background
+  // gap before the footer.
+  flushFooter?: boolean
 }
 
-const { title, description = defaultDescription, path, keywords, jsonLd = [] } = Astro.props
+const { title, description = defaultDescription, path, keywords, jsonLd = [], flushFooter = false } = Astro.props
 const canonicalUrl = new URL(path, siteUrl).toString()
 const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
 ---
@@ -52,9 +57,8 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
     {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
     <link rel="canonical" href={canonicalUrl} />
 
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/icon.png" type="image/png" sizes="96x96" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
     <link rel="manifest" href="/manifest.json" />
     <meta property="fb:app_id" content="553360804417837" />
@@ -76,6 +80,6 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer flush={flushFooter} />
   </body>
 </html>

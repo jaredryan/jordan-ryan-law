@@ -34,7 +34,7 @@ const proofItems = [
 const recordItems = ratingsAndDesignations.slice(0, 3)
 ---
 
-<BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd}>
+<BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd} flushFooter>
   <section class="hero page-section">
     <div class="hero__portrait">
       <img src="/square-profile.webp" alt={russRyan.name} width="360" height="360" />
@@ -322,6 +322,42 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   .close-section .lead {
     color: var(--surface-navy-fg-soft);
     margin: 0 auto var(--s6);
+  }
+
+  /* Dark theme: the deep-navy band reads as just another dark surface next
+     to Home's other alternating dark sections, losing the light-theme
+     version's contrast/impact. Flip to a warm ivory surface instead — dark
+     navy text/button, a restrained gold-ink rule (the same token already
+     used for gold-on-light elsewhere, e.g. the eyebrow default) — so the
+     band still reads as a deliberate "destination" moment, just inverted. */
+  :root[data-theme='dark'] .close-section {
+    background: var(--ivory);
+  }
+
+  :root[data-theme='dark'] .close-section__rule {
+    background: var(--gold-ink);
+  }
+
+  :root[data-theme='dark'] .close-section h2,
+  :root[data-theme='dark'] .close-section .lead {
+    color: var(--navy-deep);
+  }
+
+  :root[data-theme='dark'] .close-section .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+
+  :root[data-theme='dark'] .close-section .btn-primary:hover,
+  :root[data-theme='dark'] .close-section .btn-primary:focus-visible {
+    background: var(--navy-deep);
+  }
+
+  /* The sitewide dark-theme focus ring is gold, tuned for gold-on-dark
+     surfaces — too low-contrast against this section's own ivory
+     background, so it gets a navy ring here specifically. */
+  :root[data-theme='dark'] .close-section a:focus-visible {
+    outline-color: var(--navy);
   }
 
   @media (max-width: 860px) {

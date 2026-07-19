@@ -2,10 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
 
-<BaseLayout title="Page not found" path="/404">
+<BaseLayout title="Page not found" path="/404" flushFooter>
   <section class="notfound">
     <div class="notfound__inner">
-      <img src="/icon.svg" alt="" width="64" height="64" class="notfound__mark" />
+      <img src="/r-mark-transparent.webp" alt="" width="64" height="64" class="notfound__mark notfound__mark--light" />
+      <img src="/r-mark-transparent-on-dark.webp" alt="" width="64" height="64" class="notfound__mark notfound__mark--dark" />
       <h1>Page not found</h1>
       <p class="lead">The page may have moved, or the address may be incorrect.</p>
       <a href="/" class="btn btn-primary">Return Home</a>
@@ -14,12 +15,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 </BaseLayout>
 
 <style>
-  /* A compact, centered block rather than a top-aligned page-section — at
-     short viewports this keeps the message from reading as lost/adrift
-     between the header and the (unchanged, full) footer. min() caps the
-     block's height on tall viewports instead of stretching to fill them. */
+  /* main is a flex item (BaseLayout's body is flex-direction: column,
+     main: flex: 1), so it already fills exactly the space between the
+     header and footer on short-content pages like this one. Making main
+     itself a flex container lets .notfound stretch to fill that space and
+     center within it, instead of centering within an arbitrary min-height
+     guess — so the block reads as centered in the real usable area at any
+     viewport height, short laptop or tall desktop alike. */
+  :global(main) {
+    display: flex;
+    flex-direction: column;
+  }
+
   .notfound {
-    min-height: min(50vh, 420px);
+    flex: 1;
+    min-height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +46,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 
   .notfound__mark {
     display: block;
+    width: clamp(72px, 7vw, 96px);
+    height: auto;
+    aspect-ratio: 1 / 1;
     margin-bottom: var(--s5);
+  }
+
+  /* The navy mark reads fine against light-theme --bg, but has too little
+     contrast against dark-theme's near-black --bg — swap to the ivory
+     recolor rather than reintroduce a badge/halo behind it. */
+  .notfound__mark--dark {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .notfound__mark--light {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .notfound__mark--dark {
+    display: block;
   }
 
   .notfound h1 {
