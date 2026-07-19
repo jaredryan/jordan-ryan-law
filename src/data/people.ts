@@ -18,14 +18,13 @@ export const russRyan = {
 }
 
 /**
- * Crystal's working title and exact tenure phrasing are provisional pending
- * her and Russ's confirmation — do not treat as final public copy without
- * checking docs/legacy-content-inventory.md first.
+ * Crystal's title and tenure are confirmed (per Jared, as of 2026-07-19) —
+ * see docs/legacy-content-inventory.md. Not an attorney; never imply she
+ * independently provides legal advice.
  */
 export const crystalBrightwell = {
   name: 'Crystal Brightwell',
   workingTitle: 'Legal Support and Office Administration',
-  workingTitleConfirmed: false,
   tenureYears: 24,
   bio: [
     `Crystal Brightwell has worked with Russ for 24 years, coordinating documents, scheduling, and client communication for the office.`,

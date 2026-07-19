@@ -119,8 +119,15 @@ function splitDecision(decision: string): { label: string; year: string } {
           </div>
           <div>
             <h3>Ratings &amp; Designations</h3>
-            <ul class="tag-list">
-              {ratingsAndDesignations.map((item) => <li>{item.simplified}</li>)}
+            <ul class="archival-table">
+              {
+                ratingsAndDesignations.map((item) => (
+                  <li class="archival-table__row">
+                    <span class="archival-table__label">{item.simplified}</span>
+                    <span class="archival-table__meta">{item.years}</span>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </div>
@@ -225,11 +232,11 @@ function splitDecision(decision: string): { label: string; year: string } {
       <section class="about-section" id="clients-affiliations">
         <h2>Clients &amp; Affiliations</h2>
         <h3>Current Clients</h3>
-        <ul class="tag-list">
+        <ul class="multi-column-list">
           {currentClients.map((client) => <li>{client}</li>)}
         </ul>
         <h3>Past Clients</h3>
-        <ul class="tag-list">
+        <ul class="multi-column-list">
           {pastClients.map((client) => <li>{client}</li>)}
         </ul>
         <h3>Affiliations</h3>

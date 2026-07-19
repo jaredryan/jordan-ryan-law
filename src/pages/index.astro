@@ -19,11 +19,16 @@ const jsonLd = [
 
 // Every figure below is sourced verbatim from src/data — nothing here is
 // invented. See docs/legacy-content-inventory.md for provenance.
+const superLawyerRating = ratingsAndDesignations.find((r) => r.simplified.includes('Super Lawyer'))
+const superLawyerStartYear = superLawyerRating ? parseInt(superLawyerRating.years, 10) : NaN
+const superLawyerYears = Number.isNaN(superLawyerStartYear) ? undefined : new Date().getFullYear() - superLawyerStartYear
+
 const proofItems = [
   { value: '35+', label: 'Years in Practice' },
   { value: '90%', label: 'Prevailed at Trial or Arbitration' },
   { value: String(courtAdmissions.length), label: 'Federal & State Courts Admitted' },
   { value: 'AV', label: 'Preeminent Rated, Martindale-Hubbell' },
+  { value: superLawyerYears ? `${superLawyerYears}+` : '10+', label: 'Years Named a Super Lawyer' },
 ]
 
 const recordItems = ratingsAndDesignations.slice(0, 3)
@@ -47,8 +52,8 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     </div>
   </section>
 
-  <section class="page-section" aria-label="By the numbers">
-    <ul class="proof-strip">
+  <section class="proof-band" aria-label="By the numbers">
+    <ul class="proof-strip proof-band__inner">
       {
         proofItems.map((item) => (
           <li class="proof-figure">
@@ -61,9 +66,11 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     </ul>
   </section>
 
-  <section class="page-section">
-    <span class="eyebrow">What we handle</span>
-    <h2>Practice areas</h2>
+  <section class="page-section practice-overview">
+    <div class="practice-overview__intro">
+      <span class="eyebrow">What we handle</span>
+      <h2>Practice areas</h2>
+    </div>
     <ul class="practice-grid">
       {
         areasOfPractice.map((area) => (
@@ -147,9 +154,71 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     margin-top: var(--s5);
   }
 
+  /* A shallow, full-bleed tinted band — the first clearly perceptible
+     boundary in the page, distinguishing verified figures from the
+     surrounding editorial copy without introducing a new page color. */
+  .proof-band {
+    width: 100%;
+    background: var(--bg-raised-2);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .proof-band__inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--s6) var(--s5);
+    /* Five items: avoid an orphaned single item on the last row at
+       in-between widths (auto-fit's default 140px minmax would produce a
+       lonely 5th item around tablet widths). Stack on mobile, 3-up on
+       tablet (3 + 2, no orphan), 5-up once the content column is wide
+       enough to breathe. */
+    grid-template-columns: 1fr;
+    gap: var(--s6) var(--s5);
+  }
+
+  @media (min-width: 480px) and (max-width: 899px) {
+    .proof-band__inner {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .proof-band__inner {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  /* A deliberate compositional restart after the proof band: centered
+     eyebrow/heading (breaking from the hero's left alignment) under a short
+     gold rule, rather than just resuming the same left-aligned flow. */
+  .practice-overview__intro {
+    text-align: center;
+    max-width: var(--content-narrow);
+    margin: 0 auto;
+    padding-top: var(--s2);
+  }
+
+  .practice-overview__intro::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--gold-accent);
+    margin: 0 auto var(--s5);
+  }
+
+  .practice-overview__intro .eyebrow {
+    margin-bottom: var(--s2);
+  }
+
+  .practice-overview__intro h2 {
+    margin-bottom: 0;
+  }
+
   .practice-grid {
     list-style: none;
-    margin: var(--s6) 0 0;
+    margin: var(--s8) 0 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -29,8 +29,6 @@ const jsonLd = [
     ],
   }),
 ]
-
-const pad = (n: number) => String(n).padStart(2, '0')
 ---
 
 <BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd}>
@@ -42,7 +40,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
             <li>
               <a href={`#${area.slug}`}>
                 <span class="exp-index__num" aria-hidden="true">
-                  {pad(i + 1)}
+                  {i + 1}
                 </span>
                 {area.name}
               </a>
@@ -94,7 +92,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
           return (
             <article class="exp-section page-section page-section--narrow" id={area.slug}>
               <span class="exp-section__num" aria-hidden="true">
-                {pad(i + 1)}
+                {i + 1}
               </span>
               <h2>{area.name}</h2>
               <p>{area.content}</p>

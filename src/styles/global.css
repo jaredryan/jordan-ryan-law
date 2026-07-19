@@ -98,6 +98,11 @@
 
 html {
   scroll-behavior: smooth;
+  /* Reserve the scrollbar's width on every page, whether or not that page's
+     content is tall enough to scroll — otherwise routes with shorter content
+     (e.g. Payment) render ~1px–2px wider than tall routes (e.g. About),
+     shifting the centered header bar between navigations. */
+  scrollbar-gutter: stable;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -506,6 +511,45 @@ summary:focus-visible,
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
   font-size: 0.875rem;
+}
+
+/* Responsive editorial multi-column list — for longer bounded-but-not-short
+   name lists (e.g. a ~24-entry client roster) where pills would produce
+   many cramped vertical rows. Native CSS columns fill in DOM order (column
+   1 top-to-bottom, then column 2, ...), so reading/keyboard/screen-reader
+   order stays the simple top-to-bottom source order regardless of the
+   visual column count — this is not masonry and never reorders content.
+   The browser collapses to fewer columns automatically as width shrinks,
+   down to one on narrow screens. */
+.multi-column-list {
+  columns: 3 200px;
+  column-gap: var(--s6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.multi-column-list li {
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--fg-soft);
+  font-size: 0.9375rem;
+  break-inside: avoid;
+}
+
+/* Subgroup pattern: a heading that immediately follows one of these list
+   primitives starts a new titled group (e.g. "Current Clients" -> "Past
+   Clients", "Bar Admissions" -> "Court Admissions") and needs clear
+   separation from the list above it. Scoped to the sibling combinator so
+   the *first* subgroup heading in a section — preceded by prose or the
+   section's own <h2>, never by one of these lists — is never affected. */
+.archival-table + h3,
+.tag-list + h3,
+.multi-column-list + h3,
+.archival-table + h4,
+.tag-list + h4,
+.multi-column-list + h4 {
+  margin-top: var(--s7);
 }
 
 /* ---------------------------------------------------------------- */
