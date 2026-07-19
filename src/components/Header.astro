@@ -9,7 +9,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
 <header class="site-header on-navy">
   <div class="site-header__bar">
     <a href="/" class="site-header__brand" aria-label={`${businessName} home`}>
-      <img src="/icon.svg" alt="" width="34" height="34" />
+      <img src="/logo-white.webp" alt="" width="46" height="28" class="site-header__brand-mark" />
       <span class="site-header__brand-divider" aria-hidden="true"></span>
       <span class="site-header__brand-name">{businessName}</span>
     </a>
@@ -94,6 +94,11 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     gap: var(--s3);
     color: #fff;
     text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .site-header__brand-mark {
+    display: block;
     flex-shrink: 0;
   }
 

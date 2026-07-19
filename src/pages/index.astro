@@ -108,19 +108,23 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
 
   <section class="page-section quote-section">
     <blockquote>
-      "Clients don't want a law firm. They want someone who picks up the phone and already knows their business."
+      "The best measure of my work is that clients stay—many for decades. They know they'll get practical counsel,
+      honest advice, and strong representation when they need it."
     </blockquote>
-    <p class="quote-section__attribution">— Russ Ryan <span class="quote-section__flag">(draft quotation, pending Russ's review)</span></p>
+    <p class="quote-section__attribution">— Russ Ryan</p>
     <p class="quote-section__crystal">
       For scheduling and questions along the way, {crystalBrightwell.name} — with the firm {crystalBrightwell.tenureYears} years — helps
       keep things moving.
     </p>
   </section>
 
-  <section class="page-section close-section">
-    <h2>Request a Consultation</h2>
-    <p class="lead">Talk with the attorney who will actually handle your matter, start to finish.</p>
-    <a href="/contact" class="btn btn-primary">Get in touch</a>
+  <section class="close-section on-navy">
+    <div class="close-section__inner">
+      <span class="close-section__rule" aria-hidden="true"></span>
+      <h2>Request a Consultation</h2>
+      <p class="lead">Talk with the attorney who will actually handle your matter, start to finish.</p>
+      <a href="/contact" class="btn btn-primary">Get in touch</a>
+    </div>
   </section>
 </BaseLayout>
 
@@ -287,12 +291,36 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     color: var(--fg-soft);
   }
 
+  /* A deliberate full-bleed navy "destination" band — the one place on the
+     page besides the header/footer where navy carries real weight, using a
+     deeper shade (--surface-consult) so it never reads as a repeat of the
+     header/footer navy above or the footer navy just below it. */
   .close-section {
+    width: 100%;
+    background: var(--surface-consult);
     text-align: center;
+  }
+
+  .close-section__inner {
     max-width: var(--content-narrow);
+    margin: 0 auto;
+    padding: var(--s9) var(--s5);
+  }
+
+  .close-section__rule {
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--gold-accent);
+    margin: 0 auto var(--s5);
+  }
+
+  .close-section h2 {
+    color: var(--surface-navy-fg);
   }
 
   .close-section .lead {
+    color: var(--surface-navy-fg-soft);
     margin: 0 auto var(--s6);
   }
 

@@ -189,6 +189,10 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
   .exp-section:first-of-type {
     border-top: none;
+    /* The intro block above already carries a full .page-section bottom
+       padding; without this, the first section stacks its own top padding
+       on top of that and doubles the gap before "01" begins. */
+    padding-top: 0;
   }
 
   .exp-section__num {

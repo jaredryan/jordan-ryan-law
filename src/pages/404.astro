@@ -3,9 +3,47 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
 
 <BaseLayout title="Page not found" path="/404">
-  <section class="page-section">
-    <h1>Page not found</h1>
-    <p>We couldn't find that page. Please go back to the home page and try again.</p>
-    <a href="/" class="btn btn-primary">Home</a>
+  <section class="notfound">
+    <div class="notfound__inner">
+      <img src="/icon.svg" alt="" width="64" height="64" class="notfound__mark" />
+      <h1>Page not found</h1>
+      <p class="lead">The page may have moved, or the address may be incorrect.</p>
+      <a href="/" class="btn btn-primary">Return Home</a>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* A compact, centered block rather than a top-aligned page-section — at
+     short viewports this keeps the message from reading as lost/adrift
+     between the header and the (unchanged, full) footer. min() caps the
+     block's height on tall viewports instead of stretching to fill them. */
+  .notfound {
+    min-height: min(50vh, 420px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--s7) var(--s5);
+    text-align: center;
+  }
+
+  .notfound__inner {
+    max-width: 36ch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .notfound__mark {
+    display: block;
+    margin-bottom: var(--s5);
+  }
+
+  .notfound h1 {
+    margin-bottom: var(--s3);
+  }
+
+  .notfound .lead {
+    margin-bottom: var(--s6);
+  }
+</style>

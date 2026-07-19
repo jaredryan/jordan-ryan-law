@@ -8,8 +8,7 @@ const year = new Date().getFullYear()
   <div class="site-footer__bar">
     <div class="site-footer__brand-block">
       <a href="/" class="site-footer__brand">
-        <img src="/icon.svg" alt="" width="30" height="30" />
-        <span>{businessName}</span>
+        <img src="/full-logo-white.webp" alt={businessName} width="230" height="120" class="site-footer__brand-mark" />
       </a>
       <address class="site-footer__address">
         {address.street}, {address.suite}<br />
@@ -55,15 +54,15 @@ const year = new Date().getFullYear()
   }
 
   .site-footer__brand {
-    display: flex;
-    align-items: center;
-    gap: var(--s3);
-    color: #fff;
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.125rem;
-    margin-bottom: var(--s4);
+    display: inline-block;
+    margin-bottom: var(--s5);
+  }
+
+  .site-footer__brand-mark {
+    display: block;
+    width: 230px;
+    max-width: 100%;
+    height: auto;
   }
 
   .site-footer__address {
