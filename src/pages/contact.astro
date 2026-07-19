@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import ContactForm from '@/components/ContactForm.astro'
+import { contact, address } from '@/data/site'
+import { russRyan, crystalBrightwell } from '@/data/people'
+import { webPageJsonLd } from '@/lib/json-ld'
+
+const description = 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.'
+const keywords = [
+  'Contact Ryan Legal PC',
+  'Schedule Legal Consultation',
+  'Employment Lawyer Consultation',
+  'Business Attorney Contact',
+  'Legal Services California',
+  'Legal Services Utah',
+]
+
+const jsonLd = [
+  webPageJsonLd({
+    path: '/contact',
+    name: 'Contact Ryan Legal, PC',
+    description,
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Contact Us', path: '/contact' },
+    ],
+  }),
+]
+
+const mapEmbedSrc = `https://maps.google.com/maps?q=${address.lat},${address.lng}&z=15&output=embed`
+---
+
+<BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
+  <section class="page-section">
+    <h1>Start with a conversation</h1>
+    <p>
+      <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
+      <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
+    </p>
+    <p>
+      {russRyan.alternateName} is the sole attorney at the firm. {crystalBrightwell.name} can help answer questions
+      about scheduling and paperwork, and can help arrange a conversation with {russRyan.alternateName} — she does
+      not provide legal advice, and contacting the office does not by itself create an attorney-client relationship.
+    </p>
+  </section>
+
+  <section class="page-section">
+    <h2>Office</h2>
+    <address>
+      {address.street}<br />
+      {address.suite}<br />
+      {address.city}, {address.state} {address.postalCode}
+    </address>
+    <iframe
+      title="Map of the Ryan Legal, PC office"
+      src={mapEmbedSrc}
+      width="100%"
+      height="400"
+      style="border:0"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    />
+    <p>
+      <a href={address.googleMapsDirectionsUrl} target="_blank" rel="noreferrer">Get Directions</a>
+    </p>
+  </section>
+
+  <section class="page-section">
+    <h2>Request Consultation</h2>
+    <ContactForm />
+  </section>
+</BaseLayout>

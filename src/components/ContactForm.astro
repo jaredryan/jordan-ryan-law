@@ -1,0 +1,46 @@
+---
+// Native form + small client script, POSTs to netlify/functions/contact.ts
+// (proxied at /api/contact via the netlify.toml redirect). Replaces the old
+// Next.js Server Action + useActionState implementation.
+---
+
+<form class="contact-form" id="contact-form" novalidate>
+  <div>
+    <label for="name">
+      Name
+      <input id="name" name="name" type="text" required autocomplete="name" />
+    </label>
+    <p class="field-error" id="name-error" role="alert" hidden></p>
+  </div>
+
+  <div>
+    <label for="phone">
+      Phone
+      <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+    </label>
+    <p class="field-error" id="phone-error" role="alert" hidden></p>
+  </div>
+
+  <div>
+    <label for="email">
+      Email
+      <input id="email" name="email" type="email" required autocomplete="email" />
+    </label>
+    <p class="field-error" id="email-error" role="alert" hidden></p>
+  </div>
+
+  <div>
+    <label for="description">
+      How can we help?
+      <textarea id="description" name="description" rows="4" required></textarea>
+    </label>
+    <p class="field-error" id="description-error" role="alert" hidden></p>
+  </div>
+
+  <div>
+    <button type="submit" id="contact-submit">Submit</button>
+    <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script src="@/scripts/contact-form.ts"></script>

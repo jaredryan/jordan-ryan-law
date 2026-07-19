@@ -1,0 +1,31 @@
+---
+import { businessName, navLinks, contact } from '@/data/site'
+
+const year = new Date().getFullYear()
+---
+
+<footer class="site-footer">
+  <div class="site-footer__bar">
+    <a href="/" class="site-footer__brand">{businessName}</a>
+
+    <nav aria-label="Footer">
+      <ul>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p>
+      <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
+      <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
+    </p>
+
+    <a href="/contact" class="button">Contact Us</a>
+  </div>
+  <p class="site-footer__copyright">&copy; {year} Ryan Legal, PC, a Professional Corporation. All Rights Reserved.</p>
+</footer>

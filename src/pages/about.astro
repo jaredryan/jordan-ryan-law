@@ -1,0 +1,179 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { russRyan, crystalBrightwell } from '@/data/people'
+import {
+  education,
+  barAdmissions,
+  courtAdmissions,
+  ratingsAndDesignations,
+  priorExperience,
+  publicAndCommunityService,
+  affiliations,
+  expertise,
+} from '@/data/credentials'
+import { currentClients, pastClients } from '@/data/clients'
+import { webPageJsonLd, russRyanPersonJsonLd } from '@/lib/json-ld'
+
+const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+const keywords = [
+  'Russell Ryan Attorney',
+  'Labor and Employment Lawyer',
+  'Business Litigation Attorney',
+  'Health Care Legal Expert',
+  'California Employment Law',
+  'Corporate Compliance Attorney',
+  'Trade Secret Lawyer',
+  'Real Estate Legal Counsel',
+  'Arbitration and Mediation Expert',
+  'Appellate Litigation Attorney',
+]
+
+const jsonLd = [
+  russRyanPersonJsonLd(),
+  webPageJsonLd({
+    path: '/about',
+    name: 'About Ryan Legal, PC',
+    description,
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'About', path: '/about' },
+    ],
+  }),
+]
+---
+
+<BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd}>
+  <section class="page-section">
+    <img src="/square-profile.webp" alt={russRyan.name} width="200" height="200" />
+    <h1>{russRyan.name} — {russRyan.jobTitle}</h1>
+    {russRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="page-section" id="education">
+    <h2>Education</h2>
+    <ul class="credentials-list--inline">
+      {
+        education.map((item) => (
+          <li>
+            {item.degree} - {item.rank} — {item.institution} — {item.year}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section" id="admissions">
+    <h2>Bar and Court Admissions</h2>
+    <h3>Bar Admissions</h3>
+    <ul class="credentials-list--inline">
+      {
+        barAdmissions.map((item) => (
+          <li>
+            {item.state}, {item.year}
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Court Admissions</h3>
+    <ul class="credentials-list--inline">
+      {courtAdmissions.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="page-section" id="ratings">
+    <h2>Ratings and Designations</h2>
+    <ul class="credentials-list--inline">
+      {
+        ratingsAndDesignations.map((item) => (
+          <li>
+            {item.title} — {item.years}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section" id="positions">
+    <h2>Positions</h2>
+    <ul class="credentials-list--inline">
+      {
+        priorExperience.map((item) => (
+          <li>
+            {item.position} — {item.institution} — {item.years}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section" id="crystal">
+    <h2>{crystalBrightwell.name} — {crystalBrightwell.workingTitle}</h2>
+    {crystalBrightwell.bio.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="page-section" id="expertise">
+    <h2>Professional Practice</h2>
+    {
+      expertise.map((section) => (
+        <article>
+          <h3>{section.name}</h3>
+          {section.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          {section.trainingEngagements && (
+            <ul class="credentials-list--inline">
+              {section.trainingEngagements.map((engagement) => (
+                <li>
+                  <strong>{engagement.title}</strong> — {engagement.content}
+                </li>
+              ))}
+            </ul>
+          )}
+          {section.reportedDecisions && (
+            <ul class="credentials-list--inline">
+              {section.reportedDecisions.map((decision) => (
+                <li>{decision}</li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="page-section" id="affiliations">
+    <h2>Affiliations</h2>
+    <ul class="credentials-list--inline">
+      {affiliations.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="page-section" id="community-service">
+    <h2>Public and Community Service</h2>
+    <ul class="credentials-list--inline">
+      {
+        publicAndCommunityService.map((item) => (
+          <li>
+            {item.position} — {item.institution} — {item.years}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section" id="clients">
+    <h2>Clients</h2>
+    <h3>Present</h3>
+    <ul class="credentials-list--inline">
+      {currentClients.map((client) => <li>{client}</li>)}
+    </ul>
+    <h3>Past</h3>
+    <ul class="credentials-list--inline">
+      {pastClients.map((client) => <li>{client}</li>)}
+    </ul>
+  </section>
+
+  <section class="page-section">
+    <a href="/contact" class="button">Contact Us</a>
+  </section>
+</BaseLayout>

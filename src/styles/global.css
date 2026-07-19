@@ -1,0 +1,288 @@
+/*
+  Minimal foundation shell styling — intentionally not the approved visual
+  redesign. Just enough for the site to be legible and usable while the
+  framework migration is verified. See the design-phase deliverables in the
+  repo root for the approved direction this will become.
+*/
+
+:root {
+  --color-navy: #1e275e;
+  --color-gold: #fdb613;
+  --color-text: #1a1a1a;
+  --color-text-muted: #4b4b4b;
+  --color-background: #ffffff;
+  --color-border: #d8d8d8;
+  --font-body:
+    system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.5;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+a {
+  color: var(--color-navy);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page-section {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  border: none;
+  background: var(--color-navy);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: #2d3a8f;
+}
+
+/* Header */
+
+.site-header {
+  background: var(--color-navy);
+  color: #fff;
+}
+
+.site-header__bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.site-header__menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.site-header__nav ul {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header__nav a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.site-header__nav a:hover,
+.site-header__nav a:focus-visible,
+.site-header__nav a[aria-current='page'] {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 700px) {
+  .site-header__menu-toggle {
+    display: block;
+  }
+
+  .site-header__nav {
+    display: none;
+    width: 100%;
+  }
+
+  .site-header__nav[data-open] {
+    display: block;
+  }
+
+  .site-header__nav ul {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Footer */
+
+.site-footer {
+  background: var(--color-navy);
+  color: #fff;
+  margin-top: 3rem;
+}
+
+.site-footer__bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer__brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.site-footer nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.site-footer .button {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+.site-footer .button:hover,
+.site-footer .button:focus-visible {
+  background: #ffd166;
+}
+
+.site-footer__copyright {
+  text-align: center;
+  padding: 1rem 0 1.5rem;
+  margin: 0;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Contact form */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 560px;
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  padding: 0.55rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 1px;
+}
+
+.contact-form [aria-invalid='true'] {
+  border-color: #a60000;
+}
+
+.contact-form .field-error {
+  color: #a60000;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.contact-form .form-status {
+  font-weight: 600;
+}
+
+.contact-form .form-status[data-state='success'] {
+  color: #005e00;
+}
+
+.contact-form .form-status[data-state='error'] {
+  color: #a60000;
+}
+
+/* Practice area / credential lists */
+
+.practice-list,
+.credentials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.credentials-list--inline li {
+  margin-bottom: 0.35rem;
+}

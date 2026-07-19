@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { businessName, businessSlogan, businessSummary, businessExplanation, defaultDescription, defaultKeywords } from '@/data/site'
+import { areasOfPractice } from '@/data/practice-areas'
+import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd } from '@/lib/json-ld'
+
+const jsonLd = [
+  legalServiceJsonLd(),
+  websiteJsonLd(),
+  webPageJsonLd({
+    path: '/',
+    name: 'Ryan Legal, PC - California Employment & Business Law Firm',
+    description: defaultDescription,
+    breadcrumbs: [{ name: 'Home', path: '/' }],
+  }),
+]
+---
+
+<BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd}>
+  <section class="page-section">
+    <h1>{businessName}</h1>
+    <p>{businessSlogan}</p>
+    <a href="/contact" class="button">Contact Us</a>
+  </section>
+
+  <section class="page-section">
+    <h2>{businessSummary}</h2>
+    {businessExplanation.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="page-section">
+    <h2>Our Practice Areas</h2>
+    <ul class="practice-list">
+      {
+        areasOfPractice.map((area) => (
+          <li>
+            <a href={`/expertise#${area.slug}`}>
+              <h3>{area.name}</h3>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section">
+    <h2>Request a Consultation</h2>
+    <a href="/contact" class="button">Get in touch</a>
+  </section>
+</BaseLayout>

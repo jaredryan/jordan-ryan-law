@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { areasOfPractice } from '@/data/practice-areas'
+import { webPageJsonLd, legalServiceJsonLd } from '@/lib/json-ld'
+
+const description = `Explore Ryan Legal, PC's expertise in employment law, business transactions, health care law, technology law, and litigation.`
+const keywords = [
+  'Employment Law',
+  'Business Law',
+  'Healthcare Law',
+  'Technology Law',
+  'Litigation',
+  'Appellate Law',
+  'Corporate Transactions',
+  'Real Estate Law',
+  'Regulatory Compliance',
+  'Trade Secret Protection',
+]
+
+const jsonLd = [
+  legalServiceJsonLd(),
+  webPageJsonLd({
+    path: '/expertise',
+    name: 'Ryan Legal, PC Expertise',
+    description,
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Expertise', path: '/expertise' },
+    ],
+  }),
+]
+---
+
+<BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd}>
+  <section class="page-section">
+    <h1>Expertise</h1>
+    <nav aria-label="Practice areas">
+      <ul>
+        {
+          areasOfPractice.map((area) => (
+            <li>
+              <a href={`#${area.slug}`}>{area.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </section>
+
+  <section class="page-section">
+    {
+      areasOfPractice.map((area) => (
+        <article id={area.slug}>
+          <h2>{area.name}</h2>
+          <p>{area.content}</p>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>

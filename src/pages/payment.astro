@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { lawPayUrl } from '@/data/site'
+import { webPageJsonLd } from '@/lib/json-ld'
+
+const description = 'Securely make a payment for legal services provided by Ryan Legal, PC.'
+const keywords = [
+  'Ryan Legal PC Payment',
+  'Pay Attorney Fees Online',
+  'Secure Legal Payment',
+  'Legal Invoice Payment',
+  'LawPay Attorney Payments',
+]
+
+const jsonLd = [
+  webPageJsonLd({
+    path: '/payment',
+    name: 'Make a Payment to Ryan Legal, PC',
+    description,
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Payment', path: '/payment' },
+    ],
+  }),
+]
+---
+
+<BaseLayout title="Payment" description={description} path="/payment" keywords={keywords} jsonLd={jsonLd}>
+  <section class="page-section">
+    <h1>Pay quickly and easily through LawPay</h1>
+    <p>Click the button below to be taken to our secure payment portal.</p>
+    <a href={lawPayUrl} class="button" target="_blank" rel="noreferrer" aria-label="Go to our payment portal, provided by LawPay.">
+      Pay Now
+    </a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /expertise
+Allow: /contact
+Allow: /payment
+
+Sitemap: https://ryanlegalpc.com/sitemap-index.xml
