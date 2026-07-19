@@ -40,140 +40,395 @@ const jsonLd = [
     ],
   }),
 ]
+
+const railSections = [
+  { id: 'intro', name: 'Russ Ryan' },
+  { id: 'credentials', name: 'Credentials' },
+  { id: 'crystal', name: 'Crystal Brightwell' },
+  { id: 'litigation-record', name: 'Litigation Record' },
+  { id: 'training', name: 'Training' },
+  { id: 'positions', name: 'Positions' },
+  { id: 'admissions', name: 'Admissions' },
+  { id: 'clients-affiliations', name: 'Clients & Affiliations' },
+]
+
+const litigation = expertise.find((e) => e.name === 'Litigation')
+const training = expertise.find((e) => e.name === 'Training')
+
+// Reported decisions are a single string, e.g. "Hernandez v. City of
+// Hanford, 41 Cal. 4th 279 (2007)" — split the trailing "(year)" off so it
+// can sit in the archival table's right-aligned meta column.
+function splitDecision(decision: string): { label: string; year: string } {
+  const match = decision.match(/^(.*)\s(\(\d{4}\))$/)
+  return match && match[1] && match[2] ? { label: match[1], year: match[2] } : { label: decision, year: '' }
+}
 ---
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd}>
-  <section class="page-section">
-    <img src="/square-profile.webp" alt={russRyan.name} width="200" height="200" />
-    <h1>{russRyan.name} — {russRyan.jobTitle}</h1>
-    {russRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
-  </section>
+  <div class="about-layout">
+    <aside class="about-rail" aria-label="On this page">
+      <ol>
+        {
+          railSections.map((section) => (
+            <li>
+              <a href={`#${section.id}`}>{section.name}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </aside>
 
-  <section class="page-section" id="education">
-    <h2>Education</h2>
-    <ul class="credentials-list--inline">
-      {
-        education.map((item) => (
-          <li>
-            {item.degree} - {item.rank} — {item.institution} — {item.year}
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+    <details class="about-jump-nav">
+      <summary>On this page</summary>
+      <ul>
+        {
+          railSections.map((section) => (
+            <li>
+              <a href={`#${section.id}`}>{section.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
 
-  <section class="page-section" id="admissions">
-    <h2>Bar and Court Admissions</h2>
-    <h3>Bar Admissions</h3>
-    <ul class="credentials-list--inline">
-      {
-        barAdmissions.map((item) => (
-          <li>
-            {item.state}, {item.year}
-          </li>
-        ))
-      }
-    </ul>
-    <h3>Court Admissions</h3>
-    <ul class="credentials-list--inline">
-      {courtAdmissions.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
+    <div class="about-main">
+      <section class="about-section" id="intro">
+        <img src="/square-profile.webp" alt={russRyan.name} width="180" height="180" class="about-portrait" />
+        <span class="eyebrow">{russRyan.jobTitle}</span>
+        <h1>{russRyan.name}</h1>
+        {russRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
 
-  <section class="page-section" id="ratings">
-    <h2>Ratings and Designations</h2>
-    <ul class="credentials-list--inline">
-      {
-        ratingsAndDesignations.map((item) => (
-          <li>
-            {item.title} — {item.years}
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+      <section class="about-section" id="credentials">
+        <h2>Credentials</h2>
+        <div class="about-credentials-grid">
+          <div>
+            <h3>Education</h3>
+            <ul class="archival-table">
+              {
+                education.map((item) => (
+                  <li class="archival-table__row">
+                    <span class="archival-table__label">
+                      {item.degree} — {item.institution} ({item.rank})
+                    </span>
+                    <span class="archival-table__meta">{item.year}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <h3>Ratings &amp; Designations</h3>
+            <ul class="tag-list">
+              {ratingsAndDesignations.map((item) => <li>{item.simplified}</li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-  <section class="page-section" id="positions">
-    <h2>Positions</h2>
-    <ul class="credentials-list--inline">
-      {
-        priorExperience.map((item) => (
-          <li>
-            {item.position} — {item.institution} — {item.years}
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+      <section class="about-section about-section--crystal" id="crystal">
+        <div class="about-crystal">
+          <div class="about-crystal__avatar" aria-hidden="true">CB</div>
+          <div>
+            <span class="eyebrow">Firm voice</span>
+            <h2>{crystalBrightwell.name}</h2>
+            <p class="about-crystal__meta">
+              {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
+            </p>
+            {crystalBrightwell.bio.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </section>
 
-  <section class="page-section" id="crystal">
-    <h2>{crystalBrightwell.name} — {crystalBrightwell.workingTitle}</h2>
-    {crystalBrightwell.bio.map((paragraph) => <p>{paragraph}</p>)}
-  </section>
-
-  <section class="page-section" id="expertise">
-    <h2>Professional Practice</h2>
-    {
-      expertise.map((section) => (
-        <article>
-          <h3>{section.name}</h3>
-          {section.paragraphs.map((paragraph) => (
-            <p>{paragraph}</p>
-          ))}
-          {section.trainingEngagements && (
-            <ul class="credentials-list--inline">
-              {section.trainingEngagements.map((engagement) => (
-                <li>
-                  <strong>{engagement.title}</strong> — {engagement.content}
+      <section class="about-section" id="litigation-record">
+        <h2>Litigation Record</h2>
+        {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {litigation?.reportedDecisions && (
+          <ul class="archival-table">
+            {litigation.reportedDecisions.map((decision) => {
+              const { label, year } = splitDecision(decision)
+              return (
+                <li class="archival-table__row">
+                  <span class="archival-table__label">{label}</span>
+                  <span class="archival-table__meta">{year}</span>
                 </li>
-              ))}
-            </ul>
-          )}
-          {section.reportedDecisions && (
-            <ul class="credentials-list--inline">
-              {section.reportedDecisions.map((decision) => (
-                <li>{decision}</li>
-              ))}
-            </ul>
-          )}
-        </article>
-      ))
-    }
-  </section>
+              )
+            })}
+          </ul>
+        )}
+      </section>
 
-  <section class="page-section" id="affiliations">
-    <h2>Affiliations</h2>
-    <ul class="credentials-list--inline">
-      {affiliations.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
+      <section class="about-section" id="training">
+        <h2>Training</h2>
+        {training?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <dl class="about-training-list">
+          {
+            training?.trainingEngagements?.map((engagement) => (
+              <div class="about-training-list__item">
+                <dt>{engagement.title}</dt>
+                <dd>{engagement.content}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
 
-  <section class="page-section" id="community-service">
-    <h2>Public and Community Service</h2>
-    <ul class="credentials-list--inline">
-      {
-        publicAndCommunityService.map((item) => (
-          <li>
-            {item.position} — {item.institution} — {item.years}
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+      <section class="about-section" id="positions">
+        <h2>Positions</h2>
+        <ul class="archival-table">
+          {
+            priorExperience.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">
+                  {item.position} — {item.institution}
+                </span>
+                <span class="archival-table__meta">{item.years}</span>
+              </li>
+            ))
+          }
+        </ul>
 
-  <section class="page-section" id="clients">
-    <h2>Clients</h2>
-    <h3>Present</h3>
-    <ul class="credentials-list--inline">
-      {currentClients.map((client) => <li>{client}</li>)}
-    </ul>
-    <h3>Past</h3>
-    <ul class="credentials-list--inline">
-      {pastClients.map((client) => <li>{client}</li>)}
-    </ul>
-  </section>
+        <h3>Public &amp; Community Service</h3>
+        <ul class="archival-table">
+          {
+            publicAndCommunityService.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">
+                  {item.position} — {item.institution}
+                </span>
+                <span class="archival-table__meta">{item.years}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
 
-  <section class="page-section">
-    <a href="/contact" class="button">Contact Us</a>
-  </section>
+      <section class="about-section" id="admissions">
+        <h2>Admissions</h2>
+        <h3>Bar Admissions</h3>
+        <ul class="archival-table">
+          {
+            barAdmissions.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">{item.state}</span>
+                <span class="archival-table__meta">{item.year}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <h3>Court Admissions</h3>
+        <ul class="tag-list">
+          {courtAdmissions.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section class="about-section" id="clients-affiliations">
+        <h2>Clients &amp; Affiliations</h2>
+        <h3>Current Clients</h3>
+        <ul class="tag-list">
+          {currentClients.map((client) => <li>{client}</li>)}
+        </ul>
+        <h3>Past Clients</h3>
+        <ul class="tag-list">
+          {pastClients.map((client) => <li>{client}</li>)}
+        </ul>
+        <h3>Affiliations</h3>
+        <ul class="archival-table">
+          {affiliations.map((item) => <li class="archival-table__row"><span class="archival-table__label">{item}</span></li>)}
+        </ul>
+      </section>
+
+      <section class="about-section about-close">
+        <h2>Talk with Russ directly</h2>
+        <p class="lead">Every matter is handled by the attorney you meet — not passed down the chain.</p>
+        <a href="/contact" class="btn btn-primary">Contact Us</a>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .about-layout {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .about-rail {
+    display: none;
+  }
+
+  .about-main {
+    min-width: 0;
+  }
+
+  .about-section {
+    max-width: var(--content-narrow);
+    padding: var(--s8) var(--s5);
+    border-top: 1px solid var(--rule);
+  }
+
+  .about-section:first-child {
+    border-top: none;
+  }
+
+  .about-portrait {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    margin-bottom: var(--s5);
+  }
+
+  .about-credentials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s6);
+  }
+
+  .about-crystal {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: var(--s5);
+    align-items: start;
+    background: var(--bg-raised);
+    padding: var(--s6);
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+
+  .about-crystal__avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .about-crystal__meta {
+    color: var(--fg-soft);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-top: calc(var(--s2) * -1);
+  }
+
+  .about-training-list {
+    margin: var(--s5) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+
+  .about-training-list__item dt {
+    font-weight: 700;
+    margin-bottom: var(--s1);
+  }
+
+  .about-training-list__item dd {
+    margin: 0;
+    color: var(--fg-soft);
+  }
+
+  .about-jump-nav {
+    display: none;
+  }
+
+  .about-close {
+    text-align: left;
+    max-width: var(--content-narrow);
+  }
+
+  @media (max-width: 1099px) {
+    .about-jump-nav {
+      display: block;
+      margin: var(--s5) var(--s4) 0;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: var(--s3) var(--s4);
+      position: sticky;
+      top: calc(var(--s4) + 60px);
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .about-jump-nav summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .about-jump-nav ul {
+      list-style: none;
+      margin: var(--s3) 0 0;
+      padding: 0;
+    }
+
+    .about-jump-nav li a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--fg);
+    }
+  }
+
+  @media (max-width: 880px) {
+    .about-credentials-grid {
+      grid-template-columns: 1fr;
+      gap: var(--s5);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .about-layout {
+      grid-template-columns: 200px 1fr;
+      gap: var(--s7);
+    }
+
+    .about-rail {
+      display: block;
+      position: sticky;
+      top: calc(var(--s8) + 60px);
+      align-self: start;
+      padding: var(--s6) var(--s4) var(--s6) 0;
+      border-right: 1px solid var(--rule);
+      max-height: calc(100vh - var(--s8) - 60px);
+      overflow-y: auto;
+    }
+
+    .about-rail ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .about-rail li {
+      border-left: 2px solid transparent;
+    }
+
+    .about-rail a {
+      display: block;
+      padding: var(--s2) 0 var(--s2) var(--s3);
+      color: var(--fg-soft);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .about-rail a:hover,
+    .about-rail a:focus-visible {
+      color: var(--fg);
+    }
+
+    .about-section {
+      padding-left: var(--s6);
+    }
+  }
+</style>

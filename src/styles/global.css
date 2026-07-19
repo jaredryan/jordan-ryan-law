@@ -1,19 +1,95 @@
 /*
-  Minimal foundation shell styling — intentionally not the approved visual
-  redesign. Just enough for the site to be legible and usable while the
-  framework migration is verified. See the design-phase deliverables in the
-  repo root for the approved direction this will become.
+  Ryan Legal, PC — design tokens and base styles.
+  Territory: evidence-led editorial (Territory A) warmed by first-person
+  voice (Territory B), Libre Baskerville for rare display/editorial use,
+  Source Sans 3 for everything else. See docs/legacy-content-inventory.md
+  and the Phase 3/4 concept studies in docs/ for the approved direction.
 */
 
+@import '@fontsource/libre-baskerville/latin-400.css';
+@import '@fontsource/libre-baskerville/latin-400-italic.css';
+@import '@fontsource/libre-baskerville/latin-700.css';
+@import '@fontsource-variable/source-sans-3/wght.css';
+@import '@fontsource-variable/source-sans-3/wght-italic.css';
+
 :root {
-  --color-navy: #1e275e;
-  --color-gold: #fdb613;
-  --color-text: #1a1a1a;
-  --color-text-muted: #4b4b4b;
-  --color-background: #ffffff;
-  --color-border: #d8d8d8;
-  --font-body:
-    system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+
+  /* Brand anchors — sourced from public/full-logo.webp, do not adjust. */
+  --navy: #1e275e;
+  --gold: #fdb613;
+
+  /* Light theme */
+  --navy-deep: #12173f;
+  --gold-ink: #8a5a00;
+  --gold-accent: var(--gold);
+  --bg: #fbf9f3;
+  --bg-raised: #ffffff;
+  --bg-raised-2: #f1ecdf;
+  --fg: #20232b;
+  --fg-soft: #565a64;
+  --rule: #ddd6c6;
+  --tag-bg: #f1ecdf;
+  --error: #c0392b;
+  --focus-ring: var(--navy-deep);
+  --ivory: #edebe3;
+
+  /* Fixed navy surface (header/footer) — identical in both themes. */
+  --surface-navy: var(--navy);
+  --surface-navy-fg: #ffffff;
+  --surface-navy-fg-soft: rgba(255, 255, 255, 0.72);
+  --surface-navy-rule: rgba(255, 255, 255, 0.18);
+
+  --font-display: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+  --s10: 128px;
+
+  --content-width: 1180px;
+  --content-narrow: 720px;
+
+  --transition-fast: 0.15s ease;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0b0e1f;
+  --bg-raised: #141935;
+  --bg-raised-2: #1b2145;
+  --fg: #edebe3;
+  --fg-soft: #a9aec4;
+  --rule: rgba(255, 255, 255, 0.14);
+  --tag-bg: #1b2145;
+  --error: #ff6b5e;
+  --gold-accent: #e5a836;
+  --focus-ring: var(--gold);
+  --navy-deep: #0b0e1f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-theme='dark']) {
+    color-scheme: dark;
+    --bg: #0b0e1f;
+    --bg-raised: #141935;
+    --bg-raised-2: #1b2145;
+    --fg: #edebe3;
+    --fg-soft: #a9aec4;
+    --rule: rgba(255, 255, 255, 0.14);
+    --tag-bg: #1b2145;
+    --error: #ff6b5e;
+    --gold-accent: #e5a836;
+    --focus-ring: var(--gold);
+    --navy-deep: #0b0e1f;
+  }
 }
 
 * {
@@ -24,15 +100,39 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: var(--font-body);
-  color: var(--color-text);
-  background: var(--color-background);
-  line-height: 1.5;
+  font-size: 1.0625rem; /* 17px */
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.6;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 1.03125rem; /* ~16.5px */
+  }
 }
 
 main {
@@ -40,14 +140,88 @@ main {
   width: 100%;
 }
 
-a {
-  color: var(--color-navy);
+/* Anchor targets land clear of the sticky header instead of underneath it. */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }
 
 h1,
 h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--fg);
+  margin: 0 0 var(--s4);
+}
+
+h1 {
+  font-size: clamp(2rem, 1.55rem + 2vw, 3.25rem);
+}
+
+h2 {
+  font-size: clamp(1.625rem, 1.4rem + 1vw, 2.25rem);
+}
+
 h3 {
-  line-height: 1.2;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.0625rem;
+}
+
+p {
+  margin: 0 0 var(--s4);
+  color: var(--fg);
+}
+
+.lead {
+  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+a {
+  color: var(--navy);
+}
+
+/* Zero-specificity via :where() so any component's own link color rule
+   (header, footer, .link-editorial, etc.) always wins over this fallback. */
+:where(:root[data-theme='dark']) a {
+  color: var(--ivory);
+}
+
+blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  line-height: 1.4;
+  color: var(--fg);
+}
+
+/* Focus visibility — semantic, single strong signal everywhere. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .sr-only {
@@ -62,227 +236,345 @@ h3 {
   border: 0;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--s4);
+  z-index: 100;
+  background: var(--gold);
+  color: var(--navy-deep);
+  padding: var(--s3) var(--s5);
+  font-weight: 700;
+  border-radius: 4px;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--s4);
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  margin: 0 0 var(--s3);
+}
+
+:root[data-theme='dark'] .eyebrow {
+  color: var(--gold-accent);
+}
+
 .page-section {
   width: 100%;
-  max-width: 1100px;
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2.5rem 1.5rem;
+  padding: var(--s8) var(--s5);
 }
 
-.button {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+@media (max-width: 640px) {
+  .page-section {
+    padding: var(--s6) var(--s4);
+  }
+}
+
+.page-section--narrow {
+  max-width: var(--content-narrow);
+}
+
+.rule {
   border: none;
-  background: var(--color-navy);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
+  border-top: 1px solid var(--rule);
+  margin: 0;
 }
 
-.button:hover,
-.button:focus-visible {
-  background: #2d3a8f;
-}
+/* ---------------------------------------------------------------- */
+/* Buttons and links                                                 */
+/* ---------------------------------------------------------------- */
 
-/* Header */
-
-.site-header {
-  background: var(--color-navy);
-  color: #fff;
-}
-
-.site-header__bar {
-  max-width: 1100px;
-  margin: 0 auto;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 44px;
   padding: 0.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.site-header__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.site-header__menu-toggle {
-  display: none;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
   border-radius: 4px;
-  padding: 0.4rem 0.6rem;
-  font-size: 1.1rem;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-decoration: none;
   cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
-.site-header__nav ul {
-  display: flex;
-  gap: 0.25rem;
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--navy-deep);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--navy);
+  color: #fff;
+}
+
+:root[data-theme='dark'] .btn-primary,
+.on-navy .btn-primary {
+  background: var(--gold);
+  color: var(--navy-deep);
+}
+
+:root[data-theme='dark'] .btn-primary:hover,
+:root[data-theme='dark'] .btn-primary:focus-visible,
+.on-navy .btn-primary:hover,
+.on-navy .btn-primary:focus-visible {
+  background: #ffc548;
+}
+
+:root[data-theme='dark'] .btn-secondary,
+.on-navy .btn-secondary {
+  border-color: var(--ivory);
+  color: var(--ivory);
+}
+
+:root[data-theme='dark'] .btn-secondary:hover,
+:root[data-theme='dark'] .btn-secondary:focus-visible,
+.on-navy .btn-secondary:hover,
+.on-navy .btn-secondary:focus-visible {
+  background: rgba(237, 235, 227, 0.12);
+}
+
+/* Tertiary — editorial text link. One visual signal: a single gold
+   underline appears on hover/focus. Text color never changes, so this
+   never produces the "two underlines" problem. */
+.link-editorial {
+  color: var(--navy);
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  font-weight: 600;
+  transition: border-color var(--transition-fast);
+}
+
+.link-editorial:hover,
+.link-editorial:focus-visible {
+  border-bottom-color: var(--gold);
+}
+
+:root[data-theme='dark'] .link-editorial,
+.on-navy .link-editorial {
+  color: var(--ivory);
+}
+
+.link-editorial__arrow {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.link-editorial:hover .link-editorial__arrow,
+.link-editorial:focus-visible .link-editorial__arrow {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Reusable content primitives                                       */
+/* ---------------------------------------------------------------- */
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s6);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.site-header__nav a {
+.proof-figure {
+  border: none;
+  margin: 0;
+}
+
+.proof-figure__rule {
   display: block;
-  padding: 0.5rem 0.75rem;
-  color: #fff;
-  border-radius: 4px;
+  width: 28px;
+  height: 2px;
+  background: var(--gold-accent);
+  margin-bottom: var(--s3);
 }
 
-.site-header__nav a:hover,
-.site-header__nav a:focus-visible,
-.site-header__nav a[aria-current='page'] {
-  background: rgba(255, 255, 255, 0.15);
+.proof-figure__value {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.125rem;
+  line-height: 1;
+  color: var(--fg);
+  margin-bottom: var(--s2);
 }
 
-@media (max-width: 700px) {
-  .site-header__menu-toggle {
-    display: block;
-  }
-
-  .site-header__nav {
-    display: none;
-    width: 100%;
-  }
-
-  .site-header__nav[data-open] {
-    display: block;
-  }
-
-  .site-header__nav ul {
-    flex-direction: column;
-    padding: 0.5rem 0;
-  }
+.proof-figure__label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  max-width: 16ch;
 }
 
-/* Footer */
-
-.site-footer {
-  background: var(--color-navy);
-  color: #fff;
-  margin-top: 3rem;
+.proof-callout {
+  border-top: 2px solid var(--gold-accent);
+  padding-top: var(--s4);
 }
 
-.site-footer__bar {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+.proof-callout__label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  margin-bottom: var(--s2);
+}
+
+.proof-callout__body {
+  margin: 0 0 var(--s2);
+}
+
+.archival-table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.archival-table__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.archival-table__label {
+  color: var(--fg);
+}
+
+.archival-table__meta {
+  color: var(--fg-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.site-footer a {
-  color: #fff;
-}
-
-.site-footer__brand {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.site-footer nav ul {
+  gap: var(--s2);
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
 }
 
-.site-footer .button {
-  background: var(--color-gold);
-  color: var(--color-navy);
+.tag-list li {
+  background: var(--tag-bg);
+  color: var(--fg-soft);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
 }
 
-.site-footer .button:hover,
-.site-footer .button:focus-visible {
-  background: #ffd166;
-}
-
-.site-footer__copyright {
-  text-align: center;
-  padding: 1rem 0 1.5rem;
-  margin: 0;
-  font-size: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Contact form */
+/* ---------------------------------------------------------------- */
+/* Contact form                                                      */
+/* ---------------------------------------------------------------- */
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--s5);
   max-width: 560px;
 }
 
 .contact-form label {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  font-weight: 600;
+  gap: var(--s2);
+  font-weight: 700;
 }
 
 .contact-form input,
 .contact-form textarea {
   font: inherit;
-  padding: 0.55rem;
-  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--rule);
   border-radius: 4px;
+  background: var(--bg-raised);
+  color: var(--fg);
 }
 
-.contact-form input:focus-visible,
-.contact-form textarea:focus-visible {
-  outline: 2px solid var(--color-navy);
-  outline-offset: 1px;
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--fg-soft);
+  opacity: 0.85;
+}
+
+.contact-form input:disabled,
+.contact-form textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .contact-form [aria-invalid='true'] {
-  border-color: #a60000;
+  border-color: var(--error);
 }
 
 .contact-form .field-error {
-  color: #a60000;
+  color: var(--error);
   font-size: 0.85rem;
   font-weight: 400;
 }
 
 .contact-form .form-status {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .contact-form .form-status[data-state='success'] {
-  color: #005e00;
+  color: #1c7a33;
+}
+
+:root[data-theme='dark'] .contact-form .form-status[data-state='success'] {
+  color: #6fd88a;
 }
 
 .contact-form .form-status[data-state='error'] {
-  color: #a60000;
+  color: var(--error);
 }
 
-/* Practice area / credential lists */
-
-.practice-list,
-.credentials-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.credentials-list--inline li {
-  margin-bottom: 0.35rem;
+.contact-form button[type='submit'] {
+  align-self: flex-start;
 }

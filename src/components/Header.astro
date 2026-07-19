@@ -1,5 +1,6 @@
 ---
-import { businessName, navLinks } from '@/data/site'
+import { businessName, navLinks, contact } from '@/data/site'
+import ThemeToggle from '@/components/ThemeToggle.astro'
 
 const currentPath = Astro.url.pathname
 const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : currentPath.startsWith(href))
@@ -8,22 +9,12 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
 <header class="site-header">
   <div class="site-header__bar">
     <a href="/" class="site-header__brand" aria-label={`${businessName} home`}>
-      <img src="/icon.svg" alt="" width="32" height="32" />
-      <span>{businessName}</span>
+      <img src="/icon.svg" alt="" width="34" height="34" />
+      <span class="site-header__brand-divider" aria-hidden="true"></span>
+      <span class="site-header__brand-name">{businessName}</span>
     </a>
 
-    <button
-      type="button"
-      class="site-header__menu-toggle"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-      data-menu-toggle
-    >
-      <span class="sr-only">Menu</span>
-      <span aria-hidden="true">☰</span>
-    </button>
-
-    <nav aria-label="Primary" class="site-header__nav" id="primary-nav" data-menu>
+    <nav aria-label="Primary" class="site-header__nav">
       <ul>
         {
           navLinks.map((link) => (
@@ -36,7 +27,287 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
         }
       </ul>
     </nav>
+
+    <div class="site-header__actions">
+      <a href={`tel:${contact.phoneHref}`} class="site-header__phone">{contact.phoneDisplay}</a>
+      <ThemeToggle variant="compact" />
+      <a href="/contact" class="btn btn-primary site-header__cta">
+        <span class="site-header__cta-full">Schedule a Consultation</span>
+        <span class="site-header__cta-short">Consultation</span>
+      </a>
+    </div>
+
+    <button type="button" class="site-header__menu-toggle" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
+      <span class="sr-only">Menu</span>
+      <span class="site-header__menu-icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+  </div>
+
+  <div id="mobile-nav" class="site-header__mobile-nav" data-menu>
+    <nav aria-label="Primary">
+      <ul>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href="/contact" class="btn btn-primary site-header__mobile-cta">Schedule a Consultation</a>
+    <a href={`tel:${contact.phoneHref}`} class="site-header__mobile-phone">{contact.phoneDisplay}</a>
+    <div class="site-header__mobile-appearance">
+      <ThemeToggle variant="labeled" />
+    </div>
   </div>
 </header>
 
 <script src="@/scripts/menu.ts"></script>
+<script src="@/scripts/theme.ts"></script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface-navy);
+    color: var(--surface-navy-fg);
+  }
+
+  .site-header__bar {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--s4) var(--s5);
+    display: flex;
+    align-items: center;
+    gap: var(--s6);
+  }
+
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    color: #fff;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .site-header__brand-divider {
+    display: block;
+    width: 1px;
+    height: 24px;
+    background: var(--surface-navy-rule);
+  }
+
+  .site-header__brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1875rem;
+    line-height: 1.05;
+    white-space: nowrap;
+  }
+
+  .site-header__nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    gap: var(--s5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .site-header__nav a {
+    display: inline-block;
+    padding: 0.35rem 0.1rem;
+    color: var(--surface-navy-fg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--transition-fast);
+  }
+
+  .site-header__nav a:hover,
+  .site-header__nav a:focus-visible {
+    border-bottom-color: var(--surface-navy-rule);
+  }
+
+  .site-header__nav a[aria-current='page'] {
+    border-bottom-color: var(--gold);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+    flex-shrink: 0;
+  }
+
+  .site-header__phone {
+    color: var(--surface-navy-fg-soft);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  .site-header__phone:hover,
+  .site-header__phone:focus-visible {
+    color: var(--surface-navy-fg);
+  }
+
+  .site-header__cta-short {
+    display: none;
+  }
+
+  .site-header__menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: 1px solid var(--surface-navy-rule);
+    color: #fff;
+    border-radius: 4px;
+    padding: var(--s2) var(--s3);
+    cursor: pointer;
+  }
+
+  .site-header__menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 20px;
+  }
+
+  .site-header__menu-icon span {
+    display: block;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  .site-header__mobile-nav {
+    display: none;
+  }
+
+  /* Wide desktop and laptop (>=1300px): full treatment, phone shown. */
+  @media (min-width: 1300px) {
+    .site-header__bar {
+      gap: var(--s7);
+    }
+  }
+
+  /* Condensed landscape-tablet / narrow-laptop (900–1299px):
+     reduced spacing, no phone, shortened CTA, all five destinations stay
+     visible without wrapping or colliding. */
+  @media (max-width: 1299px) {
+    .site-header__phone {
+      display: none;
+    }
+
+    .site-header__bar {
+      gap: var(--s4);
+      padding: var(--s3) var(--s4);
+    }
+
+    .site-header__nav ul {
+      gap: var(--s4);
+    }
+
+    .site-header__cta-full {
+      display: none;
+    }
+
+    .site-header__cta-short {
+      display: inline;
+    }
+
+    .site-header__cta {
+      padding: 0.7rem 1rem;
+    }
+  }
+
+  /* Portrait-tablet and mobile (<900px): accessible disclosure menu. */
+  @media (max-width: 899px) {
+    .site-header__nav,
+    .site-header__actions {
+      display: none;
+    }
+
+    .site-header__menu-toggle {
+      display: inline-flex;
+      margin-left: auto;
+    }
+
+    .site-header__mobile-nav {
+      display: none;
+      border-top: 1px solid var(--surface-navy-rule);
+      padding: var(--s5) var(--s5) var(--s6);
+    }
+
+    .site-header__mobile-nav[data-open] {
+      display: block;
+    }
+
+    .site-header__mobile-nav nav ul {
+      list-style: none;
+      margin: 0 0 var(--s5);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header__mobile-nav nav a {
+      display: block;
+      padding: var(--s3) 0;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.0625rem;
+      border-bottom: 1px solid var(--surface-navy-rule);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .site-header__mobile-nav nav a[aria-current='page'] {
+      color: var(--gold);
+    }
+
+    .site-header__mobile-cta {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: var(--s4);
+    }
+
+    .site-header__mobile-phone {
+      display: block;
+      text-align: center;
+      color: var(--surface-navy-fg-soft);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: var(--s4);
+      min-height: 44px;
+      line-height: 44px;
+    }
+
+    .site-header__mobile-appearance {
+      border-top: 1px solid var(--surface-navy-rule);
+      padding-top: var(--s4);
+    }
+  }
+</style>

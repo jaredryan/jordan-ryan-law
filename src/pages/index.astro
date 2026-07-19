@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { businessName, businessSlogan, businessSummary, businessExplanation, defaultDescription, defaultKeywords } from '@/data/site'
+import { businessName, businessSlogan, businessExplanation, defaultDescription, defaultKeywords } from '@/data/site'
 import { areasOfPractice } from '@/data/practice-areas'
+import { courtAdmissions, ratingsAndDesignations } from '@/data/credentials'
+import { russRyan, crystalBrightwell } from '@/data/people'
 import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd } from '@/lib/json-ld'
 
 const jsonLd = [
@@ -14,29 +16,45 @@ const jsonLd = [
     breadcrumbs: [{ name: 'Home', path: '/' }],
   }),
 ]
+
+// Every figure below is sourced verbatim from src/data — nothing here is
+// invented. See docs/legacy-content-inventory.md for provenance.
+const proofItems = [
+  { value: '35+', label: 'Years in Practice' },
+  { value: '90%', label: 'Prevailed at Trial or Arbitration' },
+  { value: String(courtAdmissions.length), label: 'Federal & State Courts Admitted' },
+  { value: 'AV', label: 'Preeminent Rated, Martindale-Hubbell' },
+]
+
+const recordItems = ratingsAndDesignations.slice(0, 3)
 ---
 
 <BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd}>
-  <section class="page-section">
-    <h1>{businessName}</h1>
-    <p>{businessSlogan}</p>
-    <a href="/contact" class="button">Contact Us</a>
+  <section class="hero page-section">
+    <div class="hero__portrait">
+      <img src="/square-profile.webp" alt={russRyan.name} width="360" height="360" />
+    </div>
+    <div class="hero__copy">
+      <span class="eyebrow">Fresno, California</span>
+      <h1>Direct access to one attorney who's spent thirty-five years earning it.</h1>
+      <p class="lead">{businessSlogan}</p>
+      <div class="hero__actions">
+        <a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
+        <a href="/expertise" class="link-editorial">
+          See areas of practice <span class="link-editorial__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
   </section>
 
-  <section class="page-section">
-    <h2>{businessSummary}</h2>
-    {businessExplanation.map((paragraph) => <p>{paragraph}</p>)}
-  </section>
-
-  <section class="page-section">
-    <h2>Our Practice Areas</h2>
-    <ul class="practice-list">
+  <section class="page-section" aria-label="By the numbers">
+    <ul class="proof-strip">
       {
-        areasOfPractice.map((area) => (
-          <li>
-            <a href={`/expertise#${area.slug}`}>
-              <h3>{area.name}</h3>
-            </a>
+        proofItems.map((item) => (
+          <li class="proof-figure">
+            <span class="proof-figure__rule" />
+            <span class="proof-figure__value">{item.value}</span>
+            <span class="proof-figure__label">{item.label}</span>
           </li>
         ))
       }
@@ -44,7 +62,184 @@ const jsonLd = [
   </section>
 
   <section class="page-section">
+    <span class="eyebrow">What we handle</span>
+    <h2>Practice areas</h2>
+    <ul class="practice-grid">
+      {
+        areasOfPractice.map((area) => (
+          <li class="practice-grid__item">
+            <h3>
+              <a href={`/expertise#${area.slug}`}>{area.name}</a>
+            </h3>
+            <p>{area.teaser}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section record">
+    <div class="record__intro">
+      <span class="eyebrow">A record you can verify</span>
+      <h2>Results, not just promises</h2>
+      {businessExplanation.slice(0, 1).map((paragraph) => <p>{paragraph}</p>)}
+      <a href="/about#credentials" class="link-editorial">
+        Full credentials and admissions <span class="link-editorial__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <ul class="record__list">
+      {
+        recordItems.map((item) => (
+          <li class="proof-callout">
+            <span class="proof-callout__label">{item.years}</span>
+            <p class="proof-callout__body">{item.simplified}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="page-section quote-section">
+    <blockquote>
+      "Clients don't want a law firm. They want someone who picks up the phone and already knows their business."
+    </blockquote>
+    <p class="quote-section__attribution">— Russ Ryan <span class="quote-section__flag">(draft quotation, pending Russ's review)</span></p>
+    <p class="quote-section__crystal">
+      For scheduling and questions along the way, {crystalBrightwell.name} — with the firm {crystalBrightwell.tenureYears} years — helps
+      keep things moving.
+    </p>
+  </section>
+
+  <section class="page-section close-section">
     <h2>Request a Consultation</h2>
-    <a href="/contact" class="button">Get in touch</a>
+    <p class="lead">Talk with the attorney who will actually handle your matter, start to finish.</p>
+    <a href="/contact" class="btn btn-primary">Get in touch</a>
   </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: var(--s8);
+    align-items: center;
+    padding-top: var(--s9);
+  }
+
+  .hero__portrait img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+
+  .hero__copy h1 {
+    max-width: 16ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s6);
+    flex-wrap: wrap;
+    margin-top: var(--s5);
+  }
+
+  .practice-grid {
+    list-style: none;
+    margin: var(--s6) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--s6);
+  }
+
+  .practice-grid__item h3 {
+    margin-bottom: var(--s2);
+  }
+
+  .practice-grid__item h3 a {
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .practice-grid__item h3 a:hover,
+  .practice-grid__item h3 a:focus-visible {
+    border-bottom-color: var(--gold-accent);
+  }
+
+  .practice-grid__item p {
+    color: var(--fg-soft);
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  .record {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s8);
+    background: var(--bg-raised);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .record__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+
+  .quote-section {
+    max-width: var(--content-narrow);
+    text-align: left;
+  }
+
+  .quote-section__attribution {
+    margin-top: var(--s4);
+    font-weight: 700;
+  }
+
+  .quote-section__flag {
+    font-weight: 400;
+    color: var(--fg-soft);
+    font-size: 0.85rem;
+  }
+
+  .quote-section__crystal {
+    margin-top: var(--s6);
+    padding-top: var(--s6);
+    border-top: 1px solid var(--rule);
+    color: var(--fg-soft);
+  }
+
+  .close-section {
+    text-align: center;
+    max-width: var(--content-narrow);
+  }
+
+  .close-section .lead {
+    margin: 0 auto var(--s6);
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: left;
+      padding-top: var(--s6);
+    }
+
+    .hero__portrait {
+      max-width: 220px;
+    }
+
+    .record {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,12 +1,21 @@
 ---
-import { businessName, navLinks, contact } from '@/data/site'
+import { businessName, navLinks, contact, address } from '@/data/site'
 
 const year = new Date().getFullYear()
 ---
 
 <footer class="site-footer">
   <div class="site-footer__bar">
-    <a href="/" class="site-footer__brand">{businessName}</a>
+    <div class="site-footer__brand-block">
+      <a href="/" class="site-footer__brand">
+        <img src="/icon.svg" alt="" width="30" height="30" />
+        <span>{businessName}</span>
+      </a>
+      <address class="site-footer__address">
+        {address.street}, {address.suite}<br />
+        {address.city}, {address.state} {address.postalCode}
+      </address>
+    </div>
 
     <nav aria-label="Footer">
       <ul>
@@ -20,12 +29,105 @@ const year = new Date().getFullYear()
       </ul>
     </nav>
 
-    <p>
-      <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
+    <div class="site-footer__contact">
+      <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
       <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
-    </p>
-
-    <a href="/contact" class="button">Contact Us</a>
+      <a href="/contact" class="btn btn-secondary on-navy site-footer__cta">Schedule a Consultation</a>
+    </div>
   </div>
   <p class="site-footer__copyright">&copy; {year} Ryan Legal, PC, a Professional Corporation. All Rights Reserved.</p>
 </footer>
+
+<style>
+  .site-footer {
+    background: var(--surface-navy);
+    color: var(--surface-navy-fg);
+    margin-top: var(--s9);
+  }
+
+  .site-footer__bar {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--s7) var(--s5);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: var(--s7);
+  }
+
+  .site-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: var(--s4);
+  }
+
+  .site-footer__address {
+    font-style: normal;
+    color: var(--surface-navy-fg-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .site-footer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .site-footer nav a {
+    color: var(--surface-navy-fg-soft);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .site-footer nav a:hover,
+  .site-footer nav a:focus-visible {
+    color: #fff;
+  }
+
+  .site-footer__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s3);
+  }
+
+  .site-footer__contact a:not(.btn) {
+    color: var(--surface-navy-fg-soft);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .site-footer__contact a:not(.btn):hover,
+  .site-footer__contact a:not(.btn):focus-visible {
+    color: #fff;
+  }
+
+  .site-footer__cta {
+    margin-top: var(--s2);
+  }
+
+  .site-footer__copyright {
+    text-align: center;
+    padding: var(--s5) var(--s5) var(--s6);
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--surface-navy-fg-soft);
+    border-top: 1px solid var(--surface-navy-rule);
+  }
+
+  @media (max-width: 780px) {
+    .site-footer__bar {
+      grid-template-columns: 1fr;
+      gap: var(--s6);
+    }
+  }
+</style>

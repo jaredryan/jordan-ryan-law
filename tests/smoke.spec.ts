@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test'
 
 const routes: { path: string; heading: string }[] = [
-  { path: '/', heading: 'Ryan Legal, PC' },
-  { path: '/expertise', heading: 'Expertise' },
+  { path: '/', heading: 'Direct access to one attorney' },
+  { path: '/expertise', heading: 'Where Ryan Legal focuses' },
   { path: '/about', heading: 'Russell K. Ryan' },
   { path: '/contact', heading: 'Start with a conversation' },
   { path: '/payment', heading: 'LawPay' },
@@ -33,11 +33,16 @@ test('primary navigation reaches every page', async ({ page }) => {
   const menuToggle = page.locator('[data-menu-toggle]')
 
   for (const route of routes.slice(1)) {
-    // On narrow viewports the nav is collapsed behind the menu toggle.
+    // On narrow viewports the wide-bar nav is hidden entirely and replaced
+    // by the mobile disclosure nav (two separate DOM trees, not one nav
+    // repositioned by CSS) — open the toggle and use whichever is visible.
     if (await menuToggle.isVisible()) {
       await menuToggle.click()
     }
-    await page.locator(`.site-header__nav a[href="${route.path}"]`).click()
+    // Scope to <header> so the (always-visible-by-CSS-definition) footer
+    // link with the same href never satisfies the :visible filter instead.
+    const link = page.locator('header').locator(`a[href="${route.path}"]:visible`).first()
+    await link.click()
     await expect(page).toHaveURL(new RegExp(`${route.path}$`))
   }
 })

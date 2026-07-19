@@ -21,6 +21,20 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      // Blocking, dependency-free: must run before first paint so the page
+      // never flashes the wrong theme. Explicit user choice (localStorage)
+      // wins; otherwise fall back to the system preference.
+      ;(function () {
+        try {
+          const stored = localStorage.getItem('theme')
+          const theme = stored === 'light' || stored === 'dark' ? stored : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch {
+          document.documentElement.setAttribute('data-theme', 'light')
+        }
+      })()
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
@@ -47,8 +61,9 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
     {jsonLd.map((entry) => <script type="application/ld+json" is:inline set:html={JSON.stringify(entry)} />)}
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

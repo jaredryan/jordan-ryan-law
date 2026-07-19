@@ -31,42 +31,103 @@ const mapEmbedSrc = `https://maps.google.com/maps?q=${address.lat},${address.lng
 ---
 
 <BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
-  <section class="page-section">
+  <section class="page-section page-section--narrow contact-hero">
+    <span class="eyebrow">Get in touch</span>
     <h1>Start with a conversation</h1>
-    <p>
-      <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a><br />
-      <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
-    </p>
-    <p>
+
+    <div class="contact-primary-card">
+      <a href={`tel:${contact.phoneHref}`} class="contact-primary-card__phone">{contact.phoneDisplay}</a>
+      <a href={`mailto:${contact.emails.russ}`} class="contact-primary-card__email">{contact.emails.russ}</a>
+    </div>
+
+    <p class="contact-roles">
       {russRyan.alternateName} is the sole attorney at the firm. {crystalBrightwell.name} can help answer questions
       about scheduling and paperwork, and can help arrange a conversation with {russRyan.alternateName} — she does
       not provide legal advice, and contacting the office does not by itself create an attorney-client relationship.
     </p>
   </section>
 
-  <section class="page-section">
-    <h2>Office</h2>
-    <address>
-      {address.street}<br />
-      {address.suite}<br />
-      {address.city}, {address.state} {address.postalCode}
-    </address>
+  <section class="page-section page-section--narrow contact-office">
+    <p class="contact-office__address">
+      <span class="eyebrow">Office</span>
+      {address.street}, {address.suite}, {address.city}, {address.state} {address.postalCode}
+    </p>
     <iframe
       title="Map of the Ryan Legal, PC office"
       src={mapEmbedSrc}
       width="100%"
-      height="400"
+      height="360"
       style="border:0"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
+      class="contact-office__map"
     />
-    <p>
-      <a href={address.googleMapsDirectionsUrl} target="_blank" rel="noreferrer">Get Directions</a>
-    </p>
+    <a href={address.googleMapsDirectionsUrl} target="_blank" rel="noreferrer" class="link-editorial">
+      Get Directions <span class="link-editorial__arrow" aria-hidden="true">→</span>
+    </a>
   </section>
 
-  <section class="page-section">
-    <h2>Request Consultation</h2>
+  <section class="page-section page-section--narrow">
+    <h2>Request a Consultation</h2>
     <ContactForm />
   </section>
 </BaseLayout>
+
+<style>
+  .contact-primary-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3) var(--s6);
+    align-items: baseline;
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--gold-accent);
+    border-radius: 4px;
+    padding: var(--s5) var(--s6);
+    margin: var(--s5) 0;
+  }
+
+  .contact-primary-card__phone {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.375rem;
+    text-decoration: none;
+    color: var(--fg);
+  }
+
+  .contact-primary-card__email {
+    color: var(--fg-soft);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-primary-card a:hover,
+  .contact-primary-card a:focus-visible {
+    color: var(--navy);
+  }
+
+  :root[data-theme='dark'] .contact-primary-card a:hover,
+  :root[data-theme='dark'] .contact-primary-card a:focus-visible {
+    color: var(--gold-accent);
+  }
+
+  .contact-roles {
+    color: var(--fg-soft);
+  }
+
+  .contact-office__address {
+    color: var(--fg-soft);
+    font-size: 0.9375rem;
+    margin-bottom: var(--s4);
+  }
+
+  .contact-office__address .eyebrow {
+    display: inline;
+    margin-right: var(--s3);
+  }
+
+  .contact-office__map {
+    border-radius: 4px;
+    margin-bottom: var(--s4);
+  }
+</style>

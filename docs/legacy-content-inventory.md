@@ -53,6 +53,12 @@ All three (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) must be s
 
 `.env.example` previously contained an unrelated Postgres/NextAuth template left over from the original Next.js "dashboard course" starter — none of those variables were ever used by this app. Removed as dead/misleading.
 
+## Roadmap
+
+**Milestone 1 (this pass, 2026-07-18):** visual redesign implementation — design tokens, dark theme, header/footer, and all five pages rebuilt per the approved Concept Revision 2 direction. `/payment` keeps the existing LawPay handoff link; LawPay is not embedded yet.
+
+> **Milestone 2:** Prototype LawPay's official supported embed inside `/payment`, with an external secure-payment fallback. Keep the embed only if responsive sizing, keyboard use, validation, authentication, completion behavior, privacy restrictions, and theme integration are satisfactory.
+
 ## Assets preserved as-is
 
 All of `public/` (the real, legitimate assets) carried forward untouched — Astro uses the same `public/` convention:

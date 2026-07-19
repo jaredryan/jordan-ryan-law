@@ -20,6 +20,8 @@
     "test": "npm run test:unit && npm run test:e2e"
   },
   "dependencies": {
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@fontsource/libre-baskerville": "^5.2.10",
     "astro": "^7.1.1",
     "resend": "^6.17.2",
     "validator": "^13.15.35",

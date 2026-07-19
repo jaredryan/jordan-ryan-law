@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { lawPayUrl } from '@/data/site'
+import { lawPayUrl, contact } from '@/data/site'
 import { webPageJsonLd } from '@/lib/json-ld'
 
 const description = 'Securely make a payment for legal services provided by Ryan Legal, PC.'
@@ -26,11 +26,91 @@ const jsonLd = [
 ---
 
 <BaseLayout title="Payment" description={description} path="/payment" keywords={keywords} jsonLd={jsonLd}>
-  <section class="page-section">
-    <h1>Pay quickly and easily through LawPay</h1>
-    <p>Click the button below to be taken to our secure payment portal.</p>
-    <a href={lawPayUrl} class="button" target="_blank" rel="noreferrer" aria-label="Go to our payment portal, provided by LawPay.">
-      Pay Now
-    </a>
+  <section class="page-section payment-section">
+    <span class="eyebrow">Payment</span>
+    <h1>Pay quickly and securely through LawPay</h1>
+    <p class="lead">Click below to be taken to our secure payment portal, hosted by LawPay.</p>
+
+    <div class="payment-card">
+      <p class="payment-card__label">LawPay — Secure Payment Portal</p>
+      <a
+        href={lawPayUrl}
+        class="btn btn-primary payment-card__cta"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Pay Now — opens our secure LawPay payment portal in a new tab"
+      >
+        Pay Now — Opens LawPay ↗
+      </a>
+      <p class="payment-card__disclaimer">
+        You'll leave ryanlegalpc.com for LawPay's secure site to complete your payment. We do not see or store your
+        card details.
+      </p>
+    </div>
+
+    <dl class="payment-info">
+      <div>
+        <dt>Questions about a bill</dt>
+        <dd>
+          Call <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a> or email{' '}
+          <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>.
+        </dd>
+      </div>
+      <div>
+        <dt>Accepted methods</dt>
+        <dd>Major credit and debit cards, processed securely by LawPay.</dd>
+      </div>
+    </dl>
   </section>
 </BaseLayout>
+
+<style>
+  .payment-section {
+    max-width: var(--content-narrow);
+  }
+
+  .payment-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: var(--s7) var(--s6);
+    text-align: center;
+    margin: var(--s6) 0;
+  }
+
+  .payment-card__label {
+    font-weight: 700;
+    color: var(--fg-soft);
+    margin-bottom: var(--s5);
+  }
+
+  .payment-card__cta {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: var(--s4) var(--s5);
+  }
+
+  .payment-card__disclaimer {
+    margin: var(--s5) 0 0;
+    color: var(--fg-soft);
+    font-size: 0.875rem;
+  }
+
+  .payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+    margin: 0;
+  }
+
+  .payment-info dt {
+    font-weight: 700;
+    margin-bottom: var(--s1);
+  }
+
+  .payment-info dd {
+    margin: 0;
+    color: var(--fg-soft);
+  }
+</style>
