@@ -33,7 +33,7 @@ const jsonLd = [
 const pad = (n: number) => String(n).padStart(2, '0')
 ---
 
-<BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd}>
+<BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="exp-layout">
     <aside class="exp-index" aria-label="Practice areas" data-spy-rail>
       <ol>
@@ -147,6 +147,18 @@ const pad = (n: number) => String(n).padStart(2, '0')
       }
     </div>
   </div>
+
+  <section class="closing-band">
+    <div class="closing-band__inner">
+      <span class="closing-band__rule" aria-hidden="true"></span>
+      <h2>Ready to Discuss Your Matter?</h2>
+      <p class="lead">
+        From day-to-day advising to trial and appeal, you'll work with the attorney who handles it — start to
+        finish.
+      </p>
+      <a href="/contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <script src="@/scripts/scroll-spy.ts"></script>
@@ -195,26 +207,46 @@ const pad = (n: number) => String(n).padStart(2, '0')
     padding-top: 0;
   }
 
+  /* A short gold rule ahead of each number turns it into a repeatable
+     chapter-opening marker (the same "short gold rule" motif used
+     elsewhere on Home/About) rather than just a small numeral — a
+     low-intensity device meant to survive all six repetitions without
+     calling attention to itself. */
   .exp-section__num {
     font-family: var(--font-display);
     font-style: italic;
     color: var(--gold-ink);
-    font-size: 1rem;
+    font-size: 1.0625rem;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    margin-bottom: var(--s3);
+  }
+
+  .exp-section__num::before {
+    content: '';
     display: block;
-    margin-bottom: var(--s2);
+    width: 22px;
+    height: 2px;
+    background: var(--gold-accent);
+    flex-shrink: 0;
   }
 
-  :root[data-theme='dark'] .exp-section__num {
-    color: var(--gold-accent);
-  }
-
+  /* A subtly raised/tinted surface distinguishes the client-type and
+     case-record metadata from the primary explanatory copy above it,
+     without boxing the whole section in a card. auto-fit (rather than a
+     fixed 1fr 1fr) lets the single-child case — most areas define only
+     `proof` or only `clientTypes`, not both — fill the full width instead
+     of leaving an empty second column inside the tinted panel. */
   .exp-compare {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: var(--s6);
     margin: var(--s6) 0;
-    padding-top: var(--s5);
-    border-top: 1px solid var(--rule);
+    padding: var(--s5);
+    background: var(--bg-raised-2);
+    border-radius: 4px;
   }
 
   .exp-compare__clients h3,
@@ -227,11 +259,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
     margin: 0;
   }
 
-  /* .proof-callout's own gold top rule sits right under .exp-compare's gray
-     divider, reading as a double border. Swap it for a side accent here. */
   .exp-compare__proof {
-    border-top: none;
-    padding-top: 0;
     padding-left: var(--s4);
     border-left: 2px solid var(--gold-accent);
   }
@@ -416,10 +444,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
       font-style: italic;
       color: var(--gold-ink);
       font-size: 0.8125rem;
-    }
-
-    :root[data-theme='dark'] .exp-index__num {
-      color: var(--gold-accent);
     }
 
     .exp-intro {

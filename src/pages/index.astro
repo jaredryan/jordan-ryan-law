@@ -109,11 +109,13 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   </section>
 
   <section class="page-section quote-section">
-    <blockquote>
-      "The best measure of my work is that clients stay—many for decades. They know they'll get practical counsel,
-      honest advice, and strong representation when they need it."
-    </blockquote>
-    <p class="quote-section__attribution">— Russ Ryan</p>
+    <div class="quote-section__mark">
+      <blockquote>
+        "The best measure of my work is that clients stay—many for decades. They know they'll get practical counsel,
+        honest advice, and strong representation when they need it."
+      </blockquote>
+      <p class="quote-section__attribution">— Russ Ryan</p>
+    </div>
     <p class="quote-section__crystal">
       For scheduling and questions along the way, {crystalBrightwell.name} — with the firm {crystalBrightwell.tenureYears} years — helps
       keep things moving.
@@ -287,8 +289,25 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     text-align: left;
   }
 
+  /* Restrained pull-quote treatment: a gold vertical rule plus a soft warm
+     wash that fades out rightward, rather than an enclosing bordered card
+     (no right/top/bottom border, no radius) — reads as editorial emphasis,
+     not a UI panel. Scoped to the quote+attribution only; the Crystal line
+     below stays plain so this doesn't compete with the proof band above or
+     the consultation band below. */
+  .quote-section__mark {
+    border-left: 3px solid var(--gold-accent);
+    padding: var(--s5) var(--s5) var(--s5) var(--s6);
+    background: linear-gradient(to right, var(--bg-raised-2), transparent 85%);
+  }
+
+  .quote-section__mark blockquote {
+    margin: 0;
+  }
+
   .quote-section__attribution {
     margin-top: var(--s4);
+    margin-bottom: 0;
     font-weight: 700;
   }
 
@@ -368,23 +387,25 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   /* Dark theme: the deep-navy band reads as just another dark surface next
      to Home's other alternating dark sections, losing the light-theme
      version's contrast/impact. Flip to a warm ivory surface instead — dark
-     navy text/button, a restrained gold-ink rule (the same token already
-     used for gold-on-light elsewhere, e.g. the eyebrow default) — so the
-     band still reads as a deliberate "destination" moment, just inverted. */
+     navy text/button, a restrained gold-ink rule — so the band still reads
+     as a deliberate "destination" moment, just inverted. */
   :root[data-theme='dark'] .close-section {
     /* Neither navy (reads as "more button," even at ~11.7:1 contrast against
        the ivory page) nor gold (only ~1.5:1 against ivory — fails WCAG's 3:1
-       non-text minimum outright) worked well here. Gold-ink is a different
-       hue from both the navy button and the ivory background, so it reads
-       as its own distinct ring rather than blending with either — and it
-       clears the 3:1 minimum comfortably at ~5:1. Already used for the rule
-       above the heading, so this isn't a new color for the section. */
-    --close-focus-color: var(--gold-ink);
+       non-text minimum outright) worked well here. This gold-ink-family
+       brown is a different hue from both the navy button and the ivory
+       background, so it reads as its own distinct ring rather than blending
+       with either — and it clears the 3:1 minimum at ~5:1. Hardcoded rather
+       than referencing --gold-ink: that token is now tuned for legibility
+       against the dark navy --bg (Expertise's chapter numbers, eyebrows),
+       a different surface than this band's ivory one — the two contexts
+       need different values, so they can't share the same token. */
+    --close-focus-color: #8a5a00;
     background: var(--ivory);
   }
 
   :root[data-theme='dark'] .close-section__rule {
-    background: var(--gold-ink);
+    background: #8a5a00;
   }
 
   :root[data-theme='dark'] .close-section h2,

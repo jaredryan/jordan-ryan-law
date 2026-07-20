@@ -67,7 +67,7 @@ function splitDecision(decision: string): { label: string; year: string } {
 }
 ---
 
-<BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd}>
+<BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="about-layout">
     <aside class="about-rail" aria-label="On this page" data-spy-rail>
       <ol>
@@ -229,16 +229,9 @@ function splitDecision(decision: string): { label: string; year: string } {
 
       <section class="about-section" id="admissions">
         <h2>Admissions</h2>
-        <h3 class="about-narrow">Bar Admissions</h3>
-        <ul class="archival-table about-narrow">
-          {
-            barAdmissions.map((item) => (
-              <li class="archival-table__row">
-                <span class="archival-table__label">{item.state}</span>
-                <span class="archival-table__meta">{item.year}</span>
-              </li>
-            ))
-          }
+        <h3>Bar Admissions</h3>
+        <ul class="multi-column-list bar-admissions-list">
+          {barAdmissions.map((item) => <li>{item.state}, {item.year}</li>)}
         </ul>
         <h3>Court Admissions</h3>
         <ul class="multi-column-list court-admissions-list">
@@ -262,13 +255,17 @@ function splitDecision(decision: string): { label: string; year: string } {
         </ul>
       </section>
 
-      <section class="about-section about-close about-narrow">
-        <h2>Talk with Russ directly</h2>
-        <p class="lead">Every matter is handled by the attorney you meet — not passed down the chain.</p>
-        <a href="/contact" class="btn btn-primary">Contact Us</a>
-      </section>
     </div>
   </div>
+
+  <section class="closing-band">
+    <div class="closing-band__inner">
+      <span class="closing-band__rule" aria-hidden="true"></span>
+      <h2>Talk with Russ directly</h2>
+      <p class="lead">Every matter is handled by the attorney you meet — not passed down the chain.</p>
+      <a href="/contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <script src="@/scripts/scroll-spy.ts"></script>
@@ -342,6 +339,17 @@ function splitDecision(decision: string): { label: string; year: string } {
     columns: 2 220px;
   }
 
+  /* Bar Admissions: only ever two short entries — the heavier archival-table
+     treatment (bigger type, full-bleed border-top, one column) left an
+     awkward amount of empty space either narrowed or at full width. Same
+     compact two-up column setting as Court Admissions just above it; a
+     state/year pair reads fine as one plain string ("California, 1989"),
+     so no label/meta split is needed the way a space-between row would
+     require. */
+  .bar-admissions-list {
+    columns: 2 220px;
+  }
+
   .about-crystal {
     display: grid;
     grid-template-columns: 88px 1fr;
@@ -400,10 +408,6 @@ function splitDecision(decision: string): { label: string; year: string } {
 
   .about-jump-nav {
     display: none;
-  }
-
-  .about-close {
-    text-align: left;
   }
 
   /* A single deliberate chapter break between the personal introduction
