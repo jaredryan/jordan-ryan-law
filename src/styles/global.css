@@ -44,6 +44,16 @@
   --surface-navy-fg: #ffffff;
   --surface-navy-fg-soft: rgba(255, 255, 255, 0.72);
   --surface-navy-rule: rgba(255, 255, 255, 0.18);
+  /* Nav-link hover/focus accent on the fixed navy surface. --surface-navy-rule
+     (used for structural dividers above) only reaches ~1.7:1 against navy —
+     under the 3:1 WCAG non-text minimum for a UI state indicator. Same fix
+     as --focus-ring-on-navy: a single hardcoded constant, not the light/dark
+     --gold-ink token, because this surface doesn't change between themes and
+     light theme's --gold-ink (#8a5a00) only clears ~2.35:1 here. Uses dark
+     theme's brass/copper --gold-ink value instead (~3.9:1) rather than
+     --gold itself, since --gold already signals "current page" in this nav —
+     reusing it for hover would blur that distinction. */
+  --surface-navy-accent: #c67139;
 
   /* Second, deliberately distinct navy surface for one-off "destination"
      moments (e.g. Home's consultation close) — deeper than the header/
