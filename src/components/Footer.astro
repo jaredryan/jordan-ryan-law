@@ -49,7 +49,12 @@ const year = new Date().getFullYear()
   .site-footer {
     background: var(--surface-navy);
     color: var(--surface-navy-fg);
-    margin-top: var(--s9);
+    /* Pages without their own navy/dark closing band (Contact, Payment) —
+       tighter than --s9 so the page doesn't end with noticeably more
+       breathing room than it opened with under the header. Pages that do
+       end in a closing band keep that band's own deliberate padding via
+       .site-footer--flush below, untouched. */
+    margin-top: var(--s7);
   }
 
   .site-footer--flush {
@@ -63,6 +68,13 @@ const year = new Date().getFullYear()
     display: grid;
     grid-template-columns: 1.2fr 1fr 1fr;
     gap: var(--s7);
+    /* Each column's content group is centered within its own track rather
+       than stretching to the track's full width and sitting flush left —
+       the brand block, nav list, and contact block each keep their own
+       internal left alignment (address lines, nav links, contact details
+       all still line up against each other), only the group as a whole
+       shifts to the middle of its column. */
+    justify-items: center;
   }
 
   .site-footer__brand {
@@ -139,6 +151,21 @@ const year = new Date().getFullYear()
     .site-footer__bar {
       grid-template-columns: 1fr;
       gap: var(--s6);
+      /* Centering each block only reads well when it's competing for space
+         inside its own narrow column (the multi-column layout above). Once
+         everything stacks into one full-width column, centering each block
+         independently gives the brand mark, nav links, and contact block
+         three different left edges depending on their own content width.
+         justify-items:start sizes each block to its own content (same as
+         center does) but anchors all three to the column's left edge
+         instead, so they read as one deliberate left-aligned stack. */
+      justify-items: start;
+      /* Shrinks the whole stacked column to the width of its widest block
+         (existing margin:0 auto on this element then centers that shrunk
+         column within the footer) — the three blocks still share one left
+         edge via justify-items:start above, but the column they share it
+         in is no longer pinned to the page's standard left padding. */
+      width: max-content;
     }
   }
 </style>

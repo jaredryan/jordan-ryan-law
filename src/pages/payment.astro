@@ -113,4 +113,17 @@ const jsonLd = [
     margin: 0;
     color: var(--fg-soft);
   }
+
+  /* Page header: matches the same eyebrow/h1 centering used on Home,
+     About, Contact, and Expertise at narrow widths. Scoped to the direct
+     eyebrow/h1/lead children only — the payment card (already centered
+     unconditionally) and the questions/accepted-methods list stay as they
+     are. */
+  @media (max-width: 899px) {
+    .payment-section > .eyebrow,
+    .payment-section > h1,
+    .payment-section > .lead {
+      text-align: center;
+    }
+  }
 </style>

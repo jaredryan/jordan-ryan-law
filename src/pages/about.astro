@@ -153,12 +153,14 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       <section class="about-section about-section--crystal" id="crystal">
         <div class="about-crystal">
           <div class="about-crystal__avatar" aria-hidden="true">CB</div>
-          <div>
+          <div class="about-crystal__identity">
             <span class="about-heading-rule" aria-hidden="true"></span>
             <h2>{crystalBrightwell.name}</h2>
-            <p class="about-crystal__meta">
-              {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
-            </p>
+          </div>
+          <p class="about-crystal__meta">
+            {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
+          </p>
+          <div class="about-crystal__bio">
             {crystalBrightwell.bio.map((paragraph) => <p>{paragraph}</p>)}
           </div>
         </div>
@@ -456,10 +458,26 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     columns: 2 220px;
   }
 
+  /* Named grid areas rather than explicit row/column numbers — the same
+     four parts (avatar, identity, meta, bio) get reshuffled at each
+     breakpoint below by redeclaring grid-template-areas alone, with no
+     other rule needing to change. avatar's area name repeats down as many
+     rows as it should visually span; wherever it stops repeating, avatar
+     stops spanning and the next full-width row starts. */
   .about-crystal {
     display: grid;
     grid-template-columns: 88px 1fr;
-    gap: var(--s5);
+    grid-template-areas:
+      'avatar identity'
+      'avatar meta'
+      'avatar bio';
+    column-gap: var(--s5);
+    /* No row-gap anywhere in this card, at any width — the space between
+       identity/meta/bio comes entirely from their own margins (meta's
+       negative margin-top pulling it snug under the name, paragraphs'
+       ordinary margin-bottom), matching how it reads as plain running text
+       rather than gridded blocks. */
+    row-gap: 0;
     align-items: start;
     background: var(--bg-raised);
     padding: var(--s6);
@@ -472,13 +490,8 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     max-width: var(--content-narrow);
   }
 
-  /* The bio's last paragraph shouldn't add its own bottom margin on top of
-     the card's padding — that would visually double the bottom spacing. */
-  .about-crystal p:last-child {
-    margin-bottom: 0;
-  }
-
   .about-crystal__avatar {
+    grid-area: avatar;
     width: 88px;
     height: 88px;
     border-radius: 50%;
@@ -493,11 +506,26 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     font-size: 1.5rem;
   }
 
+  .about-crystal__identity {
+    grid-area: identity;
+  }
+
   .about-crystal__meta {
+    grid-area: meta;
     color: var(--fg-soft);
     font-weight: 600;
     font-size: 0.9375rem;
     margin-top: calc(var(--s2) * -1);
+  }
+
+  .about-crystal__bio {
+    grid-area: bio;
+  }
+
+  /* The bio's last paragraph shouldn't add its own bottom margin on top of
+     the card's padding — that would visually double the bottom spacing. */
+  .about-crystal__bio p:last-child {
+    margin-bottom: 0;
   }
 
   .about-training-glance {
@@ -671,6 +699,114 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
 
     :root[data-theme='dark'] .about-jump-nav li a.is-active {
       color: var(--gold-accent);
+    }
+
+    /* Below 1100px the rail disappears and every section fills the single
+       remaining column — a narrower reading-measure block (.about-narrow,
+       .about-crystal) that isn't also centered just hugs the left edge with
+       an unexplained void on the right. Center these as blocks by default;
+       structured content that doesn't need a narrow measure (the
+       affiliations list below) is widened back out instead, right after. */
+    .about-narrow,
+    .about-crystal {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Matches the same 1100px transition as the rail/jump-nav swap above,
+       rather than its own separate breakpoint — with the intro identity
+       block, section headers, and everything else already switching to
+       their centered one-column treatment at 1100px, keeping Crystal's
+       bio-beside-portrait layout until 880px read like a mismatched holdover
+       in between. The portrait stays beside the name and meta line here;
+       the bio breaks out to span the full card width underneath instead of
+       squeezing into a narrow second column. */
+    .about-crystal {
+      grid-template-areas:
+        'avatar identity'
+        'avatar meta'
+        'bio    bio';
+      padding: var(--s5);
+    }
+
+    .about-record-card {
+      max-width: none;
+    }
+
+    /* Affiliations is a plain name list, not prose — like the current/past
+       client lists right above it in the same section, it reads better
+       using the full available width than staying capped to prose measure
+       and centered as an undersized column. */
+    #clients-affiliations .about-narrow {
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    /* The intro identity composition (portrait, eyebrow, name) reads as
+       more deliberate centered as a unit now that the desktop rail's
+       two-column relationship is gone — but the summary paragraphs below
+       it stay left aligned, same as every other section's body copy. */
+    #intro {
+      text-align: center;
+    }
+
+    #intro .about-portrait {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #intro p {
+      text-align: left;
+    }
+
+    /* Major section headers (Credentials, Litigation Record, Training,
+       Positions, Admissions, Clients & Affiliations): the heading-rule
+       marker and the h2 itself center as a unit. Everything that follows —
+       the section's own intro sentence/paragraphs, lists, and tables —
+       stays left aligned, same as before. Scoped to direct children so
+       Crystal's own heading (nested inside .about-crystal, reviewed
+       separately) isn't affected. */
+    .about-section > .about-heading-rule {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about-section > h2 {
+      text-align: center;
+    }
+  }
+
+  /* Narrowest phones: "Crystal Brightwell" wraps to two lines beside the
+     portrait below ~470px, which starts to crowd the meta line out of that
+     same column — move the meta line down to its own full-width row (still
+     above the bio) rather than let it get cramped beside a two-line name.
+     Also gives the identity block back the ordinary paragraph margin-bottom
+     it doesn't need at wider widths: with a wrapped two-line name now
+     determining the row's height, meta's own -8px pull-up (tuned for a
+     single-line name) would otherwise overlap the name's second line.
+     Placed after the 1099px block on purpose — both blocks set
+     .about-crystal's grid-template-areas, and at any width in their
+     overlap (<=470px satisfies both), plain CSS resolves the tie by source
+     order, not by which max-width is narrower. This one needs to win. */
+  @media (max-width: 470px) {
+    .about-crystal {
+      grid-template-areas:
+        'avatar identity'
+        'meta   meta'
+        'bio    bio';
+    }
+
+    .about-crystal__identity {
+      margin-bottom: var(--s4);
+      /* "Crystal Brightwell" naturally wraps to two lines on its own
+         starting around 465px, but the breakpoint above switches to this
+         layout at 470px — leaving a ~466–470px window where the name still
+         fits on one line but meta has already dropped to its own row below,
+         reading as inconsistent. Forcing the wrap here (name wraps at
+         ~258px; 250px leaves a small margin) makes the two-line name and
+         the dropped meta row start together at exactly the same breakpoint. */
+      max-width: 250px;
     }
   }
 

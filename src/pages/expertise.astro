@@ -65,14 +65,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
         </a>
       </section>
 
-      <nav class="exp-chip-nav" aria-label="Practice areas" data-spy-rail>
-        {
-          areasOfPractice.map((area) => (
-            <a href={`#${area.slug}`}>{area.name}</a>
-          ))
-        }
-      </nav>
-
       <details class="exp-jump-nav" data-spy-rail>
         <summary>Jump to a practice area</summary>
         <ul>
@@ -87,15 +79,11 @@ const pad = (n: number) => String(n).padStart(2, '0')
       </details>
 
       {
-        areasOfPractice.map((area, i) => {
-          const prev = areasOfPractice[i - 1]
-          const next = areasOfPractice[i + 1]
+        areasOfPractice.map((area) => {
           const aboutHref = area.proof?.linkHref ?? '/about#credentials'
           return (
             <article class="exp-section page-section page-section--narrow" id={area.slug}>
-              <span class="exp-section__num" aria-hidden="true">
-                {pad(i + 1)}
-              </span>
+              <span class="exp-section__rule" aria-hidden="true"></span>
               <h2>{area.name}</h2>
               <p>{area.content}</p>
 
@@ -134,13 +122,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
                 )}
                 <a href="/contact" class="btn btn-secondary">Discuss {area.name.toLowerCase()}</a>
               </div>
-
-              {(prev || next) && (
-                <nav class="exp-section__pager" aria-label="More practice areas">
-                  {prev ? <a href={`#${prev.slug}`}>← {prev.name}</a> : <span />}
-                  {next ? <a href={`#${next.slug}`}>{next.name} →</a> : <span />}
-                </nav>
-              )}
             </article>
           )
         })
@@ -176,7 +157,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
     min-width: 0;
   }
 
-  .exp-chip-nav,
   .exp-jump-nav {
     display: none;
   }
@@ -197,37 +177,27 @@ const pad = (n: number) => String(n).padStart(2, '0')
   }
 
   .exp-section:first-of-type {
+    /* No divider line here — it isn't separating this section from a
+       previous one, just from the intro/jump-nav above it. padding-top
+       stays the same var(--s8) as every other section, though: without a
+       number to carry visual weight, matching the others' top spacing is
+       what makes this section read as "a section begins here" too. */
     border-top: none;
-    /* The intro block above already carries a full .page-section bottom
-       padding; without this, the first section stacks its own top padding
-       on top of that and doubles the gap before "01" begins. */
-    padding-top: 0;
   }
 
-  /* A short gold rule ahead of each number turns it into a repeatable
-     chapter-opening marker (the same "short gold rule" motif used
-     elsewhere on Home/About) rather than just a small numeral — a
-     low-intensity device meant to survive all six repetitions without
-     calling attention to itself. */
-  .exp-section__num {
-    font-family: var(--font-display);
-    font-style: italic;
-    color: var(--gold-ink);
-    font-size: 1.0625rem;
-    letter-spacing: 0.02em;
-    display: flex;
-    align-items: center;
-    gap: var(--s3);
-    margin-bottom: var(--s3);
-  }
-
-  .exp-section__num::before {
-    content: '';
+  /* Same short-gold-rule "a section begins here" cue as About's
+     .about-heading-rule, minus a numeral — the six practice areas aren't a
+     sequence (no area depends on or follows from another; a reader can
+     start with any one), so numbering them the way About's list rail does
+     would be decoration without meaning. The non-rail jump-nav already
+     lists all six by name with no numbers, so this also removes the
+     mismatch between an unnumbered nav and numbered section headers. */
+  .exp-section__rule {
     display: block;
     width: 22px;
     height: 2px;
     background: var(--gold-accent);
-    flex-shrink: 0;
+    margin-bottom: var(--s3);
   }
 
   /* A subtly raised/tinted surface distinguishes the client-type and
@@ -270,39 +240,38 @@ const pad = (n: number) => String(n).padStart(2, '0')
     margin-top: var(--s6);
   }
 
-  .exp-section__pager {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--s4);
-    margin-top: var(--s7);
-    padding-top: var(--s5);
-    border-top: 1px solid var(--rule);
-    font-weight: 600;
+  /* Mobile (<=640px, matching .page-section's own mobile breakpoint): the
+     actions row has too little width for space-between to read as
+     intentional — stack and center the pair instead. */
+  @media (max-width: 640px) {
+    .exp-section__actions {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
   }
 
-  .exp-section__pager a {
-    color: var(--fg);
-    text-decoration: none;
-  }
-
-  .exp-section__pager a:hover,
-  .exp-section__pager a:focus-visible {
-    color: var(--navy);
-  }
-
-  :root[data-theme='dark'] .exp-section__pager a:hover,
-  :root[data-theme='dark'] .exp-section__pager a:focus-visible {
-    color: var(--gold-accent);
-  }
-
-  /* Portrait-tablet and mobile (<=880px): labeled jump control. */
-  @media (max-width: 880px) {
+  /* Portrait-tablet and mobile (<=1099px, matching About's own rail
+     breakpoint): sticky labeled jump control — the same pattern as
+     About's .about-jump-nav, reused verbatim rather than inventing a
+     second sticky-nav system. Placed after the intro (unlike About, where
+     it precedes the page's own intro block) so it reads as "here's where
+     you are, here's where else you can go" once the reader has already
+     seen the page's framing. */
+  @media (max-width: 1099px) {
     .exp-jump-nav {
       display: block;
-      margin: 0 var(--s4) var(--s6);
+      /* No bottom margin — Labor and Employment's own padding-top now
+         provides the gap before it starts; a margin here would stack on
+         top of that and double the space. */
+      margin: 0 var(--s4);
       border: 1px solid var(--rule);
       border-radius: 4px;
       padding: var(--s3) var(--s4);
+      position: sticky;
+      top: calc(var(--s4) + 60px);
+      background: var(--bg);
+      z-index: 10;
     }
 
     .exp-jump-nav summary {
@@ -317,12 +286,10 @@ const pad = (n: number) => String(n).padStart(2, '0')
     }
 
     .exp-jump-nav li a {
-      display: block;
-      padding: var(--s2) 0;
-      color: var(--fg);
-      min-height: 44px;
       display: flex;
       align-items: center;
+      min-height: 44px;
+      color: var(--fg);
     }
 
     .exp-jump-nav li a.is-active {
@@ -334,50 +301,30 @@ const pad = (n: number) => String(n).padStart(2, '0')
       color: var(--gold-accent);
     }
 
-    .exp-compare {
-      grid-template-columns: 1fr;
+    /* Page header: matches the same eyebrow/h1 centering used on Home,
+       About, and Contact once their two-column/rail layouts collapse. The
+       intro's lead and "ask Russ" link are short enough to center along
+       with it, same as Home's hero and Contact's hero. */
+    .exp-intro {
+      text-align: center;
+    }
+
+    /* Major section headers: the rule marker and the practice area's own
+       name, centered as a unit — the explanatory paragraph, "What this
+       covers" list, and CTA row that follow stay left aligned. */
+    .exp-section__rule {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exp-section > h2 {
+      text-align: center;
     }
   }
 
-  /* Condensed landscape-tablet / narrow-laptop (881–1099px): compact
-     horizontal nav replaces the sidebar. */
-  @media (min-width: 881px) and (max-width: 1099px) {
-    .exp-chip-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--s3);
-      padding: 0 var(--s5) var(--s6);
-    }
-
-    .exp-chip-nav a {
-      padding: var(--s2) var(--s4);
-      border: 1px solid var(--rule);
-      border-radius: 999px;
-      color: var(--fg);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-
-    .exp-chip-nav a:hover,
-    .exp-chip-nav a:focus-visible {
-      border-color: var(--navy);
-    }
-
-    :root[data-theme='dark'] .exp-chip-nav a:hover,
-    :root[data-theme='dark'] .exp-chip-nav a:focus-visible {
-      border-color: var(--gold-accent);
-    }
-
-    .exp-chip-nav a.is-active {
-      border-color: var(--navy);
-      color: var(--navy);
-      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
-    }
-
-    :root[data-theme='dark'] .exp-chip-nav a.is-active {
-      border-color: var(--gold-accent);
-      color: var(--gold-accent);
+  @media (max-width: 880px) {
+    .exp-compare {
+      grid-template-columns: 1fr;
     }
   }
 

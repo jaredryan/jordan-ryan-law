@@ -112,7 +112,15 @@ function initScrollSpy() {
 
   for (const [id, links] of linksByHash) {
     for (const link of links) {
-      link.addEventListener('click', () => activateAndSuspend(id))
+      link.addEventListener('click', () => {
+        // Collapses the mobile/tablet <details> jump nav (About, Expertise)
+        // before the browser scrolls to the target — left open, its
+        // expanded height can sit tall enough to cover the heading the
+        // reader just navigated to. No-op for the desktop rail's plain
+        // links, which aren't inside a <details>.
+        link.closest('details')?.removeAttribute('open')
+        activateAndSuspend(id)
+      })
     }
   }
 

@@ -178,22 +178,35 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     padding: var(--s6) var(--s5);
     /* Five items: avoid an orphaned single item on the last row at
        in-between widths (auto-fit's default 140px minmax would produce a
-       lonely 5th item around tablet widths). Stack on mobile, 3-up on
-       tablet (3 + 2, no orphan), 5-up once the content column is wide
-       enough to breathe. */
-    grid-template-columns: 1fr;
+       lonely 5th item around tablet widths). 2-up on phone (2 + 2 + 1,
+       last item spans both columns rather than stranding it beside an
+       empty cell), 3-up on tablet (3 + 2, no orphan), 5-up once the
+       content column is wide enough to breathe. */
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--s6) var(--s5);
+  }
+
+  .proof-figure:last-child {
+    grid-column: 1 / -1;
   }
 
   @media (min-width: 480px) and (max-width: 899px) {
     .proof-band__inner {
       grid-template-columns: repeat(3, 1fr);
     }
+
+    .proof-figure:last-child {
+      grid-column: auto;
+    }
   }
 
   @media (min-width: 900px) {
     .proof-band__inner {
       grid-template-columns: repeat(5, 1fr);
+    }
+
+    .proof-figure:last-child {
+      grid-column: auto;
     }
   }
 
@@ -426,16 +439,39 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   @media (max-width: 860px) {
     .hero {
       grid-template-columns: 1fr;
-      text-align: left;
+      text-align: center;
       padding-top: var(--s6);
     }
 
     .hero__portrait {
       max-width: 220px;
+      margin: 0 auto;
+    }
+
+    .hero__copy h1 {
+      /* 16ch (set above, unconditionally) is tuned for the desktop
+         two-column hero, where a narrow, tall-flowing heading balances the
+         portrait beside it. With that column gone, the same cap just wraps
+         the same headline into far more lines than the full-width
+         container needs — let it use the whole available width instead. */
+      max-width: none;
+    }
+
+    .hero__actions {
+      justify-content: center;
     }
 
     .record {
       grid-template-columns: 1fr;
+    }
+
+    /* Major section header: matches the eyebrow/h2 centering already
+       established on .practice-overview__intro above it — the explanatory
+       paragraph, "full credentials" link, and the record__list stay left
+       aligned. */
+    .record__intro > .eyebrow,
+    .record__intro > h2 {
+      text-align: center;
     }
   }
 </style>
