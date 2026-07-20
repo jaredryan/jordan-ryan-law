@@ -31,3 +31,8 @@ npm run dev
 - `npm run test:unit` — unit tests for the contact Netlify Function (Node's built-in test runner, Resend mocked — never sends real email)
 - `npm run test:e2e` — Playwright smoke tests
 - `npm test` — both of the above
+
+### SEO
+
+- **Sitemap**: generated automatically on every `npm run build` by the `@astrojs/sitemap` integration (`astro.config.mjs`). Production URL to submit to Google Search Console / Bing Webmaster Tools: **`https://ryanlegalpc.com/sitemap-index.xml`**. It's an index file pointing at `sitemap-0.xml` (the 5 indexable pages — `/404` is deliberately excluded). `public/robots.txt` already references this same URL, so nothing else needs to change if/when Search Console is set up.
+- Structured data (JSON-LD) and canonical/OG/Twitter metadata are documented in detail in `docs/legacy-content-inventory.md`, under "Structured-data & technical SEO pass".

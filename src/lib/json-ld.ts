@@ -113,6 +113,7 @@ export function webPageJsonLd(opts: {
     url,
     name: opts.name,
     description: opts.description,
+    inLanguage: 'en',
     isPartOf: { '@id': websiteId },
     ...(opts.breadcrumbs && opts.breadcrumbs.length > 1
       ? {
@@ -162,6 +163,15 @@ export function russRyanPersonJsonLd(): JsonLd {
       { '@type': 'CollegeOrUniversity', name: 'Brigham Young University' },
     ],
     worksFor: { '@id': firmId },
+    // Verified 2026-07-19 (Jared) — his own State Bar, LinkedIn, Super
+    // Lawyers, and Martindale attorney-profile pages, not firm profiles.
+    sameAs: [
+      'https://apps.calbar.ca.gov/attorney/Licensee/Detail/139835',
+      'https://www.linkedin.com/in/russell-ryan-79066514/',
+      'https://profiles.superlawyers.com/california/fresno/lawyer/russell-k-ryan/21b78cdf-4eed-4bf1-a0cc-7fd4522b0e08.html',
+      'https://www.martindale.com/attorney/russell-kent-ryan-99467/',
+      'https://www.avvo.com/attorneys/93704-ca-russell-ryan-72093.html',
+    ],
   }
 }
 
