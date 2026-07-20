@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { businessName, businessSlogan, businessExplanation, defaultDescription, defaultKeywords } from '@/data/site'
 import { areasOfPractice } from '@/data/practice-areas'
-import { courtAdmissions, ratingsAndDesignations } from '@/data/credentials'
+import { ratingsAndDesignations } from '@/data/credentials'
 import { russRyan, crystalBrightwell } from '@/data/people'
 import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
 
@@ -28,7 +28,6 @@ const superLawyerYears = Number.isNaN(superLawyerStartYear) ? undefined : new Da
 const proofItems = [
   { value: '35+', label: 'Years in Practice' },
   { value: '90%', label: 'Prevailed at Trial or Arbitration' },
-  { value: String(courtAdmissions.length), label: 'Federal & State Courts Admitted' },
   { value: 'AV', label: 'Preeminent Rated, Martindale-Hubbell' },
   { value: superLawyerYears ? `${superLawyerYears}+` : '10+', label: 'Years Named a Super Lawyer' },
 ]
@@ -176,37 +175,19 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     max-width: var(--content-width);
     margin: 0 auto;
     padding: var(--s6) var(--s5);
-    /* Five items: avoid an orphaned single item on the last row at
-       in-between widths (auto-fit's default 140px minmax would produce a
-       lonely 5th item around tablet widths). 2-up on phone (2 + 2 + 1,
-       last item spans both columns rather than stranding it beside an
-       empty cell), 3-up on tablet (3 + 2, no orphan), 5-up once the
-       content column is wide enough to breathe. */
-    grid-template-columns: repeat(2, 1fr);
+    /* Four items divide evenly into either 2 or 4 columns, so there's no
+       orphan risk at any width the way there was with five — no last-item
+       span-fix needed. 4-up by default (four short items fit comfortably
+       in a row down to fairly narrow widths); 2-up only once that row
+       actually gets tight, reusing the existing .page-section mobile
+       breakpoint rather than a one-off value. */
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--s6) var(--s5);
   }
 
-  .proof-figure:last-child {
-    grid-column: 1 / -1;
-  }
-
-  @media (min-width: 480px) and (max-width: 899px) {
+  @media (max-width: 640px) {
     .proof-band__inner {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .proof-figure:last-child {
-      grid-column: auto;
-    }
-  }
-
-  @media (min-width: 900px) {
-    .proof-band__inner {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    .proof-figure:last-child {
-      grid-column: auto;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -472,6 +453,15 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     .record__intro > .eyebrow,
     .record__intro > h2 {
       text-align: center;
+    }
+
+    /* Each proof item centered within its own grid quadrant as a block —
+       same technique as the footer's multi-column layout (justify-items on
+       the grid, not text-align on the item). The rule, value, and label
+       stay left aligned relative to each other inside that now-centered,
+       shrink-to-fit box. */
+    .proof-band__inner {
+      justify-items: center;
     }
   }
 </style>
