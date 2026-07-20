@@ -2,7 +2,7 @@
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
 import { businessName, defaultDescription, siteUrl } from '@/data/site'
-import type { JsonLd } from '@/lib/json-ld'
+import { buildGraph, type JsonLd } from '@/lib/json-ld'
 import '@/styles/global.css'
 
 // Preloaded so the header's brand mark (Libre Baskerville) and nav/CTA text
@@ -24,11 +24,15 @@ interface Props {
   // page ends in one continuous dark block rather than a page-background
   // gap before the footer.
   flushFooter?: boolean
+  // For non-indexable pages (currently just 404) — real HTTP 404 status
+  // already keeps it out of the index, this is defense in depth.
+  noindex?: boolean
 }
 
-const { title, description = defaultDescription, path, keywords, jsonLd = [], flushFooter = false } = Astro.props
+const { title, description = defaultDescription, path, keywords, jsonLd = [], flushFooter = false, noindex = false } = Astro.props
 const canonicalUrl = new URL(path, siteUrl).toString()
 const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
+const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
 ---
 
 <!doctype html>
@@ -55,6 +59,7 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
 
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -72,7 +77,7 @@ const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={new URL('/twitter-image.png', siteUrl).toString()} />
 
-    {jsonLd.map((entry) => <script type="application/ld+json" is:inline set:html={JSON.stringify(entry)} />)}
+    {graph && <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>

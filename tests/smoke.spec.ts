@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test'
 
 const routes: { path: string; heading: string }[] = [
-  { path: '/', heading: 'Direct access to one attorney' },
-  { path: '/expertise', heading: 'Where Ryan Legal focuses' },
+  { path: '/', heading: 'Practical day-to-day counsel' },
+  { path: '/expertise', heading: 'Areas of Practice' },
   { path: '/about', heading: 'Russell K. Ryan' },
   { path: '/contact', heading: 'Start a conversation' },
   { path: '/payment', heading: 'LawPay' },

@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import ContactForm from '@/components/ContactForm.astro'
 import { contact, address } from '@/data/site'
 import { russRyan, crystalBrightwell } from '@/data/people'
-import { webPageJsonLd } from '@/lib/json-ld'
+import { webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
 
 const description = 'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.'
 const keywords = [
@@ -20,10 +20,14 @@ const jsonLd = [
     path: '/contact',
     name: 'Contact Ryan Legal, PC',
     description,
+    // "Contact" matches the nav label — /contact-us is only a 301 redirect,
+    // never the client-facing name for this page.
     breadcrumbs: [
       { name: 'Home', path: '/' },
-      { name: 'Contact Us', path: '/contact' },
+      { name: 'Contact', path: '/contact' },
     ],
+    pageType: 'ContactPage',
+    mentions: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
   }),
 ]
 

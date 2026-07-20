@@ -86,13 +86,18 @@ function buildHtml() {
     max-width: 96%;
   }
   .locale {
+    /* ~41% larger than the initial pass (1.35vw -> 1.9vw) — too small to
+       read at real feed-preview sizes. Letter-spacing nudged down slightly
+       (0.1em -> 0.08em) so the wider glyphs don't read as over-spaced at
+       the larger size. Still clearly smaller/less prominent than .statement,
+       same gold color, position, and margin as before. */
     display: block;
     margin-top: 5.5%;
     color: ${GOLD};
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-size: 1.35vw;
+    font-size: 1.9vw;
   }
   .right {
     flex: 1;

@@ -32,6 +32,11 @@
   --tag-bg: #f1ecdf;
   --error: #c0392b;
   --focus-ring: var(--navy-deep);
+  /* The default --focus-ring (dark navy in light theme) has too little
+     contrast against the fixed navy header/footer surface — gold reads
+     clearly against that navy in both themes, so it's a single constant
+     rather than something redefined per theme. */
+  --focus-ring-on-navy: var(--gold);
   --ivory: #edebe3;
 
   /* Fixed navy surface (header/footer) — identical in both themes. */
@@ -239,6 +244,30 @@ summary:focus-visible,
   border-radius: 2px;
 }
 
+/* Dedicated on-navy focus treatment — anything focusable inside an
+   .on-navy surface (header, footer) gets the gold ring instead of the
+   default, which is dark navy in light theme and all but invisible
+   against the fixed navy header/footer. The 2px outline-offset above
+   already draws the ring outside the element's own box, so it sits in
+   the navy gap around each element, not overlapping it. */
+.on-navy a:focus-visible,
+.on-navy button:focus-visible,
+.on-navy input:focus-visible,
+.on-navy textarea:focus-visible,
+.on-navy summary:focus-visible,
+.on-navy [tabindex]:focus-visible {
+  outline-color: var(--focus-ring-on-navy);
+}
+
+/* Gold-filled buttons (.btn-primary on-navy) are the one exception: a gold
+   ring around a gold button reads as weak even with the offset gap, since
+   both the button face and the ring are the same hue. Ivory pops clearly
+   against the navy gap on both sides of the ring without competing with
+   the button's own gold. */
+.on-navy .btn-primary:focus-visible {
+  outline-color: var(--ivory);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -385,19 +414,25 @@ summary:focus-visible,
 
 /* Tertiary — editorial text link. One visual signal: a single gold
    underline appears on hover/focus. Text color never changes, so this
-   never produces the "two underlines" problem. */
+   never produces the "two underlines" problem. A real text-decoration
+   underline (matching .practice-grid__item h3 a) rather than border-bottom,
+   so a wrapped link (e.g. "Not sure where you fit? Ask Russ directly →" on
+   narrow viewports) gets a correctly-spaced underline per line instead of
+   one rigid bar under the whole box. */
 .link-editorial {
   color: var(--navy);
-  text-decoration: none;
-  padding-bottom: 1px;
-  border-bottom: 2px solid transparent;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: calc(0.18em + 1.5px);
+  text-decoration-skip-ink: auto;
   font-weight: 600;
-  transition: border-color var(--transition-fast);
+  transition: text-decoration-color var(--transition-fast);
 }
 
 .link-editorial:hover,
 .link-editorial:focus-visible {
-  border-bottom-color: var(--gold);
+  text-decoration-color: var(--gold);
 }
 
 :root[data-theme='dark'] .link-editorial,
@@ -406,6 +441,10 @@ summary:focus-visible,
 }
 
 .link-editorial__arrow {
+  /* The underline is inherited/drawn through descendant inline boxes by
+     default — explicitly opting the arrow out keeps it from looking like
+     it's sitting on a line of its own. */
+  text-decoration-line: none;
   display: inline-block;
   transition: transform var(--transition-fast);
 }

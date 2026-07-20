@@ -124,6 +124,29 @@ A narrow follow-up addressing specific items flagged from using the cleanup pass
 
 Bar Admissions and Affiliations are sub-groups *within* otherwise-wide sections (Admissions, Clients & Affiliations) — only their own heading+list pair got `.about-narrow` (not the whole parent section), so Court Admissions and the client lists keep the wide measure while sitting in the same section. Left edges of all headings still align (only the right edge pulls in for narrow content), so the page doesn't read as arbitrarily disconnected, and the existing subgroup-spacing rule (`.archival-table + h3`, etc.) still matches since it doesn't care about extra classes.
 
+## Targeted cleanup pass (2026-07-19, same day as above)
+
+Narrow follow-up fixing specific items found by manual review of the finishing pass's output. Left uncommitted per instruction; no broader Expertise/About color work, no LawPay embed.
+
+- [x] **Favicon — R mark enlarged (2026-07-19, superseded same day — see "Second targeted cleanup pass" below)** — first regenerated at 80% fill (within the then-requested 78–84% range), chosen by comparing 68/74/78/80/82/84% renders at 16/32/48px against white, light-gray, dark-gray, and near-black synthetic browser-chrome backgrounds. Optical (not geometric) centering established here and carried forward unchanged since. Rounded-corner ratio (20%) and the navy hairline stroke established here too, still unchanged as of the most recent pass.
+- [x] **Dedicated on-navy focus treatment** — new `--focus-ring-on-navy: var(--gold)` token in `src/styles/global.css` (theme-invariant — the header/footer navy surface is itself fixed across themes, so a single gold value works everywhere rather than needing per-theme redefinition). Applied via one rule, `.on-navy a:focus-visible, .on-navy button:focus-visible, ... { outline-color: var(--focus-ring-on-navy) }`, layered on the existing sitewide focus rule (which already sets `outline: 2px solid ...; outline-offset: 2px`) — only the *color* changes on navy surfaces, not the shape/thickness/offset. `on-navy` was already present on `<header>` and Home's `.close-section`; added it to `<footer>` itself (previously only its CTA button carried the class) so the one rule covers every footer control without per-element overrides — the footer CTA's now-redundant own `on-navy` class was removed since the ancestor supplies it via the existing descendant selectors. This fixes the light-theme header/footer/close-section case (default `--focus-ring` is dark navy — near-invisible on the navy surface) and keeps dark theme's already-gold ring consistent and explicit rather than incidental. The 2px outline + 2px offset means the ring always renders in the surrounding-surface gap outside each element's own box, so it works correctly on the gold CTA button too (ring sits in the navy gap around the button, not on the gold face) without needing a separate ivory variant.
+- [x] **Home practice-area links — stronger hover/focus treatment** — `.practice-grid__item h3 a` in `src/pages/index.astro` changed from a 1px `border-bottom` to the same 2px treatment as `.link-editorial` (the hero's "See areas of practice" link): `border-bottom: 2px solid transparent` + `padding-bottom: 1px`, resolving to `var(--gold)` (not `--gold-accent`) on hover/focus, matching `.link-editorial` exactly rather than approximately. No layout shift (the border box is reserved at 2px whether transparent or gold), no markup/component changes.
+- [x] **`.about-narrow` implementation reviewed, left unchanged** — inspected the sibling-class subgroup pattern (Bar Admissions, Affiliations: separate `.about-narrow` on the `<h3>` and the following `<ul>` rather than a wrapping element). Conclusion: **sound, no change made.** Both elements are direct children of the same containing block with identical `margin-left: 0` and the same absolute `max-width: var(--content-narrow)` (not a percentage), so their right boundaries are mathematically identical — there's no way for them to drift apart under the current CSS, contrary to what "separately classed elements" might suggest at a glance. A wrapper-based refactor was considered (the brief explicitly permitted it if it would be cleaner) but rejected: the only real argument for it is a hypothetical future-maintenance slip (someone adding a new narrow subgroup and forgetting the class on one of the two siblings), which isn't a concrete problem today, and a wrapper would break the existing sibling-based subgroup-spacing selector (`.archival-table + h3`) unless the selector and every subgroup's markup were refactored together — not justified to fix a theoretical risk. Section-transition dividers (`.about-section`'s `border-top`) are full-width regardless of the content's measure, so narrow/wide transitions read as intentional structural breaks rather than accidental width changes.
+- [x] **Accessibility verification** — three new Playwright tests (decorative-alt + on-navy focus-color resolution in both themes; keyboard order through the skip-link → header brand link, plus every footer link individually reachable; mobile-menu Escape closes and returns focus to the toggle). Header/footer accessible-name tests from the finishing pass re-verified unchanged (header names from visible text, footer via `aria-label`).
+- [x] **Incidental: Home H1 updated (2026-07-19, superseded same day — see below)** — first changed to "Practical counsel for everyday decisions. Strong representation when the stakes are high.", per direct instruction mid-pass. Revised again the same day — see "Second targeted cleanup pass" for the final, approved wording.
+- [x] **Incidental: OG/Twitter "Fresno, California" enlarged** — `.locale` in `scripts/generate-social-images.mjs` increased `1.35vw → 1.9vw` (~41%, within the requested 35–50%), letter-spacing nudged down `0.1em → 0.08em` so the larger glyphs don't read as over-spaced. Verified legible at ~500px/~435px preview widths, still clearly smaller/secondary to `.statement`, same gold color/position/margin, same composition otherwise. Regenerated both images at existing filenames/dimensions. **This composition, including the locale-text size, is now final — not reopened in the pass below.**
+
+## Second targeted cleanup pass (2026-07-19, same day as above)
+
+Narrow follow-up covering final Home H1 wording/verification, an Expertise heading change, a further favicon size increase, an `.on-navy` cleanup, and a wrapped-underline fix. Left uncommitted per instruction; no broader Expertise/About color work, no LawPay embed, OG/Twitter composition not reopened.
+
+- [x] **Home H1 — final, approved wording** — the user manually set it to **"Practical day-to-day counsel. Strong representation when the stakes are high."** (`src/pages/index.astro`). **This exact wording must not be reverted or edited in future passes** — not to "Direct access to one attorney...", not to "Practical counsel for everyday decisions...", and not to any version substituting "advocacy" for "representation". `tests/smoke.spec.ts`'s heading assertion updated to match (`'Practical day-to-day counsel'`). Focused spacing review at 390×844, 768×1024, 1280×720, and 1440×900 (line counts measured via a DOM Range over the heading text, not eyeballed): **4 lines at all four reviewed sizes** (`.hero__copy h1 { max-width: 16ch }`, unchanged) — no orphaned words, no collision with the portrait/CTA/whitespace, no clipping at any reviewed size. No width, font-size, line-height, or spacing change was needed; the existing hero CSS already accommodates the new copy cleanly.
+- [x] **Expertise page H1 changed to "Areas of Practice"** (`src/pages/expertise.astro`, was "Where Ryan Legal focuses") — Russ's preferred client-facing terminology. Navbar label, route, metadata `<title>`/JSON-LD `name` fields, intro paragraph, numbering, rail, jump nav, and responsive behavior all untouched — only the literal `<h1>` text changed. `tests/smoke.spec.ts` and a new `polish-pass.spec.ts` test updated/added to match.
+- [x] **Favicon — R mark enlarged again, 80% → 84%** — still had slightly more empty ivory space than necessary. Compared 80/82/83/84/85% at 16/32/48px against the same four chrome backgrounds as the prior pass; 84–85% were both visibly bolder with clean breathing room around the star, swoosh, R, and lower curve (no antialiased-pixel merging with the border) — finalized at **84%** (the suggested target; 85% wasn't a clear enough improvement to justify going past it). Optical centering (not geometric) retained — recomputed for the new scale, ink centroid still lands within <1px of true canvas center. 20% corner radius and the navy hairline border unchanged. Regenerated `public/favicon.ico` (16/32/48) and `public/icon.png` (96×96); navbar, 404, Apple, and manifest icons untouched.
+- [x] **`.on-navy` removed from the Home consultation section** — `.on-navy` is reserved for surfaces that are navy in *both* themes (header, footer); the consultation section is navy in light theme but ivory in dark theme, so the class was semantically wrong there and made its focus-ring color depend on `.on-navy`'s cross-cutting rule plus a higher-specificity override to undo it in dark mode. `<section class="close-section on-navy">` → `<section class="close-section">` in `src/pages/index.astro`. Replaced with: a local `--close-focus-color` custom property (`var(--gold)` by default on `.close-section`, redefined to `var(--navy)` inside the existing `:root[data-theme='dark'] .close-section` rule) referenced by one unconditional `.close-section a:focus-visible { outline-color: var(--close-focus-color) }` rule — no per-theme selector duplication needed for the focus color itself. Also added an explicit `.close-section .btn-primary` gold-background rule (replicating what `.on-navy .btn-primary` used to provide), since removing the class would otherwise have silently reverted the light-theme button to the sitewide default navy button — the existing more-specific dark-theme button override was untouched and still wins in dark mode. Background, typography, spacing, and content of the section are unchanged; header and footer keep `.on-navy` as before.
+- [x] **Home practice-area links — wrapped-underline fix** — the 2px `border-bottom` treatment from the prior pass looked fine on one line but produced a rigid, poorly-spaced bar on wrapped titles (e.g. "Business Transactions and Finance"), since a border draws once under the element's whole box rather than per line. `.practice-grid__item h3 a` (`src/pages/index.astro`) switched to a real text-decoration underline: `text-decoration-line: underline`, `text-decoration-color: transparent` (default, becoming `var(--gold)` on hover/focus — same transparent-then-colored pattern as before, so still zero layout shift, since text-decoration never affects box layout at all), `text-decoration-thickness: 2px`, `text-underline-offset: 0.18em`, `text-decoration-skip-ink: auto`. Browsers draw text-decoration per line automatically, so every wrapped line gets its own correctly-spaced underline with no markup changes. These links have no arrow/icon inside them (unlike `.link-editorial`), so no dedicated text-span wrapping was needed. `.link-editorial` itself (the hero's "See areas of practice" link) was left on its existing border-based implementation, as instructed — the two don't need to share implementation to match visually.
+- [x] **Accessibility verification** — new Playwright tests: consultation CTA resolves to gold outline in light theme / navy outline in dark theme and confirms the section no longer carries `.on-navy`; practice-area link underline is present-but-transparent by default and turns gold on focus, checked on both a single-line and a wrapped title; Expertise H1 text plus navbar "Expertise" label both verified in one test. Existing header/footer accessible-name, alt="", and keyboard-order tests re-verified unchanged (nothing about header/footer focus or naming changed this pass).
+
 ## Assets preserved as-is
 
 Astro uses the same `public/` convention as the old app. Current `public/` contents (as of the 2026-07-19 cleanup pass):
@@ -139,3 +162,124 @@ Astro uses the same `public/` convention as the old app. Current `public/` conte
 - `@vis.gl/react-google-maps`, `@fortawesome/*`, `react`, `react-dom`, `react-transition-group`, `schema-dts` (kept the *shapes* schema-dts described, but not the package — JSON-LD objects are now plain typed literals in `src/data/`), `next`, `@next/bundle-analyzer` — all removed from dependencies.
 - `pnpm-lock.yaml` — removed; project now uses npm per the new foundation's requirement, fresh `package-lock.json` generated.
 - Stale `.env.example` Postgres/Auth.js template (see above).
+
+## Structured-data & technical SEO pass (2026-07-19, Agent B — orthogonal to concurrent visual work)
+
+Focused JSON-LD and metadata audit. No visible design, copy, navigation, Contact/LawPay behavior, or social-image work touched. Left uncommitted per instruction.
+
+### Original JSON-LD structure and problems found
+
+Emitted from `src/lib/json-ld.ts`, rendered by `src/layouts/BaseLayout.astro` as one `<script>` tag per array entry (Home/Expertise: `LegalService` + `WebSite` + `WebPage`; About: `Person` (Russ) + `WebPage`; Contact/Payment: `WebPage` only; 404: none). Problems found:
+
+- **No Crystal Brightwell entity anywhere** — the primary gap this pass closes.
+- `legalServiceJsonLd()` claimed `acceptedPaymentMethod: Cash, Check`, contradicting `/payment`'s actual visible copy ("Major credit and debit cards, processed securely by LawPay").
+- `openingHours: 'Mo-Fr 08:00-17:00'` was asserted but never published anywhere in visible site content — an unsupported claim.
+- Russ's `alumniOf` said "University of California, Berkeley **School of Law**"; `src/data/credentials.ts` (the source of truth) says "University of California, Berkeley" with no "School of Law" suffix.
+- `russRyanPersonJsonLd()`'s `worksFor` re-embedded `name`/`url` duplicate of the firm entity rather than a plain `@id` reference — a second, driftable copy of the same facts.
+- Home's `webPageJsonLd()` breadcrumb was a single-item list (`Home` alone) — provides no navigational value and is generally discouraged.
+- Contact's breadcrumb labeled the page **"Contact Us"** while the nav (`src/data/site.ts` `navLinks`) and the client-facing route both say **"Contact"** — a metadata/nav terminology mismatch.
+- Each page emitted several *separate* top-level JSON-LD objects (each with its own `@context`) rather than one connected `@graph` — valid, but harder to reason about as a single entity graph.
+- 404 had no `noindex` signal (relies solely on the real HTTP 404 status).
+
+Nothing else was found broken: `@id` values were already stable and consistently reused, `SITE_URL` was already a single source of truth shared by `astro.config.mjs` (canonical `site`), `src/data/site.ts` (JSON-LD/canonical), and `@astrojs/sitemap` — no localhost/preview-URL leakage risk existed structurally, just needed verifying (see Validation below).
+
+### Final connected entity graph
+
+Each page now renders **one** `<script type="application/ld+json">` containing a single `@graph` (see `buildGraph()` in `src/lib/json-ld.ts`), built from the same per-entity functions as before (now `@context`-free, since only the graph root needs one):
+
+- **Home** (`/`): `LegalService` (firm) + `WebSite` + `WebPage` (`mentions` → Russ, Crystal — both are named/quoted on the page).
+- **Expertise** (`/expertise`): `LegalService` (firm) + `WebPage`. No service/product sub-entities added (page describes practice areas, not purchasable services).
+- **About** (`/about`): `Person` (Russ, full) + `Person` (Crystal, full) + `AboutPage` (`mainEntity` → both people). This is the *only* page that fully defines the two Person entities — every other reference to them elsewhere on the site is a bare `{"@id": ...}` pointer, never a redefinition.
+- **Contact** (`/contact`): `ContactPage` (`mainEntity` → firm, `mentions` → Russ, Crystal by `@id`; no LawPay/payment entity here).
+- **Payment** (`/payment`): `WebPage` only — no firm/person entity redefinition; nothing in its graph names LawPay, so no ownership/operation is implied.
+- **404**: no JSON-LD (nothing indexable to describe) + `<meta name="robots" content="noindex, nofollow">`.
+
+### Crystal Brightwell — structured-data representation
+
+`crystalBrightwellPersonJsonLd()` in `src/lib/json-ld.ts`, emitted only on `/about`:
+
+```json
+{
+  "@type": "Person",
+  "@id": "https://ryanlegalpc.com/about#CrystalBrightwell",
+  "name": "Crystal Brightwell",
+  "url": "https://ryanlegalpc.com/about",
+  "jobTitle": "Senior Paralegal / Office Administrator",
+  "description": "Senior Paralegal / Office Administrator, with Ryan Legal, PC for over 24 years.",
+  "email": "crystal@ryanlegalpc.com",
+  "worksFor": { "@id": "https://ryanlegalpc.com#RyanLegalPC" }
+}
+```
+
+Deliberately **not** included: `Attorney`/legal-professional typing, credentials, admissions, awards, alumni data, phone (the shared firm line isn't hers individually), image, or social links. Her email is her own already-published address (`src/data/site.ts` `contact.emails.crystal`, shown on `/contact`) — not invented. The `description` restates the 24-years figure exactly as published on Home (`index.astro`) and About (`about.astro`, `.about-crystal__meta`) — not a new claim.
+
+### Russ Ryan — final representation
+
+`russRyanPersonJsonLd()`, unchanged in shape except: `worksFor` now a bare `{"@id": "...#RyanLegalPC"}` reference (was a partial duplicate object), and `alumniOf` institution names now generated from `src/data/credentials.ts` `education` verbatim (fixes the invented "School of Law" suffix). Single canonical `@id` (`/about#RussellRyan`), referenced — never redefined — from Home's `mentions`, Contact's `mentions`, and the firm's `founder`. `jobTitle: "Founder and Owner"`, `honorificSuffix: "JD, Esq."`, awards/admissions all sourced from `src/data/credentials.ts`.
+
+### Firm entity — selected type
+
+Kept **`LegalService`** (a schema.org `LocalBusiness` subtype) rather than stacking additional types — it's the most specific supported type that fits a solo-attorney law practice with a physical Fresno office, and was already correctly chosen pre-pass. Fixes applied: `acceptedPaymentMethod` corrected to Credit Card / Debit Card (matches `/payment`); `openingHours` removed (unsupported); added `employee: [{"@id": crystal}]` alongside the existing `founder: {"@id": russ}` — Russ is owner/founder, Crystal is staff, so the two relationships aren't interchangeable. `serviceArea: California, Utah` kept as-is — supported by `src/data/credentials.ts` bar admissions (CA 1989, UT 2001), not invented.
+
+### Stable `@id` conventions
+
+Centralized as exported constants in `src/lib/json-ld.ts` (previously inlined as string literals per call site):
+
+```
+firm:    `${siteUrl}#RyanLegalPC`
+website: `${siteUrl}/#website`
+Russ:    `${siteUrl}/about#RussellRyan`
+Crystal: `${siteUrl}/about#CrystalBrightwell`
+pages:   `${siteUrl}<path>#webpage`
+```
+
+All resolve against `SITE_URL` (`src/data/site.ts`), the same single source of truth used by `astro.config.mjs`'s `site` (canonical URLs, `@astrojs/sitemap`) — one env var controls every URL surface. **To add/change staff later**: add a person object to `src/data/people.ts`, a `<name>PersonJsonLd()` builder + exported `<name>Id` constant to `src/lib/json-ld.ts` following the Crystal pattern, then reference the `@id` (never redefine the object) from any other page that mentions them.
+
+### Page-level schema and breadcrumb decisions
+
+- Home: no breadcrumb (single-item "Home alone" trail removed — `webPageJsonLd()` now omits `breadcrumb` entirely when the array has ≤1 entry).
+- Expertise/Payment: kept generic `WebPage` — no more specific schema.org type gives a clear benefit without over-specializing.
+- About → `AboutPage`, Contact → `ContactPage` — both are standard, well-supported specializations with a clear semantic match to the page content.
+- Breadcrumb labels now match nav/client-facing terminology exactly (Contact fix, below). No breadcrumbs added anywhere they didn't already exist.
+
+### Metadata / canonical corrections made
+
+- Contact page breadcrumb label: **"Contact Us" → "Contact"** (matches `navLinks` and the route; `/contact-us` remains only a 301 redirect, never a competing canonical or breadcrumb label).
+- `acceptedPaymentMethod` (Cash/Check → Credit Card/Debit Card) — see above.
+- `openingHours` removed — see above.
+- `alumniOf` institution names corrected to match `src/data/credentials.ts` verbatim.
+- Added `<meta name="robots" content="noindex, nofollow">` to 404 (`BaseLayout.astro` gained an optional `noindex` prop) — defense in depth alongside the real HTTP 404 status already served.
+- Conventional metadata (`<title>`, description, canonical, OG/Twitter, keywords) was audited page-by-page and found already coherent with visible H1s/JSON-LD — no changes needed there. Home's approved H1 ("Practical day-to-day counsel...") and Expertise's approved H1 ("Areas of Practice") were not touched; their JSON-LD `name`/`description` fields already didn't reference the old headings.
+
+### Unsupported or risky properties deliberately omitted
+
+`aggregateRating`/reviews, price ranges, founding dates, social profiles, geographic coverage beyond CA/UT, Crystal's credentials/admissions/awards/image/phone/bio beyond the published tenure line, any `Attorney` typing for Crystal, and any LawPay entity/ownership claim on `/payment`.
+
+### Files changed
+
+`src/lib/json-ld.ts` (Crystal entity, `@id` constants, `buildGraph()`, accuracy fixes), `src/layouts/BaseLayout.astro` (single `@graph` script tag, `noindex` prop), `src/pages/index.astro`, `src/pages/about.astro`, `src/pages/contact.astro`, `src/pages/404.astro` (JSON-LD/metadata wiring only — no markup/CSS touched), `tests/seo-structured-data.spec.ts` (new). `src/pages/expertise.astro` and `src/pages/payment.astro` were audited but needed no changes.
+
+### Validation performed
+
+- `astro check` — 0 errors/warnings/hints.
+- `astro build` — succeeds; also re-run with `SITE_URL=https://ryanlegalpc.com` explicitly (local `.env` defaults it to `http://localhost:3000` for dev) and confirmed `grep -r localhost dist/` finds nothing — no dev/preview URL leakage in a production-value build.
+- Every page's rendered `dist/**/index.html` `<script type="application/ld+json">` parsed with `JSON.parse` by hand — all valid, no duplicate `@id`s within a page, all `@id`s share the canonical origin, `WebPage.url` matches `<link rel="canonical">`.
+- `dist/sitemap-0.xml` includes exactly the 5 indexable routes; `/404` correctly excluded.
+- New Playwright spec `tests/seo-structured-data.spec.ts` (run via `npx playwright test tests/seo-structured-data.spec.ts --project="Desktop Chrome"`, single project/theme per instruction): 8/8 passing — graph parses + origin/`@id`-uniqueness/canonical-agreement on all 5 pages, Crystal typed `Person` with exact title and never `Attorney`, 404 `noindex` + no JSON-LD, `/payment` graph never mentions LawPay.
+- **Validator limitation**: no internet-connected external validator (Google Rich Results Test / schema.org validator) was reachable from this environment — local validation (JSON parsing, schema shape review against schema.org property definitions, manual cross-reference against schema.org type/property docs from training knowledge) was used instead. Valid, parseable JSON-LD does not guarantee a Google rich result; nothing here claims eligibility for any specific rich-result type.
+- `npm ci`, `npm ls`, `npm audit`, and the unit-test suite were intentionally skipped this pass (no dependency or runtime-logic changes) per instruction.
+
+### Remaining project tasks (not completed this pass)
+
+- LawPay embed feasibility — separate task, untouched.
+- Broader Expertise/About visual-interest pass — pending (visual, out of scope for this pass).
+- Updated final design audit — pending.
+- Real deployed Contact-form test — pending (no real email was sent this pass).
+- Russ's Home blockquote approval — pending.
+- Final factual/legal review of all structured-data claims — pending (everything above was cross-checked against existing `src/data/*` and visible copy, but has not had an attorney/owner sign-off).
+- Production cutover — pending.
+
+### Remaining factual questions for owner confirmation
+
+- Should Crystal's `@id`/canonical anchor live at `/about#CrystalBrightwell` (chosen to mirror Russ's existing `/about#RussellRyan` convention), or would a dedicated staff URL be preferred if one is ever added?
+- Is Utah appropriately still a `serviceArea` for the firm-level entity (supported by bar admission, not by the homepage slogan text, which says "throughout California" only) — kept as-is since it predates this pass and is factually supported, but worth an explicit owner call given the slogan's California-only framing.

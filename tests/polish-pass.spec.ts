@@ -95,3 +95,107 @@ test('Footer/header brand links expose correct accessible names, About applies t
   expect(credentialsMaxWidth).toBe('none')
   expect(courtAdmissionsMaxWidth).toBe('none')
 })
+
+test('Header/footer decorative marks use alt="", and on-navy focus rings resolve to gold in both themes', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.site-header__brand-mark')).toHaveAttribute('alt', '')
+  await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('alt', '')
+
+  const GOLD = 'rgb(253, 182, 19)'
+  const headerBrand = page.locator('header').getByRole('link', { name: 'Ryan Legal, PC', exact: true })
+  const footerCta = page.locator('footer').getByRole('link', { name: 'Schedule a Consultation' })
+
+  // Light theme: the sitewide default --focus-ring is dark navy (near-invisible on the
+  // navy header/footer) — .on-navy must override it to gold, including on the gold CTA button.
+  await headerBrand.focus()
+  await expect(headerBrand).toHaveCSS('outline-color', GOLD)
+  await footerCta.focus()
+  await expect(footerCta).toHaveCSS('outline-color', GOLD)
+
+  // Dark theme's sitewide default is already gold, so on-navy should still resolve to the same gold.
+  await page.evaluate(() => {
+    localStorage.setItem('theme', 'dark')
+    document.documentElement.setAttribute('data-theme', 'dark')
+  })
+  await headerBrand.focus()
+  await expect(headerBrand).toHaveCSS('outline-color', GOLD)
+})
+
+test('Keyboard reaches the header brand link right after the skip link', async ({ page, browserName }) => {
+  // WebKit doesn't include plain links in the default Tab order (matches real
+  // Safari's "Full Keyboard Access" default) — this is a browser/engine
+  // difference to work around in the test, not a site bug. The mobile-emulated
+  // "Mobile Safari" project uses this engine and isn't Tab-key-driven anyway.
+  test.skip(browserName === 'webkit', 'WebKit does not Tab to plain links by default')
+  await page.goto('/')
+  await page.keyboard.press('Tab')
+  await expect(page.locator('.skip-link')).toBeFocused()
+  await page.keyboard.press('Tab')
+  await expect(page.locator('header').getByRole('link', { name: 'Ryan Legal, PC', exact: true })).toBeFocused()
+})
+
+test('Every footer link is individually focusable', async ({ page }) => {
+  await page.goto('/')
+  const footerLinks = page.locator('footer a')
+  const count = await footerLinks.count()
+  expect(count).toBeGreaterThan(0)
+  for (let i = 0; i < count; i++) {
+    await footerLinks.nth(i).focus()
+    await expect(footerLinks.nth(i)).toBeFocused()
+  }
+})
+
+test('Mobile menu: Escape closes it and returns focus to the toggle button', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  const toggle = page.locator('[data-menu-toggle]')
+  const nav = page.locator('[data-menu]')
+
+  await toggle.click()
+  await expect(nav).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(nav).toBeHidden()
+  await expect(toggle).toBeFocused()
+})
+
+test('Consultation section is not .on-navy and uses its own theme-aware focus color', async ({ page }) => {
+  await page.goto('/')
+  const closeSection = page.locator('.close-section')
+  await expect(closeSection).not.toHaveClass(/on-navy/)
+
+  const cta = closeSection.getByRole('link', { name: 'Get in touch' })
+  await cta.focus()
+  await expect(cta).toHaveCSS('outline-color', 'rgb(237, 235, 227)') // ivory, light-theme gold button on navy
+
+  await page.evaluate(() => {
+    localStorage.setItem('theme', 'dark')
+    document.documentElement.setAttribute('data-theme', 'dark')
+  })
+  await cta.focus()
+  await expect(cta).toHaveCSS('outline-color', 'rgb(138, 90, 0)') // gold-ink, dark-theme navy button on ivory
+})
+
+test('Home practice-area links underline correctly, including a wrapped title', async ({ page }) => {
+  await page.goto('/')
+  const singleLine = page.locator('.practice-grid__item h3 a', { hasText: 'Health Care' })
+  const wrapped = page.locator('.practice-grid__item h3 a', { hasText: 'Business Transactions and Finance' })
+
+  for (const link of [singleLine, wrapped]) {
+    await expect(link).toHaveCSS('text-decoration-line', 'underline')
+    // Default state: underline is present but transparent (no layout-affecting property changes on hover/focus).
+    const restColor = await link.evaluate((el) => getComputedStyle(el).textDecorationColor)
+    expect(restColor).toBe('rgba(0, 0, 0, 0)')
+    await link.focus()
+    await expect(link).toHaveCSS('text-decoration-color', 'rgb(253, 182, 19)')
+  }
+})
+
+test('Expertise page H1 reads "Areas of Practice" while the navbar keeps "Expertise"', async ({ page }) => {
+  await page.goto('/expertise')
+  await expect(page.locator('h1')).toHaveText('Areas of Practice')
+  // A plain DOM/text locator rather than getByRole: at mobile widths the nav
+  // (both the desktop bar and the closed disclosure menu) is display:none,
+  // which removes it from the accessibility tree entirely — getByRole would
+  // report "not found" there even though the label text itself is unaffected.
+  await expect(page.locator('header a[href="/expertise"]').first()).toHaveText('Expertise')
+})

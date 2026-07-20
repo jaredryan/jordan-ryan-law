@@ -12,7 +12,7 @@ import {
   expertise,
 } from '@/data/credentials'
 import { currentClients, pastClients } from '@/data/clients'
-import { webPageJsonLd, russRyanPersonJsonLd } from '@/lib/json-ld'
+import { webPageJsonLd, russRyanPersonJsonLd, crystalBrightwellPersonJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
 
 const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
 const keywords = [
@@ -30,6 +30,7 @@ const keywords = [
 
 const jsonLd = [
   russRyanPersonJsonLd(),
+  crystalBrightwellPersonJsonLd(),
   webPageJsonLd({
     path: '/about',
     name: 'About Ryan Legal, PC',
@@ -38,6 +39,8 @@ const jsonLd = [
       { name: 'Home', path: '/' },
       { name: 'About', path: '/about' },
     ],
+    pageType: 'AboutPage',
+    mainEntity: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
   }),
 ]
 

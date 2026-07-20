@@ -4,7 +4,7 @@ import { businessName, businessSlogan, businessExplanation, defaultDescription, 
 import { areasOfPractice } from '@/data/practice-areas'
 import { courtAdmissions, ratingsAndDesignations } from '@/data/credentials'
 import { russRyan, crystalBrightwell } from '@/data/people'
-import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd } from '@/lib/json-ld'
+import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
 
 const jsonLd = [
   legalServiceJsonLd(),
@@ -13,7 +13,9 @@ const jsonLd = [
     path: '/',
     name: 'Ryan Legal, PC - California Employment & Business Law Firm',
     description: defaultDescription,
+    // Single-entry breadcrumb (Home alone) is intentionally omitted by webPageJsonLd.
     breadcrumbs: [{ name: 'Home', path: '/' }],
+    mentions: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
   }),
 ]
 
@@ -41,7 +43,7 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     </div>
     <div class="hero__copy">
       <span class="eyebrow">Fresno, California</span>
-      <h1>Direct access to one attorney who's spent thirty-five years earning it.</h1>
+      <h1>Practical day-to-day counsel. Strong representation when the stakes are high.</h1>
       <p class="lead">{businessSlogan}</p>
       <div class="hero__actions">
         <a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
@@ -118,7 +120,7 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     </p>
   </section>
 
-  <section class="close-section on-navy">
+  <section class="close-section">
     <div class="close-section__inner">
       <span class="close-section__rule" aria-hidden="true"></span>
       <h2>Request a Consultation</h2>
@@ -233,15 +235,27 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     margin-bottom: var(--s2);
   }
 
+  /* A real text-decoration underline rather than border-bottom: border-bottom
+     draws one straight line under the element's whole box, which looks fine
+     on a single line but produces a rigid bar with no breathing room under a
+     second wrapped line (e.g. "Business Transactions and Finance"). A text
+     underline is drawn per line by the browser instead, with room to set its
+     own thickness/offset independent of the border box. Matches the visual
+     strength of .link-editorial's 2px gold treatment without sharing its
+     border-based implementation, since that one is reliably single-line. */
   .practice-grid__item h3 a {
     color: var(--fg);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: calc(0.18em + 1.5px);
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color var(--transition-fast);
   }
 
   .practice-grid__item h3 a:hover,
   .practice-grid__item h3 a:focus-visible {
-    border-bottom-color: var(--gold-accent);
+    text-decoration-color: var(--gold);
   }
 
   .practice-grid__item p {
@@ -294,11 +308,38 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   /* A deliberate full-bleed navy "destination" band — the one place on the
      page besides the header/footer where navy carries real weight, using a
      deeper shade (--surface-consult) so it never reads as a repeat of the
-     header/footer navy above or the footer navy just below it. */
+     header/footer navy above or the footer navy just below it.
+
+     This section is deliberately NOT `.on-navy`: unlike the header/footer,
+     it isn't navy in both themes (dark theme flips it to ivory below), so
+     borrowing that utility would be misleading and would tie its focus/
+     button color to an unrelated shared class. --close-focus-color is a
+     local custom property instead — ivory by default (light theme's navy
+     surface, gold button — matches the header CTA's ivory-on-gold focus),
+     redefined to gold for dark theme's ivory surface, navy button — so the
+     one outline-color rule further down never needs its own theme check. */
   .close-section {
+    --close-focus-color: var(--ivory);
     width: 100%;
     background: var(--surface-consult);
     text-align: center;
+  }
+
+  /* Replicates .on-navy's gold-button treatment locally, since this section
+     no longer carries that class. Dark theme overrides this back to navy
+     further down (its own surface is ivory there, not navy). */
+  .close-section .btn-primary {
+    background: var(--gold);
+    color: var(--navy-deep);
+  }
+
+  .close-section .btn-primary:hover,
+  .close-section .btn-primary:focus-visible {
+    background: #ffc548;
+  }
+
+  .close-section a:focus-visible {
+    outline-color: var(--close-focus-color);
   }
 
   .close-section__inner {
@@ -331,6 +372,14 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
      used for gold-on-light elsewhere, e.g. the eyebrow default) — so the
      band still reads as a deliberate "destination" moment, just inverted. */
   :root[data-theme='dark'] .close-section {
+    /* Neither navy (reads as "more button," even at ~11.7:1 contrast against
+       the ivory page) nor gold (only ~1.5:1 against ivory — fails WCAG's 3:1
+       non-text minimum outright) worked well here. Gold-ink is a different
+       hue from both the navy button and the ivory background, so it reads
+       as its own distinct ring rather than blending with either — and it
+       clears the 3:1 minimum comfortably at ~5:1. Already used for the rule
+       above the heading, so this isn't a new color for the section. */
+    --close-focus-color: var(--gold-ink);
     background: var(--ivory);
   }
 
@@ -351,13 +400,6 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
   :root[data-theme='dark'] .close-section .btn-primary:hover,
   :root[data-theme='dark'] .close-section .btn-primary:focus-visible {
     background: var(--navy-deep);
-  }
-
-  /* The sitewide dark-theme focus ring is gold, tuned for gold-on-dark
-     surfaces — too low-contrast against this section's own ivory
-     background, so it gets a navy ring here specifically. */
-  :root[data-theme='dark'] .close-section a:focus-visible {
-    outline-color: var(--navy);
   }
 
   @media (max-width: 860px) {
