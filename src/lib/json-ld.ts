@@ -5,7 +5,7 @@
 // crawlers that don't execute JS now actually see this data.
 
 import { siteUrl, businessName, defaultDescription, defaultKeywords, contact, address, knowsAbout } from '@/data/site'
-import { education, ratingsAndDesignations } from '@/data/credentials'
+import { ratingsAndDesignations } from '@/data/credentials'
 import { russRyan, crystalBrightwell } from '@/data/people'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -152,8 +152,15 @@ export function russRyanPersonJsonLd(): JsonLd {
     knowsLanguage: russRyan.languages,
     knowsAbout,
     award: ratingsAndDesignations.map((r) => `${r.simplified} — ${r.years}`),
-    // Institution names match src/data/credentials.ts verbatim.
-    alumniOf: education.map((e) => ({ '@type': 'CollegeOrUniversity', name: e.institution })),
+    // src/data/credentials.ts lists bare "University of California, Berkeley"
+    // (institution + degree as separate fields) — "School of Law" is added
+    // back here deliberately: it's Berkeley's actual school name for the J.D.
+    // program (cf. "Harvard Law School"), not an invented credential, and
+    // disambiguates the J.D. from the BYU undergrad degree below.
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'University of California, Berkeley, School of Law' },
+      { '@type': 'CollegeOrUniversity', name: 'Brigham Young University' },
+    ],
     worksFor: { '@id': firmId },
   }
 }
