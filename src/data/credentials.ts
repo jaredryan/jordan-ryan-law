@@ -129,17 +129,103 @@ export const affiliations: string[] = [
   `Center for Disability Innovation at California State University, Fresno — Steering Committee 2008-present`,
 ]
 
-export interface TrainingEngagement {
-  title: string
-  content: string
-}
-
 export interface ExpertiseSection {
   name: string
   paragraphs: string[]
-  trainingEngagements?: TrainingEngagement[]
   reportedDecisions?: string[]
 }
+
+// Training is presented on About with its own editorial structure (intro +
+// "at a glance" summary + selected engagements) rather than the generic
+// paragraphs/reportedDecisions shape above, so it's modeled separately
+// instead of living inside `expertise`.
+
+export const trainingIntro = `Russ has trained more than 150,000 participants on employment law, workplace compliance, and organizational governance. His programs have ranged from small sessions for 5–10 employees and managers to audiences of more than 1,000, and he has presented in both English and Spanish.`
+
+export interface TrainingAtAGlanceGroup {
+  heading: string
+  items: string[]
+}
+
+export const trainingAtAGlance: TrainingAtAGlanceGroup[] = [
+  {
+    heading: 'Audiences',
+    items: [
+      'Employees',
+      'Managers',
+      'Executives',
+      'Physicians',
+      'Boards of directors',
+      'Parent policy councils',
+      'Nonprofit leaders',
+      'Professional associations',
+    ],
+  },
+  {
+    heading: 'Employment topics',
+    items: [
+      'Sexual harassment',
+      'Workplace discrimination',
+      'Title VII',
+      'FMLA',
+      'CFRA',
+      'ADA',
+      'OSHA',
+      'Workplace violence',
+      'Restrictive covenants',
+      'Trade secrets',
+      'Annual legal updates',
+    ],
+  },
+  {
+    heading: 'Governance and compliance topics',
+    items: ['The Brown Act', "Robert's Rules of Order", 'Board governance', 'Corporate compliance', 'HIPAA compliance'],
+  },
+]
+
+export interface TrainingExperienceEntry {
+  organization: string
+  description: string
+  /** Substring of `description` to give selective emphasis, matched verbatim. */
+  highlight?: string
+}
+
+export const trainingExperience: TrainingExperienceEntry[] = [
+  {
+    organization: 'Council on Education in Management',
+    description: `Moderator and presenter for more than 30 full- and half-day employment-law programs between 1993 and 2002, reaching thousands of participants.`,
+    highlight: 'more than 30',
+  },
+  {
+    organization: 'National Business Institute',
+    description: `Moderator and presenter for programs covering employment law and OSHA compliance.`,
+  },
+  {
+    organization: 'Littler Mendelson',
+    description: `Presenter for more than 25 programs on employment law, harassment, restrictive covenants, trade secrets, leave laws, disability law, and workplace violence, reaching thousands of participants.`,
+    highlight: 'more than 25',
+  },
+  {
+    organization: 'Head Start programs',
+    description: `More than 100 training sessions over the past 30 years for employees, boards of directors, parent policy councils, and committees across more than 50 Head Start centers. Programs have been delivered in English and Spanish and have reached thousands of participants.`,
+    highlight: 'More than 100',
+  },
+  {
+    organization: 'Federally Qualified Health Centers',
+    description: `More than 100 sessions for employees, physicians, and boards across dozens of California clinics, covering employment law, workplace conduct, governance, corporate compliance, and HIPAA.`,
+    highlight: 'More than 100',
+  },
+  {
+    organization: 'Nonprofit and service organizations',
+    description: `More than 100 programs for organizations including Centers for Independent Living, Heartland Opportunity Center, Boys & Girls Clubs, Save the Children, Rotary, Lions and Kiwanis clubs, hospitals, health clinics, and the Medical Group Management Association.`,
+    highlight: 'More than 100',
+  },
+  {
+    organization: 'Client training',
+    description: `Hundreds of customized sessions for employees and managers across industries including hospitality, restaurants, manufacturing, automobile dealerships, agriculture, construction, health care, skilled nursing, beverage distribution, and security services.`,
+    highlight: 'Hundreds',
+  },
+]
 
 export const expertise: ExpertiseSection[] = [
   {
@@ -147,42 +233,6 @@ export const expertise: ExpertiseSection[] = [
     paragraphs: [
       `A primary focus of his practice is employment law, representing employers (and the occasional employee) in all aspects of the employment relationship. This includes providing training on all aspects of federal and state rules and regulations, drafting employment policies, handbooks, employment agreements, confidentiality agreements, severance agreements, etc., advising clients on employment issues and representing clients in litigation.`,
       `Russ has represented clients on issues involving gender, race and age discrimination, sexual harassment, Title VII, drug testing, wiretapping, unfair competition, privacy, negligent hiring and retention, wrongful termination and demotion, FMLA, ADA, labor code violations and employment-related torts such as fraud and slander. His counseling emphasizes reducing the risk of litigation through planning and strategy.`,
-    ],
-  },
-  {
-    name: 'Training',
-    paragraphs: [
-      `He has provided training to more than 150,000 participants on all phases of the employment relationship in all aspects of employment law. These training sessions have ranged from groups of 5-10 employees and managers to more than 1,000 participants and have been conducted in English and Spanish. He is fluent in Spanish. A sampling of these training sessions include the following:`,
-    ],
-    trainingEngagements: [
-      {
-        title: `Council on Education in Management`,
-        content: `Moderator and presenter of full and part day programs on sexual harassment, employment discrimination under state and federal law, FMLA, CFRA, ADA, violence in the workplace, and numerous other programs (1993-2002) (more than 30 programs involving thousands of participants).`,
-      },
-      {
-        title: `National Business Institute`,
-        content: `Moderator and presenter on employment law and OSHA programs.`,
-      },
-      {
-        title: `Littler Mendelson`,
-        content: `Presenter on various programs on sexual harassment, employment, restrictive covenants, trade secrets and employees, FMLA, CFRA, ADA, violence in the workplace and other programs (more than 25 presentations involving thousands of participants).`,
-      },
-      {
-        title: `Head Start Programs`,
-        content: `Presenter and trainer at numerous sessions, in English and Spanish, to employees, members of boards of directors, and members of parent policy council and committees on sexual harassment violence in the workplace, employment discrimination, Brown Act and Roberts Rules of Order. These trainings have been provided to participants from more than 50 Head Start Centers over the last 30 years (involving more than 100 trainings and thousands of participants).`,
-      },
-      {
-        title: `Federally Qualified Health Centers`,
-        content: `Presenter and trainer at numerous sessions to employees, members of boards of directors, and physicians on topics such as sexual harassment, violence in the workplace, employment discrimination, Brown Act, Roberts Rules of Order, Board Governance, Corporate and HIPAA compliance. These trainings have been provided to employees of dozens of clinics throughout California (involving more than 100 trainings and thousands of participants).`,
-      },
-      {
-        title: `Various Non-Profit and Service Organizations`,
-        content: `Presenter and trainer to numerous non-profit organizations such as the Centers for Independent Living, Heartland Opportunity Center, Boys and Girls Clubs, Save the Children, Rotary Clubs, Lions Clubs, Kiwanis Clubs, Medical Group Management Association, various hospitals and health clinics on various topics ranging from sexual harassment, violence in the workplace, employment discrimination, Title VII, FMLA, ADA, the Brown Act, Roberts Rules of Order, Board Governance, HIPAA compliance and annual legal updates. These trainings have been provided to numerous organizations throughout California (involving more than 100 trainings and thousands of participants).`,
-      },
-      {
-        title: `Client Training`,
-        content: `Presenter and trainer at hundreds of training sessions to employees and managers for various clients, large and small, including hotels, hotel management companies, restaurants, manufacturers, automobile dealerships, agricultural concerns, construction companies, health clinics, physician groups, hospitals, skilled nursing facilities, beverage distributors and alarm companies on various topics ranging from sexual harassment, violence in the workplace, employment discrimination, FMLA, ADA, the Brown Act, Roberts Rules of Order to HIPAA compliance.`,
-      },
     ],
   },
   {

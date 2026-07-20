@@ -10,6 +10,9 @@ import {
   publicAndCommunityService,
   affiliations,
   expertise,
+  trainingIntro,
+  trainingAtAGlance,
+  trainingExperience,
 } from '@/data/credentials'
 import { currentClients, pastClients } from '@/data/clients'
 import { webPageJsonLd, russRyanPersonJsonLd, crystalBrightwellPersonJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
@@ -56,7 +59,6 @@ const railSections = [
 ]
 
 const litigation = expertise.find((e) => e.name === 'Litigation')
-const training = expertise.find((e) => e.name === 'Training')
 
 // Reported decisions are a single string, e.g. "Hernandez v. City of
 // Hanford, 41 Cal. 4th 279 (2007)" — split the trailing "(year)" off so it
@@ -65,6 +67,17 @@ function splitDecision(decision: string): { label: string; year: string } {
   const match = decision.match(/^(.*)\s(\(\d{4}\))$/)
   return match && match[1] && match[2] ? { label: match[1], year: match[2] } : { label: decision, year: '' }
 }
+
+// Gives a single substring of `text` selective <strong> emphasis (a
+// participant count, a training-engagement quantity) without hardcoding
+// markup into the data file itself.
+function splitHighlight(text: string, highlight?: string): { before: string; match?: string; after: string } {
+  const index = highlight ? text.indexOf(highlight) : -1
+  if (!highlight || index === -1) return { before: text, after: '' }
+  return { before: text.slice(0, index), match: highlight, after: text.slice(index + highlight.length) }
+}
+
+const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 participants')
 ---
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
@@ -103,6 +116,7 @@ function splitDecision(decision: string): { label: string; year: string } {
       </section>
 
       <section class="about-section" id="credentials">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Credentials</h2>
         <div class="about-credentials-grid">
           <div>
@@ -136,10 +150,11 @@ function splitDecision(decision: string): { label: string; year: string } {
         </div>
       </section>
 
-      <section class="about-section about-section--crystal about-narrow" id="crystal">
+      <section class="about-section about-section--crystal" id="crystal">
         <div class="about-crystal">
           <div class="about-crystal__avatar" aria-hidden="true">CB</div>
           <div>
+            <span class="about-heading-rule" aria-hidden="true"></span>
             <h2>{crystalBrightwell.name}</h2>
             <p class="about-crystal__meta">
               {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
@@ -164,70 +179,116 @@ function splitDecision(decision: string): { label: string; year: string } {
         </span>
       </figure>
 
-      <section class="about-section about-narrow" id="litigation-record">
+      <section class="about-section" id="litigation-record">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Litigation Record</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         {litigation?.reportedDecisions && (
-          <ul class="archival-table">
-            {litigation.reportedDecisions.map((decision) => {
-              const { label, year } = splitDecision(decision)
-              return (
-                <li class="archival-table__row">
-                  <span class="archival-table__label">{label}</span>
-                  <span class="archival-table__meta">{year}</span>
-                </li>
-              )
-            })}
-          </ul>
+          <div class="about-record-card">
+            <h3>Reported Decisions</h3>
+            <ul class="archival-table reported-decisions-list">
+              {litigation.reportedDecisions.map((decision) => {
+                const { label, year } = splitDecision(decision)
+                return (
+                  <li class="archival-table__row">
+                    <span class="archival-table__label">{label}</span>
+                    <span class="archival-table__meta">{year}</span>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         )}
       </section>
 
-      <section class="about-section about-narrow" id="training">
+      <section class="about-section" id="training">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Training</h2>
-        {training?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-        <dl class="about-training-list">
-          {
-            training?.trainingEngagements?.map((engagement) => (
-              <div class="about-training-list__item">
-                <dt>{engagement.title}</dt>
-                <dd>{engagement.content}</dd>
-              </div>
-            ))
-          }
-        </dl>
+        <p>
+          {trainingIntroParts.before}
+          {trainingIntroParts.match && <strong>{trainingIntroParts.match}</strong>}
+          {trainingIntroParts.after}
+        </p>
+
+        <div class="about-training-glance">
+          <h3>Training at a glance</h3>
+          <div class="about-training-glance__grid">
+            {
+              trainingAtAGlance.map((group) => (
+                <div class="about-training-glance__group">
+                  <h4>{group.heading}</h4>
+                  <ul>
+                    {group.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="about-training-experience about-narrow">
+          <h3>Selected training experience</h3>
+          <ul class="about-training-experience__list">
+            {
+              trainingExperience.map((entry) => {
+                const { before, match, after } = splitHighlight(entry.description, entry.highlight)
+                return (
+                  <li class="about-training-experience__row">
+                    <span class="about-training-experience__org">{entry.organization}</span>
+                    <p class="about-training-experience__desc">
+                      {before}
+                      {match && <strong>{match}</strong>}
+                      {after}
+                    </p>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
       </section>
 
-      <section class="about-section about-narrow" id="positions">
+      <section class="about-section" id="positions">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Positions</h2>
-        <ul class="archival-table">
-          {
-            priorExperience.map((item) => (
-              <li class="archival-table__row">
-                <span class="archival-table__label">
-                  {item.position} — {item.institution}
-                </span>
-                <span class="archival-table__meta">{item.years}</span>
-              </li>
-            ))
-          }
-        </ul>
-
-        <h3>Public &amp; Community Service</h3>
-        <ul class="archival-table">
-          {
-            publicAndCommunityService.map((item) => (
-              <li class="archival-table__row">
-                <span class="archival-table__label">
-                  {item.position} — {item.institution}
-                </span>
-                <span class="archival-table__meta">{item.years}</span>
-              </li>
-            ))
-          }
-        </ul>
+        <div class="about-credentials-grid">
+          <div>
+            <h3>Prior Experience</h3>
+            <ul class="archival-table">
+              {
+                priorExperience.map((item) => (
+                  <li class="archival-table__row">
+                    <span class="archival-table__label">
+                      {item.position} — {item.institution}
+                    </span>
+                    <span class="archival-table__meta">{item.years}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <h3>Public &amp; Community Service</h3>
+            <ul class="archival-table">
+              {
+                publicAndCommunityService.map((item) => (
+                  <li class="archival-table__row">
+                    <span class="archival-table__label">
+                      {item.position} — {item.institution}
+                    </span>
+                    <span class="archival-table__meta">{item.years}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section class="about-section" id="admissions">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Admissions</h2>
         <h3>Bar Admissions</h3>
         <ul class="multi-column-list bar-admissions-list">
@@ -240,6 +301,7 @@ function splitDecision(decision: string): { label: string; year: string } {
       </section>
 
       <section class="about-section" id="clients-affiliations">
+        <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Clients &amp; Affiliations</h2>
         <h3>Current Clients</h3>
         <ul class="multi-column-list">
@@ -261,9 +323,9 @@ function splitDecision(decision: string): { label: string; year: string } {
   <section class="closing-band">
     <div class="closing-band__inner">
       <span class="closing-band__rule" aria-hidden="true"></span>
-      <h2>Talk with Russ directly</h2>
-      <p class="lead">Every matter is handled by the attorney you meet — not passed down the chain.</p>
-      <a href="/contact" class="btn btn-primary">Get in touch</a>
+      <h2>Practical judgment. Proven experience.</h2>
+      <p class="lead">From day-to-day advising to trial and appeal, Russ brings both to every stage.</p>
+      <a href="/contact" class="btn btn-primary">Talk with Russ</a>
     </div>
   </section>
 </BaseLayout>
@@ -316,12 +378,29 @@ function splitDecision(decision: string): { label: string; year: string } {
     max-width: var(--content-narrow);
   }
 
+  /* Same short-gold-rule "a section begins here" cue Expertise's chapter
+     numbers use, minus the numeral — About's sections are categorical
+     (Credentials, Training, Admissions...), not a sequence, so numbering
+     them would be decoration without meaning. Repeats on every major
+     heading below, restrained enough to survive that. */
+  .about-heading-rule {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--gold-accent);
+    margin-bottom: var(--s3);
+  }
+
   .about-portrait {
     width: 140px;
     height: 140px;
     object-fit: cover;
     border-radius: 4px;
-    border: 1px solid var(--rule);
+    /* Matches Crystal's avatar ring below (border: 2px solid var(--gold))
+       so the two profile treatments read as a pair rather than one framed
+       in brand gold and the other in the plain hairline gray used for
+       purely structural borders elsewhere. */
+    border: 2px solid var(--gold);
     margin-bottom: var(--s5);
   }
 
@@ -329,6 +408,33 @@ function splitDecision(decision: string): { label: string; year: string } {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--s6);
+  }
+
+  /* Litigation Record's one raised moment: mirrors Expertise's proof-callout
+     treatment for this exact content (Expertise's Litigation area links
+     here via "See the litigation record"), so the page that gets linked to
+     has real visual weight instead of just being the destination of a link
+     elsewhere. Deliberately the only archival-table on the page to get this
+     treatment — About has ~7 of these lists total, and raising more than
+     one risks "everything's a card" instead of added variety. */
+  .about-record-card {
+    margin-top: var(--s6);
+    background: var(--bg-raised-2);
+    border-radius: 4px;
+    padding: var(--s5);
+    /* Narrowed here rather than on the parent .about-section, same reason
+       as .about-crystal above — the section's own divider needs to span
+       the full wide column. */
+    max-width: var(--content-narrow);
+  }
+
+  .about-record-card h3 {
+    margin-bottom: var(--s3);
+  }
+
+  .reported-decisions-list {
+    columns: 2 260px;
+    column-gap: var(--s6);
   }
 
   /* Court Admissions: plain, ruled, two-up at width — related to the
@@ -359,6 +465,11 @@ function splitDecision(decision: string): { label: string; year: string } {
     padding: var(--s6);
     border-radius: 4px;
     border: 1px solid var(--rule);
+    /* Narrowed here on the card itself rather than on the parent
+       .about-section — that section's own border-top divider needs to span
+       the full wide column, matching every other section's divider, not
+       just this card's reading measure. */
+    max-width: var(--content-narrow);
   }
 
   /* The bio's last paragraph shouldn't add its own bottom margin on top of
@@ -389,19 +500,71 @@ function splitDecision(decision: string): { label: string; year: string } {
     margin-top: calc(var(--s2) * -1);
   }
 
-  .about-training-list {
-    margin: var(--s5) 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--s5);
+  .about-training-glance {
+    margin-top: var(--s7);
   }
 
-  .about-training-list__item dt {
+  .about-training-glance h3 {
+    margin-bottom: var(--s5);
+  }
+
+  .about-training-glance__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--s6);
+  }
+
+  .about-training-glance__group h4 {
+    font-family: var(--font-body);
     font-weight: 700;
-    margin-bottom: var(--s1);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+    margin: 0 0 var(--s3);
   }
 
-  .about-training-list__item dd {
+  .about-training-glance__group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .about-training-glance__group li {
+    padding: var(--s2) 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--fg-soft);
+    font-size: 0.9375rem;
+  }
+
+  .about-training-experience {
+    margin-top: var(--s8);
+  }
+
+  .about-training-experience h3 {
+    margin-bottom: var(--s4);
+  }
+
+  .about-training-experience__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .about-training-experience__row {
+    padding: var(--s5) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .about-training-experience__org {
+    display: block;
+    font-weight: 700;
+    margin-bottom: var(--s2);
+  }
+
+  .about-training-experience__desc {
     margin: 0;
     color: var(--fg-soft);
   }
