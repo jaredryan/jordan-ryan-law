@@ -36,7 +36,14 @@ const proofItems = [
 <BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd} flushFooter>
   <section class="hero page-section">
     <div class="hero__portrait">
-      <img src="/square-profile.webp" alt={russRyan.name} width="360" height="360" />
+      <img
+        src="/square-profile-640.webp"
+        srcset="/square-profile-440.webp 440w, /square-profile-640.webp 640w, /square-profile.webp 833w"
+        sizes="(max-width: 860px) 220px, 320px"
+        alt={russRyan.name}
+        width="360"
+        height="360"
+      />
     </div>
     <div class="hero__copy">
       <span class="eyebrow">Fresno, California</span>

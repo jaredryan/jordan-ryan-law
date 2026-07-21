@@ -54,7 +54,12 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
     <div class="exp-main">
       <details class="exp-jump-nav" data-spy-rail>
-        <summary>Jump to a practice area</summary>
+        <summary>
+          Jump to a practice area
+          <svg class="jump-nav-chevron" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </summary>
         <ul>
           {
             areasOfPractice.map((area) => (
@@ -276,8 +281,31 @@ const pad = (n: number) => String(n).padStart(2, '0')
     }
 
     .exp-jump-nav summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s3);
       cursor: pointer;
       font-weight: 700;
+    }
+
+    /* Explicit chevron, identical across browsers — see global.css for why
+       the native ::marker/::-webkit-details-marker is hidden instead of
+       left to render differently per browser. A real inline SVG rather than
+       a border-drawn ::after: the border-corner trick draws ink into only
+       two of its box's four edges, so the visible mark sits off-center
+       within its own box and needs a manual pixel correction to look
+       centered — one that (on this element specifically) was visibly
+       snapping into place a frame after page load. An SVG's mark is already
+       centered in its own viewBox, so `align-items: center` on the flex
+       parent centers it correctly with nothing to nudge or catch up. */
+    .exp-jump-nav .jump-nav-chevron {
+      flex-shrink: 0;
+      transition: transform var(--transition-fast);
+    }
+
+    .exp-jump-nav[open] .jump-nav-chevron {
+      transform: rotate(180deg);
     }
 
     .exp-jump-nav ul {

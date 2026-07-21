@@ -95,7 +95,12 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     </aside>
 
     <details class="about-jump-nav" data-spy-rail>
-      <summary>On this page</summary>
+      <summary>
+        On this page
+        <svg class="jump-nav-chevron" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
       <ul>
         {
           railSections.map((section) => (
@@ -110,7 +115,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     <div class="about-main">
       <section class="about-section" id="intro">
         <div class="about-narrow">
-          <img src="/square-profile.webp" alt={russRyan.name} width="180" height="180" class="about-portrait" />
+          <img src="/square-profile-440.webp" alt={russRyan.name} width="180" height="180" class="about-portrait" />
           <span class="eyebrow">{russRyan.jobTitle}</span>
           <h1>{russRyan.name}</h1>
           {russRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
@@ -656,8 +661,31 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     }
 
     .about-jump-nav summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s3);
       cursor: pointer;
       font-weight: 700;
+    }
+
+    /* Explicit chevron, identical across browsers — see global.css for why
+       the native ::marker/::-webkit-details-marker is hidden instead of
+       left to render differently per browser. A real inline SVG rather than
+       a border-drawn ::after: the border-corner trick draws ink into only
+       two of its box's four edges, so the visible mark sits off-center
+       within its own box and needs a manual pixel correction to look
+       centered — one that (on this element specifically) was visibly
+       snapping into place a frame after page load. An SVG's mark is already
+       centered in its own viewBox, so `align-items: center` on the flex
+       parent centers it correctly with nothing to nudge or catch up. */
+    .about-jump-nav .jump-nav-chevron {
+      flex-shrink: 0;
+      transition: transform var(--transition-fast);
+    }
+
+    .about-jump-nav[open] .jump-nav-chevron {
+      transform: rotate(180deg);
     }
 
     .about-jump-nav ul {

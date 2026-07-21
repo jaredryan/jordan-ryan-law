@@ -7,7 +7,7 @@ test('Home: consultation band and footer brand mark render', async ({ page }) =>
   await expect(closeSection.getByRole('heading', { name: 'Start with a conversation.' })).toBeVisible()
   await expect(closeSection.getByRole('link', { name: 'Request a consultation' })).toBeVisible()
 
-  await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('src', '/footer-logo-white.webp')
+  await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('src', '/footer-logo-white-470.webp')
 })
 
 test('Home: footer sits flush against the consultation band (no margin gap)', async ({ page }) => {

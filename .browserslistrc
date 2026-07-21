@@ -1,0 +1,4 @@
+# Autoprefixer's build-time target — a broad, current-generation range
+# appropriate for a public-facing law firm site (visitors on whatever device
+# they own, not a controlled fleet). See package.json/postcss.config.mjs.
+defaults

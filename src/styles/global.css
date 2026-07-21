@@ -8,6 +8,7 @@
 
 @import '@fontsource/libre-baskerville/latin-400.css';
 @import '@fontsource/libre-baskerville/latin-400-italic.css';
+@import '@fontsource/libre-baskerville/latin-500.css';
 @import '@fontsource/libre-baskerville/latin-700.css';
 @import '@fontsource-variable/source-sans-3/wght.css';
 @import '@fontsource-variable/source-sans-3/wght-italic.css';
@@ -129,8 +130,71 @@
   }
 }
 
+/* ---------------------------------------------------------------- */
+/* Base reset — explicit values for every element type used on this  */
+/* site, so nothing falls back to a browser's UA stylesheet (list    */
+/* indents/bullets, form-control fonts/chrome, address italics,      */
+/* dl/figure margins, etc. all differ across Chrome/Firefox/Safari). */
+/* ---------------------------------------------------------------- */
+
 * {
   box-sizing: border-box;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+figure,
+dl,
+dd {
+  margin: 0;
+}
+
+address {
+  font-style: normal;
+}
+
+strong {
+  font-weight: 700;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  appearance: none;
+}
+
+button {
+  cursor: pointer;
+  text-align: inherit;
+}
+
+/* `<details>/<summary>` (About/Expertise jump nav): the native disclosure
+   marker differs in shape and position between Chrome/Firefox (::marker)
+   and Safari (::-webkit-details-marker) — hidden here and replaced with one
+   explicit chevron per instance, see about.astro / expertise.astro. */
+summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }
 
 html {
