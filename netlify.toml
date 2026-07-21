@@ -13,7 +13,31 @@
   to = "/.netlify/functions/contact"
   status = 200
 
+  # 3 submissions per IP per 3-minute window (180s is Netlify's max window)
+  # — well above anything a real visitor would do, well below what a spam
+  # bot flooding the endpoint would do.
+  [redirects.rate_limit]
+    window_limit = 3
+    window_size = 180
+    aggregate_by = ["ip"]
+
 [[redirects]]
   from = "/contact-us"
   to = "/contact"
   status = 301
+
+# Site-wide security headers. script-src/style-src need 'unsafe-inline'
+# because this is a static Astro build with no per-request nonce to hand
+# out — Astro inlines the theme-toggle/mobile-nav scripts and a few small
+# page stylesheets directly into the HTML. Everything else here is a real,
+# zero-tradeoff restriction: no external script/style/frame/object sources
+# are used anywhere on the site, so default-src 'self' plus the explicit
+# 'none'/'self' directives below cost nothing.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"

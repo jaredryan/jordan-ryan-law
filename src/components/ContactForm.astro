@@ -37,12 +37,19 @@
     <p class="field-error" id="description-error" role="alert" hidden></p>
   </div>
 
+  <div class="hp-field" aria-hidden="true">
+    <label for="company">Company</label>
+    <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
   <div>
     <button type="submit" id="contact-submit" class="btn btn-primary">Submit</button>
     <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
   </div>
 </form>
 
-<p class="contact-form-disclaimer">Contacting the office does not by itself create an attorney-client relationship.</p>
+<p class="contact-form-disclaimer">
+  Contacting the office does not by itself create an attorney-client relationship. See our <a href="/privacy">Privacy Policy</a>.
+</p>
 
 <script src="@/scripts/contact-form.ts"></script>

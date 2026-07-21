@@ -112,6 +112,24 @@ test('invalid email returns the correct field error', async () => {
   assert.ok(errors.email?.some((message) => message.includes('valid email')))
 })
 
+test('a filled honeypot field is silently dropped as spam', async () => {
+  setFullEnv()
+  let called = false
+  const handler = createHandler({
+    createClient: () => ({
+      send: async () => {
+        called = true
+        return { data: { id: 'unused' }, error: null }
+      },
+    }),
+  })
+  const response = await handler(postRequest({ ...VALID_BODY, company: 'Acme Bot Co' }))
+  const { status, body } = await readBody(response)
+  assert.equal(status, 200)
+  assert.deepEqual(body, { ok: true })
+  assert.equal(called, false, 'the email client must never be invoked when the honeypot is filled')
+})
+
 test('missing Resend configuration fails closed', async () => {
   let called = false
   const handler = createHandler({

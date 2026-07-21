@@ -99,6 +99,15 @@ export function createHandler(
       return jsonResponse({ ok: false, message: 'Invalid request body.' }, 400)
     }
 
+    // Honeypot: "company" is hidden off-screen and out of the tab order in
+    // ContactForm.astro, so a human never fills it. Bots that auto-fill
+    // every field do — when that happens, report success without sending
+    // anything, so the bot has no signal that it was caught.
+    if (payload && typeof payload === 'object' && 'company' in payload && String((payload as Record<string, unknown>).company ?? '').trim() !== '') {
+      console.warn('Contact form honeypot field was filled — dropping submission as spam.')
+      return jsonResponse({ ok: true }, 200)
+    }
+
     const parsed = ContactSchema.safeParse(payload)
     if (!parsed.success) {
       return jsonResponse({ ok: false, errors: z.flattenError(parsed.error).fieldErrors }, 400)

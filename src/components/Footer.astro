@@ -42,7 +42,9 @@ const year = new Date().getFullYear()
       <a href="/contact" class="btn btn-secondary site-footer__cta">Schedule a Consultation</a>
     </div>
   </div>
-  <p class="site-footer__copyright">&copy; {year} Ryan Legal, PC, a Professional Corporation. All Rights Reserved.</p>
+  <p class="site-footer__copyright">
+    &copy; {year} Ryan Legal, PC, a Professional Corporation. All Rights Reserved. <a href="/privacy" class="site-footer__legal-link">Privacy Policy</a>
+  </p>
 </footer>
 
 <style>
@@ -145,6 +147,16 @@ const year = new Date().getFullYear()
     font-size: 0.8125rem;
     color: var(--surface-navy-fg-soft);
     border-top: 1px solid var(--surface-navy-rule);
+  }
+
+  .site-footer__legal-link {
+    color: var(--surface-navy-fg-soft);
+    text-decoration: underline;
+  }
+
+  .site-footer__legal-link:hover,
+  .site-footer__legal-link:focus-visible {
+    color: #fff;
   }
 
   @media (max-width: 780px) {

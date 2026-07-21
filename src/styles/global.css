@@ -843,3 +843,15 @@ summary:focus-visible,
   font-size: 0.8125rem;
   line-height: 1.5;
 }
+
+/* Honeypot: off-screen (not display:none/visibility:hidden, which some
+   spam bots specifically check for and skip) and pulled out of both the
+   tab order and the accessibility tree, so real visitors — sighted or
+   using assistive tech — never encounter it. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
