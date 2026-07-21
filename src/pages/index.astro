@@ -76,10 +76,12 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
       {
         areasOfPractice.map((area) => (
           <li class="practice-grid__item">
-            <h3>
-              <a href={`/expertise#${area.slug}`}>{area.name}</a>
-            </h3>
-            <p>{area.teaser}</p>
+            <a class="practice-grid__link" href={`/expertise#${area.slug}`}>
+              <h3>
+                {area.name} <span class="practice-grid__arrow" aria-hidden="true">→</span>
+              </h3>
+              <p>{area.teaser}</p>
+            </a>
           </li>
         ))
       }
@@ -227,6 +229,16 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     gap: var(--s6);
   }
 
+  /* The whole item is one clickable region — a single semantic link wrapping
+     the heading and teaser, not nested links — but the visual affordance
+     stays on the heading itself: one composition (persistent underline +
+     arrow), not a separate card surface layered on top of it. */
+  .practice-grid__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
   .practice-grid__item h3 {
     margin-bottom: var(--s2);
   }
@@ -238,8 +250,16 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
      underline is drawn per line by the browser instead, with room to set its
      own thickness/offset independent of the border box. Matches the visual
      strength of .link-editorial's 2px gold treatment without sharing its
-     border-based implementation, since that one is reliably single-line. */
-  .practice-grid__item h3 a {
+     border-based implementation, since that one is reliably single-line.
+
+     Underline is transparent at rest and the arrow below is the persistent
+     resting-state cue instead, matching the .link-editorial precedent used
+     twice already on this page: arrow always visible, underline reveals on
+     hover/focus. (That pattern also colors the link text itself, which
+     already signals "link" before the arrow or underline; these headings
+     keep ordinary heading color, so the arrow — a shape cue, not a color
+     one — carries the resting-state signal on its own.) */
+  .practice-grid__item h3 {
     color: var(--fg);
     text-decoration-line: underline;
     text-decoration-color: transparent;
@@ -249,9 +269,25 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     transition: text-decoration-color var(--transition-fast);
   }
 
-  .practice-grid__item h3 a:hover,
-  .practice-grid__item h3 a:focus-visible {
+  .practice-grid__link:hover h3,
+  .practice-grid__link:focus-visible h3 {
     text-decoration-color: var(--gold);
+  }
+
+  /* Opts out of the h3 underline (matches .link-editorial__arrow) so the
+     persistent directional cue doesn't read as sitting on its own
+     underlined line — muted at rest, gold and nudged right on hover/focus. */
+  .practice-grid__arrow {
+    text-decoration-line: none;
+    display: inline-block;
+    color: var(--fg-soft);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .practice-grid__link:hover .practice-grid__arrow,
+  .practice-grid__link:focus-visible .practice-grid__arrow {
+    color: var(--gold);
+    transform: translateX(3px);
   }
 
   .practice-grid__item p {

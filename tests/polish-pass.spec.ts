@@ -193,16 +193,22 @@ test('Consultation section is not .on-navy and uses its own theme-aware focus co
 
 test('Home practice-area links underline correctly, including a wrapped title', async ({ page }) => {
   await page.goto('/')
-  const singleLine = page.locator('.practice-grid__item h3 a', { hasText: 'Health Care' })
-  const wrapped = page.locator('.practice-grid__item h3 a', { hasText: 'Business Transactions and Finance' })
+  const items = [
+    { heading: page.locator('.practice-grid__item h3', { hasText: 'Health Care' }), link: page.locator('.practice-grid__link', { hasText: 'Health Care' }) },
+    {
+      heading: page.locator('.practice-grid__item h3', { hasText: 'Business Transactions and Finance' }),
+      link: page.locator('.practice-grid__link', { hasText: 'Business Transactions and Finance' }),
+    },
+  ]
 
-  for (const link of [singleLine, wrapped]) {
-    await expect(link).toHaveCSS('text-decoration-line', 'underline')
-    // Default state: underline is present but transparent (no layout-affecting property changes on hover/focus).
-    const restColor = await link.evaluate((el) => getComputedStyle(el).textDecorationColor)
+  for (const { heading, link } of items) {
+    await expect(heading).toHaveCSS('text-decoration-line', 'underline')
+    // Resting state: underline is transparent, matching .link-editorial — the persistent arrow
+    // (not the underline) is the resting-state affordance; hover/focus reveals the underline too.
+    const restColor = await heading.evaluate((el) => getComputedStyle(el).textDecorationColor)
     expect(restColor).toBe('rgba(0, 0, 0, 0)')
     await link.focus()
-    await expect(link).toHaveCSS('text-decoration-color', 'rgb(253, 182, 19)')
+    await expect(heading).toHaveCSS('text-decoration-color', 'rgb(253, 182, 19)')
   }
 })
 
