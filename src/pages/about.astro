@@ -152,7 +152,13 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
 
       <section class="about-section about-section--crystal" id="crystal">
         <div class="about-crystal">
-          <div class="about-crystal__avatar" aria-hidden="true">CB</div>
+          <img
+            src="/crystal-profile.webp"
+            alt={crystalBrightwell.name}
+            width="88"
+            height="88"
+            class="about-crystal__avatar"
+          />
           <div class="about-crystal__identity">
             <span class="about-heading-rule" aria-hidden="true"></span>
             <h2>{crystalBrightwell.name}</h2>
@@ -494,16 +500,9 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     grid-area: avatar;
     width: 88px;
     height: 88px;
-    border-radius: 50%;
-    background: var(--navy);
-    color: #fff;
+    object-fit: cover;
+    border-radius: 4px;
     border: 2px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
   }
 
   .about-crystal__identity {

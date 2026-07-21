@@ -53,18 +53,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
     </aside>
 
     <div class="exp-main">
-      <section class="exp-intro page-section page-section--narrow">
-        <span class="eyebrow">Expertise</span>
-        <h1>Areas of Practice</h1>
-        <p class="lead">
-          Six practice areas, one attorney handling each matter directly — from day-to-day advising to trial and
-          appeal.
-        </p>
-        <a href="/contact" class="link-editorial">
-          Not sure where you fit? Ask Russ directly <span class="link-editorial__arrow" aria-hidden="true">→</span>
-        </a>
-      </section>
-
       <details class="exp-jump-nav" data-spy-rail>
         <summary>Jump to a practice area</summary>
         <ul>
@@ -77,6 +65,18 @@ const pad = (n: number) => String(n).padStart(2, '0')
           }
         </ul>
       </details>
+
+      <section class="exp-intro page-section page-section--narrow">
+        <span class="eyebrow">Expertise</span>
+        <h1>Areas of Practice</h1>
+        <p class="lead">
+          Six practice areas, one attorney handling each matter directly — from day-to-day advising to trial and
+          appeal.
+        </p>
+        <a href="/contact" class="link-editorial">
+          Not sure where you fit? Ask Russ directly <span class="link-editorial__arrow" aria-hidden="true">→</span>
+        </a>
+      </section>
 
       {
         areasOfPractice.map((area) => {
@@ -178,11 +178,14 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
   .exp-section:first-of-type {
     /* No divider line here — it isn't separating this section from a
-       previous one, just from the intro/jump-nav above it. padding-top
-       stays the same var(--s8) as every other section, though: without a
-       number to carry visual weight, matching the others' top spacing is
-       what makes this section read as "a section begins here" too. */
+       previous one, just from the intro above it. No top padding either:
+       the intro's own bottom padding already provides the gap, and
+       stacking this section's padding-top on top of that just produced
+       dead space with no divider to explain it (128px at desktop, where
+       nothing sits between the two). The gold rule + h2 below still read
+       clearly as "a section begins here" without it. */
     border-top: none;
+    padding-top: 0;
   }
 
   /* Same short-gold-rule "a section begins here" cue as About's
@@ -253,18 +256,16 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
   /* Portrait-tablet and mobile (<=1099px, matching About's own rail
      breakpoint): sticky labeled jump control — the same pattern as
-     About's .about-jump-nav, reused verbatim rather than inventing a
-     second sticky-nav system. Placed after the intro (unlike About, where
-     it precedes the page's own intro block) so it reads as "here's where
-     you are, here's where else you can go" once the reader has already
-     seen the page's framing. */
+     About's .about-jump-nav, reused verbatim including its placement
+     before the intro, so the nav is available immediately rather than
+     appearing mid-scroll. */
   @media (max-width: 1099px) {
     .exp-jump-nav {
       display: block;
-      /* No bottom margin — Labor and Employment's own padding-top now
-         provides the gap before it starts; a margin here would stack on
-         top of that and double the space. */
-      margin: 0 var(--s4);
+      /* No bottom margin — the intro's own top padding provides the gap
+         below it; a margin here would stack on top of that and double the
+         space. */
+      margin: var(--s5) var(--s4) 0;
       border: 1px solid var(--rule);
       border-radius: 4px;
       padding: var(--s3) var(--s4);
