@@ -14,10 +14,11 @@ export const businessSummary = businessSlogan
 export const defaultDescription =
   'Premier Legal Representation of Employers, Health Care Providers and Non-Profits throughout California'
 
-export const businessExplanation: string[] = [
-  `Ryan Legal, PC, is a Central California full-service law firm whose practice focuses on labor and employment, health care, non-profit representation and business litigation. For more than 35 years Russ Ryan and his legal team has provided the highest quality of legal representation for local and national clients.`,
-  `Ryan Legal has particular expertise in working with Federally Qualified Health Centers and health clinics, Community Action Agencies, Head Start Programs and both California and out-of-state employers navigating California's complex employment and wage and hour laws and regulations.`,
-  `Whether it's the defense of "bet the company" class action litigation, strategic counseling and development of best practices personnel policies and employment agreements, or litigation of employment or business matters, Ryan Legal will provide the best possible representation in a timely, responsive and efficient manner.`,
+// Vision/mission copy provided directly by Russ (per Jared, 2026-07-21) — not
+// legacy content, do not rewrite without checking with him first.
+export const valuesAndMission: string[] = [
+  `Our vision is to be a trusted partner for our clients facing legal challenges, providing expert guidance and unwavering support through every legal challenge—whether it be in the nature of a health care, employment or business process or transaction, or involve litigation, arbitration, administrative or an informal dispute. In every matter, we provide strong representation focused on achieving successful outcomes.`,
+  `At the core of our practice is a simple but powerful mission: to provide exceptional, client-centered legal representation. Russ is passionate about making legal processes and compliance as clear, efficient, and stress-free as possible, allowing clients to focus on what matters most—moving their organizations and people forward in pursuit of their goals, missions, and values while remaining legally compliant.`,
 ]
 
 export const defaultKeywords: string[] = [

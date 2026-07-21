@@ -1,10 +1,7 @@
 import { expect, test } from '@playwright/test'
 
-test('Home: quote is final (no draft flag), consultation band and footer brand mark render', async ({ page }) => {
+test('Home: consultation band and footer brand mark render', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('blockquote')).toContainText('The best measure of my work is that clients stay')
-  await expect(page.getByText(/draft quotation/i)).toHaveCount(0)
-
   const closeSection = page.locator('.close-section')
   await expect(closeSection).toBeVisible()
   await expect(closeSection.getByRole('heading', { name: 'Start with a conversation.' })).toBeVisible()
@@ -280,13 +277,6 @@ test('Closing-band CTA focus rings match Home\'s ivory/gold-ink pattern in both 
   }
 })
 
-test('Home quotation keeps its exact wording inside the new pull-quote treatment', async ({ page }) => {
-  await page.goto('/')
-  const mark = page.locator('.quote-section__mark')
-  await expect(mark.locator('blockquote')).toContainText('The best measure of my work is that clients stay')
-  await expect(mark.getByText('— Russ Ryan')).toBeVisible()
-})
-
 test('Contact info column carries the new eyebrow and stays visually distinct from the form', async ({ page }) => {
   await page.goto('/contact')
   const info = page.locator('.contact-main__info')
@@ -331,4 +321,40 @@ test('Home, About, and Expertise closing CTAs carry page-specific copy, and Abou
   await expect(expClose.getByRole('heading', { name: "Let's find the right next step." })).toBeVisible()
   await expect(expClose.locator('.lead')).toHaveText('Get clear guidance on your options—before a decision, during a dispute, or in court.')
   await expect(expClose.getByRole('link', { name: 'Discuss your needs' })).toHaveAttribute('href', '/contact')
+})
+
+test('Home Values & Mission (replacing the old record/quote sections) and About\'s rebuilt Crystal section hold up at phone, tablet, and desktop widths', async ({
+  page,
+}) => {
+  const viewports = [
+    { width: 375, height: 812 }, // phone — both sections' narrowest stacked layout
+    { width: 900, height: 1000 }, // tablet — above Values & Mission's 760px column breakpoint, below About's 1099px rail breakpoint
+    { width: 1280, height: 900 }, // desktop — full two-column/rail layout
+  ]
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport)
+
+    await page.goto('/')
+    await expect(page.locator('.record')).toHaveCount(0)
+    await expect(page.locator('.quote-section')).toHaveCount(0)
+    const valuesMission = page.locator('.values-mission')
+    await expect(valuesMission.getByRole('heading', { name: 'Our Values and Mission' })).toBeVisible()
+    const paragraphs = valuesMission.locator('.values-mission__columns p')
+    await expect(paragraphs).toHaveCount(2)
+    await expect(paragraphs.first()).toContainText('Our vision is to be a trusted partner')
+    await expect(paragraphs.last()).toContainText('a simple but powerful mission')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width)
+
+    await page.goto('/about')
+    const crystal = page.locator('#crystal')
+    await expect(crystal.getByRole('heading', { level: 2, name: 'Crystal Brightwell' })).toBeVisible()
+    await expect(crystal.locator('.about-crystal__meta')).toContainText('Senior Paralegal / Office Administrator')
+    await expect(crystal.locator('.about-crystal__meta')).toContainText('24 years with Ryan Legal')
+    await expect(crystal.getByRole('heading', { level: 3, name: 'Case Experience' })).toBeVisible()
+    await expect(crystal.getByRole('heading', { level: 4, name: 'Appellate & Supreme Court Experience' })).toBeVisible()
+    await expect(crystal.locator('.multi-column-list li')).toHaveCount(5)
+    await expect(crystal.getByText('United States Supreme Court')).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width)
+  }
 })

@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { businessName, businessSlogan, businessExplanation, defaultDescription, defaultKeywords } from '@/data/site'
+import { businessName, businessSlogan, valuesAndMission, defaultDescription, defaultKeywords } from '@/data/site'
 import { areasOfPractice } from '@/data/practice-areas'
 import { ratingsAndDesignations } from '@/data/credentials'
-import { russRyan, crystalBrightwell } from '@/data/people'
+import { russRyan } from '@/data/people'
 import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
 
 const jsonLd = [
@@ -31,8 +31,6 @@ const proofItems = [
   { value: 'AV', label: 'Preeminent Rated, Martindale-Hubbell' },
   { value: superLawyerYears ? `${superLawyerYears}+` : '10+', label: 'Years Named a Super Lawyer' },
 ]
-
-const recordItems = ratingsAndDesignations.slice(0, 3)
 ---
 
 <BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd} flushFooter>
@@ -88,39 +86,14 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     </ul>
   </section>
 
-  <section class="page-section record">
-    <div class="record__intro">
-      <span class="eyebrow">A record you can verify</span>
-      <h2>Results, not just promises</h2>
-      {businessExplanation.slice(0, 1).map((paragraph) => <p>{paragraph}</p>)}
-      <a href="/about#credentials" class="link-editorial">
-        Full credentials and admissions <span class="link-editorial__arrow" aria-hidden="true">→</span>
-      </a>
+  <section class="page-section values-mission">
+    <div class="values-mission__intro">
+      <span class="eyebrow">How we work</span>
+      <h2>Our Values and Mission</h2>
     </div>
-    <ul class="record__list">
-      {
-        recordItems.map((item) => (
-          <li class="proof-callout">
-            <span class="proof-callout__label">{item.years}</span>
-            <p class="proof-callout__body">{item.simplified}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="page-section quote-section">
-    <div class="quote-section__mark">
-      <blockquote>
-        "The best measure of my work is that clients stay—many for decades. They know they'll get practical counsel,
-        honest advice, and strong representation when they need it."
-      </blockquote>
-      <p class="quote-section__attribution">— Russ Ryan</p>
+    <div class="values-mission__columns">
+      {valuesAndMission.map((paragraph) => <p>{paragraph}</p>)}
     </div>
-    <p class="quote-section__crystal">
-      For scheduling and questions along the way, {crystalBrightwell.name} — with the firm {crystalBrightwell.tenureYears} years — helps
-      keep things moving.
-    </p>
   </section>
 
   <section class="close-section">
@@ -296,62 +269,65 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
     margin: 0;
   }
 
-  .record {
+  /* Replaces the old record/quote sections — deliberately plain, not a
+     raised band: a real full-bleed band (.proof-band) already sits earlier
+     on the page, and the close-section navy band is the page's one
+     saturated "destination" moment right after this — banding this section
+     too would compete with that instead of leading into it. Same centered
+     eyebrow/h2 "compositional restart" treatment as .practice-overview__intro
+     above it, reused verbatim rather than invented fresh. The two paragraphs
+     below stay left-aligned and split into columns since centered
+     multi-line body text is hard to read, and the two are close enough in
+     length to balance evenly. Without any band of its own, the section
+     needs some separation from Practice Areas above it — a plain hairline
+     top border, same soft content-width rule About/Expertise use between
+     their own sections (.about-section, .exp-section), rather than a
+     full-bleed line that would read as another band. */
+  .values-mission {
+    border-top: 1px solid var(--rule);
+  }
+
+  .values-mission__intro {
+    text-align: center;
+    max-width: var(--content-narrow);
+    margin: 0 auto;
+    padding-top: var(--s2);
+  }
+
+  .values-mission__intro::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--gold-accent);
+    margin: 0 auto var(--s5);
+  }
+
+  .values-mission__intro .eyebrow {
+    margin-bottom: var(--s2);
+  }
+
+  .values-mission__intro h2 {
+    margin-bottom: 0;
+  }
+
+  .values-mission__columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--s8);
-    background: var(--bg-raised);
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .record__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--s5);
-  }
-
-  .quote-section {
-    max-width: var(--content-narrow);
+    gap: var(--s6) var(--s8);
+    margin-top: var(--s7);
     text-align: left;
   }
 
-  /* Restrained pull-quote treatment: a gold vertical rule plus a soft warm
-     wash that fades out rightward, rather than an enclosing bordered card
-     (no right/top/bottom border, no radius) — reads as editorial emphasis,
-     not a UI panel. Scoped to the quote+attribution only; the Crystal line
-     below stays plain so this doesn't compete with the proof band above or
-     the consultation band below. */
-  .quote-section__mark {
-    border-left: 3px solid var(--gold-accent);
-    padding: var(--s5) var(--s5) var(--s5) var(--s6);
-    background: linear-gradient(to right, var(--bg-raised-2), transparent 85%);
-  }
-
-  .quote-section__mark blockquote {
+  .values-mission__columns p {
     margin: 0;
   }
 
-  .quote-section__attribution {
-    margin-top: var(--s4);
-    margin-bottom: 0;
-    font-weight: 700;
-  }
-
-  .quote-section__flag {
-    font-weight: 400;
-    color: var(--fg-soft);
-    font-size: 0.85rem;
-  }
-
-  .quote-section__crystal {
-    margin-top: var(--s6);
-    padding-top: var(--s6);
-    border-top: 1px solid var(--rule);
-    color: var(--fg-soft);
+  @media (max-width: 760px) {
+    .values-mission__columns {
+      grid-template-columns: 1fr;
+      gap: var(--s5);
+    }
   }
 
   /* A deliberate full-bleed navy "destination" band — the one place on the
@@ -476,19 +452,6 @@ const recordItems = ratingsAndDesignations.slice(0, 3)
 
     .hero__actions {
       justify-content: center;
-    }
-
-    .record {
-      grid-template-columns: 1fr;
-    }
-
-    /* Major section header: matches the eyebrow/h2 centering already
-       established on .practice-overview__intro above it — the explanatory
-       paragraph, "full credentials" link, and the record__list stay left
-       aligned. */
-    .record__intro > .eyebrow,
-    .record__intro > h2 {
-      text-align: center;
     }
 
     /* Each proof item centered within its own grid quadrant as a block —
