@@ -339,7 +339,7 @@ test('Home Values & Mission (replacing the old record/quote sections) and About\
     await expect(page.locator('.record')).toHaveCount(0)
     await expect(page.locator('.quote-section')).toHaveCount(0)
     const valuesMission = page.locator('.values-mission')
-    await expect(valuesMission.getByRole('heading', { name: 'Our Values and Mission' })).toBeVisible()
+    await expect(valuesMission.getByRole('heading', { name: 'Our Vision and Mission' })).toBeVisible()
     const paragraphs = valuesMission.locator('.values-mission__columns p')
     await expect(paragraphs).toHaveCount(2)
     await expect(paragraphs.first()).toContainText('Our vision is to be a trusted partner')
