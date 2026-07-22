@@ -52,7 +52,7 @@ const railSections = [
   { id: 'intro', name: 'Russ Ryan' },
   { id: 'credentials', name: 'Credentials' },
   { id: 'crystal', name: 'Crystal Brightwell' },
-  { id: 'litigation-record', name: 'Litigation Record' },
+  { id: 'litigation-record', name: 'Litigation and Appeals' },
   { id: 'training', name: 'Training' },
   { id: 'positions', name: 'Positions' },
   { id: 'admissions', name: 'Admissions' },
@@ -176,16 +176,12 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
           />
           <h2>{crystalBrightwell.name}</h2>
           <p class="about-crystal__meta">
-            {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Ryan Legal
+            {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Russ Ryan
           </p>
           <div class="about-crystal__content">
             {crystalBrightwell.background.map((paragraph) => <p>{paragraph}</p>)}
             <h3>Case Experience</h3>
             {crystalBrightwell.caseExperience.map((paragraph) => <p>{paragraph}</p>)}
-            <h4>Appellate &amp; Supreme Court Experience</h4>
-            <ul class="multi-column-list">
-              {crystalBrightwell.courtsExperience.map((court) => <li>{court}</li>)}
-            </ul>
           </div>
         </div>
       </section>
@@ -207,7 +203,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
 
       <section class="about-section" id="litigation-record">
         <span class="about-heading-rule" aria-hidden="true"></span>
-        <h2>Litigation Record</h2>
+        <h2>Litigation and Appeals</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         {reportedDecisionGroups.length > 0 && (
           <div class="about-record-card">
@@ -346,7 +342,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       <section class="about-section" id="clients-affiliations">
         <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Clients &amp; Affiliations</h2>
-        <h3>Current Clients</h3>
+        <h3>Representative Clients</h3>
         <ul class="multi-column-list">
           {currentClients.map((client) => <li>{client}</li>)}
         </ul>
@@ -453,7 +449,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     gap: var(--s6);
   }
 
-  /* Litigation Record's one raised moment: mirrors Expertise's proof-callout
+  /* Litigation and Appeals' one raised moment: mirrors Expertise's proof-callout
      treatment for this exact content (Expertise's Litigation area links
      here via "See the litigation record"), so the page that gets linked to
      has real visual weight instead of just being the destination of a link
@@ -853,7 +849,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       text-align: left;
     }
 
-    /* Major section headers (Credentials, Litigation Record, Training,
+    /* Major section headers (Credentials, Litigation and Appeals, Training,
        Positions, Admissions, Clients & Affiliations): the heading-rule
        marker and the h2 itself center as a unit. Everything that follows —
        the section's own intro sentence/paragraphs, lists, and tables —

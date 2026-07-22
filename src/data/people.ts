@@ -35,13 +35,6 @@ export const crystalBrightwell = {
     `Crystal completed her Bachelor's degree in History (Ancient Civilizations), with a minor in Communicative Sciences and Disorders, at Fresno State University in 1999, and obtained her California Paralegal Designation (Bus. and Prof. Code § 6450) in 2008.`,
   ],
   caseExperience: [
-    `Crystal works closely with clients on all facets of case representation, with a particular focus on discovery issues in litigation. She has worked on hundreds of cases over the years, including assisting as second chair at counsel table through court and jury trials.`,
-  ],
-  courtsExperience: [
-    'California Supreme Court',
-    'California Courts of Appeal (all appellate districts)',
-    'Ninth Circuit Court of Appeal',
-    'Tenth Circuit Court of Appeal',
-    'United States Supreme Court',
+    `Crystal works closely with clients on all facets of case representation, with a particular focus on discovery issues in litigation. She has worked on hundreds of cases over the years, including assisting as “second chair” at counsel table through court and jury trials, as well as involvement in cases before all appellate courts in the State of California including the California Supreme Court, as well as federal appeals in the Ninth and Tenth Circuit Courts of Appeal and the U.S. Supreme Court.`,
   ],
 }

@@ -158,35 +158,35 @@ export const trainingAtAGlance: TrainingAtAGlanceGroup[] = [
   {
     heading: 'Audiences',
     items: [
-      'Employees',
-      'Managers',
-      'Executives',
-      'Physicians',
       'Boards of directors',
-      'Parent policy councils',
+      'Executives',
       'Nonprofit leaders',
+      'Managers',
       'Professional associations',
+      'Parent policy councils',
+      'Physicians',
+      'Employees',
     ],
   },
   {
     heading: 'Employment topics',
     items: [
-      'Sexual harassment',
-      'Workplace discrimination',
-      'Title VII',
-      'FMLA',
-      'CFRA',
       'ADA',
-      'OSHA',
-      'Workplace violence',
-      'Restrictive covenants',
-      'Trade secrets',
       'Annual legal updates',
+      'CFRA',
+      'FMLA',
+      'OSHA',
+      'Restrictive covenants',
+      'Sexual harassment',
+      'Title VII',
+      'Trade secrets',
+      'Workplace discrimination',
+      'Workplace violence',
     ],
   },
   {
     heading: 'Governance and compliance topics',
-    items: ['The Brown Act', "Robert's Rules of Order", 'Board governance', 'Corporate compliance', 'HIPAA compliance'],
+    items: ['Board governance', 'Corporate compliance', 'HIPAA compliance', "Robert's Rules of Order", 'The Brown Act'],
   },
 ]
 
@@ -251,7 +251,7 @@ export const expertise: ExpertiseSection[] = [
   {
     name: 'Litigation',
     paragraphs: [
-      `He has conducted more than 150 major hearings, arbitrations, court and jury trials to conclusion, prevailing in at least 90% of those cases.`,
+      `Russ has conducted more than 150 major hearings, arbitrations, court and jury trials to conclusion, prevailing in at least 90% of those cases.`,
       `Reported appellate decisions include:`,
     ],
     // Court groupings and citations per Russ, 2026-07-21. QC Construction

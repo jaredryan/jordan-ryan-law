@@ -186,9 +186,11 @@ export function crystalBrightwellPersonJsonLd(): JsonLd {
     name: crystalBrightwell.name,
     url: `${siteUrl}/about`,
     jobTitle: crystalBrightwell.workingTitle,
-    // Tenure is published on both Home and About (e.g. "24 years with Ryan
-    // Legal") — restating it here doesn't introduce a new claim.
-    description: `${crystalBrightwell.workingTitle}, with ${businessName} for over ${crystalBrightwell.tenureYears} years.`,
+    // Tenure is published on About (e.g. "24 years with Russ Ryan") —
+    // restating it here doesn't introduce a new claim. Framed around Russ,
+    // not the firm entity: Ryan Legal, PC itself has only existed about a
+    // year, while Crystal's actual tenure spans two firm names.
+    description: `${crystalBrightwell.workingTitle}, with ${russRyan.alternateName} for over ${crystalBrightwell.tenureYears} years.`,
     email: contact.emails.crystal,
     worksFor: { '@id': firmId },
   }
