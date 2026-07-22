@@ -167,12 +167,33 @@ const pad = (n: number) => String(n).padStart(2, '0')
   }
 
   .exp-covers {
-    padding-left: 1.25em;
     color: var(--fg);
   }
 
+  /* The base reset sets `ul { list-style: none }` (see global.css) so every
+     list renders identically across browsers — but that leaves this one
+     genuine bulleted list with no marker at all. A manual gold dash
+     (the same mark used for .exp-section__rule and the homepage intro
+     dividers) replaces it, so the marker is identical in every browser
+     instead of falling back to native ::marker rendering, which varies. */
   .exp-covers li {
+    position: relative;
+    padding-left: 1.25em;
     margin-bottom: var(--s2);
+  }
+
+  .exp-covers li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 2px;
+    /* --gold-ink, not --gold-accent: the raw accent is ~1.7:1 against --bg
+       in light theme, well under the 3:1 floor for a graphical marker
+       (WCAG 1.4.11). --gold-ink is the token this codebase already reserves
+       for gold that needs to stay legible (~5.6:1 light, ~5.3:1 dark). */
+    background: var(--gold-ink);
   }
 
   .exp-section {
