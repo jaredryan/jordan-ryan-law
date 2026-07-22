@@ -288,9 +288,27 @@ const proofItems = [
      it, reused verbatim rather than invented fresh. The two paragraphs
      below stay left-aligned and split into columns since centered
      multi-line body text is hard to read, and the two are close enough in
-     length to balance evenly. */
+     length to balance evenly.
+
+     The rule's own box is shrunk by the same amount as .page-section's
+     horizontal padding (moved here into width/max-width via calc, rather
+     than kept as padding) so the hairline lands exactly where the
+     surrounding sections' text starts/stops, at every viewport width —
+     not just on desktop, where the leftover viewport space outside
+     max-width happened to hide the difference. */
   .values-mission {
     border-top: 1px solid var(--rule);
+    width: calc(100% - var(--s5) * 2);
+    max-width: calc(var(--content-width) - var(--s5) * 2);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: 640px) {
+    .values-mission {
+      width: calc(100% - var(--s4) * 2);
+      max-width: calc(var(--content-width) - var(--s4) * 2);
+    }
   }
 
   .values-mission__intro {
