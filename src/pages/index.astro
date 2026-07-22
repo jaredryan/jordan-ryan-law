@@ -278,20 +278,17 @@ const proofItems = [
     margin: 0;
   }
 
-  /* Replaces the old record/quote sections — deliberately plain, not a
-     raised band: a real full-bleed band (.proof-band) already sits earlier
-     on the page, and the close-section navy band is the page's one
-     saturated "destination" moment right after this — banding this section
-     too would compete with that instead of leading into it. Same centered
-     eyebrow/h2 "compositional restart" treatment as .practice-overview__intro
-     above it, reused verbatim rather than invented fresh. The two paragraphs
+  /* Deliberately plain, not a raised band: Practice Areas and Vision &
+     Mission are meant to read as one connected chapter — "what we do" and
+     "why we do it" — sharing the same page background rather than being
+     split into separate visual movements. A full hairline the width of the
+     content column (not full-bleed) is enough separation without implying
+     a new section of the page has begun. Same centered eyebrow/h2
+     "compositional restart" treatment as .practice-overview__intro above
+     it, reused verbatim rather than invented fresh. The two paragraphs
      below stay left-aligned and split into columns since centered
      multi-line body text is hard to read, and the two are close enough in
-     length to balance evenly. Without any band of its own, the section
-     needs some separation from Practice Areas above it — a plain hairline
-     top border, same soft content-width rule About/Expertise use between
-     their own sections (.about-section, .exp-section), rather than a
-     full-bleed line that would read as another band. */
+     length to balance evenly. */
   .values-mission {
     border-top: 1px solid var(--rule);
   }

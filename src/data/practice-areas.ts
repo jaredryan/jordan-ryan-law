@@ -28,6 +28,11 @@ export interface PracticeArea {
   citedCases?: string[]
   whatThisCovers: string[]
   clientTypes?: string[]
+  /** Heading for the clientTypes list — defaults to "Client Types". Business
+   * Litigation uses "Forums" since courts, arbitration panels, and
+   * administrative agencies — not client categories — are the more useful
+   * left-column fact for that area. */
+  clientTypesLabel?: string
   proof?: PracticeAreaProof
 }
 
@@ -66,6 +71,12 @@ export const areasOfPractice: PracticeArea[] = [
       'Provider reimbursement and payment matters',
     ],
     clientTypes: ['Federally qualified health centers', 'Rural health clinics', 'Skilled nursing facilities', 'Private practice health care providers'],
+    proof: {
+      label: 'Compliance training delivered',
+      body: 'More than 100 training sessions for employees, physicians, and boards across dozens of California clinics, covering HIPAA, compliance, and workplace conduct.',
+      linkLabel: 'See the training record',
+      linkHref: '/about#training',
+    },
   },
   {
     slug: 'business-litigation',
@@ -78,6 +89,8 @@ export const areasOfPractice: PracticeArea[] = [
       'Real estate disputes and construction litigation',
       'Representation before all state and federal trial courts and administrative entities',
     ],
+    clientTypesLabel: 'Forums',
+    clientTypes: ['State superior courts', 'Federal district courts', 'Arbitration panels', 'Administrative agencies'],
     proof: {
       label: 'Trial record',
       body: 'More than 150 major hearings, arbitrations, and jury trials to conclusion, prevailing in at least 90% of those cases.',
@@ -96,6 +109,7 @@ export const areasOfPractice: PracticeArea[] = [
       'Borrower representation in secured and unsecured financing, from $1 million to more than $200 million',
       'Mergers of health care entities and complex structuring, including new market tax credits',
     ],
+    clientTypes: ['For-profit entities', 'Non-profit entities', 'Health care entities'],
     proof: {
       label: 'Teaching credential',
       body: 'Adjunct professor of commercial and secured transactions law for eight years at San Joaquin College of Law.',
@@ -131,6 +145,8 @@ export const areasOfPractice: PracticeArea[] = [
       'Pinheiro v. Civil Service Commission',
       'Urias v. Harris Farms',
     ],
+    clientTypesLabel: 'Areas of Precedent',
+    clientTypes: ['Zoning and land use', 'Immigration law', 'Noncompete law', 'Arbitration law'],
     whatThisCovers: [
       'California Supreme Court',
       'California Courts of Appeal',

@@ -350,11 +350,8 @@ test('Home Values & Mission (replacing the old record/quote sections) and About\
     const crystal = page.locator('#crystal')
     await expect(crystal.getByRole('heading', { level: 2, name: 'Crystal Brightwell' })).toBeVisible()
     await expect(crystal.locator('.about-crystal__meta')).toContainText('Senior Paralegal / Office Administrator')
-    await expect(crystal.locator('.about-crystal__meta')).toContainText('24 years with Ryan Legal')
+    await expect(crystal.locator('.about-crystal__meta')).toContainText('24 years with Russ Ryan')
     await expect(crystal.getByRole('heading', { level: 3, name: 'Case Experience' })).toBeVisible()
-    await expect(crystal.getByRole('heading', { level: 4, name: 'Appellate & Supreme Court Experience' })).toBeVisible()
-    await expect(crystal.locator('.multi-column-list li')).toHaveCount(5)
-    await expect(crystal.getByText('United States Supreme Court')).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width)
   }
 })

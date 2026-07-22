@@ -1,0 +1,216 @@
+---
+import type { PracticeArea } from '@/data/practice-areas'
+
+interface Props {
+  area: PracticeArea
+  /** True only for the very first section on the page (Labor and
+   * Employment) — its divider/top-padding is suppressed since it separates
+   * from the intro above, not a previous section. Explicit prop rather
+   * than a `:first-of-type` selector: this component also renders inside
+   * `.exp-movement`, a wrapping element for the page's second "movement",
+   * and `:first-of-type` would incorrectly re-match the first article
+   * there too (a new parent means a new set of type-siblings). */
+  isFirst?: boolean
+}
+
+const { area, isFirst = false } = Astro.props
+
+// Splits `content` on each exact `citedCases` substring so case names can be
+// italicized per legal-citation convention — same before/match/after
+// emphasis technique About's trainingIntro uses for one substring,
+// generalized here since Appeals cites several in one paragraph.
+function withItalicizedCases(content: string, citedCases: string[] | undefined) {
+  if (!citedCases || citedCases.length === 0) return [content]
+  const pattern = new RegExp(`(${citedCases.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+  return content.split(pattern)
+}
+---
+
+<article class:list={['exp-section', 'page-section', 'page-section--narrow', { 'exp-section--first': isFirst }]} id={area.slug}>
+  <span class="exp-section__rule" aria-hidden="true"></span>
+  <h2>{area.name}</h2>
+  <p>
+    {withItalicizedCases(area.content, area.citedCases).map((part) => (area.citedCases?.includes(part) ? <em>{part}</em> : part))}
+  </p>
+
+  <h3>What this covers</h3>
+  <ul class="exp-covers">
+    {area.whatThisCovers.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
+  {(area.clientTypes || area.proof) && (
+    <div class="exp-compare">
+      {area.clientTypes && (
+        <div class="exp-compare__clients">
+          <h3>{area.clientTypesLabel ?? 'Client Types'}</h3>
+          <p>{area.clientTypes.join(', ')}</p>
+        </div>
+      )}
+      {area.proof && (
+        <div class="proof-callout exp-compare__proof">
+          <span class="proof-callout__label">{area.proof.label}</span>
+          <p class="proof-callout__body">{area.proof.body}</p>
+          <a href={area.proof.linkHref} class="link-editorial">
+            {area.proof.linkLabel} <span class="link-editorial__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+    </div>
+  )}
+
+  <div class="exp-section__actions">
+    <a href="/contact" class="btn btn-secondary">
+      Discuss {area.name.toLowerCase()}
+    </a>
+  </div>
+</article>
+
+<style>
+  .exp-covers {
+    color: var(--fg);
+  }
+
+  /* The base reset sets `ul { list-style: none }` (see global.css) so every
+     list renders identically across browsers — but that leaves this one
+     genuine bulleted list with no marker at all. A manual gold dash
+     (the same mark used for .exp-section__rule and the homepage intro
+     dividers) replaces it, so the marker is identical in every browser
+     instead of falling back to native ::marker rendering, which varies. */
+  .exp-covers li {
+    position: relative;
+    padding-left: 1.25em;
+    margin-bottom: var(--s2);
+  }
+
+  .exp-covers li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 2px;
+    /* --gold-ink, not --gold-accent: the raw accent is ~1.7:1 against --bg
+       in light theme, well under the 3:1 floor for a graphical marker
+       (WCAG 1.4.11). --gold-ink is the token this codebase already reserves
+       for gold that needs to stay legible (~5.6:1 light, ~5.3:1 dark). */
+    background: var(--gold-ink);
+  }
+
+  .exp-section {
+    position: relative;
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s8);
+  }
+
+  /* No divider line here — it isn't separating this section from a
+     previous one, just from the intro above it. No top padding either:
+     the intro's own bottom padding already provides the gap, and
+     stacking this section's padding-top on top of that just produced
+     dead space with no divider to explain it (128px at desktop, where
+     nothing sits between the two). The gold rule + h2 below still read
+     clearly as "a section begins here" without it. */
+  .exp-section--first {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  /* Same short-gold-rule "a section begins here" cue as About's
+     .about-heading-rule, minus a numeral — the six practice areas aren't a
+     sequence (no area depends on or follows from another; a reader can
+     start with any one), so numbering them the way About's list rail does
+     would be decoration without meaning. The non-rail jump-nav already
+     lists all six by name with no numbers, so this also removes the
+     mismatch between an unnumbered nav and numbered section headers. */
+  .exp-section__rule {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--gold-accent);
+    margin-bottom: var(--s3);
+  }
+
+  /* A subtly raised/tinted surface distinguishes the client-type and
+     case-record metadata from the primary explanatory copy above it,
+     without boxing the whole section in a card. auto-fit (rather than a
+     fixed 1fr 1fr) lets the single-child case — most areas define only
+     `proof` or only `clientTypes`, not both — fill the full width instead
+     of leaving an empty second column inside the tinted panel. */
+  .exp-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--s6);
+    margin: var(--s6) 0;
+    padding: var(--s5);
+    background: var(--bg-raised-2);
+    border-radius: 4px;
+  }
+
+  .exp-compare__clients h3,
+  .exp-compare__proof h3 {
+    margin-bottom: var(--s2);
+  }
+
+  .exp-compare__clients p {
+    color: var(--fg-soft);
+    margin: 0;
+  }
+
+  .exp-compare__proof {
+    padding-left: var(--s4);
+    border-left: 2px solid var(--gold-accent);
+  }
+
+  .exp-section__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s4);
+    margin-top: var(--s6);
+  }
+
+  /* Mobile (<=640px, matching .page-section's own mobile breakpoint): the
+     actions row has too little width for space-between to read as
+     intentional — stack and center the pair instead. */
+  @media (max-width: 640px) {
+    .exp-section__actions {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .exp-compare {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Portrait-tablet and mobile (<=1099px, matching About's own rail
+     breakpoint): major section headers — the rule marker and the practice
+     area's own name — center as a unit, matching .exp-intro's centering at
+     the same breakpoint (set in expertise.astro). The explanatory
+     paragraph, "What this covers" list, and CTA row that follow stay left
+     aligned. */
+  @media (max-width: 1099px) {
+    .exp-section__rule {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exp-section > h2 {
+      text-align: center;
+    }
+  }
+
+  /* Wide (>=1100px): extra inset to clear the persistent side index,
+     matching .exp-intro's own padding-left at this breakpoint (set in
+     expertise.astro). */
+  @media (min-width: 1100px) {
+    .exp-section {
+      padding-left: var(--s6);
+    }
+  }
+</style>
