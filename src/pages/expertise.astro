@@ -29,6 +29,16 @@ const jsonLd = [
     ],
   }),
 ]
+
+// Splits `content` on each exact `citedCases` substring so case names can be
+// italicized per legal-citation convention — same before/match/after
+// emphasis technique About's trainingIntro uses for one substring,
+// generalized here since Appeals cites several in one paragraph.
+function withItalicizedCases(content: string, citedCases: string[] | undefined) {
+  if (!citedCases || citedCases.length === 0) return [content]
+  const pattern = new RegExp(`(${citedCases.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+  return content.split(pattern)
+}
 ---
 
 <BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd} flushFooter>
@@ -83,7 +93,9 @@ const jsonLd = [
             <article class="exp-section page-section page-section--narrow" id={area.slug}>
               <span class="exp-section__rule" aria-hidden="true"></span>
               <h2>{area.name}</h2>
-              <p>{area.content}</p>
+              <p>
+                {withItalicizedCases(area.content, area.citedCases).map((part) => (area.citedCases?.includes(part) ? <em>{part}</em> : part))}
+              </p>
 
               <h3>What this covers</h3>
               <ul class="exp-covers">

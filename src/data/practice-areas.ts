@@ -23,6 +23,9 @@ export interface PracticeArea {
    * hand-written so it never mid-sentence truncates `content` at "Mr." */
   teaser: string
   content: string
+  /** Exact case-name substrings of `content` to italicize per legal-citation
+   * convention (e.g. "Church v. Jamison") — only Appeals needs this. */
+  citedCases?: string[]
   whatThisCovers: string[]
   clientTypes?: string[]
   proof?: PracticeAreaProof
@@ -118,11 +121,21 @@ export const areasOfPractice: PracticeArea[] = [
     name: 'Appeals',
     icon: 'gavel',
     teaser: 'Nine reported decisions before California and federal appellate courts.',
-    content: `Ryan Legal successfully represents clients in appellate matters in the California Courts of Appeal, the California Supreme Court, the Ninth and Tenth Circuit Courts of Appeal and the United States Supreme Court. Mr. Ryan has nine reported appellate decisions to his credit, including: (1) the case that changed the way all California employers are now required to accrue vacation pay for employees in light of technological advances (Church v. Jamison, 143 Cal.App.4th 1568 (2006)); and (2) the first case to hold that California laws prohibiting anti-competitive restraints such as Business and Professions Code Section 16600 applies to partnerships.`,
+    content: `Russ has successfully briefed and argued precedent-setting matters before the California Supreme Court, the California appellate courts, and the Ninth and Tenth Circuit Courts of Appeal. His published decisions include landmark cases involving zoning and land-use regulation (Hernandez v. City of Hanford), EB-5 investor-visa law (Spencer Enterprises v. INS), employee vacation-pay rights (Church v. Jamison), California's prohibition against noncompete agreements (Kelton v. Stravinski), arbitration law (United Health Centers v. Superior Court), public-employee due process (Pinheiro v. Civil Service Commission), and judicial-disqualification procedures (Urias v. Harris Farms).`,
+    citedCases: [
+      'Hernandez v. City of Hanford',
+      'Spencer Enterprises v. INS',
+      'Church v. Jamison',
+      'Kelton v. Stravinski',
+      'United Health Centers v. Superior Court',
+      'Pinheiro v. Civil Service Commission',
+      'Urias v. Harris Farms',
+    ],
     whatThisCovers: [
-      'California Courts of Appeal and the California Supreme Court',
-      'Ninth and Tenth Circuit Courts of Appeal',
-      'The United States Supreme Court',
+      'California Supreme Court',
+      'California Courts of Appeal',
+      'Ninth Circuit Court of Appeals',
+      'Tenth Circuit Court of Appeals',
     ],
     proof: {
       label: 'Reported decisions',

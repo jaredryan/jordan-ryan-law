@@ -132,7 +132,14 @@ export const affiliations: string[] = [
 export interface ExpertiseSection {
   name: string
   paragraphs: string[]
-  reportedDecisions?: string[]
+  reportedDecisions?: ReportedDecision[]
+}
+
+export interface ReportedDecision {
+  court: string
+  caseName: string
+  citation: string
+  description: string
 }
 
 // Training is presented on About with its own editorial structure (intro +
@@ -247,13 +254,65 @@ export const expertise: ExpertiseSection[] = [
       `He has conducted more than 150 major hearings, arbitrations, court and jury trials to conclusion, prevailing in at least 90% of those cases.`,
       `Reported appellate decisions include:`,
     ],
+    // Court groupings and citations per Russ, 2026-07-21. QC Construction
+    // Products is filed under California Courts of Appeal per his email even
+    // though its citation (D. Ariz.) reads as a federal district court — see
+    // the open pre-launch TODO to confirm this with him.
     reportedDecisions: [
-      `Hernandez v. City of Hanford, 41 Cal. 4th 279 (2007)`,
-      `Kelton v. Stravinski, 138 Cal.App.4th 941 (2006)`,
-      `Church v. Jamison, 143 Cal.App.4th 1568 (2006)`,
-      `QC Constr. Prods. v. Cohills Building Spec., Inc., 423 F. Supp.2d 1008 (D.Az. 2006)`,
-      `Spencer Enters. v. United States, 229 F. Supp. 2d 1025 (E.D. Cal. 2001)`,
-      `Urias v. Harris Farms, 234 Cal.App.3d 415 (1991)`,
+      {
+        court: 'California Supreme Court',
+        caseName: 'Hernandez v. City of Hanford',
+        citation: '41 Cal.4th 279 (2007)',
+        description: `Represented the parties in a significant California Supreme Court zoning case that advanced a commercial-zoning dispute to the California Supreme Court, resulting in a published opinion that remains an important authority on economic-development zoning and municipal land-use powers, reinforcing local governments' authority to use zoning regulations to protect and shape commercial districts. Widely regarded by legal writers as the most important land-use and zoning decision of 2007.`,
+      },
+      {
+        court: 'Ninth Circuit Court of Appeals',
+        caseName: 'Spencer Enterprises, Inc. v. United States (INS)',
+        citation: '345 F.3d 683 (9th Cir. 2003)',
+        description: `Successfully litigated this landmark Ninth Circuit EB-5 immigration case, which helped shape the modern legal framework governing immigrant-investor visa adjudications and remains one of the most frequently cited federal appellate decisions in immigration jurisprudence.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: 'Church v. Jamison',
+        citation: '143 Cal.App.4th 1568 (2006)',
+        description: `Obtained a published Court of Appeal decision that became a leading authority on Labor Code section 227.3, clarifying when claims for unpaid vacation accrue and expanding employees' ability to recover vested vacation benefits upon termination. The case reversed a contrary interpretation previously supported by another appellate decision and by the Division of Labor Standards Enforcement, reinforcing California's policy that earned vacation benefits cannot be forfeited and must be fully paid upon termination.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: 'Kelton v. Stravinski',
+        citation: '138 Cal.App.4th 941 (2006)',
+        description: `Won a leading decision confirming that Business and Professions Code section 16600 applies to partnerships and broadly restricts noncompetition agreements, including those arising in ongoing business-partnership relationships. The case became the leading authority interpreting section 16600 to reject noncompetition covenants arising from partnership relationships, reinforcing that California's anti-noncompete policy extends beyond employment agreements to restrictive covenants among business owners, partners, and joint venturers.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: 'United Health Centers v. Superior Court (Vradenburg-Haworth)',
+        citation: '229 Cal.App.4th 63 (2014)',
+        description: `Prevailed in a landmark arbitration case reinforcing the finality of arbitration awards and limiting post-award challenges based on arbitrator-disclosure issues that could have been raised earlier. The decision holds that parties may forfeit post-award challenges based on alleged arbitrator-disclosure defects when they fail to timely investigate and raise those objections during the arbitration process.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: 'Pinheiro v. Civil Service Commission for the County of Fresno',
+        citation: '245 Cal.App.4th 1458 (2016)',
+        description: `Successfully argued a published decision reinforcing due-process protections in administrative proceedings, holding that disciplinary decisions must rest solely on the evidentiary record and that a civil service commission may not rely on evidence outside the record when upholding employee discipline.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: 'Urias v. Harris Farms, Inc.',
+        citation: '234 Cal.App.3d 415 (1991)',
+        description: `Represented a major agricultural employer in a precedent-setting matter that clarified judicial-disqualification procedures and became a frequently cited authority interpreting Code of Civil Procedure section 170.3, helping define the procedural rules governing recusal challenges and the validity of rulings issued by disqualified judges.`,
+      },
+      {
+        court: 'California Courts of Appeal',
+        caseName: `QC Construction Products, LLC v. Cohill's Building Specialties, Inc.`,
+        citation: '423 F. Supp. 2d 1008 (D. Ariz. 2006)',
+        description: `Represented a national construction-products manufacturer in significant federal litigation involving exclusive distributorship rights, complex contract interpretation, and commercial business-tort claims arising from a multi-state distribution relationship in the construction-products industry.`,
+      },
+      {
+        court: 'Tenth Circuit Court of Appeals',
+        caseName: 'United States ex rel. Trujillo v. Group 4 Falck',
+        citation: `244 F. App'x 853 (10th Cir. 2007)`,
+        description: `Successfully defended Group 4 Falck (Wackenhut Corporation) before the U.S. Court of Appeals for the Tenth Circuit, securing affirmance of a complete defense judgment involving RICO, whistleblower, and employment-discrimination claims in complex multi-plaintiff litigation.`,
+      },
     ],
   },
 ]

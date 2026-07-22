@@ -96,13 +96,18 @@
      needs a genuine second accent, not gold nudged lighter — at equal
      lightness a lighter gold just reads as a dimmer version of
      --gold-accent, not a distinct color. Shifted toward copper/bronze
-     (hue ~24° vs gold's ~39°) instead, landing at ~5.3:1 contrast against
-     --bg — legible as small text, and different enough at a glance to
+     instead — legible as small text, and different enough at a glance to
      read as a second material next to gold rather than "gold, but less."
-     Used wherever gold-ink is already the semantic choice (eyebrows,
-     Expertise's chapter numbers/rail numerals) via the shared token,
-     not a one-off override. */
-  --gold-ink: #c67139;
+     Lightened from the original #c67139 to #ce8555 (same copper hue, just
+     brighter) so the one shared token clears AA (4.5:1) with real headroom
+     against every surface it's actually used on — not just --bg (~5.3:1 at
+     the old shade) but also --bg-raised-2, which is lighter than --bg in
+     this theme and was quietly eating the margin (~4.3:1 at the old shade,
+     About's Reported Decisions card). Same color family throughout, just
+     lifted — not a second color. Used wherever gold-ink is already the
+     semantic choice (eyebrows, Expertise's chapter numbers/rail numerals)
+     via the shared token, not a one-off override. */
+  --gold-ink: #ce8555;
   --focus-ring: var(--gold);
   --navy-deep: #0b0e1f;
   /* Distinct from both --bg (#0b0e1f) and the header/footer's --surface-navy
@@ -123,7 +128,7 @@
     --tag-bg: #1b2145;
     --error: #ff6b5e;
     --gold-accent: #e5a836;
-    --gold-ink: #c67139;
+    --gold-ink: #ce8555;
     --focus-ring: var(--gold);
     --navy-deep: #0b0e1f;
     --surface-consult: #1b2145;
@@ -387,7 +392,7 @@ summary:focus-visible,
   display: block;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold-ink);

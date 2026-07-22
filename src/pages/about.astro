@@ -13,6 +13,7 @@ import {
   trainingIntro,
   trainingAtAGlance,
   trainingExperience,
+  type ReportedDecision,
 } from '@/data/credentials'
 import { currentClients, pastClients } from '@/data/clients'
 import { webPageJsonLd, russRyanPersonJsonLd, crystalBrightwellPersonJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
@@ -60,13 +61,16 @@ const railSections = [
 
 const litigation = expertise.find((e) => e.name === 'Litigation')
 
-// Reported decisions are a single string, e.g. "Hernandez v. City of
-// Hanford, 41 Cal. 4th 279 (2007)" — split the trailing "(year)" off so it
-// can sit in the archival table's right-aligned meta column.
-function splitDecision(decision: string): { label: string; year: string } {
-  const match = decision.match(/^(.*)\s(\(\d{4}\))$/)
-  return match && match[1] && match[2] ? { label: match[1], year: match[2] } : { label: decision, year: '' }
-}
+// Reported decisions are stored as a flat, court-tagged list (source order
+// matters — it's the order Russ gave them in) — grouped here into
+// court-labeled sections for display, preserving each court's first
+// appearance in that source order rather than alphabetizing.
+const reportedDecisionGroups = (litigation?.reportedDecisions ?? []).reduce<{ court: string; decisions: ReportedDecision[] }[]>((groups, decision) => {
+  const group = groups.find((g) => g.court === decision.court)
+  if (group) group.decisions.push(decision)
+  else groups.push({ court: decision.court, decisions: [decision] })
+  return groups
+}, [])
 
 // Gives a single substring of `text` selective <strong> emphasis (a
 // participant count, a training-engagement quantity) without hardcoding
@@ -205,20 +209,37 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
         <span class="about-heading-rule" aria-hidden="true"></span>
         <h2>Litigation Record</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-        {litigation?.reportedDecisions && (
+        {reportedDecisionGroups.length > 0 && (
           <div class="about-record-card">
             <h3>Reported Decisions</h3>
-            <ul class="archival-table reported-decisions-list">
-              {litigation.reportedDecisions.map((decision) => {
-                const { label, year } = splitDecision(decision)
-                return (
-                  <li class="archival-table__row">
-                    <span class="archival-table__label">{label}</span>
-                    <span class="archival-table__meta">{year}</span>
-                  </li>
-                )
-              })}
-            </ul>
+            <p class="decisions-summary">
+              {litigation!.reportedDecisions!.length} reported decisions across {reportedDecisionGroups.length} courts.
+            </p>
+            {
+              reportedDecisionGroups.map((group, i) => (
+                <Fragment>
+                  {
+                    // A separate sibling element, not a border on the group
+                    // itself — so it stays clear of the group's own left
+                    // bracket rather than forming a touching corner with it.
+                    i > 0 && <div class="decisions-divider" aria-hidden="true" />
+                  }
+                  <div class="decisions-group">
+                    <span class="eyebrow">{group.court}</span>
+                    <ul class="decisions-list">
+                      {group.decisions.map((decision) => (
+                        <li class="decision">
+                          <p class="decision__cite">
+                            <em class="decision__name">{decision.caseName}</em>, <span class="decision__citation-text">{decision.citation}</span>
+                          </p>
+                          <p class="decision__body">{decision.description}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Fragment>
+              ))
+            }
           </div>
         )}
       </section>
@@ -454,9 +475,72 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     margin-bottom: var(--s3);
   }
 
-  .reported-decisions-list {
-    columns: 2 260px;
-    column-gap: var(--s6);
+  .decisions-summary {
+    color: var(--fg-soft);
+    font-size: 0.9375rem;
+    margin: 0 0 var(--s5);
+  }
+
+  /* Runs the full height of the group, eyebrow through its last case — a
+     reader scrolling through several cases in one court stays visually
+     "inside the bracket" that started at the heading, even once the
+     heading itself has scrolled out of view. Neutral --rule, not a color,
+     so it reads as structure (like the hairlines between cases) rather
+     than decoration. */
+  .decisions-group {
+    border-left: 2px solid var(--gold-accent);
+    padding-left: var(--s4);
+  }
+
+  /* Dark theme's --gold-accent reads far more prominent here than light
+     theme's does (~7.4:1 vs ~1.5:1 against this card — two different
+     values under one token name, not a matched pair) — quieter here with
+     --fg-soft instead, still clearly visible, without touching --gold-ink
+     (already claimed by the court eyebrows just above). */
+  :root[data-theme='dark'] .decisions-group {
+    border-left-color: var(--fg-soft);
+  }
+
+  /* Same 1px weight as the hairlines between cases within a group (.decision
+     + .decision below). Full width of the card's content column, reaching
+     as far left as the groups' own left brackets above and below it. */
+  .decisions-divider {
+    margin: var(--s6) 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .decisions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .decision + .decision {
+    border-top: 1px solid var(--rule);
+    margin-top: var(--s4);
+    padding-top: var(--s4);
+  }
+
+  .decision__cite {
+    margin: 0 0 var(--s2);
+    color: var(--fg);
+  }
+
+  .decision__name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.0625rem;
+  }
+
+  .decision__citation-text {
+    color: var(--fg-soft);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .decision__body {
+    margin: 0;
+    color: var(--fg);
   }
 
   /* Court Admissions: plain, ruled, two-up at width — related to the
