@@ -23,7 +23,9 @@ const jsonLd = [
 // invented. See docs/legacy-content-inventory.md for provenance.
 const superLawyerRating = ratingsAndDesignations.find((r) => r.simplified.includes('Super Lawyer'))
 const superLawyerStartYear = superLawyerRating ? parseInt(superLawyerRating.years, 10) : NaN
-const superLawyerYears = Number.isNaN(superLawyerStartYear) ? undefined : new Date().getFullYear() - superLawyerStartYear
+// +1: an inclusive year count (named every year from superLawyerStartYear
+// through the current year, e.g. 2014-2026 is 13 years, not 12).
+const superLawyerYears = Number.isNaN(superLawyerStartYear) ? undefined : new Date().getFullYear() - superLawyerStartYear + 1
 
 const proofItems = [
   { value: '35+', label: 'Years in Practice' },

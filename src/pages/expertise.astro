@@ -29,8 +29,6 @@ const jsonLd = [
     ],
   }),
 ]
-
-const pad = (n: number) => String(n).padStart(2, '0')
 ---
 
 <BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd} flushFooter>
@@ -38,14 +36,9 @@ const pad = (n: number) => String(n).padStart(2, '0')
     <aside class="exp-index" aria-label="Practice areas" data-spy-rail>
       <ol>
         {
-          areasOfPractice.map((area, i) => (
+          areasOfPractice.map((area) => (
             <li>
-              <a href={`#${area.slug}`}>
-                <span class="exp-index__num" aria-hidden="true">
-                  {pad(i + 1)}
-                </span>
-                {area.name}
-              </a>
+              <a href={`#${area.slug}`}>{area.name}</a>
             </li>
           ))
         }
@@ -407,9 +400,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
     }
 
     .exp-index a {
-      display: flex;
-      align-items: baseline;
-      gap: var(--s2);
+      display: block;
       padding: var(--s3) 0 var(--s3) var(--s3);
       border-left: 2px solid transparent;
       color: var(--fg-soft);
@@ -431,13 +422,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
     :root[data-theme='dark'] .exp-index a.is-active {
       color: var(--fg);
-    }
-
-    .exp-index__num {
-      font-family: var(--font-display);
-      font-style: italic;
-      color: var(--gold-ink);
-      font-size: 0.8125rem;
     }
 
     .exp-intro {

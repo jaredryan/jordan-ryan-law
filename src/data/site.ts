@@ -40,7 +40,7 @@ export const knowsAbout: string[] = [
   'Health Care Law',
   'Technology Law',
   'Business Litigation',
-  'Appellate Litigation',
+  'Appeals',
   'Real Estate Law',
 ]
 
@@ -72,8 +72,8 @@ export const lawPayUrl = 'https://secure.lawpay.com/pages/ryanlegalpc/operating'
 
 export const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Expertise', href: '/expertise' },
   { name: 'About', href: '/about' },
+  { name: 'Expertise', href: '/expertise' },
   { name: 'Contact', href: '/contact' },
   { name: 'Payment', href: '/payment' },
 ] as const
