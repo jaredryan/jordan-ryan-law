@@ -209,6 +209,13 @@ html {
      (e.g. Payment) render ~1px–2px wider than tall routes (e.g. About),
      shifting the centered header bar between navigations. */
   scrollbar-gutter: stable;
+  /* WebKit's text-autosize/font-boost heuristic inflates paragraph-length
+     text on landscape mobile (targets prose blocks, not short heading-like
+     text — headings already look correct without this). Repeated on body
+     below since inheritance from html alone doesn't reliably survive a real
+     orientationchange event; see the JS reset in BaseLayout.astro. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -235,6 +242,8 @@ body {
   color: var(--fg);
   background: var(--bg);
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   transition:
     background-color var(--transition-fast),
     color var(--transition-fast);

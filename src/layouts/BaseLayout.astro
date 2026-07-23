@@ -91,5 +91,17 @@ const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
       <slot />
     </main>
     <Footer flush={flushFooter} />
+    <script is:inline>
+      // WebKit's text-autosize/font-boost heuristic (see the
+      // text-size-adjust rules in global.css) can re-apply on rotation even
+      // though the CSS value never changed. Forcing a style recalc between
+      // "none" and "100%" on orientationchange drops any stale boost.
+      window.addEventListener('orientationchange', function () {
+        const root = document.documentElement
+        root.style.webkitTextSizeAdjust = 'none'
+        void root.offsetHeight
+        root.style.webkitTextSizeAdjust = '100%'
+      })
+    </script>
   </body>
 </html>
