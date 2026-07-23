@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('Home: consultation band and footer brand mark render', async ({ page }) => {
   await page.goto('/')
-  const closeSection = page.locator('.close-section')
+  const closeSection = page.locator('.closing-band')
   await expect(closeSection).toBeVisible()
   await expect(closeSection.getByRole('heading', { name: 'Start with a conversation.' })).toBeVisible()
   await expect(closeSection.getByRole('link', { name: 'Request a consultation' })).toBeVisible()
@@ -13,7 +13,7 @@ test('Home: consultation band and footer brand mark render', async ({ page }) =>
 test('Home: footer sits flush against the consultation band (no margin gap)', async ({ page }) => {
   await page.goto('/')
   const gap = await page.evaluate(() => {
-    const close = document.querySelector('.close-section')
+    const close = document.querySelector('.closing-band')
     const footer = document.querySelector('.site-footer')
     if (!close || !footer) return null
     return footer.getBoundingClientRect().top - close.getBoundingClientRect().bottom
@@ -173,7 +173,7 @@ test('Mobile menu: Escape closes it and returns focus to the toggle button', asy
 
 test('Consultation section is not .on-navy and uses its own theme-aware focus color', async ({ page }) => {
   await page.goto('/')
-  const closeSection = page.locator('.close-section')
+  const closeSection = page.locator('.closing-band')
   await expect(closeSection).not.toHaveClass(/on-navy/)
 
   const cta = closeSection.getByRole('link', { name: 'Request a consultation' })
@@ -219,16 +219,20 @@ test('Expertise page H1 reads "Areas of Practice" while the navbar keeps "Expert
   await expect(page.locator('header a[href="/expertise"]').first()).toHaveText('Expertise')
 })
 
-test('Expertise and About closing bands: flush footer, correct CTA, and excluded from the rail/scroll-spy', async ({ page }) => {
-  const ctaLabel = (path: string) => (path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ')
-  for (const path of ['/expertise', '/about']) {
+test('Home, Expertise, and About closing bands: flush footer, correct CTA, and excluded from the rail/scroll-spy', async ({ page }) => {
+  const ctaLabel = (path: string) => {
+    if (path === '/') return 'Request a consultation'
+    return path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ'
+  }
+  for (const path of ['/', '/expertise', '/about']) {
     await page.goto(path)
     const band = page.locator('.closing-band')
     await expect(band).toBeVisible()
     const cta = band.getByRole('link', { name: ctaLabel(path) })
     await expect(cta).toHaveAttribute('href', '/contact')
 
-    // Flush transition into the footer, same pattern as Home's close-section.
+    // Flush transition into the footer — Home, Expertise, and About all
+    // share this one class now (see src/styles/global.css .closing-band).
     const gap = await page.evaluate(() => {
       const closing = document.querySelector('.closing-band')
       const footer = document.querySelector('.site-footer')
@@ -246,11 +250,11 @@ test('Expertise and About closing bands: flush footer, correct CTA, and excluded
 
   // Expertise: rail still lists exactly the six practice areas (no extra item for the band).
   await page.goto('/expertise')
-  await expect(page.locator('.exp-index li')).toHaveCount(6)
+  await expect(page.locator('.section-nav-rail li')).toHaveCount(6)
 
   // About: rail still lists exactly its original eight sections.
   await page.goto('/about')
-  await expect(page.locator('.about-rail li')).toHaveCount(8)
+  await expect(page.locator('.section-nav-rail li')).toHaveCount(8)
 })
 
 test('Closing-band CTA focus rings match Home\'s ivory/gold-ink pattern in both themes', async ({ page }) => {
@@ -288,7 +292,7 @@ test('Home, About, and Expertise closing CTAs carry page-specific copy, and Abou
   page,
 }) => {
   await page.goto('/')
-  const homeClose = page.locator('.close-section')
+  const homeClose = page.locator('.closing-band')
   await expect(homeClose.locator('.lead')).toHaveText(
     'Get clear advice on what comes next—and experienced representation when you need it.',
   )

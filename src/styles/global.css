@@ -408,6 +408,27 @@ summary:focus-visible,
   margin: 0 0 var(--s3);
 }
 
+/* Centers a page's own eyebrow/h1/lead intro once its layout no longer has
+   a second column to balance against — Contact, Payment, and Privacy each
+   redefined this same 899px rule under their own page-scoped class name. */
+@media (max-width: 899px) {
+  .page-hero {
+    text-align: center;
+  }
+}
+
+/* Short gold rule marking "a section begins here" — used unnumbered ahead of
+   every major heading on About and each Expertise practice area. Shared here
+   since both pages otherwise redefined the identical width/height/color/
+   margin rule under their own component-scoped class name. */
+.section-rule {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gold-accent);
+  margin-bottom: var(--s3);
+}
+
 .page-section {
   width: 100%;
   max-width: var(--content-width);
@@ -698,20 +719,31 @@ summary:focus-visible,
 }
 
 /* ---------------------------------------------------------------- */
-/* Shared closing CTA band — Expertise and About                     */
+/* Shared closing CTA band — Home, Expertise, and About               */
 /* ---------------------------------------------------------------- */
-/* Same navy(light)/ivory(dark) "destination" pattern established on
-   Home's consultation close (index.astro .close-section), factored out to
-   global scope so Expertise and About can reuse it verbatim. Home's own
-   implementation is deliberately left as its own page-scoped styles rather
-   than migrated to this class — a parallel twin, not an extraction of it,
-   so the already-approved Home band is never put at risk by this change. */
+/* A deliberate full-bleed navy "destination" band — the one place on each
+   of these pages besides the header/footer where navy carries real weight,
+   using a deeper shade (--surface-consult) so it never reads as a repeat of
+   the header/footer navy.
+
+   Deliberately NOT `.on-navy`: unlike the header/footer, it isn't navy in
+   both themes (dark theme flips it to ivory below), so borrowing that
+   utility would be misleading and would tie its focus/button color to an
+   unrelated shared class. --band-focus-color is a local custom property
+   instead — ivory by default (light theme's navy surface, gold button —
+   matches the header CTA's ivory-on-gold focus), redefined to gold for dark
+   theme's ivory surface, navy button — so the one outline-color rule below
+   never needs its own theme check. */
 .closing-band {
   --band-focus-color: var(--ivory);
   width: 100%;
   background: var(--surface-consult);
   text-align: center;
 }
+
+/* Replicates .on-navy's gold-button treatment locally, since this section
+   doesn't carry that class. Dark theme overrides this back to navy further
+   down (its own surface is ivory there, not navy). */
 
 .closing-band__inner {
   max-width: var(--content-narrow);
@@ -750,11 +782,22 @@ summary:focus-visible,
   outline-color: var(--band-focus-color);
 }
 
-/* Dark theme: flip to a warm ivory surface so the band still reads as a
-   destination moment rather than just another dark surface — same
-   gold-ink-focus reasoning as Home's version (see index.astro). Hardcoded
-   rather than var(--gold-ink): that token is tuned for legibility against
-   the dark navy --bg, a different surface than this band's ivory one. */
+/* Dark theme: the deep-navy band reads as just another dark surface next to
+   these pages' other dark sections, losing the light-theme version's
+   contrast/impact. Flip to a warm ivory surface instead — dark navy
+   text/button, a restrained gold-ink rule — so the band still reads as a
+   deliberate "destination" moment, just inverted.
+
+   Neither navy (reads as "more button," even at ~11.7:1 contrast against the
+   ivory page) nor gold (only ~1.5:1 against ivory — fails WCAG's 3:1
+   non-text minimum outright) worked well for the focus ring here. This
+   gold-ink-family brown is a different hue from both the navy button and
+   the ivory background, so it reads as its own distinct ring rather than
+   blending with either — and it clears the 3:1 minimum at ~5:1. Hardcoded
+   rather than referencing --gold-ink: that token is tuned for legibility
+   against the dark navy --bg (Expertise's chapter numbers, eyebrows), a
+   different surface than this band's ivory one — the two contexts need
+   different values, so they can't share the same token. */
 :root[data-theme='dark'] .closing-band {
   --band-focus-color: #8a5a00;
   background: var(--ivory);

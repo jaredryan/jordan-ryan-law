@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import ExpertiseSection from '@/components/ExpertiseSection.astro'
+import SectionNav from '@/components/SectionNav.astro'
 import { areasOfPractice } from '@/data/practice-areas'
 import { webPageJsonLd, legalServiceJsonLd } from '@/lib/json-ld'
 
@@ -35,37 +36,14 @@ const jsonLd = [
 
 <BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="exp-layout">
-    <aside class="exp-index" aria-label="Practice areas" data-spy-rail>
-      <ol>
-        {
-          areasOfPractice.map((area) => (
-            <li>
-              <a href={`#${area.slug}`}>{area.name}</a>
-            </li>
-          ))
-        }
-      </ol>
-    </aside>
+    <SectionNav
+      items={areasOfPractice.map((area) => ({ id: area.slug, name: area.name }))}
+      railLabel="Practice areas"
+      jumpLabel="Jump to a practice area"
+      density="roomy"
+    />
 
     <div class="exp-main">
-      <details class="exp-jump-nav" data-spy-rail>
-        <summary>
-          Jump to a practice area
-          <svg class="jump-nav-chevron" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </summary>
-        <ul>
-          {
-            areasOfPractice.map((area) => (
-              <li>
-                <a href={`#${area.slug}`}>{area.name}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </details>
-
       <section class="exp-intro page-section page-section--narrow">
         <span class="eyebrow">Expertise</span>
         <h1>Areas of Practice</h1>
@@ -114,16 +92,8 @@ const jsonLd = [
     grid-template-columns: 1fr;
   }
 
-  .exp-index {
-    display: none;
-  }
-
   .exp-main {
     min-width: 0;
-  }
-
-  .exp-jump-nav {
-    display: none;
   }
 
   /* Wraps the page's second "movement" (Business Transactions and Finance
@@ -145,81 +115,16 @@ const jsonLd = [
   }
 
   /* Portrait-tablet and mobile (<=1099px, matching About's own rail
-     breakpoint): sticky labeled jump control — the same pattern as
-     About's .about-jump-nav, reused verbatim including its placement
-     before the intro, so the nav is available immediately rather than
-     appearing mid-scroll. */
+     breakpoint): the shared SectionNav component (src/components/
+     SectionNav.astro) renders its own sticky labeled jump control at this
+     same breakpoint, placed before the intro so it's available immediately
+     rather than appearing mid-scroll. */
   @media (max-width: 1099px) {
-    .exp-jump-nav {
-      display: block;
-      /* No bottom margin — the intro's own top padding provides the gap
-         below it; a margin here would stack on top of that and double the
-         space. */
-      margin: var(--s5) var(--s4) 0;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      padding: var(--s3) var(--s4);
-      position: sticky;
-      top: calc(var(--s4) + 60px);
-      background: var(--bg);
-      z-index: 10;
-    }
-
-    .exp-jump-nav summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--s3);
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    /* Explicit chevron, identical across browsers — see global.css for why
-       the native ::marker/::-webkit-details-marker is hidden instead of
-       left to render differently per browser. A real inline SVG rather than
-       a border-drawn ::after: the border-corner trick draws ink into only
-       two of its box's four edges, so the visible mark sits off-center
-       within its own box and needs a manual pixel correction to look
-       centered — one that (on this element specifically) was visibly
-       snapping into place a frame after page load. An SVG's mark is already
-       centered in its own viewBox, so `align-items: center` on the flex
-       parent centers it correctly with nothing to nudge or catch up. */
-    .exp-jump-nav .jump-nav-chevron {
-      flex-shrink: 0;
-      transition: transform var(--transition-fast);
-    }
-
-    .exp-jump-nav[open] .jump-nav-chevron {
-      transform: rotate(180deg);
-    }
-
-    .exp-jump-nav ul {
-      list-style: none;
-      margin: var(--s3) 0 0;
-      padding: 0;
-    }
-
-    .exp-jump-nav li a {
-      display: flex;
-      align-items: center;
-      min-height: 44px;
-      color: var(--fg);
-    }
-
-    .exp-jump-nav li a.is-active {
-      color: var(--navy);
-      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
-    }
-
-    :root[data-theme='dark'] .exp-jump-nav li a.is-active {
-      color: var(--gold-accent);
-    }
-
     /* Page header: matches the same eyebrow/h1 centering used on Home,
        About, and Contact once their two-column/rail layouts collapse. The
        intro's lead and "ask Russ" link are short enough to center along
        with it, same as Home's hero and Contact's hero. Matching section
-       -level centering (the .exp-section__rule mark + h2) lives with
+       -level centering (the .section-rule mark + h2) lives with
        ExpertiseSection.astro, alongside the elements it centers. */
     .exp-intro {
       text-align: center;
@@ -239,52 +144,6 @@ const jsonLd = [
        gap removed here, not the only source of it. */
     .exp-layout {
       grid-template-columns: 230px 1fr;
-    }
-
-    .exp-index {
-      display: block;
-      position: sticky;
-      top: calc(var(--s8) + 60px);
-      align-self: start;
-      padding: var(--s6) var(--s5) var(--s6) 0;
-      border-right: 1px solid var(--rule);
-      max-height: calc(100vh - var(--s8) - 60px);
-      overflow-y: auto;
-    }
-
-    .exp-index ol {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .exp-index li {
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .exp-index a {
-      display: block;
-      padding: var(--s3) 0 var(--s3) var(--s3);
-      border-left: 2px solid transparent;
-      color: var(--fg-soft);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9375rem;
-    }
-
-    .exp-index a:hover,
-    .exp-index a:focus-visible {
-      color: var(--fg);
-    }
-
-    .exp-index a.is-active {
-      border-left-color: var(--gold-accent);
-      color: var(--navy);
-      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
-    }
-
-    :root[data-theme='dark'] .exp-index a.is-active {
-      color: var(--fg);
     }
 
     /* .exp-intro has max-width: none (spans the full column, no narrow

@@ -75,7 +75,7 @@ const proofItems = [
   </section>
 
   <section class="page-section practice-overview">
-    <div class="practice-overview__intro">
+    <div class="section-intro">
       <span class="eyebrow">What we handle</span>
       <h2>Practice areas</h2>
     </div>
@@ -96,7 +96,7 @@ const proofItems = [
   </section>
 
   <section class="page-section values-mission">
-    <div class="values-mission__intro">
+    <div class="section-intro">
       <span class="eyebrow">How we work</span>
       <h2>Our Vision and Mission</h2>
     </div>
@@ -105,9 +105,9 @@ const proofItems = [
     </div>
   </section>
 
-  <section class="close-section">
-    <div class="close-section__inner">
-      <span class="close-section__rule" aria-hidden="true"></span>
+  <section class="closing-band">
+    <div class="closing-band__inner">
+      <span class="closing-band__rule" aria-hidden="true"></span>
       <h2>Start with a conversation.</h2>
       <p class="lead">Get clear advice on what comes next—and experienced representation when you need it.</p>
       <a href="/contact" class="btn btn-primary">Request a consultation</a>
@@ -177,15 +177,18 @@ const proofItems = [
 
   /* A deliberate compositional restart after the proof band: centered
      eyebrow/heading (breaking from the hero's left alignment) under a short
-     gold rule, rather than just resuming the same left-aligned flow. */
-  .practice-overview__intro {
+     gold rule, rather than just resuming the same left-aligned flow. Shared
+     verbatim by Practice Areas and Vision & Mission below — both are the
+     same "compositional restart" device, not two coincidentally-identical
+     ones, so they share one class rather than two page-local copies. */
+  .section-intro {
     text-align: center;
     max-width: var(--content-narrow);
     margin: 0 auto;
     padding-top: var(--s2);
   }
 
-  .practice-overview__intro::before {
+  .section-intro::before {
     content: '';
     display: block;
     width: 40px;
@@ -194,11 +197,11 @@ const proofItems = [
     margin: 0 auto var(--s5);
   }
 
-  .practice-overview__intro .eyebrow {
+  .section-intro .eyebrow {
     margin-bottom: var(--s2);
   }
 
-  .practice-overview__intro h2 {
+  .section-intro h2 {
     margin-bottom: 0;
   }
 
@@ -283,12 +286,11 @@ const proofItems = [
      "why we do it" — sharing the same page background rather than being
      split into separate visual movements. A full hairline the width of the
      content column (not full-bleed) is enough separation without implying
-     a new section of the page has begun. Same centered eyebrow/h2
-     "compositional restart" treatment as .practice-overview__intro above
-     it, reused verbatim rather than invented fresh. The two paragraphs
-     below stay left-aligned and split into columns since centered
-     multi-line body text is hard to read, and the two are close enough in
-     length to balance evenly.
+     a new section of the page has begun. Reuses the same .section-intro
+     "compositional restart" treatment as Practice Areas above it. The two
+     paragraphs below stay left-aligned and split into columns since
+     centered multi-line body text is hard to read, and the two are close
+     enough in length to balance evenly.
 
      The rule's own box is shrunk by the same amount as .page-section's
      horizontal padding (moved here into width/max-width via calc, rather
@@ -311,30 +313,6 @@ const proofItems = [
     }
   }
 
-  .values-mission__intro {
-    text-align: center;
-    max-width: var(--content-narrow);
-    margin: 0 auto;
-    padding-top: var(--s2);
-  }
-
-  .values-mission__intro::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 2px;
-    background: var(--gold-accent);
-    margin: 0 auto var(--s5);
-  }
-
-  .values-mission__intro .eyebrow {
-    margin-bottom: var(--s2);
-  }
-
-  .values-mission__intro h2 {
-    margin-bottom: 0;
-  }
-
   .values-mission__columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -352,105 +330,6 @@ const proofItems = [
       grid-template-columns: 1fr;
       gap: var(--s5);
     }
-  }
-
-  /* A deliberate full-bleed navy "destination" band — the one place on the
-     page besides the header/footer where navy carries real weight, using a
-     deeper shade (--surface-consult) so it never reads as a repeat of the
-     header/footer navy above or the footer navy just below it.
-
-     This section is deliberately NOT `.on-navy`: unlike the header/footer,
-     it isn't navy in both themes (dark theme flips it to ivory below), so
-     borrowing that utility would be misleading and would tie its focus/
-     button color to an unrelated shared class. --close-focus-color is a
-     local custom property instead — ivory by default (light theme's navy
-     surface, gold button — matches the header CTA's ivory-on-gold focus),
-     redefined to gold for dark theme's ivory surface, navy button — so the
-     one outline-color rule further down never needs its own theme check. */
-  .close-section {
-    --close-focus-color: var(--ivory);
-    width: 100%;
-    background: var(--surface-consult);
-    text-align: center;
-  }
-
-  /* Replicates .on-navy's gold-button treatment locally, since this section
-     no longer carries that class. Dark theme overrides this back to navy
-     further down (its own surface is ivory there, not navy). */
-  .close-section .btn-primary {
-    background: var(--gold);
-    color: var(--navy-deep);
-  }
-
-  .close-section .btn-primary:hover,
-  .close-section .btn-primary:focus-visible {
-    background: #ffc548;
-  }
-
-  .close-section a:focus-visible {
-    outline-color: var(--close-focus-color);
-  }
-
-  .close-section__inner {
-    max-width: var(--content-narrow);
-    margin: 0 auto;
-    padding: var(--s9) var(--s5);
-  }
-
-  .close-section__rule {
-    display: block;
-    width: 40px;
-    height: 2px;
-    background: var(--gold-accent);
-    margin: 0 auto var(--s5);
-  }
-
-  .close-section h2 {
-    color: var(--surface-navy-fg);
-  }
-
-  .close-section .lead {
-    color: var(--surface-navy-fg-soft);
-    margin: 0 auto var(--s6);
-  }
-
-  /* Dark theme: the deep-navy band reads as just another dark surface next
-     to Home's other alternating dark sections, losing the light-theme
-     version's contrast/impact. Flip to a warm ivory surface instead — dark
-     navy text/button, a restrained gold-ink rule — so the band still reads
-     as a deliberate "destination" moment, just inverted. */
-  :root[data-theme='dark'] .close-section {
-    /* Neither navy (reads as "more button," even at ~11.7:1 contrast against
-       the ivory page) nor gold (only ~1.5:1 against ivory — fails WCAG's 3:1
-       non-text minimum outright) worked well here. This gold-ink-family
-       brown is a different hue from both the navy button and the ivory
-       background, so it reads as its own distinct ring rather than blending
-       with either — and it clears the 3:1 minimum at ~5:1. Hardcoded rather
-       than referencing --gold-ink: that token is now tuned for legibility
-       against the dark navy --bg (Expertise's chapter numbers, eyebrows),
-       a different surface than this band's ivory one — the two contexts
-       need different values, so they can't share the same token. */
-    --close-focus-color: #8a5a00;
-    background: var(--ivory);
-  }
-
-  :root[data-theme='dark'] .close-section__rule {
-    background: #8a5a00;
-  }
-
-  :root[data-theme='dark'] .close-section h2,
-  :root[data-theme='dark'] .close-section .lead {
-    color: var(--navy-deep);
-  }
-
-  :root[data-theme='dark'] .close-section .btn-primary {
-    background: var(--navy);
-    color: #fff;
-  }
-
-  :root[data-theme='dark'] .close-section .btn-primary:hover,
-  :root[data-theme='dark'] .close-section .btn-primary:focus-visible {
-    background: var(--navy-deep);
   }
 
   @media (max-width: 860px) {

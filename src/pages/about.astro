@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import SectionNav from '@/components/SectionNav.astro'
 import { russRyan, crystalBrightwell } from '@/data/people'
 import {
   education,
@@ -86,35 +87,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="about-layout">
-    <aside class="about-rail" aria-label="On this page" data-spy-rail>
-      <ol>
-        {
-          railSections.map((section) => (
-            <li>
-              <a href={`#${section.id}`}>{section.name}</a>
-            </li>
-          ))
-        }
-      </ol>
-    </aside>
-
-    <details class="about-jump-nav" data-spy-rail>
-      <summary>
-        On this page
-        <svg class="jump-nav-chevron" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </summary>
-      <ul>
-        {
-          railSections.map((section) => (
-            <li>
-              <a href={`#${section.id}`}>{section.name}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </details>
+    <SectionNav items={railSections} railLabel="On this page" jumpLabel="On this page" density="compact" />
 
     <div class="about-main">
       <section class="about-section" id="intro">
@@ -130,7 +103,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="credentials">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Credentials</h2>
         <div class="about-credentials-grid">
           <div>
@@ -165,7 +138,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="crystal">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <div class="about-crystal about-narrow">
           <img
             src="/crystal-profile.webp"
@@ -202,7 +175,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </figure>
 
       <section class="about-section" id="litigation-record">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Litigation and Appeals</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         {reportedDecisionGroups.length > 0 && (
@@ -241,7 +214,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="training">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Training</h2>
         <p>
           {trainingIntroParts.before}
@@ -290,7 +263,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="positions">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Positions</h2>
         <div class="about-credentials-grid">
           <div>
@@ -327,7 +300,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="admissions">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Admissions</h2>
         <h3>Bar Admissions</h3>
         <ul class="multi-column-list bar-admissions-list">
@@ -340,7 +313,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       </section>
 
       <section class="about-section" id="clients-affiliations">
-        <span class="about-heading-rule" aria-hidden="true"></span>
+        <span class="section-rule" aria-hidden="true"></span>
         <h2>Clients &amp; Affiliations</h2>
         <h3>Representative Clients</h3>
         <ul class="multi-column-list">
@@ -379,10 +352,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     grid-template-columns: 1fr;
   }
 
-  .about-rail {
-    display: none;
-  }
-
   .about-main {
     min-width: 0;
   }
@@ -415,19 +384,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
      pulls in — so headings stay visually consistent down the page. */
   .about-narrow {
     max-width: var(--content-narrow);
-  }
-
-  /* Same short-gold-rule "a section begins here" cue Expertise's chapter
-     numbers use, minus the numeral — About's sections are categorical
-     (Credentials, Training, Admissions...), not a sequence, so numbering
-     them would be decoration without meaning. Repeats on every major
-     heading below, restrained enough to survive that. */
-  .about-heading-rule {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--gold-accent);
-    margin-bottom: var(--s3);
   }
 
   .about-portrait {
@@ -663,10 +619,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     color: var(--fg-soft);
   }
 
-  .about-jump-nav {
-    display: none;
-  }
-
   /* A single deliberate chapter break between the personal introduction
      (Russ, Crystal) and the archival record that follows — the one place
      on the page that widens past the narrow reading column on purpose, so
@@ -728,68 +680,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
   }
 
   @media (max-width: 1099px) {
-    .about-jump-nav {
-      display: block;
-      margin: var(--s5) var(--s4) 0;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      padding: var(--s3) var(--s4);
-      position: sticky;
-      top: calc(var(--s4) + 60px);
-      background: var(--bg);
-      z-index: 10;
-    }
-
-    .about-jump-nav summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--s3);
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    /* Explicit chevron, identical across browsers — see global.css for why
-       the native ::marker/::-webkit-details-marker is hidden instead of
-       left to render differently per browser. A real inline SVG rather than
-       a border-drawn ::after: the border-corner trick draws ink into only
-       two of its box's four edges, so the visible mark sits off-center
-       within its own box and needs a manual pixel correction to look
-       centered — one that (on this element specifically) was visibly
-       snapping into place a frame after page load. An SVG's mark is already
-       centered in its own viewBox, so `align-items: center` on the flex
-       parent centers it correctly with nothing to nudge or catch up. */
-    .about-jump-nav .jump-nav-chevron {
-      flex-shrink: 0;
-      transition: transform var(--transition-fast);
-    }
-
-    .about-jump-nav[open] .jump-nav-chevron {
-      transform: rotate(180deg);
-    }
-
-    .about-jump-nav ul {
-      list-style: none;
-      margin: var(--s3) 0 0;
-      padding: 0;
-    }
-
-    .about-jump-nav li a {
-      display: flex;
-      align-items: center;
-      min-height: 44px;
-      color: var(--fg);
-    }
-
-    .about-jump-nav li a.is-active {
-      color: var(--navy);
-      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
-    }
-
-    :root[data-theme='dark'] .about-jump-nav li a.is-active {
-      color: var(--gold-accent);
-    }
-
     /* Below 1100px the rail disappears and every section fills the single
        remaining column — a narrower reading-measure block (.about-narrow)
        that isn't also centered just hugs the left edge with an unexplained
@@ -856,7 +746,7 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
        stays left aligned, same as before. Scoped to direct children so
        Crystal's own heading (nested inside .about-crystal, handled
        separately above) isn't affected. */
-    .about-section > .about-heading-rule {
+    .about-section > .section-rule {
       margin-left: auto;
       margin-right: auto;
     }
@@ -877,48 +767,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     .about-layout {
       grid-template-columns: 200px 1fr;
       gap: var(--s7);
-    }
-
-    .about-rail {
-      display: block;
-      position: sticky;
-      top: calc(var(--s8) + 60px);
-      align-self: start;
-      padding: var(--s6) var(--s4) var(--s6) 0;
-      border-right: 1px solid var(--rule);
-      max-height: calc(100vh - var(--s8) - 60px);
-      overflow-y: auto;
-    }
-
-    .about-rail ol {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .about-rail a {
-      display: block;
-      padding: var(--s2) 0 var(--s2) var(--s3);
-      border-left: 2px solid transparent;
-      color: var(--fg-soft);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-
-    .about-rail a:hover,
-    .about-rail a:focus-visible {
-      color: var(--fg);
-    }
-
-    .about-rail a.is-active {
-      border-left-color: var(--gold-accent);
-      color: var(--navy);
-      text-shadow: 0.2px 0 currentColor, -0.2px 0 currentColor;
-    }
-
-    :root[data-theme='dark'] .about-rail a.is-active {
-      color: var(--fg);
     }
 
     .about-section {

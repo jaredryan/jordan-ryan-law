@@ -35,7 +35,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
 ---
 
 <BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
-  <section class="page-section page-section--narrow contact-hero">
+  <section class="page-section page-section--narrow contact-hero page-hero">
     <span class="eyebrow">Get in touch</span>
     <h1>Start a conversation</h1>
     <p class="lead">Reach Russ or Crystal directly, or use the form to send a message.</p>
@@ -177,10 +177,6 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
   }
 
   @media (max-width: 899px) {
-    .contact-hero {
-      text-align: center;
-    }
-
     .contact-main {
       grid-template-columns: 1fr;
       gap: var(--s7);

@@ -27,7 +27,7 @@ function withItalicizedCases(content: string, citedCases: string[] | undefined) 
 ---
 
 <article class:list={['exp-section', 'page-section', 'page-section--narrow', { 'exp-section--first': isFirst }]} id={area.slug}>
-  <span class="exp-section__rule" aria-hidden="true"></span>
+  <span class="section-rule" aria-hidden="true"></span>
   <h2>{area.name}</h2>
   <p>
     {withItalicizedCases(area.content, area.citedCases).map((part) => (area.citedCases?.includes(part) ? <em>{part}</em> : part))}
@@ -75,8 +75,8 @@ function withItalicizedCases(content: string, citedCases: string[] | undefined) 
   /* The base reset sets `ul { list-style: none }` (see global.css) so every
      list renders identically across browsers — but that leaves this one
      genuine bulleted list with no marker at all. A manual gold dash
-     (the same mark used for .exp-section__rule and the homepage intro
-     dividers) replaces it, so the marker is identical in every browser
+     (the same mark used for .section-rule and the homepage intro dividers)
+     replaces it, so the marker is identical in every browser
      instead of falling back to native ::marker rendering, which varies. */
   .exp-covers li {
     position: relative;
@@ -114,21 +114,6 @@ function withItalicizedCases(content: string, citedCases: string[] | undefined) 
   .exp-section--first {
     border-top: none;
     padding-top: 0;
-  }
-
-  /* Same short-gold-rule "a section begins here" cue as About's
-     .about-heading-rule, minus a numeral — the six practice areas aren't a
-     sequence (no area depends on or follows from another; a reader can
-     start with any one), so numbering them the way About's list rail does
-     would be decoration without meaning. The non-rail jump-nav already
-     lists all six by name with no numbers, so this also removes the
-     mismatch between an unnumbered nav and numbered section headers. */
-  .exp-section__rule {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--gold-accent);
-    margin-bottom: var(--s3);
   }
 
   /* A subtly raised/tinted surface distinguishes the client-type and
@@ -195,7 +180,7 @@ function withItalicizedCases(content: string, citedCases: string[] | undefined) 
      paragraph, "What this covers" list, and CTA row that follow stay left
      aligned. */
   @media (max-width: 1099px) {
-    .exp-section__rule {
+    .exp-section > .section-rule {
       margin-left: auto;
       margin-right: auto;
     }

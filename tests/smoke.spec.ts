@@ -67,7 +67,7 @@ test('contact heading/disclaimer read correctly and rail active-state updates on
   ).toBeVisible()
 
   await page.goto('/expertise')
-  const railLinks = page.locator('.exp-index a')
+  const railLinks = page.locator('.section-nav-rail a')
   await expect(railLinks.first()).toHaveAttribute('aria-current', 'location')
   await railLinks.nth(2).click()
   await expect(railLinks.nth(2)).toHaveAttribute('aria-current', 'location')

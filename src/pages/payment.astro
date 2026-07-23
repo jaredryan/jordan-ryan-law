@@ -27,9 +27,11 @@ const jsonLd = [
 
 <BaseLayout title="Payment" description={description} path="/payment" keywords={keywords} jsonLd={jsonLd}>
   <section class="page-section payment-section">
-    <span class="eyebrow">Payment</span>
-    <h1>Pay quickly and securely through LawPay</h1>
-    <p class="lead">Click below to be taken to our secure payment portal, hosted by LawPay.</p>
+    <div class="page-hero">
+      <span class="eyebrow">Payment</span>
+      <h1>Pay quickly and securely through LawPay</h1>
+      <p class="lead">Click below to be taken to our secure payment portal, hosted by LawPay.</p>
+    </div>
 
     <div class="payment-card">
       <p class="payment-card__label">LawPay — Secure Payment Portal</p>
@@ -114,16 +116,4 @@ const jsonLd = [
     color: var(--fg-soft);
   }
 
-  /* Page header: matches the same eyebrow/h1 centering used on Home,
-     About, Contact, and Expertise at narrow widths. Scoped to the direct
-     eyebrow/h1/lead children only — the payment card (already centered
-     unconditionally) and the questions/accepted-methods list stay as they
-     are. */
-  @media (max-width: 899px) {
-    .payment-section > .eyebrow,
-    .payment-section > h1,
-    .payment-section > .lead {
-      text-align: center;
-    }
-  }
 </style>
