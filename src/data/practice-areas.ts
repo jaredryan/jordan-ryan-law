@@ -70,7 +70,12 @@ export const areasOfPractice: PracticeArea[] = [
       'Litigation, mediation, and arbitration',
       'Provider reimbursement and payment matters',
     ],
-    clientTypes: ['Federally qualified health centers', 'Rural health clinics', 'Skilled nursing facilities', 'Private practice health care providers'],
+    clientTypes: [
+      'Federally qualified health centers',
+      'Rural health clinics',
+      'Skilled nursing facilities',
+      'Private practice health care providers',
+    ],
     proof: {
       label: 'Compliance training delivered',
       body: 'More than 100 training sessions for employees, physicians, and boards across dozens of California clinics, covering HIPAA, compliance, and workplace conduct.',

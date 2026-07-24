@@ -25,7 +25,9 @@ const superLawyerRating = ratingsAndDesignations.find((r) => r.simplified.includ
 const superLawyerStartYear = superLawyerRating ? parseInt(superLawyerRating.years, 10) : NaN
 // +1: an inclusive year count (named every year from superLawyerStartYear
 // through the current year, e.g. 2014-2026 is 13 years, not 12).
-const superLawyerYears = Number.isNaN(superLawyerStartYear) ? undefined : new Date().getFullYear() - superLawyerStartYear + 1
+const superLawyerYears = Number.isNaN(superLawyerStartYear)
+  ? undefined
+  : new Date().getFullYear() - superLawyerStartYear + 1
 
 const proofItems = [
   { value: '35+', label: 'Years in Practice' },
@@ -35,7 +37,14 @@ const proofItems = [
 ]
 ---
 
-<BaseLayout title={businessName} description={defaultDescription} path="/" keywords={defaultKeywords} jsonLd={jsonLd} flushFooter>
+<BaseLayout
+  title={businessName}
+  description={defaultDescription}
+  path="/"
+  keywords={defaultKeywords}
+  jsonLd={jsonLd}
+  flushFooter
+>
   <section class="hero page-section">
     <div class="hero__portrait">
       <img
@@ -85,7 +94,10 @@ const proofItems = [
           <li class="practice-grid__item">
             <a class="practice-grid__link" href={`/expertise#${area.slug}`}>
               <h3>
-                {area.name} <span class="practice-grid__arrow" aria-hidden="true">→</span>
+                {area.name}{' '}
+                <span class="practice-grid__arrow" aria-hidden="true">
+                  →
+                </span>
               </h3>
               <p>{area.teaser}</p>
             </a>
@@ -266,7 +278,9 @@ const proofItems = [
     text-decoration-line: none;
     display: inline-block;
     color: var(--fg-soft);
-    transition: color var(--transition-fast), transform var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   .practice-grid__link:hover .practice-grid__arrow,

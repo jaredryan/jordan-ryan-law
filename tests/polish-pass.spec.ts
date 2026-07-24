@@ -93,8 +93,12 @@ test('Footer/header brand links expose correct accessible names, About applies t
     .locator('#training > p')
     .first()
     .evaluate((el) => getComputedStyle(el).maxWidth)
-  const trainingGlanceMaxWidth = await page.locator('.about-training-glance').evaluate((el) => getComputedStyle(el).maxWidth)
-  const trainingExperienceMaxWidth = await page.locator('.about-training-experience').evaluate((el) => getComputedStyle(el).maxWidth)
+  const trainingGlanceMaxWidth = await page
+    .locator('.about-training-glance')
+    .evaluate((el) => getComputedStyle(el).maxWidth)
+  const trainingExperienceMaxWidth = await page
+    .locator('.about-training-experience')
+    .evaluate((el) => getComputedStyle(el).maxWidth)
   const credentialsMaxWidth = await page.locator('#credentials').evaluate((el) => getComputedStyle(el).maxWidth)
   const barAdmissionsHeading = page.locator('#admissions h3', { hasText: 'Bar Admissions' })
   const barAdmissionsMaxWidth = await barAdmissionsHeading.evaluate((el) => getComputedStyle(el).maxWidth)
@@ -109,7 +113,9 @@ test('Footer/header brand links expose correct accessible names, About applies t
   expect(courtAdmissionsMaxWidth).toBe('none')
 })
 
-test('Header/footer decorative marks use alt="", and on-navy focus rings resolve to gold in both themes', async ({ page }) => {
+test('Header/footer decorative marks use alt="", and on-navy focus rings resolve to gold in both themes', async ({
+  page,
+}) => {
   await page.goto('/')
   await expect(page.locator('.site-header__brand-mark')).toHaveAttribute('alt', '')
   await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('alt', '')
@@ -191,7 +197,10 @@ test('Consultation section is not .on-navy and uses its own theme-aware focus co
 test('Home practice-area links underline correctly, including a wrapped title', async ({ page }) => {
   await page.goto('/')
   const items = [
-    { heading: page.locator('.practice-grid__item h3', { hasText: 'Health Care' }), link: page.locator('.practice-grid__link', { hasText: 'Health Care' }) },
+    {
+      heading: page.locator('.practice-grid__item h3', { hasText: 'Health Care' }),
+      link: page.locator('.practice-grid__link', { hasText: 'Health Care' }),
+    },
     {
       heading: page.locator('.practice-grid__item h3', { hasText: 'Business Transactions and Finance' }),
       link: page.locator('.practice-grid__link', { hasText: 'Business Transactions and Finance' }),
@@ -219,7 +228,9 @@ test('Expertise page H1 reads "Areas of Practice" while the navbar keeps "Expert
   await expect(page.locator('header a[href="/expertise"]').first()).toHaveText('Expertise')
 })
 
-test('Home, Expertise, and About closing bands: flush footer, correct CTA, and excluded from the rail/scroll-spy', async ({ page }) => {
+test('Home, Expertise, and About closing bands: flush footer, correct CTA, and excluded from the rail/scroll-spy', async ({
+  page,
+}) => {
   const ctaLabel = (path: string) => {
     if (path === '/') return 'Request a consultation'
     return path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ'
@@ -257,7 +268,7 @@ test('Home, Expertise, and About closing bands: flush footer, correct CTA, and e
   await expect(page.locator('.section-nav-rail li')).toHaveCount(8)
 })
 
-test('Closing-band CTA focus rings match Home\'s ivory/gold-ink pattern in both themes', async ({ page }) => {
+test("Closing-band CTA focus rings match Home's ivory/gold-ink pattern in both themes", async ({ page }) => {
   const ctaLabel = (path: string) => (path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ')
   for (const path of ['/expertise', '/about']) {
     await page.goto(path)
@@ -301,7 +312,9 @@ test('Home, About, and Expertise closing CTAs carry page-specific copy, and Abou
   await page.goto('/about')
   const aboutClose = page.locator('.closing-band')
   await expect(aboutClose.getByRole('heading', { name: 'Practical judgment. Proven experience.' })).toBeVisible()
-  await expect(aboutClose.locator('.lead')).toHaveText('From day-to-day advising to trial and appeal, Russ brings both to every stage.')
+  await expect(aboutClose.locator('.lead')).toHaveText(
+    'From day-to-day advising to trial and appeal, Russ brings both to every stage.',
+  )
   await expect(aboutClose.getByRole('link', { name: 'Talk with Russ' })).toHaveAttribute('href', '/contact')
 
   const training = page.locator('#training')
@@ -323,11 +336,13 @@ test('Home, About, and Expertise closing CTAs carry page-specific copy, and Abou
   await page.goto('/expertise')
   const expClose = page.locator('.closing-band')
   await expect(expClose.getByRole('heading', { name: "Let's find the right next step." })).toBeVisible()
-  await expect(expClose.locator('.lead')).toHaveText('Get clear guidance on your options—before a decision, during a dispute, or in court.')
+  await expect(expClose.locator('.lead')).toHaveText(
+    'Get clear guidance on your options—before a decision, during a dispute, or in court.',
+  )
   await expect(expClose.getByRole('link', { name: 'Discuss your needs' })).toHaveAttribute('href', '/contact')
 })
 
-test('Home Values & Mission (replacing the old record/quote sections) and About\'s rebuilt Crystal section hold up at phone, tablet, and desktop widths', async ({
+test("Home Values & Mission (replacing the old record/quote sections) and About's rebuilt Crystal section hold up at phone, tablet, and desktop widths", async ({
   page,
 }) => {
   const viewports = [

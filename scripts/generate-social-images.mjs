@@ -36,7 +36,8 @@ const sourceSans3 = fontDataUri('@fontsource-variable/source-sans-3/files/source
 const NAVY = '#1e275e'
 const GOLD = '#fdb613'
 
-const POSITIONING_STATEMENT = 'Premier representation for employers, health care providers, and nonprofits throughout California.'
+const POSITIONING_STATEMENT =
+  'Premier representation for employers, health care providers, and nonprofits throughout California.'
 
 function buildHtml() {
   return `<!doctype html>

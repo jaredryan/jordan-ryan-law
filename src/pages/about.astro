@@ -17,9 +17,16 @@ import {
   type ReportedDecision,
 } from '@/data/credentials'
 import { currentClients, pastClients } from '@/data/clients'
-import { webPageJsonLd, russRyanPersonJsonLd, crystalBrightwellPersonJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
+import {
+  webPageJsonLd,
+  russRyanPersonJsonLd,
+  crystalBrightwellPersonJsonLd,
+  russRyanId,
+  crystalBrightwellId,
+} from '@/lib/json-ld'
 
-const description = 'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+const description =
+  'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
 const keywords = [
   'Russell Ryan Attorney',
   'Labor and Employment Lawyer',
@@ -66,7 +73,9 @@ const litigation = expertise.find((e) => e.name === 'Litigation')
 // matters — it's the order Russ gave them in) — grouped here into
 // court-labeled sections for display, preserving each court's first
 // appearance in that source order rather than alphabetizing.
-const reportedDecisionGroups = (litigation?.reportedDecisions ?? []).reduce<{ court: string; decisions: ReportedDecision[] }[]>((groups, decision) => {
+const reportedDecisionGroups = (litigation?.reportedDecisions ?? []).reduce<
+  { court: string; decisions: ReportedDecision[] }[]
+>((groups, decision) => {
   const group = groups.find((g) => g.court === decision.court)
   if (group) group.decisions.push(decision)
   else groups.push({ court: decision.court, decisions: [decision] })
@@ -178,14 +187,15 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
         <span class="section-rule" aria-hidden="true"></span>
         <h2>Litigation and Appeals</h2>
         {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-        {reportedDecisionGroups.length > 0 && (
-          <div class="about-record-card">
-            <h3>Reported Decisions</h3>
-            <p class="decisions-summary">
-              {litigation!.reportedDecisions!.length} reported decisions across {reportedDecisionGroups.length} courts.
-            </p>
-            {
-              reportedDecisionGroups.map((group, i) => (
+        {
+          reportedDecisionGroups.length > 0 && (
+            <div class="about-record-card">
+              <h3>Reported Decisions</h3>
+              <p class="decisions-summary">
+                {litigation!.reportedDecisions!.length} reported decisions across {reportedDecisionGroups.length}{' '}
+                courts.
+              </p>
+              {reportedDecisionGroups.map((group, i) => (
                 <Fragment>
                   {
                     // A separate sibling element, not a border on the group
@@ -199,7 +209,8 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
                       {group.decisions.map((decision) => (
                         <li class="decision">
                           <p class="decision__cite">
-                            <em class="decision__name">{decision.caseName}</em>, <span class="decision__citation-text">{decision.citation}</span>
+                            <em class="decision__name">{decision.caseName}</em>,{' '}
+                            <span class="decision__citation-text">{decision.citation}</span>
                           </p>
                           <p class="decision__body">{decision.description}</p>
                         </li>
@@ -207,10 +218,10 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
                     </ul>
                   </div>
                 </Fragment>
-              ))
-            }
-          </div>
-        )}
+              ))}
+            </div>
+          )
+        }
       </section>
 
       <section class="about-section" id="training">
@@ -304,7 +315,13 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
         <h2>Admissions</h2>
         <h3>Bar Admissions</h3>
         <ul class="multi-column-list bar-admissions-list">
-          {barAdmissions.map((item) => <li>{item.state}, {item.year}</li>)}
+          {
+            barAdmissions.map((item) => (
+              <li>
+                {item.state}, {item.year}
+              </li>
+            ))
+          }
         </ul>
         <h3>Court Admissions</h3>
         <ul class="multi-column-list court-admissions-list">
@@ -325,10 +342,15 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
         </ul>
         <h3 class="about-narrow">Affiliations</h3>
         <ul class="archival-table about-narrow">
-          {affiliations.map((item) => <li class="archival-table__row"><span class="archival-table__label">{item}</span></li>)}
+          {
+            affiliations.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">{item}</span>
+              </li>
+            ))
+          }
         </ul>
       </section>
-
     </div>
   </div>
 

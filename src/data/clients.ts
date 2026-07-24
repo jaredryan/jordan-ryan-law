@@ -29,4 +29,10 @@ export const currentClients: string[] = [
   'Western Sierra Medical Clinic, Inc.',
 ]
 
-export const pastClients: string[] = ['Dole', 'Snap Finance', 'Sun-Maid', 'United Parcel Service', 'Varsity Contractors']
+export const pastClients: string[] = [
+  'Dole',
+  'Snap Finance',
+  'Sun-Maid',
+  'United Parcel Service',
+  'Varsity Contractors',
+]

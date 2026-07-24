@@ -31,7 +31,15 @@ interface Props {
   noindex?: boolean
 }
 
-const { title, description = defaultDescription, path, keywords, jsonLd = [], flushFooter = false, noindex = false } = Astro.props
+const {
+  title,
+  description = defaultDescription,
+  path,
+  keywords,
+  jsonLd = [],
+  flushFooter = false,
+  noindex = false,
+} = Astro.props
 const canonicalUrl = new URL(path, siteUrl).toString()
 const pageTitle = path === '/' ? businessName : `${title} | ${businessName}`
 const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
@@ -47,7 +55,12 @@ const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
       ;(function () {
         try {
           const stored = localStorage.getItem('theme')
-          const theme = stored === 'light' || stored === 'dark' ? stored : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          const theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
           document.documentElement.setAttribute('data-theme', theme)
         } catch {
           document.documentElement.setAttribute('data-theme', 'light')

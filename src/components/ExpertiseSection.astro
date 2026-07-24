@@ -21,44 +21,57 @@ const { area, isFirst = false } = Astro.props
 // generalized here since Appeals cites several in one paragraph.
 function withItalicizedCases(content: string, citedCases: string[] | undefined) {
   if (!citedCases || citedCases.length === 0) return [content]
-  const pattern = new RegExp(`(${citedCases.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+  const pattern = new RegExp(
+    `(${citedCases.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`,
+    'g',
+  )
   return content.split(pattern)
 }
 ---
 
-<article class:list={['exp-section', 'page-section', 'page-section--narrow', { 'exp-section--first': isFirst }]} id={area.slug}>
+<article
+  class:list={['exp-section', 'page-section', 'page-section--narrow', { 'exp-section--first': isFirst }]}
+  id={area.slug}
+>
   <span class="section-rule" aria-hidden="true"></span>
   <h2>{area.name}</h2>
   <p>
-    {withItalicizedCases(area.content, area.citedCases).map((part) => (area.citedCases?.includes(part) ? <em>{part}</em> : part))}
+    {
+      withItalicizedCases(area.content, area.citedCases).map((part) =>
+        area.citedCases?.includes(part) ? <em>{part}</em> : part,
+      )
+    }
   </p>
 
   <h3>What this covers</h3>
   <ul class="exp-covers">
-    {area.whatThisCovers.map((item) => (
-      <li>{item}</li>
-    ))}
+    {area.whatThisCovers.map((item) => <li>{item}</li>)}
   </ul>
 
-  {(area.clientTypes || area.proof) && (
-    <div class="exp-compare">
-      {area.clientTypes && (
-        <div class="exp-compare__clients">
-          <h3>{area.clientTypesLabel ?? 'Client Types'}</h3>
-          <p>{area.clientTypes.join(', ')}</p>
-        </div>
-      )}
-      {area.proof && (
-        <div class="proof-callout exp-compare__proof">
-          <span class="proof-callout__label">{area.proof.label}</span>
-          <p class="proof-callout__body">{area.proof.body}</p>
-          <a href={area.proof.linkHref} class="link-editorial">
-            {area.proof.linkLabel} <span class="link-editorial__arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      )}
-    </div>
-  )}
+  {
+    (area.clientTypes || area.proof) && (
+      <div class="exp-compare">
+        {area.clientTypes && (
+          <div class="exp-compare__clients">
+            <h3>{area.clientTypesLabel ?? 'Client Types'}</h3>
+            <p>{area.clientTypes.join(', ')}</p>
+          </div>
+        )}
+        {area.proof && (
+          <div class="proof-callout exp-compare__proof">
+            <span class="proof-callout__label">{area.proof.label}</span>
+            <p class="proof-callout__body">{area.proof.body}</p>
+            <a href={area.proof.linkHref} class="link-editorial">
+              {area.proof.linkLabel}{' '}
+              <span class="link-editorial__arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   <div class="exp-section__actions">
     <a href="/contact" class="btn btn-secondary">

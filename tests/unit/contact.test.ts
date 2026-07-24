@@ -143,7 +143,10 @@ test('missing Resend configuration fails closed', async () => {
   const response = await handler(postRequest(VALID_BODY))
   const { status, body } = await readBody(response)
   assert.equal(status, 500)
-  assert.equal((body as { message: string }).message, 'The contact form is temporarily unavailable. Please call or email us directly.')
+  assert.equal(
+    (body as { message: string }).message,
+    'The contact form is temporarily unavailable. Please call or email us directly.',
+  )
   assert.equal(called, false, 'the email client must never be invoked when required config is missing')
 })
 

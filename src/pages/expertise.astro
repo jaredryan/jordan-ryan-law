@@ -31,10 +31,16 @@ const jsonLd = [
     ],
   }),
 ]
-
 ---
 
-<BaseLayout title="Expertise" description={description} path="/expertise" keywords={keywords} jsonLd={jsonLd} flushFooter>
+<BaseLayout
+  title="Expertise"
+  description={description}
+  path="/expertise"
+  keywords={keywords}
+  jsonLd={jsonLd}
+  flushFooter
+>
   <div class="exp-layout">
     <SectionNav
       items={areasOfPractice.map((area) => ({ id: area.slug, name: area.name }))}
@@ -48,8 +54,7 @@ const jsonLd = [
         <span class="eyebrow">Expertise</span>
         <h1>Areas of Practice</h1>
         <p class="lead">
-          Six practice areas, one attorney handling each matter directly — from day-to-day advising to trial and
-          appeal.
+          Six practice areas, one attorney handling each matter directly — from day-to-day advising to trial and appeal.
         </p>
         <a href="/contact" class="link-editorial">
           Not sure where you fit? Ask Russ directly <span class="link-editorial__arrow" aria-hidden="true">→</span>
@@ -58,14 +63,16 @@ const jsonLd = [
 
       {areasOfPractice.slice(0, 3).map((area, index) => <ExpertiseSection area={area} isFirst={index === 0} />)}
 
-      {/* Six identical-template sections in a row read as one long document
+      {
+        /* Six identical-template sections in a row read as one long document
          with no chapter break. The back half gets a quiet background shift
          — no new copy, just a pacing device — rather than a second
          consultation-style band, which would wrongly imply a decision
          point mid-page. This wraps the full width of .exp-main's own
          column (not just the narrow centered reading measure each article
          uses) so the color genuinely reads as "the page changed" rather
-         than a floating box with unexplained gutters on either side. */}
+         than a floating box with unexplained gutters on either side. */
+      }
       <div class="exp-movement">
         {areasOfPractice.slice(3).map((area) => <ExpertiseSection area={area} />)}
       </div>

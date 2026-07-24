@@ -103,7 +103,12 @@ export function createHandler(
     // ContactForm.astro, so a human never fills it. Bots that auto-fill
     // every field do — when that happens, report success without sending
     // anything, so the bot has no signal that it was caught.
-    if (payload && typeof payload === 'object' && 'company' in payload && String((payload as Record<string, unknown>).company ?? '').trim() !== '') {
+    if (
+      payload &&
+      typeof payload === 'object' &&
+      'company' in payload &&
+      String((payload as Record<string, unknown>).company ?? '').trim() !== ''
+    ) {
       console.warn('Contact form honeypot field was filled — dropping submission as spam.')
       return jsonResponse({ ok: true }, 200)
     }
@@ -120,7 +125,10 @@ export function createHandler(
       if (!apiKey) console.error('Contact form submitted, but RESEND_API_KEY is not configured.')
       if (!toEmail) console.error('Contact form submitted, but CONTACT_TO_EMAIL is not configured.')
       if (!fromEmail) console.error('Contact form submitted, but CONTACT_FROM_EMAIL is not configured.')
-      return jsonResponse({ ok: false, message: 'The contact form is temporarily unavailable. Please call or email us directly.' }, 500)
+      return jsonResponse(
+        { ok: false, message: 'The contact form is temporarily unavailable. Please call or email us directly.' },
+        500,
+      )
     }
 
     const fields = parsed.data
@@ -140,13 +148,25 @@ export function createHandler(
         // Log the detail server-side only — never forward Resend's internal
         // error body to the visitor.
         console.error('Resend error while sending contact form email:', error)
-        return jsonResponse({ ok: false, message: 'We could not send your message right now. Please try again shortly or call us directly.' }, 502)
+        return jsonResponse(
+          {
+            ok: false,
+            message: 'We could not send your message right now. Please try again shortly or call us directly.',
+          },
+          502,
+        )
       }
 
       return jsonResponse({ ok: true }, 200)
     } catch (error) {
       console.error('Unexpected error while sending contact form email via Resend:', error)
-      return jsonResponse({ ok: false, message: 'We could not send your message right now. Please try again shortly or call us directly.' }, 502)
+      return jsonResponse(
+        {
+          ok: false,
+          message: 'We could not send your message right now. Please try again shortly or call us directly.',
+        },
+        502,
+      )
     }
   }
 }

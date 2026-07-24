@@ -28,9 +28,7 @@ function initScrollSpy() {
   }
 
   const orderedIds = Array.from(linksByHash.keys()).filter((id) => document.getElementById(id))
-  const sections = orderedIds
-    .map((id) => document.getElementById(id))
-    .filter((el): el is HTMLElement => el !== null)
+  const sections = orderedIds.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
 
   if (sections.length === 0) return
 
