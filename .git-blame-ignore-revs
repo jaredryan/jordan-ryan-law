@@ -1,0 +1,8 @@
+# Commits listed here are ignored by `git blame` (with --ignore-revs-file,
+# or automatically on GitHub's web UI) so formatting-only commits don't
+# obscure the line's actual last substantive change.
+#
+# Usage locally: git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# chore: reformat all files with prettier
+02ea2031513de178e4545f1da5d7764e6a05894c
