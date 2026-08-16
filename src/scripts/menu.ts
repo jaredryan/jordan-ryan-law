@@ -1,26 +1,58 @@
-// Minimal, native mobile-menu toggle. No framework required.
+// Right-side drawer nav. No framework required.
 const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')
-const menu = document.querySelector<HTMLElement>('[data-menu]')
+const drawer = document.querySelector<HTMLElement>('[data-menu]')
+const backdrop = document.querySelector<HTMLElement>('[data-menu-backdrop]')
+const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]')
 
-if (toggle && menu) {
-  toggle.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true'
-    toggle.setAttribute('aria-expanded', String(!isOpen))
-    menu.toggleAttribute('data-open', !isOpen)
-  })
+if (toggle && drawer && backdrop) {
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-  document.addEventListener('click', (event) => {
-    if (!(event.target instanceof Node)) return
-    if (toggle.contains(event.target) || menu.contains(event.target)) return
+  const open = () => {
+    toggle.setAttribute('aria-expanded', 'true')
+    drawer.removeAttribute('inert')
+    drawer.setAttribute('data-open', '')
+    backdrop.setAttribute('data-open', '')
+    document.body.style.overflow = 'hidden'
+    drawer.querySelector<HTMLElement>(focusableSelector)?.focus()
+  }
+
+  const close = (returnFocus = true) => {
     toggle.setAttribute('aria-expanded', 'false')
-    menu.removeAttribute('data-open')
+    drawer.removeAttribute('data-open')
+    backdrop.removeAttribute('data-open')
+    drawer.setAttribute('inert', '')
+    document.body.style.overflow = ''
+    if (returnFocus) toggle.focus()
+  }
+
+  toggle.addEventListener('click', () => {
+    toggle.getAttribute('aria-expanded') === 'true' ? close() : open()
   })
+
+  closeBtn?.addEventListener('click', () => close())
+  backdrop.addEventListener('click', () => close())
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-      toggle.setAttribute('aria-expanded', 'false')
-      menu.removeAttribute('data-open')
-      toggle.focus()
+    if (toggle.getAttribute('aria-expanded') !== 'true') return
+
+    if (event.key === 'Escape') {
+      close()
+      return
+    }
+
+    if (event.key === 'Tab') {
+      const focusables = Array.from(drawer.querySelectorAll<HTMLElement>(focusableSelector))
+      const first = focusables.at(0)
+      const last = focusables.at(-1)
+      if (!first || !last) return
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
   })
 }

@@ -56,16 +56,18 @@ const railSections = [
       </section>
 
       <section class="about-section" id="experience">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Experience</h2>
+        <div class="about-heading-frame bracket-frame bracket-frame--lg">
+          <h2>Experience</h2>
+        </div>
         <ul class="about-experience-list about-narrow">
           {experience.map((item) => <li>{item}</li>)}
         </ul>
       </section>
 
       <section class="about-section" id="education">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Education</h2>
+        <div class="about-heading-frame bracket-frame bracket-frame--lg">
+          <h2>Education</h2>
+        </div>
         <ul class="archival-table about-narrow">
           {
             education.map((item) => (
@@ -81,8 +83,9 @@ const railSections = [
       </section>
 
       <section class="about-section" id="admissions">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Bar Admissions &amp; Certifications</h2>
+        <div class="about-heading-frame bracket-frame bracket-frame--lg">
+          <h2>Bar Admissions &amp; Certifications</h2>
+        </div>
         <ul class="archival-table about-narrow">
           {
             barAdmissions.map((item) => (
@@ -107,9 +110,10 @@ const railSections = [
 
   <section class="closing-band">
     <div class="closing-band__inner">
-      <span class="closing-band__rule" aria-hidden="true"></span>
-      <h2>Practical judgment. Proven experience.</h2>
-      <p class="lead">From day-to-day advising to closing the deal, Jordan brings both to every stage.</p>
+      <h2 class="bracket-frame bracket-frame--lg closing-band__heading">Practical counsel for consequential transactions.</h2>
+      <p class="lead">
+        Work with an attorney who understands both the legal structure and the business realities behind the deal.
+      </p>
       <a href="/contact" class="btn btn-primary">Talk with Jordan</a>
     </div>
   </section>
@@ -131,7 +135,7 @@ const railSections = [
 
   .about-section {
     padding: var(--s8) var(--s5);
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--border);
   }
 
   .about-section:first-child {
@@ -140,6 +144,19 @@ const railSections = [
 
   .about-section p {
     max-width: var(--content-narrow);
+  }
+
+  /* Shrinks to the heading's own text width so the bracket-frame corners
+     hug the heading rather than spanning the full section width. Margin
+     moves from the h2 itself (zeroed) to the wrapper, so it still opens a
+     gap before the section content that follows. */
+  .about-heading-frame {
+    width: fit-content;
+    margin-bottom: var(--s4);
+  }
+
+  .about-heading-frame h2 {
+    margin: 0;
   }
 
   /* Reusable prose-measure utility — see about-narrow's original rationale
@@ -155,12 +172,12 @@ const railSections = [
     height: 140px;
     object-fit: cover;
     border-radius: 4px;
-    border: 2px solid var(--gold);
+    border: 2px solid var(--stone);
     margin-bottom: var(--s5);
   }
 
   /* Plain bulleted list for Experience's accomplishment statements — same
-     gold-dash marker convention used elsewhere for genuine bullet lists
+     stone-dash marker convention used elsewhere for genuine bullet lists
      (the base reset removes native list markers sitewide). */
   .about-experience-list {
     list-style: none;
@@ -174,17 +191,17 @@ const railSections = [
   .about-experience-list li {
     position: relative;
     padding-left: 1.25em;
-    color: var(--fg);
+    color: var(--text);
   }
 
   .about-experience-list li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.65em;
+    top: 0.75em;
     width: 8px;
     height: 2px;
-    background: var(--gold-ink);
+    background: var(--stone-ink);
   }
 
   @media (max-width: 1099px) {
@@ -206,12 +223,9 @@ const railSections = [
       text-align: left;
     }
 
-    .about-section > .section-rule {
+    .about-section > .about-heading-frame {
       margin-left: auto;
       margin-right: auto;
-    }
-
-    .about-section > h2 {
       text-align: center;
     }
   }

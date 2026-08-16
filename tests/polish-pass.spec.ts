@@ -4,10 +4,12 @@ test('Home: consultation band and footer brand mark render', async ({ page }) =>
   await page.goto('/')
   const closeSection = page.locator('.closing-band')
   await expect(closeSection).toBeVisible()
-  await expect(closeSection.getByRole('heading', { name: 'Start with a conversation.' })).toBeVisible()
+  await expect(
+    closeSection.getByRole('heading', { name: 'Move your next transaction forward with confidence.' }),
+  ).toBeVisible()
   await expect(closeSection.getByRole('link', { name: 'Request a consultation' })).toBeVisible()
 
-  await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('src', '/footer-logo-white-470.webp')
+  await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('src', '/footer-logo-white-300.webp')
 })
 
 test('Home: footer sits flush against the consultation band (no margin gap)', async ({ page }) => {
@@ -24,27 +26,6 @@ test('Home: footer sits flush against the consultation band (no margin gap)', as
 test('Header brand mark uses logo-white.webp', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.site-header__brand-mark')).toHaveAttribute('src', '/logo-white.webp')
-})
-
-test('About: waiting-room photo break sits between Crystal and Litigation Record', async ({ page }) => {
-  await page.goto('/about')
-  const figure = page.locator('.about-photo-break')
-  await expect(figure).toBeVisible()
-  await expect(figure.locator('img')).toHaveAttribute('src', '/waiting-room.webp')
-
-  const order = await page.evaluate(() => {
-    const crystal = document.getElementById('crystal')
-    const photo = document.querySelector('.about-photo-break')
-    const record = document.getElementById('litigation-record')
-    if (!crystal || !photo || !record) return null
-    const pos = crystal.compareDocumentPosition(photo)
-    const pos2 = photo.compareDocumentPosition(record)
-    return {
-      photoAfterCrystal: !!(pos & Node.DOCUMENT_POSITION_FOLLOWING),
-      recordAfterPhoto: !!(pos2 & Node.DOCUMENT_POSITION_FOLLOWING),
-    }
-  })
-  expect(order).toEqual({ photoAfterCrystal: true, recordAfterPhoto: true })
 })
 
 test('404 page shows the branded compact layout', async ({ page }) => {
@@ -74,70 +55,41 @@ test('404 page footer sits flush against the compact content (no margin gap)', a
   expect(gap).toBe(0)
 })
 
-test('Footer/header brand links expose correct accessible names, About applies the narrow measure to prose sections only', async ({
-  page,
-}) => {
+test('Footer/header brand links expose correct accessible names', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('footer').getByRole('link', { name: 'Ryan Legal, PC — Home', exact: true })).toBeVisible()
-  await expect(page.locator('header').getByRole('link', { name: 'Ryan Legal, PC', exact: true })).toBeVisible()
-
-  await page.goto('/about')
-  // Training now mixes widths like Admissions/Clients & Affiliations do: the
-  // section itself is wide (its "Training at a glance" grid needs the room
-  // for three columns), while the intro paragraph and the selected-experience
-  // list opt back into the narrow prose measure. Credentials, Bar Admissions,
-  // and Court Admissions (compact multi-column lists) stay at the wide
-  // editorial measure as before.
-  const trainingMaxWidth = await page.locator('#training').evaluate((el) => getComputedStyle(el).maxWidth)
-  const trainingIntroMaxWidth = await page
-    .locator('#training > p')
-    .first()
-    .evaluate((el) => getComputedStyle(el).maxWidth)
-  const trainingGlanceMaxWidth = await page
-    .locator('.about-training-glance')
-    .evaluate((el) => getComputedStyle(el).maxWidth)
-  const trainingExperienceMaxWidth = await page
-    .locator('.about-training-experience')
-    .evaluate((el) => getComputedStyle(el).maxWidth)
-  const credentialsMaxWidth = await page.locator('#credentials').evaluate((el) => getComputedStyle(el).maxWidth)
-  const barAdmissionsHeading = page.locator('#admissions h3', { hasText: 'Bar Admissions' })
-  const barAdmissionsMaxWidth = await barAdmissionsHeading.evaluate((el) => getComputedStyle(el).maxWidth)
-  const courtAdmissionsHeading = page.locator('#admissions h3', { hasText: 'Court Admissions' })
-  const courtAdmissionsMaxWidth = await courtAdmissionsHeading.evaluate((el) => getComputedStyle(el).maxWidth)
-  expect(trainingMaxWidth).toBe('none')
-  expect(trainingIntroMaxWidth).not.toBe('none')
-  expect(trainingGlanceMaxWidth).toBe('none')
-  expect(trainingExperienceMaxWidth).not.toBe('none')
-  expect(credentialsMaxWidth).toBe('none')
-  expect(barAdmissionsMaxWidth).toBe('none')
-  expect(courtAdmissionsMaxWidth).toBe('none')
+  await expect(
+    page.locator('footer').getByRole('link', { name: 'Jordan Ryan Law, PLLC — Home', exact: true }),
+  ).toBeVisible()
+  await expect(page.locator('header').getByRole('link', { name: 'Jordan Ryan Law, PLLC', exact: true })).toBeVisible()
 })
 
-test('Header/footer decorative marks use alt="", and on-navy focus rings resolve to gold in both themes', async ({
-  page,
-}) => {
+test('Header/footer decorative marks use alt=""', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.site-header__brand-mark')).toHaveAttribute('alt', '')
   await expect(page.locator('.site-footer__brand-mark')).toHaveAttribute('alt', '')
+})
 
-  const GOLD = 'rgb(253, 182, 19)'
-  const headerBrand = page.locator('header').getByRole('link', { name: 'Ryan Legal, PC', exact: true })
+test('On-navy focus rings resolve to the lighter steel accent in both themes', async ({ page }) => {
+  await page.goto('/')
+
+  // Light theme: the sitewide default --focus-ring (base accent) only reaches
+  // ~2.4:1 against the fixed navy header/footer — .on-navy must override it
+  // to the lighter --accent-on-navy shade, including on the filled CTA button.
+  const headerBrand = page.locator('header').getByRole('link', { name: 'Jordan Ryan Law, PLLC', exact: true })
   const footerCta = page.locator('footer').getByRole('link', { name: 'Schedule a Consultation' })
-
-  // Light theme: the sitewide default --focus-ring is dark navy (near-invisible on the
-  // navy header/footer) — .on-navy must override it to gold, including on the gold CTA button.
   await headerBrand.focus()
-  await expect(headerBrand).toHaveCSS('outline-color', GOLD)
+  await expect(headerBrand).toHaveCSS('outline-color', 'rgb(77, 125, 196)') // --accent-on-navy
   await footerCta.focus()
-  await expect(footerCta).toHaveCSS('outline-color', GOLD)
+  await expect(footerCta).toHaveCSS('outline-color', 'rgb(247, 245, 239)') // --nav-footer-text, avoids ring-on-button same-hue blur
 
-  // Dark theme's sitewide default is already gold, so on-navy should still resolve to the same gold.
+  // Dark theme: --accent-on-navy resolves to the same lightened --accent used
+  // sitewide there, since that shade already clears contrast against navy.
   await page.evaluate(() => {
     localStorage.setItem('theme', 'dark')
     document.documentElement.setAttribute('data-theme', 'dark')
   })
   await headerBrand.focus()
-  await expect(headerBrand).toHaveCSS('outline-color', GOLD)
+  await expect(headerBrand).toHaveCSS('outline-color', 'rgb(111, 151, 214)') // dark-theme --accent
 })
 
 test('Keyboard reaches the header brand link right after the skip link', async ({ page, browserName }) => {
@@ -150,7 +102,7 @@ test('Keyboard reaches the header brand link right after the skip link', async (
   await page.keyboard.press('Tab')
   await expect(page.locator('.skip-link')).toBeFocused()
   await page.keyboard.press('Tab')
-  await expect(page.locator('header').getByRole('link', { name: 'Ryan Legal, PC', exact: true })).toBeFocused()
+  await expect(page.locator('header').getByRole('link', { name: 'Jordan Ryan Law, PLLC', exact: true })).toBeFocused()
 })
 
 test('Every footer link is individually focusable', async ({ page }) => {
@@ -177,73 +129,28 @@ test('Mobile menu: Escape closes it and returns focus to the toggle button', asy
   await expect(toggle).toBeFocused()
 })
 
-test('Consultation section is not .on-navy and uses its own theme-aware focus color', async ({ page }) => {
-  await page.goto('/')
-  const closeSection = page.locator('.closing-band')
-  await expect(closeSection).not.toHaveClass(/on-navy/)
-
-  const cta = closeSection.getByRole('link', { name: 'Request a consultation' })
-  await cta.focus()
-  await expect(cta).toHaveCSS('outline-color', 'rgb(237, 235, 227)') // ivory, light-theme gold button on navy
-
-  await page.evaluate(() => {
-    localStorage.setItem('theme', 'dark')
-    document.documentElement.setAttribute('data-theme', 'dark')
-  })
-  await cta.focus()
-  await expect(cta).toHaveCSS('outline-color', 'rgb(138, 90, 0)') // gold-ink, dark-theme navy button on ivory
+test('About: section-nav rail active-state updates on click', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/about')
+  const railLinks = page.locator('.section-nav-rail a')
+  await expect(railLinks).toHaveCount(4)
+  await expect(railLinks.first()).toHaveAttribute('aria-current', 'location')
+  await railLinks.nth(2).click()
+  await expect(railLinks.nth(2)).toHaveAttribute('aria-current', 'location')
+  await expect(railLinks.first()).not.toHaveAttribute('aria-current', 'location')
 })
 
-test('Home practice-area links underline correctly, including a wrapped title', async ({ page }) => {
-  await page.goto('/')
-  const items = [
-    {
-      heading: page.locator('.practice-grid__item h3', { hasText: 'Health Care' }),
-      link: page.locator('.practice-grid__link', { hasText: 'Health Care' }),
-    },
-    {
-      heading: page.locator('.practice-grid__item h3', { hasText: 'Business Transactions and Finance' }),
-      link: page.locator('.practice-grid__link', { hasText: 'Business Transactions and Finance' }),
-    },
-  ]
-
-  for (const { heading, link } of items) {
-    await expect(heading).toHaveCSS('text-decoration-line', 'underline')
-    // Resting state: underline is transparent, matching .link-editorial — the persistent arrow
-    // (not the underline) is the resting-state affordance; hover/focus reveals the underline too.
-    const restColor = await heading.evaluate((el) => getComputedStyle(el).textDecorationColor)
-    expect(restColor).toBe('rgba(0, 0, 0, 0)')
-    await link.focus()
-    await expect(heading).toHaveCSS('text-decoration-color', 'rgb(253, 182, 19)')
-  }
-})
-
-test('Expertise page H1 reads "Areas of Practice" while the navbar keeps "Expertise"', async ({ page }) => {
-  await page.goto('/expertise')
-  await expect(page.locator('h1')).toHaveText('Areas of Practice')
-  // A plain DOM/text locator rather than getByRole: at mobile widths the nav
-  // (both the desktop bar and the closed disclosure menu) is display:none,
-  // which removes it from the accessibility tree entirely — getByRole would
-  // report "not found" there even though the label text itself is unaffected.
-  await expect(page.locator('header a[href="/expertise"]').first()).toHaveText('Expertise')
-})
-
-test('Home, Expertise, and About closing bands: flush footer, correct CTA, and excluded from the rail/scroll-spy', async ({
+test('Home and About closing bands: flush footer, correct CTA copy, and excluded from the rail/scroll-spy', async ({
   page,
 }) => {
-  const ctaLabel = (path: string) => {
-    if (path === '/') return 'Request a consultation'
-    return path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ'
-  }
-  for (const path of ['/', '/expertise', '/about']) {
+  const ctaLabel = (path: string) => (path === '/' ? 'Request a consultation' : 'Talk with Jordan')
+  for (const path of ['/', '/about']) {
     await page.goto(path)
     const band = page.locator('.closing-band')
     await expect(band).toBeVisible()
     const cta = band.getByRole('link', { name: ctaLabel(path) })
     await expect(cta).toHaveAttribute('href', '/contact')
 
-    // Flush transition into the footer — Home, Expertise, and About all
-    // share this one class now (see src/styles/global.css .closing-band).
     const gap = await page.evaluate(() => {
       const closing = document.querySelector('.closing-band')
       const footer = document.querySelector('.site-footer')
@@ -253,124 +160,112 @@ test('Home, Expertise, and About closing bands: flush footer, correct CTA, and e
     expect(gap).toBe(0)
 
     // The closing band carries no id, so scroll-spy (which only ever tracks
-    // ids referenced by an `[data-spy-rail] a[href="#..."]` link) has
-    // nothing to observe there — it can't be flagged active like a seventh
-    // practice area or an extra About section.
+    // ids referenced by a `.section-nav-rail a[href="#..."]` link) has
+    // nothing to observe there.
     await expect(band).not.toHaveAttribute('id', /.+/)
   }
 
-  // Expertise: rail still lists exactly the six practice areas (no extra item for the band).
-  await page.goto('/expertise')
-  await expect(page.locator('.section-nav-rail li')).toHaveCount(6)
-
-  // About: rail still lists exactly its original eight sections.
+  // About's rail still lists exactly its 4 original sections (no extra item for the band).
   await page.goto('/about')
-  await expect(page.locator('.section-nav-rail li')).toHaveCount(8)
+  await expect(page.locator('.section-nav-rail li')).toHaveCount(4)
 })
 
-test("Closing-band CTA focus rings match Home's ivory/gold-ink pattern in both themes", async ({ page }) => {
-  const ctaLabel = (path: string) => (path === '/expertise' ? 'Discuss your needs' : 'Talk with Russ')
-  for (const path of ['/expertise', '/about']) {
+test("Closing-band CTA focus rings use the theme-aware band-focus color, not the on-navy pattern", async ({
+  page,
+}) => {
+  const ctaLabel = (path: string) => (path === '/' ? 'Request a consultation' : 'Talk with Jordan')
+  for (const path of ['/', '/about']) {
     await page.goto(path)
-    // Reset explicitly — localStorage persists across goto() within a test,
-    // so without this the second iteration would inherit 'dark' from the
-    // first and skip the light-theme assertion entirely.
+    const band = page.locator('.closing-band')
+    await expect(band).not.toHaveClass(/on-navy/)
+
+    // Reset explicitly — localStorage persists across goto() within a test.
     await page.evaluate(() => {
       localStorage.setItem('theme', 'light')
       document.documentElement.setAttribute('data-theme', 'light')
     })
-    const cta = page.locator('.closing-band').getByRole('link', { name: ctaLabel(path) })
+    const cta = band.getByRole('link', { name: ctaLabel(path) })
     await cta.focus()
-    await expect(cta).toHaveCSS('outline-color', 'rgb(237, 235, 227)') // ivory, light-theme
+    await expect(cta).toHaveCSS('outline-color', 'rgb(247, 245, 239)') // --nav-footer-text, light theme's navy band
 
     await page.evaluate(() => {
       localStorage.setItem('theme', 'dark')
       document.documentElement.setAttribute('data-theme', 'dark')
     })
     await cta.focus()
-    await expect(cta).toHaveCSS('outline-color', 'rgb(138, 90, 0)') // gold-ink, dark-theme
+    await expect(cta).toHaveCSS('outline-color', 'rgb(92, 94, 84)') // light-theme stone-ink, dark theme's flipped light band
   }
 })
 
-test('Contact info column carries the new eyebrow and stays visually distinct from the form', async ({ page }) => {
+test('Contact info column carries the eyebrow and stays visually distinct from the form', async ({ page }) => {
   await page.goto('/contact')
   const info = page.locator('.contact-main__info')
   await expect(info.locator('.eyebrow')).toHaveText('Reach us directly')
   await expect(page.getByRole('heading', { level: 2, name: 'Send a message' })).toBeVisible()
 })
 
-test('Home, About, and Expertise closing CTAs carry page-specific copy, and About Training is rewritten with a glance summary and selected engagements', async ({
+test('Home: practice areas render as static (non-interactive) tiles, not links', async ({ page }) => {
+  await page.goto('/')
+  const items = page.locator('.practice-grid__item')
+  await expect(items).toHaveCount(6)
+  await expect(items.first().locator('.practice-grid__rule')).toBeVisible()
+
+  const names = await items.locator('h3').allTextContents()
+  expect(names).toEqual([
+    'Acquisition & Disposition',
+    'Leasing',
+    'Real Estate Finance',
+    'Due Diligence',
+    'Entity Formation & Joint Ventures',
+    'Development',
+  ])
+
+  // No per-area detail page exists yet — these are deliberately plain text,
+  // never rendered as links.
+  await expect(items.locator('a')).toHaveCount(0)
+})
+
+test('Proof strip: fix regression guard — no supporting description carries a restrictive max-width', async ({
   page,
 }) => {
   await page.goto('/')
-  const homeClose = page.locator('.closing-band')
-  await expect(homeClose.locator('.lead')).toHaveText(
-    'Get clear advice on what comes next—and experienced representation when you need it.',
-  )
-  await expect(homeClose.getByRole('link', { name: 'Request a consultation' })).toHaveAttribute('href', '/contact')
+  const items = [
+    { value: 'Former Chief Legal Officer', label: 'National industrial & multifamily developer' },
+    { value: '$60M', label: 'Construction financing transaction' },
+    { value: 'Board Certified', label: 'Commercial Real Estate Law — Texas' },
+    { value: '4M+ Sq. Ft.', label: 'Industrial & office leases negotiated' },
+  ]
+  const figures = page.locator('.proof-figure')
+  await expect(figures).toHaveCount(4)
 
-  await page.goto('/about')
-  const aboutClose = page.locator('.closing-band')
-  await expect(aboutClose.getByRole('heading', { name: 'Practical judgment. Proven experience.' })).toBeVisible()
-  await expect(aboutClose.locator('.lead')).toHaveText(
-    'From day-to-day advising to trial and appeal, Russ brings both to every stage.',
-  )
-  await expect(aboutClose.getByRole('link', { name: 'Talk with Russ' })).toHaveAttribute('href', '/contact')
-
-  const training = page.locator('#training')
-  await expect(training.locator('p').first()).toContainText('more than 150,000 participants')
-  await expect(training.locator('p').first().locator('strong')).toHaveText('more than 150,000 participants')
-
-  const glance = training.locator('.about-training-glance')
-  await expect(glance.getByRole('heading', { name: 'Training at a glance' })).toBeVisible()
-  for (const heading of ['Audiences', 'Employment topics', 'Governance and compliance topics']) {
-    await expect(glance.getByRole('heading', { name: heading })).toBeVisible()
+  for (const [i, item] of items.entries()) {
+    const figure = figures.nth(i)
+    await expect(figure.locator('.proof-figure__value')).toHaveText(item.value)
+    const label = figure.locator('.proof-figure__label')
+    await expect(label).toHaveText(item.label)
+    // The regression this guards against: an old fixed max-width (16ch/28ch)
+    // made the supporting descriptions wrap far narrower than their column.
+    expect(await label.evaluate((el) => getComputedStyle(el).maxWidth)).toBe('none')
   }
-
-  const experience = training.locator('.about-training-experience')
-  await expect(experience.getByRole('heading', { name: 'Selected training experience' })).toBeVisible()
-  await expect(experience.locator('.about-training-experience__row')).toHaveCount(7)
-  await expect(experience.getByText('Council on Education in Management')).toBeVisible()
-  await expect(experience.getByText('Client training')).toBeVisible()
-
-  await page.goto('/expertise')
-  const expClose = page.locator('.closing-band')
-  await expect(expClose.getByRole('heading', { name: "Let's find the right next step." })).toBeVisible()
-  await expect(expClose.locator('.lead')).toHaveText(
-    'Get clear guidance on your options—before a decision, during a dispute, or in court.',
-  )
-  await expect(expClose.getByRole('link', { name: 'Discuss your needs' })).toHaveAttribute('href', '/contact')
 })
 
-test("Home Values & Mission (replacing the old record/quote sections) and About's rebuilt Crystal section hold up at phone, tablet, and desktop widths", async ({
+test('Home Values & Mission holds up at phone, tablet, and desktop widths, with no horizontal overflow', async ({
   page,
 }) => {
   const viewports = [
-    { width: 375, height: 812 }, // phone — both sections' narrowest stacked layout
-    { width: 900, height: 1000 }, // tablet — above Values & Mission's 760px column breakpoint, below About's 1099px rail breakpoint
-    { width: 1280, height: 900 }, // desktop — full two-column/rail layout
+    { width: 375, height: 812 }, // phone
+    { width: 900, height: 1000 }, // tablet
+    { width: 1280, height: 900 }, // desktop
   ]
 
   for (const viewport of viewports) {
     await page.setViewportSize(viewport)
-
     await page.goto('/')
-    await expect(page.locator('.record')).toHaveCount(0)
-    await expect(page.locator('.quote-section')).toHaveCount(0)
     const valuesMission = page.locator('.values-mission')
-    await expect(valuesMission.getByRole('heading', { name: 'Our Vision and Mission' })).toBeVisible()
+    await expect(valuesMission.getByRole('heading', { name: 'Our Mission' })).toBeVisible()
     const paragraphs = valuesMission.locator('.values-mission__columns p')
-    await expect(paragraphs).toHaveCount(2)
-    await expect(paragraphs.first()).toContainText('Our vision is to be a trusted partner')
-    await expect(paragraphs.last()).toContainText('a simple but powerful mission')
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width)
-
-    await page.goto('/about')
-    const crystal = page.locator('#crystal')
-    await expect(crystal.getByRole('heading', { level: 2, name: 'Crystal Brightwell' })).toBeVisible()
-    await expect(crystal.locator('.about-crystal__meta')).toContainText('Senior Paralegal / Office Administrator')
-    await expect(crystal.locator('.about-crystal__meta')).toContainText('24 years with Russ Ryan')
-    await expect(crystal.getByRole('heading', { level: 3, name: 'Case Experience' })).toBeVisible()
+    await expect(paragraphs).toHaveCount(1)
+    await expect(paragraphs.first()).toContainText('chief legal officer for a national industrial')
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width)
   }
 })

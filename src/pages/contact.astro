@@ -34,9 +34,9 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
 
 <BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
   <section class="page-section page-section--narrow contact-hero page-hero">
-    <span class="eyebrow">Get in touch</span>
-    <h1>Start a conversation</h1>
-    <p class="lead">Reach Jordan directly, or use the form to send a message.</p>
+    <span class="eyebrow">Contact</span>
+    <h1>Discuss your legal needs</h1>
+    <p class="lead">Contact Jordan Ryan Law regarding commercial real estate, business transactions, or other legal matters.</p>
   </section>
 
   <section class="page-section contact-main">
@@ -96,13 +96,12 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
   }
 
   /* Restrained brand treatment for the direct-contact column: a raised,
-     warm-tinted panel with a gold top edge — the same "gold marks an
-     opening" language used for Expertise's chapter numbers — kept to this
-     one column so the form panel beside it stays plain and task-focused. */
+     warm-tinted panel with a stone top edge — kept to this one column so
+     the form panel beside it stays plain and task-focused. */
   .contact-main__info {
-    background: var(--bg-raised-2);
+    background: var(--surface);
     border-radius: 4px;
-    border-top: 3px solid var(--gold-accent);
+    border-top: 3px solid var(--stone);
     padding: var(--s6);
   }
 
@@ -120,7 +119,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
   }
 
   .contact-block {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--border);
     padding-top: var(--s3);
   }
 
@@ -138,13 +137,13 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
   }
 
   .contact-block__meta {
-    color: var(--fg-soft);
+    color: var(--muted-text);
     font-size: 0.875rem;
     margin: 0 0 var(--s1);
   }
 
   .contact-block a {
-    color: var(--fg-soft);
+    color: var(--muted-text);
     text-decoration: none;
     font-weight: 600;
     word-break: break-word;
@@ -157,7 +156,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
 
   :root[data-theme='dark'] .contact-block a:hover,
   :root[data-theme='dark'] .contact-block a:focus-visible {
-    color: var(--gold-accent);
+    color: var(--stone);
   }
 
   .contact-main__form h2 {

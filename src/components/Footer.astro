@@ -53,8 +53,8 @@ const year = new Date().getFullYear()
 
 <style>
   .site-footer {
-    background: var(--surface-navy);
-    color: var(--surface-navy-fg);
+    background: var(--nav-footer-bg);
+    color: var(--nav-footer-text);
     /* Pages without their own navy/dark closing band (Contact) —
        tighter than --s9 so the page doesn't end with noticeably more
        breathing room than it opened with under the header. Pages that do
@@ -97,7 +97,7 @@ const year = new Date().getFullYear()
 
   .site-footer__address {
     font-style: normal;
-    color: var(--surface-navy-fg-soft);
+    color: var(--nav-footer-text);
     font-size: 0.9375rem;
     line-height: 1.6;
   }
@@ -111,8 +111,10 @@ const year = new Date().getFullYear()
     gap: var(--s3);
   }
 
+  /* Nav links are primary footer content, not metadata — near-white, not
+     the soft/subordinate tone used for the address and copyright below. */
   .site-footer nav a {
-    color: var(--surface-navy-fg-soft);
+    color: var(--nav-footer-text);
     text-decoration: none;
     font-weight: 600;
   }
@@ -129,8 +131,11 @@ const year = new Date().getFullYear()
     gap: var(--s3);
   }
 
+  /* Direct contact actions (phone, email) are primary footer content —
+     near-white, matching the nav links above rather than the address'
+     subordinate metadata tone. */
   .site-footer__contact a:not(.btn) {
-    color: var(--surface-navy-fg-soft);
+    color: var(--nav-footer-text);
     text-decoration: none;
     font-weight: 600;
   }
@@ -149,12 +154,12 @@ const year = new Date().getFullYear()
     padding: var(--s5) var(--s5) var(--s6);
     margin: 0;
     font-size: 0.8125rem;
-    color: var(--surface-navy-fg-soft);
-    border-top: 1px solid var(--surface-navy-rule);
+    color: var(--nav-footer-text-soft);
+    border-top: 1px solid var(--nav-footer-rule);
   }
 
   .site-footer__legal-link {
-    color: var(--surface-navy-fg-soft);
+    color: var(--nav-footer-text-soft);
     text-decoration: underline;
   }
 

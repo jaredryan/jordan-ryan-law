@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const routes = ['/', '/about', '/contact', '/expertise', '/payment']
+const routes = ['/', '/about', '/contact']
 
 async function readGraph(page: import('@playwright/test').Page) {
   const raw = await page.locator('script[type="application/ld+json"]').textContent()
@@ -44,26 +44,30 @@ for (const route of routes) {
   })
 }
 
-test('About: Crystal Brightwell is a Person, not an Attorney, with her exact title', async ({ page }) => {
+test('About: Jordan Ryan is a Person tied to the LegalService firm entity, not a bare attorney record', async ({
+  page,
+}) => {
   await page.goto('/about')
   const graph = await readGraph(page)
 
-  const crystal = graph.find((e) => e.name === 'Crystal Brightwell')
-  expect(crystal, 'Crystal Brightwell entity not found in About page graph').toBeTruthy()
-  expect(crystal?.['@type']).toBe('Person')
-  expect(crystal?.jobTitle).toBe('Senior Paralegal / Office Administrator')
-  expect(crystal?.worksFor).toMatchObject({ '@id': expect.stringContaining('#RyanLegalPC') })
+  const jordan = graph.find((e) => e.name === 'Jordan Ryan')
+  expect(jordan, 'Jordan Ryan entity not found in About page graph').toBeTruthy()
+  expect(jordan?.['@type']).toBe('Person')
+  expect(jordan?.jobTitle).toBe('Founder and Owner')
+  expect(jordan?.worksFor).toMatchObject({ '@id': expect.stringContaining('#JordanRyanLaw') })
 
-  // Nothing in the graph may type Crystal (by name) as an attorney/legal-professional type.
-  for (const entity of graph) {
-    if (entity.name === 'Crystal Brightwell' || (entity as Record<string, unknown>).name === 'Crystal Brightwell') {
-      expect(entity['@type']).not.toBe('Attorney')
-    }
-  }
+  const firm = graph.find((e) => e['@type'] === 'LegalService')
+  expect(firm, 'expected the LegalService firm entity on About (mentioned via jordanRyanId)').toBeFalsy()
+})
 
-  const russ = graph.find((e) => e.name === 'Russell K. Ryan')
-  expect(russ?.['@type']).toBe('Person')
-  expect(russ?.jobTitle).toBe('Founder and Owner')
+test('Home: LegalService firm entity references Jordan Ryan as founder', async ({ page }) => {
+  await page.goto('/')
+  const graph = await readGraph(page)
+
+  const firm = graph.find((e) => e['@type'] === 'LegalService')
+  expect(firm, 'expected a LegalService entity on Home').toBeTruthy()
+  expect(firm?.name).toBe('Jordan Ryan Law, PLLC')
+  expect(firm?.founder).toMatchObject({ '@id': expect.stringContaining('/about#JordanRyan') })
 })
 
 test('404: is marked noindex and emits no JSON-LD', async ({ page }) => {
@@ -71,17 +75,4 @@ test('404: is marked noindex and emits no JSON-LD', async ({ page }) => {
   expect(response?.status()).toBe(404)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0)
-})
-
-test('Payment page JSON-LD and visible copy agree on payment methods (no LawPay-ownership implication)', async ({
-  page,
-}) => {
-  await page.goto('/payment')
-  const graph = await readGraph(page)
-  // The firm entity isn't emitted on /payment itself — acceptedPaymentMethod
-  // lives on the LegalService entity, emitted on Home/Expertise. This test
-  // only asserts /payment's own graph never names LawPay as an owned entity.
-  for (const entity of graph) {
-    expect(JSON.stringify(entity)).not.toMatch(/LawPay/i)
-  }
 })

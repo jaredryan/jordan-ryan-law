@@ -67,12 +67,12 @@ const { items, railLabel, jumpLabel, density } = Astro.props
          gap below it; a margin here would stack on top of that. */
       margin: var(--s5) var(--s4) 0;
       display: block;
-      border: 1px solid var(--rule);
+      border: 1px solid var(--border);
       border-radius: 4px;
       padding: var(--s3) var(--s4);
       position: sticky;
       top: calc(var(--s4) + 60px);
-      background: var(--bg);
+      background: var(--background);
       z-index: 10;
     }
 
@@ -107,7 +107,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
       display: flex;
       align-items: center;
       min-height: 44px;
-      color: var(--fg);
+      color: var(--text);
     }
 
     .jump-nav li a.is-active {
@@ -118,7 +118,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
     }
 
     :root[data-theme='dark'] .jump-nav li a.is-active {
-      color: var(--gold-accent);
+      color: var(--stone);
     }
   }
 
@@ -128,7 +128,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
       position: sticky;
       top: calc(var(--s8) + 60px);
       align-self: start;
-      border-right: 1px solid var(--rule);
+      border-right: 1px solid var(--border);
       max-height: calc(100vh - var(--s8) - 60px);
       overflow-y: auto;
     }
@@ -142,18 +142,18 @@ const { items, railLabel, jumpLabel, density } = Astro.props
     .section-nav-rail a {
       display: block;
       border-left: 2px solid transparent;
-      color: var(--fg-soft);
+      color: var(--muted-text);
       text-decoration: none;
       font-weight: 600;
     }
 
     .section-nav-rail a:hover,
     .section-nav-rail a:focus-visible {
-      color: var(--fg);
+      color: var(--text);
     }
 
     .section-nav-rail a.is-active {
-      border-left-color: var(--gold-accent);
+      border-left-color: var(--stone);
       color: var(--navy);
       text-shadow:
         0.2px 0 currentColor,
@@ -161,7 +161,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
     }
 
     :root[data-theme='dark'] .section-nav-rail a.is-active {
-      color: var(--fg);
+      color: var(--text);
     }
 
     /* About: 8 categorical sections — tighter padding/type, no row dividers. */
@@ -180,7 +180,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
     }
 
     .section-nav-rail--roomy li {
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--border);
     }
 
     .section-nav-rail--roomy a {

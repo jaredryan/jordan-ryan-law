@@ -5,15 +5,13 @@ import { businessName, defaultDescription, siteUrl } from '@/data/site'
 import { buildGraph, type JsonLd } from '@/lib/json-ld'
 import '@/styles/global.css'
 
-// Preloaded so the header's brand mark, the page's own H1 (Libre
-// Baskerville) and nav/CTA text (Source Sans 3) are available before first
-// paint — without this, the `font-display: swap` fallback (Georgia /
-// system-ui, different metrics) renders first and reflows the header when
-// the real font swaps in on every full-page navigation. See
-// docs/legacy-content-inventory.md "Known issues".
-import libreBaskervilleBrandUrl from '@fontsource/libre-baskerville/files/libre-baskerville-latin-500-normal.woff2?url'
-import libreBaskervilleBoldUrl from '@fontsource/libre-baskerville/files/libre-baskerville-latin-700-normal.woff2?url'
-import sourceSans3LatinUrl from '@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url'
+// Preloaded so the header's brand mark, the page's own H1 (Archivo) and
+// nav/CTA text (Inter) are available before first paint — without this, the
+// `font-display: swap` fallback (system-ui, different metrics) renders
+// first and reflows the header when the real font swaps in on every
+// full-page navigation.
+import archivoVariableUrl from '@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2?url'
+import interVariableUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url'
 
 interface Props {
   title: string
@@ -69,9 +67,8 @@ const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preload" href={libreBaskervilleBrandUrl} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={libreBaskervilleBoldUrl} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={sourceSans3LatinUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={archivoVariableUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interVariableUrl} as="font" type="font/woff2" crossorigin />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
