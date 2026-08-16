@@ -1,79 +1,66 @@
 // Firm-level facts: identity, contact details, and page-level SEO defaults.
-// Verbatim content preserved from the pre-migration Next.js app — see
-// docs/legacy-content-inventory.md.
 
-export const siteUrl = import.meta.env.SITE_URL || 'https://ryanlegalpc.com'
+export const siteUrl = import.meta.env.SITE_URL || 'https://jordanryanlaw.netlify.app'
 
-export const businessName = 'Ryan Legal, PC'
+export const businessName = 'Jordan Ryan Law, PLLC'
 
+// TODO: placeholder — swap for real firm positioning copy once available.
 export const businessSlogan =
-  'Premier Representation of Employers, Health Care Providers and Non-Profits throughout California'
+  'Commercial Real Estate Counsel for Acquisitions, Development, and Finance Transactions'
 
 export const businessSummary = businessSlogan
 
+// TODO: placeholder — swap for real firm positioning copy once available.
 export const defaultDescription =
-  'Premier Legal Representation of Employers, Health Care Providers and Non-Profits throughout California'
+  'Commercial real estate legal counsel serving McKinney, Texas and beyond — acquisitions, leasing, finance, due diligence, entity formation, and development.'
 
-// Vision/mission copy provided directly by Russ (per Jared, 2026-07-21) — not
-// legacy content, do not rewrite without checking with him first.
 export const valuesAndMission: string[] = [
-  `Our vision is to be a trusted partner for our clients facing legal challenges, providing expert guidance and unwavering support through every legal challenge—whether it be in the nature of a health care, employment or business process or transaction, or involve litigation, arbitration, administrative or an informal dispute. In every matter, we provide strong representation focused on achieving successful outcomes.`,
-  `At the core of our practice is a simple but powerful mission: to provide exceptional, client-centered legal representation. Russ is passionate about making legal processes and compliance as clear, efficient, and stress-free as possible, allowing clients to focus on what matters most—moving their organizations and people forward in pursuit of their goals, missions, and values while remaining legally compliant.`,
+  `With experience spanning private practice and service as chief legal officer for a national industrial and multi-family developer, Jordan Ryan Law provides practical, business-minded legal counsel tailored to commercial real estate and business transactions. The firm represents developers, investors, and business owners in acquisitions, dispositions, leasing, financing, development, entity formation, contract negotiations, and general business matters, delivering strategic solutions designed to help clients achieve their goals efficiently and confidently.`,
 ]
 
+// TODO: placeholder — swap for real SEO keywords once available.
 export const defaultKeywords: string[] = [
-  'Employment Lawyer Fresno',
-  'Business Attorney California',
-  'Health Care Legal Services',
-  'Litigation Attorney Central Valley',
-  'Real Estate Attorney California',
-  'Corporate Compliance Lawyer',
-  'Trade Secret Litigation',
-  'Technology Attorney California',
-  'Workplace Disputes Legal Help',
-  'HR Compliance Lawyer',
+  'Commercial Real Estate Attorney McKinney',
+  'Real Estate Finance Lawyer Texas',
+  'Acquisition and Disposition Attorney',
+  'Commercial Leasing Lawyer',
+  'Due Diligence Attorney Texas',
+  'Entity Formation Lawyer',
+  'Joint Ventures Attorney',
+  'Real Estate Development Counsel',
 ]
 
 export const knowsAbout: string[] = [
-  'Labor and Employment Law',
-  'Business Transactions and Finance',
-  'Health Care Law',
-  'Technology Law',
-  'Business Litigation',
-  'Appeals',
-  'Real Estate Law',
+  'Acquisition & Disposition',
+  'Leasing',
+  'Real Estate Finance',
+  'Due Diligence',
+  'Entity Formation & Joint Ventures',
+  'Development',
 ]
 
 export const contact = {
-  phoneDisplay: '(559) 499-4000',
+  phoneDisplay: '(972) 302-2429',
   // E.164-ish, digits only, used for tel: links.
-  phoneHref: '+15594994000',
-  emails: {
-    russ: 'russ@ryanlegalpc.com',
-    crystal: 'crystal@ryanlegalpc.com',
-  },
+  phoneHref: '+19723022429',
+  email: 'jordanryan@jordanryanlaw.com',
 }
 
 export const address = {
-  street: '5200 North Palm Avenue',
-  suite: 'Suite 306',
-  city: 'Fresno',
-  state: 'CA',
-  postalCode: '93704',
+  street: '7300 State Hwy 121',
+  suite: 'Suite 300',
+  city: 'McKinney',
+  state: 'TX',
+  postalCode: '75070',
   country: 'US',
-  // Preserved from the previous @vis.gl/react-google-maps marker.
-  lat: 36.81224531879936,
-  lng: -119.80423819568016,
+  lat: 33.134435,
+  lng: -96.708602,
   googleMapsDirectionsUrl:
-    'https://www.google.com/maps/place/5200+N+Palm+Ave+%23306,+Fresno,+CA+93704/@36.8115688,-119.8070387,17z',
+    'https://www.google.com/maps/place/7300+State+Hwy+121+%23300,+McKinney,+TX+75070/@33.134435,-96.708602,17z',
 }
-
-export const lawPayUrl = 'https://secure.lawpay.com/pages/ryanlegalpc/operating'
 
 export const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Expertise', href: '/expertise' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Payment', href: '/payment' },
 ] as const

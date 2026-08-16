@@ -6,7 +6,7 @@ import { Resend } from 'resend'
 import validator from 'validator'
 import { z } from 'zod'
 
-const SENDER_DISPLAY_NAME = 'Ryan Legal, PC Website'
+const SENDER_DISPLAY_NAME = 'Jordan Ryan Law, PLLC Website'
 
 const ContactSchema = z.object({
   name: z.string().min(1, 'Please enter your name.'),
@@ -41,7 +41,7 @@ function escapeHtml(value: string): string {
 
 function buildTextBody({ name, phone, email, description }: ContactFields): string {
   return [
-    'New consultation request from the Ryan Legal, PC website.',
+    'New consultation request from the Jordan Ryan Law, PLLC website.',
     '',
     `Name: ${name}`,
     `Phone: ${phone}`,
@@ -54,7 +54,7 @@ function buildTextBody({ name, phone, email, description }: ContactFields): stri
 
 function buildHtmlBody({ name, phone, email, description }: ContactFields): string {
   return [
-    '<p>New consultation request from the Ryan Legal, PC website.</p>',
+    '<p>New consultation request from the Jordan Ryan Law, PLLC website.</p>',
     '<ul>',
     `<li><strong>Name:</strong> ${escapeHtml(name)}</li>`,
     `<li><strong>Phone:</strong> ${escapeHtml(phone)}</li>`,
@@ -139,7 +139,7 @@ export function createHandler(
         from: `${SENDER_DISPLAY_NAME} <${fromEmail}>`,
         to: toEmail,
         replyTo: fields.email,
-        subject: 'New Consultation Request — Ryan Legal, PC Website',
+        subject: 'New Consultation Request — Jordan Ryan Law, PLLC Website',
         text: buildTextBody(fields),
         html: buildHtmlBody(fields),
       })

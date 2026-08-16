@@ -1,5 +1,5 @@
 /*
-  Ryan Legal, PC — design tokens and base styles.
+  Jordan Ryan Law, PLLC — design tokens and base styles.
   Territory: evidence-led editorial (Territory A) warmed by first-person
   voice (Territory B), Libre Baskerville for rare display/editorial use,
   Source Sans 3 for everything else. See docs/legacy-content-inventory.md
@@ -16,9 +16,12 @@
 :root {
   color-scheme: light;
 
-  /* Brand anchors — sourced from public/full-logo.webp, do not adjust. */
-  --navy: #1e275e;
-  --gold: #fdb613;
+  /* Brand anchors — sourced from the new Jordan Ryan Law logo (2026-08-16
+     simple substitution: navy background + muted gold wordmark color only.
+     A full palette derived from the logo's blue/gold is still to come —
+     see the "full color palette" TODO in the rebrand notes). */
+  --navy: #1e263b;
+  --gold: #a7a99f;
 
   /* Light theme */
   --navy-deep: #12173f;
@@ -92,7 +95,7 @@
   --rule: rgba(255, 255, 255, 0.14);
   --tag-bg: #1b2145;
   --error: #ff6b5e;
-  --gold-accent: #e5a836;
+  --gold-accent: #a7a99f;
   /* Light theme's --gold-ink is gold nudged darker (a shade); dark theme
      needs a genuine second accent, not gold nudged lighter — at equal
      lightness a lighter gold just reads as a dimmer version of
@@ -112,7 +115,7 @@
   --focus-ring: var(--gold);
   --navy-deep: #0b0e1f;
   /* Distinct from both --bg (#0b0e1f) and the header/footer's --surface-navy
-     (#1e275e) so the consultation band reads as its own surface, not a
+     (#1e263b) so the consultation band reads as its own surface, not a
      repeat of either. */
   --surface-consult: #1b2145;
 }
@@ -128,7 +131,7 @@
     --rule: rgba(255, 255, 255, 0.14);
     --tag-bg: #1b2145;
     --error: #ff6b5e;
-    --gold-accent: #e5a836;
+    --gold-accent: #a7a99f;
     --gold-ink: #ce8555;
     --focus-ring: var(--gold);
     --navy-deep: #0b0e1f;

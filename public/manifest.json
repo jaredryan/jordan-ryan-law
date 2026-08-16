@@ -1,6 +1,6 @@
 {
-  "name": "Ryan Legal, PC",
-  "short_name": "Ryan Legal",
+  "name": "Jordan Ryan Law, PLLC",
+  "short_name": "Jordan Ryan Law",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#1e275e",
-  "background_color": "#1e275e",
+  "theme_color": "#1e263b",
+  "background_color": "#1e263b",
   "display": "standalone"
 }

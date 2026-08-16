@@ -1,23 +1,21 @@
-# Ryan Legal, PC
+# Jordan Ryan Law, PLLC
 
-**Live: [ryanlegalpc.com](https://ryanlegalpc.com)**
+**Live: [jordanryanlaw.netlify.app](https://jordanryanlaw.netlify.app)**
 
-The professional website for Ryan Legal, PC, a California employment, health care, and business litigation firm. Built as a static-first Astro site: real HTML on the first response for every route, small scoped `<script>` islands for the handful of things that need JavaScript (theme toggle, mobile menu, contact form, scroll-spy), and no client-side framework anywhere.
+The professional website for Jordan Ryan Law, PLLC, a Texas commercial real estate law firm. Built as a static-first Astro site: real HTML on the first response for every route, small scoped `<script>` islands for the handful of things that need JavaScript (theme toggle, mobile menu, contact form, scroll-spy), and no client-side framework anywhere.
 
-This started as a migration off an older Next.js implementation — content and copy are preserved verbatim from Russ Ryan directly (see `docs/legacy-content-inventory.md`), but the architecture, design system, and every line of code here are new.
+This codebase started as a rebrand of an earlier Ryan Legal, PC site built the same way — the architecture, design system, and code are shared; content and copy are specific to Jordan Ryan Law.
 
 ## What's here
 
-Five pages, one Netlify Function:
+Four pages, one Netlify Function:
 
-- **Home** (`/`) — hero, a by-the-numbers proof band (years in practice, trial record, ratings), a practice-area grid, firm vision/mission, and a consultation close.
-- **About** (`/about`) — Russ Ryan and Crystal Brightwell's full profiles: credentials, litigation record (grouped reported decisions by court), training history, prior positions, bar/court admissions, and client list. A sticky side rail on desktop, a collapsible jump-nav on mobile, both scroll-spy-synced to the section currently in view.
-- **Expertise** (`/expertise`) — six practice areas, each with its own proof point (a stat, a credential, a case) linking back to where that claim is substantiated on About.
+- **Home** (`/`) — hero, a by-the-numbers proof band, a practice-area grid, firm vision/mission, and a consultation close.
+- **About** (`/about`) — Jordan Ryan's profile: intro, experience, education, and bar admissions & certifications. A sticky side rail on desktop, a collapsible jump-nav on mobile, both scroll-spy-synced to the section currently in view.
 - **Contact** (`/contact`) — direct contact details plus a validated, spam-guarded form.
-- **Payment** (`/payment`) — a single, restrained CTA out to the firm's LawPay portal. No payment data ever touches this site.
 - **Privacy** (`/privacy`) and a branded **404**.
 
-Selected/active section state (the About and Expertise side rails) is driven by a shared `IntersectionObserver`-based scroll-spy script, not per-page bookkeeping.
+Selected/active section state (the About side rail) is driven by a shared `IntersectionObserver`-based scroll-spy script, not per-page bookkeeping.
 
 ## Design system
 
@@ -59,8 +57,8 @@ Two layers, for two different jobs:
 
 ## SEO
 
-- **Sitemap**: generated on every `npm run build` via `@astrojs/sitemap`. Production URL: `https://ryanlegalpc.com/sitemap-index.xml` (the 404 page is deliberately excluded, and marked `noindex` in its own `<meta>` tag).
-- **Structured data**: a single connected JSON-LD `@graph` per page (`LegalService`, `WebSite`, `WebPage`/`AboutPage`/`ContactPage`, and `Person` entities for Russ and Crystal), built from the same typed data as the visible content — never a second, divergent source of truth. Stable `@id` conventions resolve against the production origin only, checked by an end-to-end test against every route.
+- **Sitemap**: generated on every `npm run build` via `@astrojs/sitemap`. Production URL: `https://jordanryanlaw.netlify.app/sitemap-index.xml` (the 404 page is deliberately excluded, and marked `noindex` in its own `<meta>` tag).
+- **Structured data**: a single connected JSON-LD `@graph` per page (`LegalService`, `WebSite`, `WebPage`/`AboutPage`/`ContactPage`, and a `Person` entity for Jordan), built from the same typed data as the visible content — never a second, divergent source of truth. Stable `@id` conventions resolve against the production origin only, checked by an end-to-end test against every route.
 - Canonical URLs, Open Graph, and Twitter card metadata on every page (`src/layouts/BaseLayout.astro`).
 
 ## Security & privacy
@@ -96,11 +94,11 @@ Hosted on Netlify as a static site (`netlify.toml`: `npm run build` → publish 
 
 ```text
 src/
-  components/    Astro components — Header, Footer, ContactForm, ThemeToggle, ExpertiseSection
-  data/           Firm facts, credentials, practice areas, clients, people — typed content, not markup
+  components/    Astro components — Header, Footer, ContactForm, ThemeToggle
+  data/           Firm facts, credentials, practice areas, people — typed content, not markup
   layouts/        BaseLayout.astro — head/meta/JSON-LD, theme-boot script, header/footer shell
   lib/            JSON-LD graph builders
-  pages/          Route entry points (index, about, expertise, contact, payment, privacy, 404)
+  pages/          Route entry points (index, about, contact, privacy, 404)
   scripts/        Native <script> islands: theme, mobile menu, contact form, scroll-spy
   styles/         global.css — design tokens, base reset, shared component classes
 netlify/
@@ -112,4 +110,4 @@ tests/
 
 ## About this repository
 
-This is a real client site — copy, credentials, case history, and imagery belong to Ryan Legal, PC — shared publicly as a code sample rather than under an open license. If you're a developer or recruiter looking at the code itself: everything under `src/`, `netlify/`, and `tests/` is representative of how it was built and is fair game to read and learn from.
+This is a real client site — copy, credentials, and imagery belong to Jordan Ryan Law, PLLC — shared publicly as a code sample rather than under an open license. If you're a developer or recruiter looking at the code itself: everything under `src/`, `netlify/`, and `tests/` is representative of how it was built and is fair game to read and learn from.

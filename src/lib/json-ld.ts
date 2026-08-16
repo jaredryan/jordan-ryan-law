@@ -1,29 +1,22 @@
-// JSON-LD builders. Shapes preserved from the pre-migration app's schema-dts
-// literals, but as plain typed objects (schema-dts itself was dropped — see
-// docs/legacy-content-inventory.md) and rendered server-side in
-// BaseLayout.astro instead of client-injected via useEffect, which means
-// crawlers that don't execute JS now actually see this data.
+// JSON-LD builders, rendered server-side in BaseLayout.astro.
 
 import { siteUrl, businessName, defaultDescription, defaultKeywords, contact, address, knowsAbout } from '@/data/site'
-import { ratingsAndDesignations } from '@/data/credentials'
-import { russRyan, crystalBrightwell } from '@/data/people'
+import { certifications } from '@/data/credentials'
+import { jordanRyan } from '@/data/people'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type JsonLd = Record<string, any>
 
 // Stable @id conventions (all resolve against the production siteUrl, never
 // a preview/branch/localhost origin — see SITE_URL in src/data/site.ts):
-//   firm:    `${siteUrl}#RyanLegalPC`
+//   firm:    `${siteUrl}#JordanRyanLaw`
 //   website: `${siteUrl}/#website`
 //   people:  `${siteUrl}/about#<PersonSlug>` (About is their canonical page,
 //            referenced by @id — never redefined — from other pages)
 //   pages:   `${siteUrl}<path>#webpage`
-export const firmId = `${siteUrl}#RyanLegalPC`
+export const firmId = `${siteUrl}#JordanRyanLaw`
 export const websiteId = `${siteUrl}/#website`
-export const russRyanId = `${siteUrl}/about#RussellRyan`
-export const crystalBrightwellId = `${siteUrl}/about#CrystalBrightwell`
-
-const ratingsSimplified = ratingsAndDesignations.map((r) => r.simplified)
+export const jordanRyanId = `${siteUrl}/about#JordanRyan`
 
 // Combines already-built entities into one connected @graph rather than
 // several isolated top-level JSON-LD objects. Per-entity `@context` is
@@ -40,7 +33,6 @@ export function legalServiceJsonLd(): JsonLd {
     '@type': 'LegalService',
     '@id': firmId,
     name: businessName,
-    alternateName: 'Ryan Legal',
     url: siteUrl,
     image: `${siteUrl}/opengraph-image.png`,
     description: defaultDescription,
@@ -54,27 +46,13 @@ export function legalServiceJsonLd(): JsonLd {
       addressCountry: address.country,
     },
     telephone: contact.phoneHref,
-    email: [contact.emails.russ, contact.emails.crystal],
-    // Bar admissions (src/data/credentials.ts) cover both CA and UT — no
-    // opening-hours claim, since none is published anywhere on the site.
-    serviceArea: [
-      { '@type': 'AdministrativeArea', name: 'California' },
-      { '@type': 'AdministrativeArea', name: 'Utah' },
-    ],
-    knowsLanguage: ['English', 'Spanish'],
+    email: contact.email,
+    serviceArea: [{ '@type': 'AdministrativeArea', name: 'Texas' }],
+    knowsLanguage: jordanRyan.languages,
     logo: `${siteUrl}/full-logo.webp`,
     knowsAbout,
     keywords: defaultKeywords,
-    award: ratingsSimplified,
-    founder: { '@id': russRyanId },
-    // Matches the /payment page verbatim ("Major credit and debit cards,
-    // processed securely by LawPay") — the previous Cash/Check claim wasn't
-    // supported by any visible content.
-    acceptedPaymentMethod: [
-      { '@type': 'PaymentMethod', name: 'Credit Card' },
-      { '@type': 'PaymentMethod', name: 'Debit Card' },
-    ],
-    employee: [{ '@id': crystalBrightwellId }],
+    founder: { '@id': jordanRyanId },
   }
 }
 
@@ -84,9 +62,7 @@ export function websiteJsonLd(): JsonLd {
     '@type': 'WebSite',
     url: siteUrl,
     name: businessName,
-    alternateName: 'Ryan Legal',
-    description:
-      'The official website of Ryan Legal, PC, providing information about its areas of practice, attorney profile, and how to get in touch to get started.',
+    description: `The official website of ${businessName}, providing information about its areas of practice, attorney profile, and how to get in touch to get started.`,
     mainEntity: { '@id': firmId },
     publisher: { '@id': firmId },
     inLanguage: 'en',
@@ -131,67 +107,32 @@ export function webPageJsonLd(opts: {
     primaryImageOfPage: {
       '@type': 'ImageObject',
       url: `${siteUrl}/opengraph-image.png`,
-      caption: 'Ryan Legal, PC - Legal Services',
+      caption: `${businessName} - Legal Services`,
     },
     mainEntity: opts.mainEntity ?? [{ '@id': firmId }],
     ...(opts.mentions && opts.mentions.length > 0 ? { mentions: opts.mentions } : {}),
   }
 }
 
-export function russRyanPersonJsonLd(): JsonLd {
+export function jordanRyanPersonJsonLd(): JsonLd {
   return {
     '@type': 'Person',
-    '@id': russRyanId,
-    name: russRyan.name,
-    alternateName: russRyan.alternateName,
-    givenName: russRyan.givenName,
-    familyName: russRyan.familyName,
+    '@id': jordanRyanId,
+    name: jordanRyan.name,
+    alternateName: jordanRyan.alternateName,
+    givenName: jordanRyan.givenName,
+    familyName: jordanRyan.familyName,
     url: `${siteUrl}/about`,
     image: `${siteUrl}/square-profile.webp`,
-    jobTitle: russRyan.jobTitle,
-    honorificSuffix: russRyan.honorificSuffix,
-    knowsLanguage: russRyan.languages,
+    jobTitle: jordanRyan.jobTitle,
+    honorificSuffix: jordanRyan.honorificSuffix,
+    knowsLanguage: jordanRyan.languages,
     knowsAbout,
-    award: ratingsAndDesignations.map((r) => `${r.simplified} — ${r.years}`),
-    // src/data/credentials.ts lists bare "University of California, Berkeley"
-    // (institution + degree as separate fields) — "School of Law" is added
-    // back here deliberately: it's Berkeley's actual school name for the J.D.
-    // program (cf. "Harvard Law School"), not an invented credential, and
-    // disambiguates the J.D. from the BYU undergrad degree below.
+    award: certifications.map((c) => `${c.label} — ${c.year}`),
     alumniOf: [
-      { '@type': 'CollegeOrUniversity', name: 'University of California, Berkeley, School of Law' },
+      { '@type': 'CollegeOrUniversity', name: 'University of California, Davis, School of Law' },
       { '@type': 'CollegeOrUniversity', name: 'Brigham Young University' },
     ],
-    worksFor: { '@id': firmId },
-    // Verified 2026-07-19 (Jared) — his own State Bar, LinkedIn, Super
-    // Lawyers, and Martindale attorney-profile pages, not firm profiles.
-    sameAs: [
-      'https://apps.calbar.ca.gov/attorney/Licensee/Detail/139835',
-      'https://www.linkedin.com/in/russell-ryan-79066514/',
-      'https://profiles.superlawyers.com/california/fresno/lawyer/russell-k-ryan/21b78cdf-4eed-4bf1-a0cc-7fd4522b0e08.html',
-      'https://www.martindale.com/attorney/russell-kent-ryan-99467/',
-      'https://www.avvo.com/attorneys/93704-ca-russell-ryan-72093.html',
-    ],
-  }
-}
-
-// Crystal is support staff, never an attorney — she must never be typed as
-// Attorney/LegalService, given credentials Russ holds, or given contact
-// details/imagery/biography beyond what's already published (see
-// src/data/people.ts and docs/legacy-content-inventory.md).
-export function crystalBrightwellPersonJsonLd(): JsonLd {
-  return {
-    '@type': 'Person',
-    '@id': crystalBrightwellId,
-    name: crystalBrightwell.name,
-    url: `${siteUrl}/about`,
-    jobTitle: crystalBrightwell.workingTitle,
-    // Tenure is published on About (e.g. "24 years with Russ Ryan") —
-    // restating it here doesn't introduce a new claim. Framed around Russ,
-    // not the firm entity: Ryan Legal, PC itself has only existed about a
-    // year, while Crystal's actual tenure spans two firm names.
-    description: `${crystalBrightwell.workingTitle}, with ${russRyan.alternateName} for over ${crystalBrightwell.tenureYears} years.`,
-    email: contact.emails.crystal,
     worksFor: { '@id': firmId },
   }
 }

@@ -1,97 +1,41 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import SectionNav from '@/components/SectionNav.astro'
-import { russRyan, crystalBrightwell } from '@/data/people'
-import {
-  education,
-  barAdmissions,
-  courtAdmissions,
-  ratingsAndDesignations,
-  priorExperience,
-  publicAndCommunityService,
-  affiliations,
-  expertise,
-  trainingIntro,
-  trainingAtAGlance,
-  trainingExperience,
-  type ReportedDecision,
-} from '@/data/credentials'
-import { currentClients, pastClients } from '@/data/clients'
-import {
-  webPageJsonLd,
-  russRyanPersonJsonLd,
-  crystalBrightwellPersonJsonLd,
-  russRyanId,
-  crystalBrightwellId,
-} from '@/lib/json-ld'
+import { jordanRyan } from '@/data/people'
+import { education, barAdmissions, certifications, experience } from '@/data/credentials'
+import { webPageJsonLd, jordanRyanPersonJsonLd, jordanRyanId } from '@/lib/json-ld'
+import { businessName } from '@/data/site'
 
-const description =
-  'Learn more about the Ryan Legal, PC staff, including their education, credentials, experience, and areas of practice.'
+const description = `Learn more about ${jordanRyan.name}, including his education, credentials, experience, and areas of practice.`
 const keywords = [
-  'Russell Ryan Attorney',
-  'Labor and Employment Lawyer',
-  'Business Litigation Attorney',
-  'Health Care Legal Expert',
-  'California Employment Law',
-  'Corporate Compliance Attorney',
-  'Trade Secret Lawyer',
-  'Real Estate Legal Counsel',
-  'Arbitration and Mediation Expert',
-  'Appellate Litigation Attorney',
+  'Jordan Ryan Attorney',
+  'Commercial Real Estate Lawyer',
+  'Real Estate Finance Attorney',
+  'Entity Formation Lawyer',
+  'Texas Real Estate Law',
 ]
 
 const jsonLd = [
-  russRyanPersonJsonLd(),
-  crystalBrightwellPersonJsonLd(),
+  jordanRyanPersonJsonLd(),
   webPageJsonLd({
     path: '/about',
-    name: 'About Ryan Legal, PC',
+    name: `About ${businessName}`,
     description,
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'About', path: '/about' },
     ],
     pageType: 'AboutPage',
-    mainEntity: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
+    mainEntity: [{ '@id': jordanRyanId }],
   }),
 ]
 
 const railSections = [
-  { id: 'intro', name: 'Russ Ryan' },
-  { id: 'credentials', name: 'Credentials' },
-  { id: 'crystal', name: 'Crystal Brightwell' },
-  { id: 'litigation-record', name: 'Litigation and Appeals' },
-  { id: 'training', name: 'Training' },
-  { id: 'positions', name: 'Positions' },
-  { id: 'admissions', name: 'Admissions' },
-  { id: 'clients-affiliations', name: 'Clients & Affiliations' },
+  { id: 'intro', name: jordanRyan.name },
+  { id: 'experience', name: 'Experience' },
+  { id: 'education', name: 'Education' },
+  { id: 'admissions', name: 'Bar Admissions & Certifications' },
 ]
-
-const litigation = expertise.find((e) => e.name === 'Litigation')
-
-// Reported decisions are stored as a flat, court-tagged list (source order
-// matters — it's the order Russ gave them in) — grouped here into
-// court-labeled sections for display, preserving each court's first
-// appearance in that source order rather than alphabetizing.
-const reportedDecisionGroups = (litigation?.reportedDecisions ?? []).reduce<
-  { court: string; decisions: ReportedDecision[] }[]
->((groups, decision) => {
-  const group = groups.find((g) => g.court === decision.court)
-  if (group) group.decisions.push(decision)
-  else groups.push({ court: decision.court, decisions: [decision] })
-  return groups
-}, [])
-
-// Gives a single substring of `text` selective <strong> emphasis (a
-// participant count, a training-engagement quantity) without hardcoding
-// markup into the data file itself.
-function splitHighlight(text: string, highlight?: string): { before: string; match?: string; after: string } {
-  const index = highlight ? text.indexOf(highlight) : -1
-  if (!highlight || index === -1) return { before: text, after: '' }
-  return { before: text.slice(0, index), match: highlight, after: text.slice(index + highlight.length) }
-}
-
-const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 participants')
 ---
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
@@ -101,251 +45,58 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     <div class="about-main">
       <section class="about-section" id="intro">
         <div class="about-narrow">
-          <img src="/square-profile-440.webp" alt={russRyan.name} width="180" height="180" class="about-portrait" />
-          <span class="eyebrow">{russRyan.jobTitle}</span>
-          <h1>{russRyan.name}</h1>
-          {russRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
+          <img src="/square-profile-440.webp" alt={jordanRyan.name} width="180" height="180" class="about-portrait" />
+          <span class="eyebrow">{jordanRyan.jobTitle}</span>
+          <h1>{jordanRyan.name}</h1>
+          {jordanRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
           <a href="/contact" class="link-editorial">
-            Talk with Russ <span class="link-editorial__arrow" aria-hidden="true">→</span>
+            Talk with Jordan <span class="link-editorial__arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </section>
 
-      <section class="about-section" id="credentials">
+      <section class="about-section" id="experience">
         <span class="section-rule" aria-hidden="true"></span>
-        <h2>Credentials</h2>
-        <div class="about-credentials-grid">
-          <div>
-            <h3>Education</h3>
-            <ul class="archival-table">
-              {
-                education.map((item) => (
-                  <li class="archival-table__row">
-                    <span class="archival-table__label">
-                      {item.degree} — {item.institution} ({item.rank})
-                    </span>
-                    <span class="archival-table__meta">{item.year}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div>
-            <h3>Ratings &amp; Designations</h3>
-            <ul class="archival-table">
-              {
-                ratingsAndDesignations.map((item) => (
-                  <li class="archival-table__row">
-                    <span class="archival-table__label">{item.simplified}</span>
-                    <span class="archival-table__meta">{item.years}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
+        <h2>Experience</h2>
+        <ul class="about-experience-list about-narrow">
+          {experience.map((item) => <li>{item}</li>)}
+        </ul>
       </section>
 
-      <section class="about-section" id="crystal">
+      <section class="about-section" id="education">
         <span class="section-rule" aria-hidden="true"></span>
-        <div class="about-crystal about-narrow">
-          <img
-            src="/crystal-profile.webp"
-            alt={crystalBrightwell.name}
-            width="108"
-            height="108"
-            class="about-crystal__portrait"
-          />
-          <h2>{crystalBrightwell.name}</h2>
-          <p class="about-crystal__meta">
-            {crystalBrightwell.workingTitle} · {crystalBrightwell.tenureYears} years with Russ Ryan
-          </p>
-          <div class="about-crystal__content">
-            {crystalBrightwell.background.map((paragraph) => <p>{paragraph}</p>)}
-            <h3>Case Experience</h3>
-            {crystalBrightwell.caseExperience.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
-        </div>
-      </section>
-
-      <figure class="about-photo-break">
-        <span class="about-photo-break__rule" aria-hidden="true"></span>
-        <span class="eyebrow">At the office</span>
-        <span class="about-photo-break__frame">
-          <img
-            src="/waiting-room.webp"
-            alt="The seating area outside Russ's office at Ryan Legal, PC in Fresno, with the firm's wall sign visible."
-            width="1800"
-            height="1350"
-            loading="lazy"
-            decoding="async"
-          />
-        </span>
-      </figure>
-
-      <section class="about-section" id="litigation-record">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Litigation and Appeals</h2>
-        {litigation?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-        {
-          reportedDecisionGroups.length > 0 && (
-            <div class="about-record-card">
-              <h3>Reported Decisions</h3>
-              <p class="decisions-summary">
-                {litigation!.reportedDecisions!.length} reported decisions across {reportedDecisionGroups.length}{' '}
-                courts.
-              </p>
-              {reportedDecisionGroups.map((group, i) => (
-                <Fragment>
-                  {
-                    // A separate sibling element, not a border on the group
-                    // itself — so it stays clear of the group's own left
-                    // bracket rather than forming a touching corner with it.
-                    i > 0 && <div class="decisions-divider" aria-hidden="true" />
-                  }
-                  <div class="decisions-group">
-                    <span class="eyebrow">{group.court}</span>
-                    <ul class="decisions-list">
-                      {group.decisions.map((decision) => (
-                        <li class="decision">
-                          <p class="decision__cite">
-                            <em class="decision__name">{decision.caseName}</em>,{' '}
-                            <span class="decision__citation-text">{decision.citation}</span>
-                          </p>
-                          <p class="decision__body">{decision.description}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Fragment>
-              ))}
-            </div>
-          )
-        }
-      </section>
-
-      <section class="about-section" id="training">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Training</h2>
-        <p>
-          {trainingIntroParts.before}
-          {trainingIntroParts.match && <strong>{trainingIntroParts.match}</strong>}
-          {trainingIntroParts.after}
-        </p>
-
-        <div class="about-training-glance">
-          <h3>Training at a glance</h3>
-          <div class="about-training-glance__grid">
-            {
-              trainingAtAGlance.map((group) => (
-                <div class="about-training-glance__group">
-                  <h4>{group.heading}</h4>
-                  <ul>
-                    {group.items.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-
-        <div class="about-training-experience about-narrow">
-          <h3>Selected training experience</h3>
-          <ul class="about-training-experience__list">
-            {
-              trainingExperience.map((entry) => {
-                const { before, match, after } = splitHighlight(entry.description, entry.highlight)
-                return (
-                  <li class="about-training-experience__row">
-                    <span class="about-training-experience__org">{entry.organization}</span>
-                    <p class="about-training-experience__desc">
-                      {before}
-                      {match && <strong>{match}</strong>}
-                      {after}
-                    </p>
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
-      </section>
-
-      <section class="about-section" id="positions">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Positions</h2>
-        <div class="about-credentials-grid">
-          <div>
-            <h3>Prior Experience</h3>
-            <ul class="archival-table">
-              {
-                priorExperience.map((item) => (
-                  <li class="archival-table__row">
-                    <span class="archival-table__label">
-                      {item.position} — {item.institution}
-                    </span>
-                    <span class="archival-table__meta">{item.years}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div>
-            <h3>Public &amp; Community Service</h3>
-            <ul class="archival-table">
-              {
-                publicAndCommunityService.map((item) => (
-                  <li class="archival-table__row">
-                    <span class="archival-table__label">
-                      {item.position} — {item.institution}
-                    </span>
-                    <span class="archival-table__meta">{item.years}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="about-section" id="admissions">
-        <span class="section-rule" aria-hidden="true"></span>
-        <h2>Admissions</h2>
-        <h3>Bar Admissions</h3>
-        <ul class="multi-column-list bar-admissions-list">
+        <h2>Education</h2>
+        <ul class="archival-table about-narrow">
           {
-            barAdmissions.map((item) => (
-              <li>
-                {item.state}, {item.year}
+            education.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">
+                  {item.degree} — {item.institution}
+                </span>
+                {item.year && <span class="archival-table__meta">{item.year}</span>}
               </li>
             ))
           }
         </ul>
-        <h3>Court Admissions</h3>
-        <ul class="multi-column-list court-admissions-list">
-          {courtAdmissions.map((item) => <li>{item}</li>)}
-        </ul>
       </section>
 
-      <section class="about-section" id="clients-affiliations">
+      <section class="about-section" id="admissions">
         <span class="section-rule" aria-hidden="true"></span>
-        <h2>Clients &amp; Affiliations</h2>
-        <h3>Representative Clients</h3>
-        <ul class="multi-column-list">
-          {currentClients.map((client) => <li>{client}</li>)}
-        </ul>
-        <h3>Past Clients</h3>
-        <ul class="multi-column-list">
-          {pastClients.map((client) => <li>{client}</li>)}
-        </ul>
-        <h3 class="about-narrow">Affiliations</h3>
+        <h2>Bar Admissions &amp; Certifications</h2>
         <ul class="archival-table about-narrow">
           {
-            affiliations.map((item) => (
+            barAdmissions.map((item) => (
               <li class="archival-table__row">
-                <span class="archival-table__label">{item}</span>
+                <span class="archival-table__label">{item.state}</span>
+                <span class="archival-table__meta">{item.year}</span>
+              </li>
+            ))
+          }
+          {
+            certifications.map((item) => (
+              <li class="archival-table__row">
+                <span class="archival-table__label">{item.label}</span>
+                <span class="archival-table__meta">{item.year}</span>
               </li>
             ))
           }
@@ -358,8 +109,8 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     <div class="closing-band__inner">
       <span class="closing-band__rule" aria-hidden="true"></span>
       <h2>Practical judgment. Proven experience.</h2>
-      <p class="lead">From day-to-day advising to trial and appeal, Russ brings both to every stage.</p>
-      <a href="/contact" class="btn btn-primary">Talk with Russ</a>
+      <p class="lead">From day-to-day advising to closing the deal, Jordan brings both to every stage.</p>
+      <a href="/contact" class="btn btn-primary">Talk with Jordan</a>
     </div>
   </section>
 </BaseLayout>
@@ -378,11 +129,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     min-width: 0;
   }
 
-  /* Fills the editorial column (bounded by --content-width via the layout
-     grid) rather than capping to prose measure — structured content
-     (archival tables, the credentials grid, client lists, the waiting-room
-     photo) can use the full column, while .about-section p below holds
-     actual prose to a comfortable reading line length within it. */
   .about-section {
     padding: var(--s8) var(--s5);
     border-top: 1px solid var(--rule);
@@ -396,14 +142,10 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     max-width: var(--content-narrow);
   }
 
-  /* Reusable prose-measure utility — applied to whole sections that are
-     primarily long-form reading or short one-column lists/tables (where a
-     full-width row would just leave an empty gap before a right-aligned
-     year), and to individual heading+list pairs within otherwise-wide
-     sections that mix short and wide content (e.g. Bar Admissions inside
-     Admissions, Affiliations inside Clients & Affiliations). Left edges
-     still align with the wide content around them — only the right edge
-     pulls in — so headings stay visually consistent down the page. */
+  /* Reusable prose-measure utility — see about-narrow's original rationale
+     (still applies): keeps long-form/short single-column content to a
+     comfortable reading width while left edges still align with the
+     section heading above them. */
   .about-narrow {
     max-width: var(--content-narrow);
   }
@@ -413,324 +155,44 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
     height: 140px;
     object-fit: cover;
     border-radius: 4px;
-    /* Matches Crystal's avatar ring below (border: 2px solid var(--gold))
-       so the two profile treatments read as a pair rather than one framed
-       in brand gold and the other in the plain hairline gray used for
-       purely structural borders elsewhere. */
     border: 2px solid var(--gold);
     margin-bottom: var(--s5);
   }
 
-  .about-credentials-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s6);
-  }
-
-  /* Litigation and Appeals' one raised moment: mirrors Expertise's proof-callout
-     treatment for this exact content (Expertise's Litigation area links
-     here via "See the litigation record"), so the page that gets linked to
-     has real visual weight instead of just being the destination of a link
-     elsewhere. Deliberately the only archival-table on the page to get this
-     treatment — About has ~7 of these lists total, and raising more than
-     one risks "everything's a card" instead of added variety. */
-  .about-record-card {
-    margin-top: var(--s6);
-    background: var(--bg-raised-2);
-    border-radius: 4px;
-    padding: var(--s5);
-    /* Narrowed here rather than on the parent .about-section, same reason
-       as .about-crystal above — the section's own divider needs to span
-       the full wide column. */
-    max-width: var(--content-narrow);
-  }
-
-  .about-record-card h3 {
-    margin-bottom: var(--s3);
-  }
-
-  .decisions-summary {
-    color: var(--fg-soft);
-    font-size: 0.9375rem;
-    margin: 0 0 var(--s5);
-  }
-
-  /* Runs the full height of the group, eyebrow through its last case — a
-     reader scrolling through several cases in one court stays visually
-     "inside the bracket" that started at the heading, even once the
-     heading itself has scrolled out of view. Neutral --rule, not a color,
-     so it reads as structure (like the hairlines between cases) rather
-     than decoration. */
-  .decisions-group {
-    border-left: 2px solid var(--gold-accent);
-    padding-left: var(--s4);
-  }
-
-  /* Dark theme's --gold-accent reads far more prominent here than light
-     theme's does (~7.4:1 vs ~1.5:1 against this card — two different
-     values under one token name, not a matched pair) — quieter here with
-     --fg-soft instead, still clearly visible, without touching --gold-ink
-     (already claimed by the court eyebrows just above). */
-  :root[data-theme='dark'] .decisions-group {
-    border-left-color: var(--fg-soft);
-  }
-
-  /* Same 1px weight as the hairlines between cases within a group (.decision
-     + .decision below). Full width of the card's content column, reaching
-     as far left as the groups' own left brackets above and below it. */
-  .decisions-divider {
-    margin: var(--s6) 0;
-    border-top: 1px solid var(--rule);
-  }
-
-  .decisions-list {
+  /* Plain bulleted list for Experience's accomplishment statements — same
+     gold-dash marker convention used elsewhere for genuine bullet lists
+     (the base reset removes native list markers sitewide). */
+  .about-experience-list {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
   }
 
-  .decision + .decision {
-    border-top: 1px solid var(--rule);
-    margin-top: var(--s4);
-    padding-top: var(--s4);
-  }
-
-  .decision__cite {
-    margin: 0 0 var(--s2);
+  .about-experience-list li {
+    position: relative;
+    padding-left: 1.25em;
     color: var(--fg);
   }
 
-  .decision__name {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.0625rem;
-  }
-
-  .decision__citation-text {
-    color: var(--fg-soft);
-    font-size: 0.875rem;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .decision__body {
-    margin: 0;
-    color: var(--fg);
-  }
-
-  /* Court Admissions: plain, ruled, two-up at width — related to the
-     editorial list system used elsewhere on the page, but deliberately not
-     using the label/meta archival-table shape, since there's no per-item
-     year or value to pair against a court name. */
-  .court-admissions-list {
-    columns: 2 220px;
-  }
-
-  /* Bar Admissions: only ever two short entries — the heavier archival-table
-     treatment (bigger type, full-bleed border-top, one column) left an
-     awkward amount of empty space either narrowed or at full width. Same
-     compact two-up column setting as Court Admissions just above it; a
-     state/year pair reads fine as one plain string ("California, 1989"),
-     so no label/meta split is needed the way a space-between row would
-     require. */
-  .bar-admissions-list {
-    columns: 2 220px;
-  }
-
-  /* Plain block flow, not a card — Crystal's bio grew from two sentences to
-     a multi-part background/case-experience writeup, too long to read well
-     boxed in a bordered container sized for the old short version. Narrowed
-     here on the wrapper itself (.about-narrow, applied in markup) rather
-     than on the parent .about-section — that section's own border-top
-     divider still needs to span the full wide column, matching every other
-     section's divider. */
-  .about-crystal__portrait {
-    width: 108px;
-    height: 108px;
-    object-fit: cover;
-    border-radius: 4px;
-    /* Matches Russ's portrait ring above (border: 2px solid var(--gold)) so
-       the two profile treatments still read as a pair, just at a smaller
-       size that keeps her secondary to his. */
-    border: 2px solid var(--gold);
-    margin-bottom: var(--s4);
-  }
-
-  .about-crystal__meta {
-    color: var(--fg-soft);
-    font-weight: 600;
-    font-size: 0.9375rem;
-    margin-top: calc(var(--s2) * -1);
-    margin-bottom: var(--s5);
-  }
-
-  .about-crystal__content h3 {
-    margin-top: var(--s7);
-  }
-
-  .about-crystal__content h4 {
-    margin-top: var(--s6);
-    margin-bottom: var(--s3);
-  }
-
-  .about-training-glance {
-    margin-top: var(--s7);
-  }
-
-  .about-training-glance h3 {
-    margin-bottom: var(--s5);
-  }
-
-  .about-training-glance__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--s6);
-  }
-
-  .about-training-glance__group h4 {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 0.8125rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--gold-ink);
-    margin: 0 0 var(--s3);
-  }
-
-  .about-training-glance__group ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--rule);
-  }
-
-  .about-training-glance__group li {
-    padding: var(--s2) 0;
-    border-bottom: 1px solid var(--rule);
-    color: var(--fg-soft);
-    font-size: 0.9375rem;
-  }
-
-  .about-training-experience {
-    margin-top: var(--s8);
-  }
-
-  .about-training-experience h3 {
-    margin-bottom: var(--s4);
-  }
-
-  .about-training-experience__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--rule);
-  }
-
-  .about-training-experience__row {
-    padding: var(--s5) 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .about-training-experience__org {
-    display: block;
-    font-weight: 700;
-    margin-bottom: var(--s2);
-  }
-
-  .about-training-experience__desc {
-    margin: 0;
-    color: var(--fg-soft);
-  }
-
-  /* A single deliberate chapter break between the personal introduction
-     (Russ, Crystal) and the archival record that follows — the one place
-     on the page that widens past the narrow reading column on purpose, so
-     it reads as a composed pause rather than a dropped-in decoration. */
-  .about-photo-break {
-    margin: 0;
-    padding: var(--s7) var(--s5);
-    border-top: 1px solid var(--rule);
-    text-align: center;
-  }
-
-  .about-photo-break__rule {
-    display: block;
-    width: 40px;
+  .about-experience-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
     height: 2px;
-    background: var(--gold-accent);
-    margin: 0 auto var(--s4);
-  }
-
-  .about-photo-break .eyebrow {
-    display: block;
-    margin-bottom: var(--s5);
-  }
-
-  .about-photo-break__frame {
-    display: block;
-    aspect-ratio: 4 / 3;
-    border-radius: 4px;
-    border: 1px solid var(--rule);
-    overflow: hidden;
-  }
-
-  .about-photo-break__frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Biased toward the top of the frame — the branded wall sign sits in
-       the upper portion of the source photo, and a plain center crop at
-       wide aspect ratios starts clipping "Ryan" off the top of it. */
-    object-position: center 25%;
-    display: block;
-  }
-
-  @media (min-width: 640px) {
-    .about-photo-break__frame {
-      aspect-ratio: 3 / 2;
-    }
-  }
-
-  @media (min-width: 1100px) {
-    .about-photo-break {
-      padding-left: var(--s6);
-      padding-right: var(--s6);
-    }
-
-    .about-photo-break__frame {
-      aspect-ratio: 16 / 9;
-    }
+    background: var(--gold-ink);
   }
 
   @media (max-width: 1099px) {
-    /* Below 1100px the rail disappears and every section fills the single
-       remaining column — a narrower reading-measure block (.about-narrow)
-       that isn't also centered just hugs the left edge with an unexplained
-       void on the right. Center these as blocks by default; structured
-       content that doesn't need a narrow measure (the affiliations list
-       below) is widened back out instead, right after. */
     .about-narrow {
       margin-left: auto;
       margin-right: auto;
     }
 
-    .about-record-card {
-      max-width: none;
-    }
-
-    /* Affiliations is a plain name list, not prose — like the current/past
-       client lists right above it in the same section, it reads better
-       using the full available width than staying capped to prose measure
-       and centered as an undersized column. */
-    #clients-affiliations .about-narrow {
-      max-width: none;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    /* The intro identity composition (portrait, eyebrow, name) reads as
-       more deliberate centered as a unit now that the desktop rail's
-       two-column relationship is gone — but the summary paragraphs below
-       it stay left aligned, same as every other section's body copy. */
     #intro {
       text-align: center;
     }
@@ -744,30 +206,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
       text-align: left;
     }
 
-    /* Same identity-block-centered/prose-left treatment as #intro just
-       above — Crystal's portrait, name, and meta line center as a unit;
-       her Background/Case Experience content and the courts list stay left
-       aligned. */
-    #crystal .about-crystal {
-      text-align: center;
-    }
-
-    #crystal .about-crystal__portrait {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #crystal .about-crystal__content {
-      text-align: left;
-    }
-
-    /* Major section headers (Credentials, Litigation and Appeals, Training,
-       Positions, Admissions, Clients & Affiliations): the heading-rule
-       marker and the h2 itself center as a unit. Everything that follows —
-       the section's own intro sentence/paragraphs, lists, and tables —
-       stays left aligned, same as before. Scoped to direct children so
-       Crystal's own heading (nested inside .about-crystal, handled
-       separately above) isn't affected. */
     .about-section > .section-rule {
       margin-left: auto;
       margin-right: auto;
@@ -775,13 +213,6 @@ const trainingIntroParts = splitHighlight(trainingIntro, 'more than 150,000 part
 
     .about-section > h2 {
       text-align: center;
-    }
-  }
-
-  @media (max-width: 880px) {
-    .about-credentials-grid {
-      grid-template-columns: 1fr;
-      gap: var(--s5);
     }
   }
 

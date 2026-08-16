@@ -1,25 +1,22 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import ContactForm from '@/components/ContactForm.astro'
-import { contact, address } from '@/data/site'
-import { russRyan, crystalBrightwell } from '@/data/people'
-import { webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
+import { contact, address, businessName } from '@/data/site'
+import { jordanRyan } from '@/data/people'
+import { webPageJsonLd, jordanRyanId } from '@/lib/json-ld'
 
-const description =
-  'How to get in touch with Ryan Legal, PC: phone, address, email, or request a consultation through our website.'
+const description = `How to get in touch with ${businessName}: phone, address, email, or request a consultation through our website.`
 const keywords = [
-  'Contact Ryan Legal PC',
+  'Contact Jordan Ryan Law',
   'Schedule Legal Consultation',
-  'Employment Lawyer Consultation',
-  'Business Attorney Contact',
-  'Legal Services California',
-  'Legal Services Utah',
+  'Commercial Real Estate Attorney Contact',
+  'Legal Services Texas',
 ]
 
 const jsonLd = [
   webPageJsonLd({
     path: '/contact',
-    name: 'Contact Ryan Legal, PC',
+    name: `Contact ${businessName}`,
     description,
     // "Contact" matches the nav label — /contact-us is only a 301 redirect,
     // never the client-facing name for this page.
@@ -28,7 +25,7 @@ const jsonLd = [
       { name: 'Contact', path: '/contact' },
     ],
     pageType: 'ContactPage',
-    mentions: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
+    mentions: [{ '@id': jordanRyanId }],
   }),
 ]
 
@@ -39,7 +36,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
   <section class="page-section page-section--narrow contact-hero page-hero">
     <span class="eyebrow">Get in touch</span>
     <h1>Start a conversation</h1>
-    <p class="lead">Reach Russ or Crystal directly, or use the form to send a message.</p>
+    <p class="lead">Reach Jordan directly, or use the form to send a message.</p>
   </section>
 
   <section class="page-section contact-main">
@@ -47,14 +44,9 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
       <span class="eyebrow">Reach us directly</span>
       <ul class="contact-info-list">
         <li class="contact-block">
-          <p class="contact-block__title">{russRyan.alternateName} Ryan</p>
+          <p class="contact-block__title">{jordanRyan.alternateName} Ryan</p>
           <p class="contact-block__meta">Attorney</p>
-          <a href={`mailto:${contact.emails.russ}`}>{contact.emails.russ}</a>
-        </li>
-        <li class="contact-block">
-          <p class="contact-block__title">{crystalBrightwell.name}</p>
-          <p class="contact-block__meta">{crystalBrightwell.workingTitle}</p>
-          <a href={`mailto:${contact.emails.crystal}`}>{contact.emails.crystal}</a>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </li>
         <li class="contact-block">
           <p class="contact-block__title">Phone</p>
@@ -66,7 +58,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
             href={address.googleMapsDirectionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Open Ryan Legal's office in Google Maps: ${fullAddress}`}
+            aria-label={`Open ${businessName}'s office in Google Maps: ${fullAddress}`}
           >
             {fullAddress}
           </a>

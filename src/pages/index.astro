@@ -2,39 +2,48 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { businessName, businessSlogan, valuesAndMission, defaultDescription, defaultKeywords } from '@/data/site'
 import { areasOfPractice } from '@/data/practice-areas'
-import { ratingsAndDesignations } from '@/data/credentials'
-import { russRyan } from '@/data/people'
-import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, russRyanId, crystalBrightwellId } from '@/lib/json-ld'
+import { jordanRyan } from '@/data/people'
+import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, jordanRyanId } from '@/lib/json-ld'
 
 const jsonLd = [
   legalServiceJsonLd(),
   websiteJsonLd(),
   webPageJsonLd({
     path: '/',
-    name: 'Ryan Legal, PC - California Employment & Business Law Firm',
+    name: `${businessName} - Commercial Real Estate Law Firm`,
     description: defaultDescription,
     // Single-entry breadcrumb (Home alone) is intentionally omitted by webPageJsonLd.
     breadcrumbs: [{ name: 'Home', path: '/' }],
-    mentions: [{ '@id': russRyanId }, { '@id': crystalBrightwellId }],
+    mentions: [{ '@id': jordanRyanId }],
   }),
 ]
 
-// Every figure below is sourced verbatim from src/data — nothing here is
-// invented. See docs/legacy-content-inventory.md for provenance.
-const superLawyerRating = ratingsAndDesignations.find((r) => r.simplified.includes('Super Lawyer'))
-const superLawyerStartYear = superLawyerRating ? parseInt(superLawyerRating.years, 10) : NaN
-// +1: an inclusive year count (named every year from superLawyerStartYear
-// through the current year, e.g. 2014-2026 is 13 years, not 12).
-const superLawyerYears = Number.isNaN(superLawyerStartYear)
-  ? undefined
-  : new Date().getFullYear() - superLawyerStartYear + 1
-
+// Credential and numerical-stat items are interleaved (not grouped) so the
+// strip alternates weight rather than front-loading either shape. See
+// .proof-figure--credential / --stat below for the differing typographic
+// treatment each variant gets.
 const proofItems = [
-  { value: '35+', label: 'Years in Practice' },
-  { value: '90%', label: 'Prevailed at Trial or Arbitration' },
-  { value: 'AV', label: 'Preeminent Rated, Martindale-Hubbell' },
-  { value: superLawyerYears ? `${superLawyerYears}+` : '10+', label: 'Years Named a Super Lawyer' },
-]
+  {
+    variant: 'credential',
+    value: 'Former Chief Legal Officer',
+    label: 'National industrial & multifamily developer',
+  },
+  {
+    variant: 'stat',
+    value: '$60M',
+    label: 'Construction financing transaction',
+  },
+  {
+    variant: 'credential',
+    value: 'Board Certified',
+    label: 'Commercial Real Estate Law — Texas',
+  },
+  {
+    variant: 'stat',
+    value: '4M+ Sq. Ft.',
+    label: 'Industrial & office leases negotiated',
+  },
+] as const
 ---
 
 <BaseLayout
@@ -51,29 +60,26 @@ const proofItems = [
         src="/square-profile-640.webp"
         srcset="/square-profile-440.webp 440w, /square-profile-640.webp 640w, /square-profile.webp 833w"
         sizes="(max-width: 860px) 220px, 320px"
-        alt={russRyan.name}
+        alt={jordanRyan.name}
         width="360"
         height="360"
       />
     </div>
     <div class="hero__copy">
-      <span class="eyebrow">Fresno, California</span>
-      <h1>Practical day-to-day counsel. Strong representation when the stakes are high.</h1>
+      <span class="eyebrow">Dallas - Fort Worth, TX</span>
+      <h1>Guiding Commercial Real Estate and Business Success.</h1>
       <p class="lead">{businessSlogan}</p>
       <div class="hero__actions">
         <a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
-        <a href="/expertise" class="link-editorial">
-          See areas of practice <span class="link-editorial__arrow" aria-hidden="true">→</span>
-        </a>
       </div>
     </div>
   </section>
 
-  <section class="proof-band" aria-label="By the numbers">
+  <section class="proof-band" aria-label="Credentials and experience">
     <ul class="proof-strip proof-band__inner">
       {
         proofItems.map((item) => (
-          <li class="proof-figure">
+          <li class={`proof-figure proof-figure--${item.variant}`}>
             <span class="proof-figure__rule" />
             <span class="proof-figure__value">{item.value}</span>
             <span class="proof-figure__label">{item.label}</span>
@@ -92,15 +98,7 @@ const proofItems = [
       {
         areasOfPractice.map((area) => (
           <li class="practice-grid__item">
-            <a class="practice-grid__link" href={`/expertise#${area.slug}`}>
-              <h3>
-                {area.name}{' '}
-                <span class="practice-grid__arrow" aria-hidden="true">
-                  →
-                </span>
-              </h3>
-              <p>{area.teaser}</p>
-            </a>
+            <h3>{area.name}</h3>
           </li>
         ))
       }
@@ -109,8 +107,8 @@ const proofItems = [
 
   <section class="page-section values-mission">
     <div class="section-intro">
-      <span class="eyebrow">How we work</span>
-      <h2>Our Vision and Mission</h2>
+      <span class="eyebrow">What we do</span>
+      <h2>Our Mission</h2>
     </div>
     <div class="values-mission__columns">
       {valuesAndMission.map((paragraph) => <p>{paragraph}</p>)}
@@ -179,6 +177,11 @@ const proofItems = [
        breakpoint rather than a one-off value. */
     grid-template-columns: repeat(4, 1fr);
     gap: var(--s6) var(--s5);
+    /* Top-align every item's own content instead of stretching it to match
+       the tallest neighbor — with a two-line credential headline next to a
+       one-line stat, stretch would center the shorter one and read as
+       misaligned rather than intentional. */
+    align-items: start;
   }
 
   @media (max-width: 640px) {
@@ -186,6 +189,32 @@ const proofItems = [
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+  /* Credential items (title + context, e.g. "Board Certified") get a
+     serif headline sized down from the base primitive's giant numeral
+     treatment, but only enough to read as a distinct shape next to the
+     stat items — not so far down that it loses visual presence next to
+     them. The supporting caption intentionally reuses the base
+     .proof-figure__label treatment untouched (see below) so both variants
+     read as one consistent secondary layer. */
+  .proof-figure--credential .proof-figure__value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  /* Credential captions run longer than typical stat captions, so they get
+     a wider max-width than the base primitive's 16ch — applied to the
+     label text itself (controlling line length) rather than to the item,
+     which stays full-width for grid alignment (see 2x2 alignment fix
+     below). */
+  .proof-figure--credential .proof-figure__label {
+    max-width: 28ch;
+  }
+
+  /* Stat items (4M+ Sq. Ft., $60M) keep the base primitive's large numeral
+     and label treatment untouched — they're the visual anchors of the
+     strip. */
 
   /* A deliberate compositional restart after the proof band: centered
      eyebrow/heading (breaking from the hero's left alignment) under a short
@@ -226,85 +255,22 @@ const proofItems = [
     gap: var(--s6);
   }
 
-  /* The whole item is one clickable region — a single semantic link wrapping
-     the heading and teaser, not nested links — but the visual affordance
-     stays on the heading itself: one composition (persistent underline +
-     arrow), not a separate card surface layered on top of it. */
-  .practice-grid__link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-  }
-
+  /* Plain name list for now — no per-area detail page to link to and no
+     teaser copy yet (see src/data/practice-areas.ts). */
   .practice-grid__item h3 {
-    margin-bottom: var(--s2);
-  }
-
-  /* A real text-decoration underline rather than border-bottom: border-bottom
-     draws one straight line under the element's whole box, which looks fine
-     on a single line but produces a rigid bar with no breathing room under a
-     second wrapped line (e.g. "Business Transactions and Finance"). A text
-     underline is drawn per line by the browser instead, with room to set its
-     own thickness/offset independent of the border box. Matches the visual
-     strength of .link-editorial's 2px gold treatment without sharing its
-     border-based implementation, since that one is reliably single-line.
-
-     Underline is transparent at rest and the arrow below is the persistent
-     resting-state cue instead, matching the .link-editorial precedent used
-     twice already on this page: arrow always visible, underline reveals on
-     hover/focus. (That pattern also colors the link text itself, which
-     already signals "link" before the arrow or underline; these headings
-     keep ordinary heading color, so the arrow — a shape cue, not a color
-     one — carries the resting-state signal on its own.) */
-  .practice-grid__item h3 {
-    color: var(--fg);
-    text-decoration-line: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 2px;
-    text-underline-offset: calc(0.18em + 1.5px);
-    text-decoration-skip-ink: auto;
-    transition: text-decoration-color var(--transition-fast);
-  }
-
-  .practice-grid__link:hover h3,
-  .practice-grid__link:focus-visible h3 {
-    text-decoration-color: var(--gold);
-  }
-
-  /* Opts out of the h3 underline (matches .link-editorial__arrow) so the
-     persistent directional cue doesn't read as sitting on its own
-     underlined line — muted at rest, gold and nudged right on hover/focus. */
-  .practice-grid__arrow {
-    text-decoration-line: none;
-    display: inline-block;
-    color: var(--fg-soft);
-    transition:
-      color var(--transition-fast),
-      transform var(--transition-fast);
-  }
-
-  .practice-grid__link:hover .practice-grid__arrow,
-  .practice-grid__link:focus-visible .practice-grid__arrow {
-    color: var(--gold);
-    transform: translateX(3px);
-  }
-
-  .practice-grid__item p {
-    color: var(--fg-soft);
-    font-size: 0.9375rem;
     margin: 0;
+    color: var(--fg);
   }
 
-  /* Deliberately plain, not a raised band: Practice Areas and Vision &
-     Mission are meant to read as one connected chapter — "what we do" and
-     "why we do it" — sharing the same page background rather than being
-     split into separate visual movements. A full hairline the width of the
-     content column (not full-bleed) is enough separation without implying
-     a new section of the page has begun. Reuses the same .section-intro
-     "compositional restart" treatment as Practice Areas above it. The two
-     paragraphs below stay left-aligned and split into columns since
-     centered multi-line body text is hard to read, and the two are close
-     enough in length to balance evenly.
+  /* Deliberately plain, not a raised band: Practice Areas and Mission are
+     meant to read as one connected chapter — "what we do" and "why we do
+     it" — sharing the same page background rather than being split into
+     separate visual movements. A full hairline the width of the content
+     column (not full-bleed) is enough separation without implying a new
+     section of the page has begun. Reuses the same .section-intro
+     "compositional restart" treatment as Practice Areas above it. The
+     paragraph stays left-aligned since centered multi-line body text is
+     hard to read.
 
      The rule's own box is shrunk by the same amount as .page-section's
      horizontal padding (moved here into width/max-width via calc, rather
@@ -328,22 +294,13 @@ const proofItems = [
   }
 
   .values-mission__columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s6) var(--s8);
-    margin-top: var(--s7);
+    max-width: var(--content-narrow);
+    margin: var(--s7) auto 0;
     text-align: left;
   }
 
   .values-mission__columns p {
     margin: 0;
-  }
-
-  @media (max-width: 760px) {
-    .values-mission__columns {
-      grid-template-columns: 1fr;
-      gap: var(--s5);
-    }
   }
 
   @media (max-width: 860px) {
@@ -369,15 +326,6 @@ const proofItems = [
 
     .hero__actions {
       justify-content: center;
-    }
-
-    /* Each proof item centered within its own grid quadrant as a block —
-       same technique as the footer's multi-column layout (justify-items on
-       the grid, not text-align on the item). The rule, value, and label
-       stay left aligned relative to each other inside that now-centered,
-       shrink-to-fit box. */
-    .proof-band__inner {
-      justify-items: center;
     }
   }
 </style>
