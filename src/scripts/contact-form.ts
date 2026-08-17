@@ -71,7 +71,7 @@ form?.addEventListener('submit', async (event) => {
 
     if (response.ok && data.ok) {
       status.dataset.state = 'success'
-      status.textContent = 'Thanks — your message has been sent. We will be in touch soon.'
+      status.textContent = 'Thank you — your message has been sent. We will be in touch soon.'
       form.reset()
     } else if (!data.ok && data.errors) {
       showFieldErrors(data.errors)

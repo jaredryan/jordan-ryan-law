@@ -907,6 +907,8 @@ summary:focus-visible,
 
 .contact-form .form-status {
   font-weight: 700;
+  margin-bottom: 0;
+  margin-top: var(--s4);
 }
 
 .contact-form .form-status[data-state='success'] {
