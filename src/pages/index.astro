@@ -195,6 +195,7 @@ const proofItems = [
     max-width: 19ch;
   }
 
+
   .hero__actions {
     display: flex;
     align-items: center;
@@ -313,7 +314,7 @@ const proofItems = [
     align-items: start;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1080px) {
     .proof-band__inner {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -401,6 +402,8 @@ const proofItems = [
     gap: 2px;
     background: var(--stone);
     border: 2px solid var(--stone);
+    width: fit-content;
+    justify-self: center;
   }
 
   .practice-grid__item {
@@ -411,6 +414,7 @@ const proofItems = [
     align-items: center;
     gap: var(--s4);
     text-align: center;
+    max-width: 400px;
   }
 
   /* Sized up (from the old 28px small-bullet treatment) to function as real
@@ -426,13 +430,13 @@ const proofItems = [
     color: var(--nav-footer-text);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 581px) {
     .practice-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (min-width: 1000px) {
+  @media (min-width: 901px) {
     .practice-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -461,6 +465,41 @@ const proofItems = [
 
   .values-mission__columns p {
     margin: 0;
+  }
+
+  /* Shared tablet/desktop content boundary: the hero, proof-strip, and
+     Practice Areas grid read too close to the viewport edge at wide
+     desktop sizes if left at the page's base 1180px content column, so
+     they get a tighter shared cap (~1280px) with a larger guaranteed
+     gutter instead — aligned to the same outer axis across all three.
+     Active from the same point the hero goes two-column (720px) up.
+     Mission and the closing CTA are untouched; they already control
+     their own width and are meant to read differently. */
+  @media (min-width: 721px) {
+    .hero,
+    .practice-overview {
+      max-width: none;
+    }
+
+    .hero__grid,
+    .proof-band__inner,
+    .practice-grid {
+      max-width: min(calc(100% - 6rem), 80rem);
+      margin-inline: auto;
+    }
+  }
+
+  /* The shared boundary above reads well at ~1600px+ and again around
+     ~1270px and below, but in the intermediate band the hero specifically
+     over-stretches and pushes the portrait too close to the right edge —
+     so the hero alone gets pulled in further, just in this awkward
+     middle-desktop range. Declared after the shared block above so this
+     narrower max-width wins in the 1280–1499px overlap. */
+  @media (min-width: 1280px) and (max-width: 1499px) {
+    .hero__grid {
+      max-width: 74rem;
+      margin-inline: auto;
+    }
   }
 
   /* Tablet: columns narrow enough that the 220px portrait column starts
