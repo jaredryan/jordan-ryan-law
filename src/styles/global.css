@@ -780,16 +780,18 @@ summary:focus-visible,
   margin: 0;
 }
 
-/* Corner brackets for the CTA heading (Home + About): unlike the static
-   .bracket-frame corners used elsewhere, a fixed CSS offset isn't reliable
-   here — this heading is centered and can wrap to a different number of
-   lines at different widths, so its own CSS box doesn't necessarily match
-   the actual rendered text bounds. cta-bracket.ts measures the heading's
-   real text bounds with a Range and positions these two marks (top/left
-   for --tl, bottom/right for --br, mirroring the static bracket-frame
-   geometry) from that measurement instead. Hidden until the script's first
-   successful measurement lands (data-measured on the wrapper), so there's
-   no flash of misplaced brackets before JS runs. */
+/* Corner brackets for headings that can wrap unpredictably (Home + About
+   closing-band CTAs, and About's "Bar Admissions & Certifications"
+   section heading): unlike the static .bracket-frame corners used
+   elsewhere, a fixed CSS offset isn't reliable here — these headings can
+   wrap to a different number of lines at different widths, so their own
+   CSS box doesn't necessarily match the actual rendered text bounds.
+   cta-bracket.ts measures the heading's real text bounds with a Range and
+   positions these two marks (top/left for --tl, bottom/right for --br,
+   mirroring the static bracket-frame geometry — same 20px/12px sizing) from
+   that measurement instead. Hidden until the script's first successful
+   measurement lands (data-measured on the [data-cta-bracket] wrapper), so
+   there's no flash of misplaced brackets before JS runs. */
 .cta-bracket {
   position: absolute;
   width: 20px;
@@ -799,7 +801,7 @@ summary:focus-visible,
   transition: opacity var(--transition-fast);
 }
 
-.closing-band__heading-frame[data-measured] .cta-bracket {
+[data-cta-bracket][data-measured] .cta-bracket {
   opacity: 1;
 }
 

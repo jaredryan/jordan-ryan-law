@@ -1,11 +1,12 @@
-// Positions the CTA heading corner brackets (Home + About closing bands)
-// from the heading's actual rendered text bounds, not its own CSS box: the
-// heading is centered and can wrap to a different number of lines at
-// different widths, so a fixed CSS offset doesn't reliably frame it. A
-// Range over the heading's contents gives the real per-line rects via
-// getClientRects() — the brackets are positioned from the union of those
-// rects (min/max across all lines) instead, so this works whether the
-// heading renders on one line or several, with no manual line breaks.
+// Positions heading corner brackets (Home + About closing-band CTAs, and
+// About's "Bar Admissions & Certifications" section heading) from the
+// heading's actual rendered text bounds, not its own CSS box: these
+// headings can wrap to a different number of lines at different widths, so
+// a fixed CSS offset doesn't reliably frame them. A Range over the
+// heading's contents gives the real per-line rects via getClientRects() —
+// the brackets are positioned from the union of those rects (min/max
+// across all lines) instead, so this works whether the heading renders on
+// one line or several, with no manual line breaks.
 const OFFSET = 12
 
 function measure(group: HTMLElement, heading: HTMLElement, tl: HTMLElement, br: HTMLElement): boolean {

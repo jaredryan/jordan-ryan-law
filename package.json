@@ -18,7 +18,8 @@
     "format:write": "prettier --write .",
     "test:unit": "node --test 'tests/unit/**/*.test.ts'",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run test:e2e",
+    "cleanup": "npm run format:write && npm run check && npm run lint && npm run build && npm run test"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

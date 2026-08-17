@@ -83,8 +83,10 @@ const railSections = [
       </section>
 
       <section class="about-section" id="admissions">
-        <div class="about-heading-frame bracket-frame bracket-frame--lg">
+        <div class="about-heading-frame" data-cta-bracket>
           <h2>Bar Admissions &amp; Certifications</h2>
+          <span class="cta-bracket cta-bracket--tl" data-cta-bracket-tl aria-hidden="true"></span>
+          <span class="cta-bracket cta-bracket--br" data-cta-bracket-br aria-hidden="true"></span>
         </div>
         <ul class="archival-table about-narrow">
           {
@@ -161,6 +163,7 @@ const railSections = [
      ~1rem clear gap plus that 12px overhang, plus 5px extra (still felt
      tight at exactly 1rem clear). */
   .about-heading-frame {
+    position: relative;
     width: fit-content;
     margin-bottom: calc(var(--s4) + 12px + 5px);
   }

@@ -44,8 +44,7 @@ const year = new Date().getFullYear()
     </div>
   </div>
   <p class="site-footer__copyright">
-    &copy; {year}
-    {businessName}, a Professional Limited Liability Company. All Rights Reserved. <a
+    &copy; {`${year} ${businessName}`}, a Professional Limited Liability Company. All Rights Reserved. <a
       href="/privacy"
       class="site-footer__legal-link">Privacy Policy</a
     >
@@ -188,6 +187,31 @@ const year = new Date().getFullYear()
          edge via justify-items:start above, but the column they share it
          in is no longer pinned to the page's standard left padding. */
       width: max-content;
+    }
+
+    /* Brand/logo and CTA are the two "identity + action" pieces of the
+       footer — centering just these two (not the address, nav links, or
+       phone/email, which stay left-aligned per justify-items:start above)
+       gives the collapsed single column a clear focal point without
+       touching the informational content's own alignment. Widening the
+       brand block to the full column gives .site-footer__brand's auto
+       margins something wider than its own max-content box to center
+       within — otherwise the block (sized to its own content, per
+       justify-items:start above) is already exactly as wide as the logo
+       and the auto margins have no room to shift it. */
+    .site-footer__brand-block {
+      width: 100%;
+    }
+
+    .site-footer__brand {
+      display: block;
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .site-footer__cta {
+      align-self: center;
     }
   }
 </style>
