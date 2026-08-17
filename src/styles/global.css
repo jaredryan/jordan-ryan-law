@@ -430,29 +430,13 @@ summary:focus-visible,
   margin: 0 0 var(--s3);
 }
 
-/* Bracket-framed eyebrows shrink to hug the text itself, rather than
-   stay full-width block, so the corner pair reads as a tight frame around
-   the compact label — not around whatever else shares its container. This
-   is the standardized standalone-eyebrow treatment (Home hero, About's
-   "Founder and Owner", Contact's "Contact"): the corners sit outside the
-   text's own box (never touching it), pulled in from the base
-   .bracket-frame's -8px/14px geometry to -6px so the clear gap between the
-   text and each bracket line reads as ~6px. Corner size/color/style are
-   otherwise untouched — only the offset changes for this variant. */
-.eyebrow.bracket-frame {
-  display: inline-block;
-  margin-bottom: 1.5rem;
+/* Standalone eyebrow/meta labels (Home hero, About's "Founder and Owner",
+   Contact's "Contact") that read as restrained text alone — no bracket
+   frame. Kept as a symmetric top/bottom margin rather than the base
+   .eyebrow's 0-top/s3-bottom split. */
+.eyebrow--standalone {
   margin-top: 0.75rem;
-}
-
-.eyebrow.bracket-frame::before {
-  top: -12px;
-  left: -12px;
-}
-
-.eyebrow.bracket-frame::after {
-  bottom: -12px;
-  right: -12px;
+  margin-bottom: 0.75rem;
 }
 
 /* Centers a page's own eyebrow/h1/lead intro once its layout no longer has

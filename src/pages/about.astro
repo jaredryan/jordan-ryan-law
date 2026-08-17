@@ -45,8 +45,12 @@ const railSections = [
     <div class="about-main">
       <section class="about-section" id="intro">
         <div class="about-narrow">
-          <img src="/square-profile-440.webp" alt={jordanRyan.name} width="180" height="180" class="about-portrait" />
-          <span class="eyebrow bracket-frame">{jordanRyan.jobTitle}</span>
+          <div class="about-portrait-frame">
+            <span class="about-portrait-bracket about-portrait-bracket--tl" aria-hidden="true"></span>
+            <span class="about-portrait-bracket about-portrait-bracket--br" aria-hidden="true"></span>
+            <img src="/square-profile-440.webp" alt={jordanRyan.name} width="180" height="180" class="about-portrait" />
+          </div>
+          <span class="eyebrow eyebrow--standalone">{jordanRyan.jobTitle}</span>
           <h1>{jordanRyan.name}</h1>
           {jordanRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
           <a href="/contact" class="link-editorial">
@@ -181,13 +185,43 @@ const railSections = [
     max-width: var(--content-narrow);
   }
 
+  /* Portrait framing, matching the Home hero's corner-bracket treatment
+     (see .hero__portrait-bracket in index.astro, the motif's origin) so
+     the About opening keeps a clear branded bracket moment now that the
+     "Founder and Owner" eyebrow no longer carries one. */
+  .about-portrait-frame {
+    position: relative;
+    width: fit-content;
+    margin-bottom: var(--s6);
+  }
+
+  .about-portrait-bracket {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    pointer-events: none;
+  }
+
+  .about-portrait-bracket--tl {
+    top: -12px;
+    left: -12px;
+    border-top: 2px solid var(--stone);
+    border-left: 2px solid var(--stone);
+  }
+
+  .about-portrait-bracket--br {
+    bottom: -12px;
+    right: -12px;
+    border-bottom: 2px solid var(--stone);
+    border-right: 2px solid var(--stone);
+  }
+
   .about-portrait {
     width: 140px;
     height: 140px;
     object-fit: cover;
     border-radius: 4px;
     border: 2px solid var(--stone);
-    margin-bottom: var(--s5);
   }
 
   /* Plain bulleted list for Experience's accomplishment statements — same
@@ -228,7 +262,7 @@ const railSections = [
       text-align: center;
     }
 
-    #intro .about-portrait {
+    #intro .about-portrait-frame {
       margin-left: auto;
       margin-right: auto;
     }
