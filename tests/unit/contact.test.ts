@@ -23,8 +23,8 @@ const ORIGINAL_ENV = {
 
 function setFullEnv() {
   process.env.RESEND_API_KEY = SECRET_API_KEY
-  process.env.CONTACT_TO_EMAIL = 'info@ryanlegalpc.com'
-  process.env.CONTACT_FROM_EMAIL = 'info@ryanlegalpc.com'
+  process.env.CONTACT_TO_EMAIL = 'info@example.com'
+  process.env.CONTACT_FROM_EMAIL = 'info@example.com'
 }
 
 function clearEnv() {
@@ -204,7 +204,7 @@ test('the visitor address is passed as replyTo', async () => {
 
 test('the fixed verified sender is used as from', async () => {
   setFullEnv()
-  process.env.CONTACT_FROM_EMAIL = 'info@ryanlegalpc.com'
+  process.env.CONTACT_FROM_EMAIL = 'info@example.com'
   let captured: { from: string } | undefined
   const handler = createHandler({
     createClient: () => ({
@@ -215,14 +215,14 @@ test('the fixed verified sender is used as from', async () => {
     }),
   })
   await handler(postRequest(VALID_BODY))
-  assert.equal(captured?.from, 'Jordan Ryan Law, PLLC Website <info@ryanlegalpc.com>')
+  assert.equal(captured?.from, 'Jordan Ryan Law, PLLC Website <info@example.com>')
   // The visitor never controls the sender address.
   assert.ok(!captured?.from.includes(VALID_BODY.email))
 })
 
 test('the recipient comes from CONTACT_TO_EMAIL', async () => {
   setFullEnv()
-  process.env.CONTACT_TO_EMAIL = 'someone-else@ryanlegalpc.com'
+  process.env.CONTACT_TO_EMAIL = 'someone-else@example.com'
   let captured: { to: string } | undefined
   const handler = createHandler({
     createClient: () => ({
@@ -233,7 +233,7 @@ test('the recipient comes from CONTACT_TO_EMAIL', async () => {
     }),
   })
   await handler(postRequest(VALID_BODY))
-  assert.equal(captured?.to, 'someone-else@ryanlegalpc.com')
+  assert.equal(captured?.to, 'someone-else@example.com')
 })
 
 test('no API key appears in browser output or captured logs', () => {
