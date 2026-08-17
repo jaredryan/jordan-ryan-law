@@ -107,9 +107,9 @@ const graph = jsonLd.length > 0 ? buildGraph(jsonLd) : null
       // "none" and "100%" on orientationchange drops any stale boost.
       window.addEventListener('orientationchange', function () {
         const root = document.documentElement
-        root.style.webkitTextSizeAdjust = 'none'
+        root.style.setProperty('-webkit-text-size-adjust', 'none')
         void root.offsetHeight
-        root.style.webkitTextSizeAdjust = '100%'
+        root.style.setProperty('-webkit-text-size-adjust', '100%')
       })
     </script>
   </body>

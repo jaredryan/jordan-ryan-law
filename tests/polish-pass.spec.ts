@@ -35,8 +35,9 @@ test('404 page shows the branded compact layout', async ({ page }) => {
   await expect(page.getByText('The page may have moved, or the address may be incorrect.')).toBeVisible()
   const homeLink = page.getByRole('link', { name: 'Return Home' })
   await expect(homeLink).toBeVisible()
-  await expect(page.locator('.notfound__mark')).toHaveAttribute('src', '/icon.png')
-  await expect(page.locator('.notfound__mark')).toBeVisible()
+  await expect(page.locator('.notfound__mark--light')).toHaveAttribute('src', '/logo.webp')
+  await expect(page.locator('.notfound__mark--dark')).toHaveAttribute('src', '/logo-white.webp')
+  await expect(page.locator('.notfound__mark--light')).toBeVisible()
 
   await homeLink.focus()
   await expect(homeLink).toBeFocused()
@@ -78,7 +79,7 @@ test('On-navy focus rings resolve to the lighter steel accent in both themes', a
   await headerBrand.focus()
   await expect(headerBrand).toHaveCSS('outline-color', 'rgb(77, 125, 196)') // --accent-on-navy
   await footerCta.focus()
-  await expect(footerCta).toHaveCSS('outline-color', 'rgb(247, 245, 239)') // --nav-footer-text, avoids ring-on-button same-hue blur
+  await expect(footerCta).toHaveCSS('outline-color', 'rgb(77, 125, 196)') // --accent-on-navy — .btn-secondary's border/text are already cream, so it keeps the default steel ring rather than blending a cream ring into a cream border
 
   // Dark theme: --accent-on-navy resolves to the same lightened --accent used
   // sitewide there, since that shade already clears contrast against navy.
@@ -168,9 +169,7 @@ test('Home and About closing bands: flush footer, correct CTA copy, and excluded
   await expect(page.locator('.section-nav-rail li')).toHaveCount(4)
 })
 
-test("Closing-band CTA focus rings use the theme-aware band-focus color, not the on-navy pattern", async ({
-  page,
-}) => {
+test('Closing-band CTA focus rings use the theme-aware band-focus color, not the on-navy pattern', async ({ page }) => {
   const ctaLabel = (path: string) => (path === '/' ? 'Request a consultation' : 'Talk with Jordan')
   for (const path of ['/', '/about']) {
     await page.goto(path)
@@ -191,8 +190,40 @@ test("Closing-band CTA focus rings use the theme-aware band-focus color, not the
       document.documentElement.setAttribute('data-theme', 'dark')
     })
     await cta.focus()
-    await expect(cta).toHaveCSS('outline-color', 'rgb(92, 94, 84)') // light-theme stone-ink, dark theme's flipped light band
+    await expect(cta).toHaveCSS('outline-color', 'rgb(47, 95, 167)') // light-theme --accent, dark theme's flipped light band needs the darker blue
   }
+})
+
+test('Home hero and Contact submit primary-button focus rings use stone-ink (light) and cream (dark), not the blended default accent', async ({
+  page,
+}) => {
+  await page.goto('/')
+  const heroCta = page.locator('.hero').getByRole('link', { name: 'Schedule a Consultation' })
+  await heroCta.focus()
+  await expect(heroCta).toHaveCSS('outline-color', 'rgb(92, 94, 84)') // --stone-ink, eyebrow color
+
+  await page.evaluate(() => {
+    localStorage.setItem('theme', 'dark')
+    document.documentElement.setAttribute('data-theme', 'dark')
+  })
+  await heroCta.focus()
+  await expect(heroCta).toHaveCSS('outline-color', 'rgb(247, 245, 239)') // --nav-footer-text, navbar's cream treatment
+
+  await page.goto('/contact')
+  await page.evaluate(() => {
+    localStorage.setItem('theme', 'light')
+    document.documentElement.setAttribute('data-theme', 'light')
+  })
+  const submitBtn = page.getByRole('button', { name: 'Submit' })
+  await submitBtn.focus()
+  await expect(submitBtn).toHaveCSS('outline-color', 'rgb(92, 94, 84)')
+
+  await page.evaluate(() => {
+    localStorage.setItem('theme', 'dark')
+    document.documentElement.setAttribute('data-theme', 'dark')
+  })
+  await submitBtn.focus()
+  await expect(submitBtn).toHaveCSS('outline-color', 'rgb(247, 245, 239)')
 })
 
 test('Contact info column carries the eyebrow and stays visually distinct from the form', async ({ page }) => {

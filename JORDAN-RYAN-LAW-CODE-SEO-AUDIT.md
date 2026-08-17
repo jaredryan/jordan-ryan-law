@@ -23,7 +23,7 @@ correctness and cleanup only.
   on every page. No evidence this Facebook App ID belongs to Jordan Ryan Law;
   it's an inherited, unverifiable value from the prior build.
 - **`scripts/generate-social-images.mjs`** — the OG/Twitter-image generator was
-  both brand-stale *and* functionally broken:
+  both brand-stale _and_ functionally broken:
   - Hardcoded `"Fresno, California"` as the locale label and a positioning
     statement about "employers, health care providers, and nonprofits
     throughout California" (Ryan Legal's practice areas/location).
@@ -47,7 +47,7 @@ correctness and cleanup only.
   see below) and `.closing-band (Expertise/About)` (Expertise route is
   deleted), and — the largest one — the entire **Design system** section
   describing "Navy, gold, and ivory, with Libre Baskerville... over Source
-  Sans 3," which is the *previous* palette/type pairing. The live
+  Sans 3," which is the _previous_ palette/type pairing. The live
   `global.css` header comment plainly documents the actual 2026-08-16 system:
   navy/stone with a cobalt/steel accent, Archivo/Inter.
 - Several stale code comments referencing the deleted `/expertise` and
@@ -87,7 +87,7 @@ correctness and cleanup only.
     actual `SENDER_DISPLAY_NAME` constant is `'Jordan Ryan Law, PLLC Website'`.
   - `tests/smoke.spec.ts` expected the `/contact` page's `<h1>` to read
     `'Start a conversation'`; the actual current heading is `'Discuss your
-    legal needs'`.
+legal needs'`.
   - `tests/polish-pass.spec.ts` asserted the 404 mark's `src` against the old
     Ryan Legal filenames, and checked for a `.practice-grid__rule` element
     that doesn't exist in the current practice-grid markup (which uses an SVG
@@ -97,7 +97,7 @@ correctness and cleanup only.
 
 - No unused/duplicate image assets found in `public/` beyond what's already
   documented as cleaned up in `docs/legacy-content-inventory.md` — every
-  currently-referenced file exists, and the only genuinely stale *asset* was
+  currently-referenced file exists, and the only genuinely stale _asset_ was
   the 404 page's Ryan Legal logo reference (a code reference to an existing
   file, not an orphaned file — `r-mark-transparent.webp` and its `-on-dark`
   sibling are still present in `public/` but are now unreferenced by any page;
@@ -215,7 +215,7 @@ correctness and cleanup only.
 - **`public/r-mark-transparent.webp` and `public/r-mark-transparent-on-dark.webp`**
   — now unreferenced by any page after the 404 fix above. Not deleted this
   pass: per instruction, assets are only removed once confirmed unused, and
-  while these are now confirmed unused *in code*, leaving the actual file
+  while these are now confirmed unused _in code_, leaving the actual file
   deletion to the owner avoids compounding an already-large diff with a
   destructive action on files that cost nothing to leave in place. Recommend
   deleting both in a follow-up commit.
@@ -224,14 +224,14 @@ correctness and cleanup only.
   (an unused path 301-ing to the real page — no Ryan Legal branding, no
   incorrect output) and because removing it has no measurable benefit.
 - **`global.css`'s "original warm Ryan Legal-style parchment" comment** — this
-  is legitimate design-rationale documentation (explaining *why* the current
+  is legitimate design-rationale documentation (explaining _why_ the current
   cooler palette was chosen, as a deliberate departure from the prior warm
   tone), not a stale remnant. Left as-is.
 - **`tests/unit/contact.test.ts`'s fixture data** (`(559) 499-4000`,
   `ryanlegalpc.com` email addresses) — these are arbitrary fake test input
   values, not assertions about firm branding; changing them has no
-  correctness benefit. Only the one assertion that checked *against the
-  implementation's own branding constant* was a real bug (fixed above).
+  correctness benefit. Only the one assertion that checked _against the
+  implementation's own branding constant_ was a real bug (fixed above).
 - **Hero eyebrow "Dallas - Fort Worth, TX" vs. the firm's McKinney, TX
   office address** — McKinney is part of the DFW metro area, so this reads as
   a deliberate broader-market framing choice rather than a factual error. Not
@@ -305,7 +305,7 @@ this pass touched most:
 - `tests/unit/contact.test.ts`'s updated sender-name assertion.
 - `scripts/generate-social-images.mjs` — if the owner wants to confirm it
   actually runs now (it was never executed in this session), `node
-  scripts/generate-social-images.mjs` will overwrite the current OG/Twitter
+scripts/generate-social-images.mjs` will overwrite the current OG/Twitter
   images with its own (now brand-correct, but differently-composed) output —
   worth running against a throwaway copy first, not directly against the
   currently-shipped files, given the composition-mismatch caveat above.

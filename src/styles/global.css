@@ -65,8 +65,7 @@
   --surface-emphasis: #1e263b;
 
   --font-display: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif;
-  --font-body:
-    'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 
   --s1: 4px;
   --s2: 8px;
@@ -365,8 +364,29 @@ summary:focus-visible,
    steel ring around a steel button reads as weak even with the offset gap,
    since both the button face and the ring are close in hue. The light
    nav/footer text tone pops clearly against the navy gap on both sides of
-   the ring without competing with the button's own accent fill. */
+   the ring without competing with the button's own accent fill.
+   .btn-secondary on-navy keeps the default steel ring instead — its border
+   and text are already the cream nav-footer-text tone, so a cream outline
+   would blend into the button rather than standing apart from it. */
 .on-navy .btn-primary:focus-visible {
+  outline-color: var(--nav-footer-text);
+}
+
+/* Home hero CTA and Contact Submit: same blended-ring problem as the on-navy
+   buttons above, just on a light surface — the default --focus-ring (accent)
+   is too close in hue to these buttons' own accent fill. Light theme borrows
+   the eyebrow text's stone-ink (raw --stone alone doesn't clear contrast, but
+   the already-darkened eyebrow tone stands out clearly). Dark theme borrows
+   the navbar's cream (--nav-footer-text) treatment instead of stone-ink,
+   since stone-ink resolves to raw --stone in dark theme and reads too close
+   to the page background there. */
+.hero__actions .btn-primary:focus-visible,
+#contact-submit:focus-visible {
+  outline-color: var(--stone-ink);
+}
+
+:root[data-theme='dark'] .hero__actions .btn-primary:focus-visible,
+:root[data-theme='dark'] #contact-submit:focus-visible {
   outline-color: var(--nav-footer-text);
 }
 
@@ -818,12 +838,14 @@ summary:focus-visible,
    dark navy text/button, a restrained stone-ink rule — so the band still
    reads as a deliberate "destination" moment, just inverted.
 
-   --band-focus-color and the rule below use light theme's --stone-ink value
-   directly rather than the token (which resolves to raw --stone, ~2:1 here)
-   — this flipped surface is always light regardless of site theme, so it
-   needs the shade tuned for light surfaces, not dark theme's own reading. */
+   --band-focus-color uses light theme's --accent value directly rather than
+   the token (which resolves to dark theme's own lightened accent, tuned for
+   contrast against dark backgrounds) — this flipped surface is always light
+   regardless of site theme, so it needs the same darker accent blue light
+   theme's own primary buttons already use, adapted here as a literal value
+   since var(--accent) means something different once inside this scope. */
 :root[data-theme='dark'] .closing-band {
-  --band-focus-color: #5c5e54;
+  --band-focus-color: #2f5fa7;
   background: var(--surface-consult);
 }
 

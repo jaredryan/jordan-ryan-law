@@ -20,7 +20,7 @@ Hero, proof strip, Practice Areas matrix, Mission, and closing CTA all execute c
 
 One real, minor issue found and fixed: the "4M+ Sq. Ft." stat value broke as **"4M+ Sq." / "Ft."** at 390–430px, orphaning "Ft." on its own line. See Changes Implemented.
 
-One notable but deliberate design decision, not a defect: the closing band flips from deep navy (light theme) to a warm cream/stone surface (`--surface-consult: #ece7da`) in dark theme, while every other Home section stays dark. This is documented in `global.css` as an intentional contrast-preservation device ("this band must stay a *destination* moment in both themes"), and it is well executed — themed brackets, themed focus ring, themed button — not a leftover or a broken variable. It is, however, the single boldest color move on the site and the only point where "deep navy dark theme" as a blanket description doesn't hold section-by-section. Documented under Taste-Level Alternatives, not fixed.
+One notable but deliberate design decision, not a defect: the closing band flips from deep navy (light theme) to a warm cream/stone surface (`--surface-consult: #ece7da`) in dark theme, while every other Home section stays dark. This is documented in `global.css` as an intentional contrast-preservation device ("this band must stay a _destination_ moment in both themes"), and it is well executed — themed brackets, themed focus ring, themed button — not a leftover or a broken variable. It is, however, the single boldest color move on the site and the only point where "deep navy dark theme" as a blanket description doesn't hold section-by-section. Documented under Taste-Level Alternatives, not fixed.
 
 ### About
 
@@ -41,6 +41,7 @@ Minimal and on-brand: large JR mark, plain message, single "Return Home" CTA. No
 ### Home responsiveness (full sweep: 360, 390, 430, 640, 721, 760, 899, 1024, 1280, 1728px)
 
 Every documented breakpoint behaves exactly as the code intends, with no collisions found at any width tested, including the tight transition points:
+
 - **1300px** header: phone number and full CTA label present above, cleanly dropped below.
 - **899/900px**: proof strip switches to 2×2, Practice Areas grid is still 2-col (correct — its own breakpoint is 640/1000, not 900), header switches to the drawer.
 - **721px vs 720px**: the hero's 2-column-to-stacked transition was checked right at the edge (721px) — still fits without crowding, no last-minute squeeze.
@@ -57,17 +58,17 @@ Both themes are fully resolved token sets, not a mechanical color inversion — 
 
 ## 2. Pre-fix scores
 
-| Category | Score | Notes |
-|---|---|---|
-| Overall design quality | **8.6/10** | Polished, cohesive, disciplined; small nits keep it out of the 9s. |
-| Brand identity / distinctiveness | 8.5/10 | Thin JR monogram + corner-bracket motif + restrained palette read as specific to this firm, not a generic law-firm template. Appropriately conservative for the brief (sophisticated boutique, not maximalist). |
-| Typography | 8.7/10 | Archivo/Inter pairing and intentionally light heading weights read confidently at actual rendered size; no jarring scale jumps anywhere tested. |
-| Color and light/dark theme execution | 8.3/10 | Both themes are complete, considered token sets. Docked slightly for the closing-band inversion being a genuine outlier against the "deep navy dark theme" identity, even though it's well executed. |
-| Layout / hierarchy / spacing | 8.8/10 | Consistent section rhythm and the shared "compositional restart" `.section-intro` device across Practice Areas/Mission. Minor: Practice Areas row 2 at some widths has uneven bottom padding when one cell's heading wraps to two lines. |
-| Component and detail polish | 8.4/10 | Buttons, cards, dividers, form fields all controlled. Docked for the "4M+ Sq. Ft." orphan wrap (now fixed) and the grid cell-padding nit (left as-is, see below). |
-| Homepage responsiveness | 8.9/10 | Extremely thorough coverage from 360–1728px with zero collisions; only the mobile stat-wrap kept this from scoring higher. |
-| Professional credibility / appropriateness | 9.0/10 | Reads convincingly as boutique commercial real estate/business law — no SaaS-y or generic-template tells. |
-| Production readiness | 8.5/10 | Ready to show a client today. The closing-band color flip is worth a conscious owner sign-off (taste call), not a blocker. |
+| Category                                   | Score      | Notes                                                                                                                                                                                                                                    |
+| ------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Overall design quality                     | **8.6/10** | Polished, cohesive, disciplined; small nits keep it out of the 9s.                                                                                                                                                                       |
+| Brand identity / distinctiveness           | 8.5/10     | Thin JR monogram + corner-bracket motif + restrained palette read as specific to this firm, not a generic law-firm template. Appropriately conservative for the brief (sophisticated boutique, not maximalist).                          |
+| Typography                                 | 8.7/10     | Archivo/Inter pairing and intentionally light heading weights read confidently at actual rendered size; no jarring scale jumps anywhere tested.                                                                                          |
+| Color and light/dark theme execution       | 8.3/10     | Both themes are complete, considered token sets. Docked slightly for the closing-band inversion being a genuine outlier against the "deep navy dark theme" identity, even though it's well executed.                                     |
+| Layout / hierarchy / spacing               | 8.8/10     | Consistent section rhythm and the shared "compositional restart" `.section-intro` device across Practice Areas/Mission. Minor: Practice Areas row 2 at some widths has uneven bottom padding when one cell's heading wraps to two lines. |
+| Component and detail polish                | 8.4/10     | Buttons, cards, dividers, form fields all controlled. Docked for the "4M+ Sq. Ft." orphan wrap (now fixed) and the grid cell-padding nit (left as-is, see below).                                                                        |
+| Homepage responsiveness                    | 8.9/10     | Extremely thorough coverage from 360–1728px with zero collisions; only the mobile stat-wrap kept this from scoring higher.                                                                                                               |
+| Professional credibility / appropriateness | 9.0/10     | Reads convincingly as boutique commercial real estate/business law — no SaaS-y or generic-template tells.                                                                                                                                |
+| Production readiness                       | 8.5/10     | Ready to show a client today. The closing-band color flip is worth a conscious owner sign-off (taste call), not a blocker.                                                                                                               |
 
 **Overall pre-fix score: 8.6/10**
 
@@ -76,17 +77,22 @@ Both themes are fully resolved token sets, not a mechanical color inversion — 
 ## 3. Improvement path
 
 ### Worth changing now
+
 1. **"4M+ Sq. Ft." orphan wrap at 390–430px** — implemented (see below).
 
 ### Optional polish (left as-is — current treatment is already professionally good)
+
 - **Practice Areas row-height balance when a heading wraps to two lines** (e.g., "Entity Formation & Joint Ventures" next to single-line "Due Diligence"/"Development"). Considered vertically centering cell content instead of top-aligning it, but rejected: centering would misalign the icons across the row (the stronger visual anchor) in exchange for more even padding (the weaker one). Current top-aligned behavior is the more defensible tradeoff.
 - **Contact page's empty space below the "Reach Us Directly" sidebar card** on desktop, where the form column runs taller. Cosmetic only; not disruptive to hierarchy or usability.
 
 ### Taste-level alternatives (neither option objectively stronger)
+
 - **Closing-band dark-theme inversion.** Current: flips to a warm cream/stone surface for contrast. Alternative: keep it deep navy in dark theme too, distinguished instead by a subtle top border in `--accent` or a slightly lifted surface tone. The current choice is bold and well-executed; the conservative alternative would be safer but less memorable. Flagging for owner awareness, not recommending a change.
 
 ### What would move this site one point higher?
+
 Ranked by leverage:
+
 1. The "4M+ Sq. Ft." fix (implemented) — small, but a real "worth changing now" item.
 2. Nothing else surfaced in this pass rises above optional polish. Going from ~8.6 to 9.5+ would require genuinely new work — e.g., a stronger, more singular signature moment on the homepage beyond the corner-bracket motif, deeper editorial content (case studies, a real team page as the practice grows), or original photography — not micro-adjustments to what's already built. That is disproportionate to recommend as part of a polish pass, and would mostly be exploratory design work rather than fixing anything wrong.
 
@@ -95,6 +101,7 @@ Ranked by leverage:
 ## 4. Changes implemented
 
 ### Fix: mobile stat-value line break
+
 - **What looked wrong:** at 390–430px, the proof-strip value "4M+ Sq. Ft." wrapped between "Sq." and "Ft.", orphaning "Ft." alone on its own line — a small but genuine rough edge in an otherwise carefully wrapped page.
 - **What changed:** inserted a non-breaking space between "Sq." and "Ft." in `src/pages/index.astro` (`proofItems` data) so the unit stays together as one wrap unit.
 - **Why stronger:** at 360px the value already wrapped cleanly as "4M+" / "Sq. Ft." (no nbsp needed there, by coincidence of width); the fix makes 390–430px match that same clean behavior instead of the awkward mid-unit break. Verified in both themes and confirmed the desktop (no-wrap) rendering is byte-for-byte unaffected.
@@ -117,17 +124,17 @@ No other code changes were made.
 
 ## 6. Post-fix scores
 
-| Category | Before | After | What changed |
-|---|---|---|---|
-| Overall design quality | 8.6 | **8.7** | One real rough edge removed. |
-| Brand identity / distinctiveness | 8.5 | 8.5 | Unaffected. |
-| Typography | 8.7 | 8.7 | Unaffected. |
-| Color and theme execution | 8.3 | 8.3 | Unaffected (closing-band call left as taste, not scored as a defect). |
-| Layout / hierarchy / spacing | 8.8 | 8.8 | Unaffected (grid cell-padding item left as optional polish). |
-| Component / detail polish | 8.4 | **8.6** | Orphan-word wrap fixed; this was the main thing suppressing this score. |
-| Homepage responsiveness | 8.9 | **9.0** | The one wrapping defect found in the full sweep is now resolved. |
-| Professional credibility | 9.0 | 9.0 | Unaffected. |
-| Production readiness | 8.5 | **8.6** | One fewer thing a careful reviewer would catch before shipping. |
+| Category                         | Before | After   | What changed                                                            |
+| -------------------------------- | ------ | ------- | ----------------------------------------------------------------------- |
+| Overall design quality           | 8.6    | **8.7** | One real rough edge removed.                                            |
+| Brand identity / distinctiveness | 8.5    | 8.5     | Unaffected.                                                             |
+| Typography                       | 8.7    | 8.7     | Unaffected.                                                             |
+| Color and theme execution        | 8.3    | 8.3     | Unaffected (closing-band call left as taste, not scored as a defect).   |
+| Layout / hierarchy / spacing     | 8.8    | 8.8     | Unaffected (grid cell-padding item left as optional polish).            |
+| Component / detail polish        | 8.4    | **8.6** | Orphan-word wrap fixed; this was the main thing suppressing this score. |
+| Homepage responsiveness          | 8.9    | **9.0** | The one wrapping defect found in the full sweep is now resolved.        |
+| Professional credibility         | 9.0    | 9.0     | Unaffected.                                                             |
+| Production readiness             | 8.5    | **8.6** | One fewer thing a careful reviewer would catch before shipping.         |
 
 **Overall post-fix score: 8.7/10**
 

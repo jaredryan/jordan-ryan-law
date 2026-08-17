@@ -26,7 +26,11 @@ if (toggle && drawer && backdrop) {
   }
 
   toggle.addEventListener('click', () => {
-    toggle.getAttribute('aria-expanded') === 'true' ? close() : open()
+    if (toggle.getAttribute('aria-expanded') === 'true') {
+      close()
+    } else {
+      open()
+    }
   })
 
   closeBtn?.addEventListener('click', () => close())

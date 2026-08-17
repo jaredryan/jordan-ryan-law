@@ -5,8 +5,7 @@ export const siteUrl = import.meta.env.SITE_URL || 'https://jordanryanlaw.netlif
 export const businessName = 'Jordan Ryan Law, PLLC'
 
 // TODO: placeholder — swap for real firm positioning copy once available.
-export const businessSlogan =
-  'Commercial Real Estate Counsel for Acquisitions, Development, and Finance Transactions'
+export const businessSlogan = 'Commercial Real Estate Counsel for Acquisitions, Development, and Finance Transactions'
 
 export const businessSummary = businessSlogan
 
