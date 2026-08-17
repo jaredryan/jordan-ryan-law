@@ -104,6 +104,11 @@ const { items, railLabel, jumpLabel } = Astro.props
       color: var(--text);
     }
 
+    .jump-nav li a:hover,
+    .jump-nav li a:focus-visible {
+      color: var(--accent);
+    }
+
     .jump-nav li a.is-active {
       color: var(--navy);
       text-shadow:
@@ -146,7 +151,7 @@ const { items, railLabel, jumpLabel } = Astro.props
 
     .section-nav-rail a:hover,
     .section-nav-rail a:focus-visible {
-      color: var(--text);
+      color: var(--accent);
     }
 
     .section-nav-rail a.is-active {

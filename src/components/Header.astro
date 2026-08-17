@@ -183,23 +183,58 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
 
   .site-header__nav a {
     display: inline-block;
+    position: relative;
     padding: 0.35rem 0.1rem;
     color: var(--nav-footer-text);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9375rem;
     white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: border-color var(--transition-fast);
   }
 
-  .site-header__nav a:hover,
-  .site-header__nav a:focus-visible {
-    border-bottom-color: var(--accent-on-navy);
+  /* Corner-bracket motif (see .bracket-frame in global.css) instead of a
+     text color change: hover/focus shows it in accent blue, faded in via
+     opacity so it never affects layout. */
+  .site-header__nav a::before,
+  .site-header__nav a::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
   }
 
-  .site-header__nav a[aria-current='page'] {
-    border-bottom-color: var(--accent-on-navy);
+  .site-header__nav a::before {
+    top: -4px;
+    left: -8px;
+    border-top: 2px solid var(--accent-on-navy);
+    border-left: 2px solid var(--accent-on-navy);
+  }
+
+  .site-header__nav a::after {
+    bottom: -4px;
+    right: -8px;
+    border-bottom: 2px solid var(--accent-on-navy);
+    border-right: 2px solid var(--accent-on-navy);
+  }
+
+  .site-header__nav a:hover::before,
+  .site-header__nav a:hover::after,
+  .site-header__nav a:focus-visible::before,
+  .site-header__nav a:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* Active link: same bracket geometry, always visible, in stone — and
+     ordered after the hover/focus rules above so it wins the tie (equal
+     specificity) when the current page's own link is hovered, keeping the
+     brackets stone instead of switching to the blue hover treatment. */
+  .site-header__nav a[aria-current='page']::before,
+  .site-header__nav a[aria-current='page']::after {
+    opacity: 1;
+    border-color: var(--stone);
   }
 
   .site-header__actions {
@@ -219,7 +254,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
 
   .site-header__phone:hover,
   .site-header__phone:focus-visible {
-    color: var(--nav-footer-text);
+    color: var(--accent-on-navy);
   }
 
   .site-header__cta-short {
@@ -413,11 +448,14 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
 
   .site-header__drawer-nav a:hover,
   .site-header__drawer-nav a:focus-visible {
-    color: var(--stone);
+    color: var(--accent-on-navy);
   }
 
+  /* Ordered after :hover/:focus-visible so the current page's link stays
+     stone even when hovered, instead of switching to the blue interaction
+     state (same specificity — later wins). */
   .site-header__drawer-nav a[aria-current='page'] {
-    color: var(--accent-on-navy);
+    color: var(--stone);
   }
 
   .site-header__drawer-cta {
