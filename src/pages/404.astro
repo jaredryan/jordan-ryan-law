@@ -5,14 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 <BaseLayout title="Page not found" path="/404" flushFooter noindex>
   <section class="notfound">
     <div class="notfound__inner">
-      <img src="/r-mark-transparent.webp" alt="" width="64" height="64" class="notfound__mark notfound__mark--light" />
-      <img
-        src="/r-mark-transparent-on-dark.webp"
-        alt=""
-        width="64"
-        height="64"
-        class="notfound__mark notfound__mark--dark"
-      />
+      <img src="/icon.png" alt="" width="96" height="96" class="notfound__mark" />
       <h1>Page not found</h1>
       <p class="lead">The page may have moved, or the address may be incorrect.</p>
       <a href="/" class="btn btn-primary">Return Home</a>
@@ -56,21 +49,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
     height: auto;
     aspect-ratio: 1 / 1;
     margin-bottom: var(--s5);
-  }
-
-  /* The navy mark reads fine against light-theme --background, but has too little
-     contrast against dark-theme's near-black --background — swap to the ivory
-     recolor rather than reintroduce a badge/halo behind it. */
-  .notfound__mark--dark {
-    display: none;
-  }
-
-  :root[data-theme='dark'] .notfound__mark--light {
-    display: none;
-  }
-
-  :root[data-theme='dark'] .notfound__mark--dark {
-    display: block;
   }
 
   .notfound h1 {

@@ -34,7 +34,7 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
 
 <BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
   <section class="page-section page-section--narrow contact-hero page-hero">
-    <span class="eyebrow">Contact</span>
+    <span class="eyebrow bracket-frame">Contact</span>
     <h1>Discuss your legal needs</h1>
     <p class="lead">Contact Jordan Ryan Law regarding commercial real estate, business transactions, or other legal matters.</p>
   </section>
@@ -175,9 +175,9 @@ const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${add
     }
 
     /* At single-column widths the form container itself is centered as a
-       block — matching Payment's contained, balanced feel — while its own
-       fields, labels, and entered text (unaffected by this, since it
-       targets the wrapper and heading only) stay left aligned. */
+       block, contained and balanced, while its own fields, labels, and
+       entered text (unaffected by this, since it targets the wrapper and
+       heading only) stay left aligned. */
     .contact-main__form {
       max-width: 560px;
       margin: 0 auto;

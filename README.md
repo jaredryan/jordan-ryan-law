@@ -19,16 +19,16 @@ Selected/active section state (the About side rail) is driven by a shared `Inter
 
 ## Design system
 
-Navy, gold, and ivory, with Libre Baskerville for display type over Source Sans 3 for everything else — deliberately not another generic "SaaS blue" legal-tech look. Both a light and dark theme are fully tokenized in `src/styles/global.css`'s `:root` custom properties; the dark-theme consultation bands flip to a warm ivory surface rather than just inverting navy, so dark mode is a genuine second design pass, not an automatic filter.
+Navy and stone, sourced directly from the firm's logo, with a muted cobalt/steel accent carrying every interactive state — Archivo for display/headings, Inter for body and UI text. Both a light and dark theme are fully tokenized in `src/styles/global.css`'s `:root` custom properties; the dark-theme closing bands flip to a warm stone-tinted light surface rather than just inverting navy, so dark mode is a genuine second design pass, not an automatic filter.
 
 Every token, spacing scale, and color decision that needed a non-obvious reason (a contrast ratio, a "why this shade and not that one," a cross-browser fallback) has that reasoning written down in place as a code comment — the file reads as a design decision log, not just a values dump.
 
 ## Code quality
 
-- **Reusable primitives, not repeated one-offs**: `.archival-table`, `.multi-column-list`, `.proof-callout`, `.link-editorial`, `.btn`/`.btn-primary`/`.btn-secondary`, and the shared `.closing-band` (Expertise/About) all live once in `global.css` and get reused across pages rather than redefined per page.
+- **Reusable primitives, not repeated one-offs**: `.archival-table`, `.link-editorial`, `.btn`/`.btn-primary`/`.btn-secondary`, and the shared `.closing-band` (Home/About) all live once in `global.css` and get reused across pages rather than redefined per page.
 - **Type-safe throughout** — no `any` escape hatches (the one exception, `JsonLd`'s intentionally-loose type, is commented as such); `astro check` runs clean.
 - **A real, purpose-built test suite** — not a token smoke test (see Testing below).
-- **Content lives in data, not templates** — credentials, practice areas, client lists, and firm facts are typed objects in `src/data/*.ts`, so editing a bio or adding a client is a data change, never a template edit.
+- **Content lives in data, not templates** — credentials, practice areas, and firm facts are typed objects in `src/data/*.ts`, so editing a bio or a firm fact is a data change, never a template edit.
 
 ## Stack
 
@@ -45,11 +45,11 @@ Every token, spacing scale, and color decision that needed a non-obvious reason 
 Two layers, for two different jobs:
 
 - **`npm run test:unit`** — the contact Netlify Function against Node's built-in test runner. Resend is always injected as a fake (`createHandler`'s `overrides` param); no test can ever send a real email. Covers validation, the honeypot spam-drop path, fail-closed behavior when env vars are missing, and — the one that matters most for a form handling personal contact info — that a provider error or API key never leaks into a response body or a log line.
-- **`npm run test:e2e`** — Playwright, run against both Desktop Chrome and Mobile Safari. Covers route smoke tests, navigation (desktop nav and the mobile disclosure menu), JSON-LD shape and correctness per page (canonical-origin `@id`s, no duplicate IDs, Crystal Brightwell never typed as an `Attorney`), and layout specifics that regressed once already (footer-flush spacing, section ordering, active-rail state on click).
+- **`npm run test:e2e`** — Playwright, run against both Desktop Chrome and Mobile Safari. Covers route smoke tests, navigation (desktop nav and the mobile disclosure menu), JSON-LD shape and correctness per page (canonical-origin `@id`s, no duplicate IDs, Jordan Ryan typed as a `Person` tied to the firm rather than a bare attorney record), and layout specifics that regressed once already (footer-flush spacing, section ordering, active-rail state on click).
 
 ## Accessibility
 
-- Every interactive element is keyboard-operable: the mobile menu closes on outside-click, `Escape`, and returns focus to the toggle; the About/Expertise jump-nav `<details>` collapses before an anchor jump so it never covers the destination heading.
+- Every interactive element is keyboard-operable: the mobile menu closes on outside-click, `Escape`, and returns focus to the toggle; About's jump-nav `<details>` collapses before an anchor jump so it never covers the destination heading.
 - One shared `:focus-visible` treatment sitewide, with a dedicated on-navy variant (`.on-navy`) so focus rings stay visible against the fixed navy header/footer instead of nearly disappearing against it.
 - Semantic HTML first — real `<details>/<summary>`, `<address>`, `<dl>`, and button elements, with native disclosure markers hidden and replaced by one explicit SVG chevron so it renders identically across browsers instead of relying on inconsistent `::marker`/`::-webkit-details-marker` support.
 - Contrast is treated as a constraint to satisfy, not a guess — colors that needed to clear WCAG's 3:1 (non-text) or 4.5:1 (text) minimums against a specific surface have that ratio checked and noted at the point of use.

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 const routes: { path: string; heading: string }[] = [
   { path: '/', heading: 'Guiding Commercial Real Estate and Business Success.' },
   { path: '/about', heading: 'Jordan Ryan' },
-  { path: '/contact', heading: 'Start a conversation' },
+  { path: '/contact', heading: 'Discuss your legal needs' },
 ]
 
 for (const route of routes) {

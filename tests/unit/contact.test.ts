@@ -215,7 +215,7 @@ test('the fixed verified sender is used as from', async () => {
     }),
   })
   await handler(postRequest(VALID_BODY))
-  assert.equal(captured?.from, 'Ryan Legal, PC Website <info@ryanlegalpc.com>')
+  assert.equal(captured?.from, 'Jordan Ryan Law, PLLC Website <info@ryanlegalpc.com>')
   // The visitor never controls the sender address.
   assert.ok(!captured?.from.includes(VALID_BODY.email))
 })

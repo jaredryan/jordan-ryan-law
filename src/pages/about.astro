@@ -40,13 +40,13 @@ const railSections = [
 
 <BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="about-layout">
-    <SectionNav items={railSections} railLabel="On this page" jumpLabel="On this page" density="compact" />
+    <SectionNav items={railSections} railLabel="On this page" jumpLabel="On this page" />
 
     <div class="about-main">
       <section class="about-section" id="intro">
         <div class="about-narrow">
           <img src="/square-profile-440.webp" alt={jordanRyan.name} width="180" height="180" class="about-portrait" />
-          <span class="eyebrow">{jordanRyan.jobTitle}</span>
+          <span class="eyebrow bracket-frame">{jordanRyan.jobTitle}</span>
           <h1>{jordanRyan.name}</h1>
           {jordanRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
           <a href="/contact" class="link-editorial">
@@ -110,7 +110,11 @@ const railSections = [
 
   <section class="closing-band">
     <div class="closing-band__inner">
-      <h2 class="bracket-frame bracket-frame--lg closing-band__heading">Practical counsel for consequential transactions.</h2>
+      <div class="closing-band__heading-frame" data-cta-bracket>
+        <h2 class="closing-band__heading">Practical counsel for consequential transactions.</h2>
+        <span class="cta-bracket cta-bracket--tl" data-cta-bracket-tl aria-hidden="true"></span>
+        <span class="cta-bracket cta-bracket--br" data-cta-bracket-br aria-hidden="true"></span>
+      </div>
       <p class="lead">
         Work with an attorney who understands both the legal structure and the business realities behind the deal.
       </p>
@@ -120,6 +124,7 @@ const railSections = [
 </BaseLayout>
 
 <script src="@/scripts/scroll-spy.ts"></script>
+<script src="@/scripts/cta-bracket.ts"></script>
 
 <style>
   .about-layout {
@@ -149,10 +154,15 @@ const railSections = [
   /* Shrinks to the heading's own text width so the bracket-frame corners
      hug the heading rather than spanning the full section width. Margin
      moves from the h2 itself (zeroed) to the wrapper, so it still opens a
-     gap before the section content that follows. */
+     gap before the section content that follows — the gap has to clear the
+     bracket-frame--lg corner itself, not just the heading's own box: the
+     bottom-right corner (see .bracket-frame--lg in global.css) overhangs
+     12px below this wrapper's border box, so margin-bottom is the desired
+     ~1rem clear gap plus that 12px overhang, plus 5px extra (still felt
+     tight at exactly 1rem clear). */
   .about-heading-frame {
     width: fit-content;
-    margin-bottom: var(--s4);
+    margin-bottom: calc(var(--s4) + 12px + 5px);
   }
 
   .about-heading-frame h2 {

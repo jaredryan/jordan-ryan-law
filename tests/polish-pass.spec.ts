@@ -35,10 +35,8 @@ test('404 page shows the branded compact layout', async ({ page }) => {
   await expect(page.getByText('The page may have moved, or the address may be incorrect.')).toBeVisible()
   const homeLink = page.getByRole('link', { name: 'Return Home' })
   await expect(homeLink).toBeVisible()
-  await expect(page.locator('.notfound__mark--light')).toHaveAttribute('src', '/r-mark-transparent.webp')
-  await expect(page.locator('.notfound__mark--light')).toBeVisible()
-  await expect(page.locator('.notfound__mark--dark')).toHaveAttribute('src', '/r-mark-transparent-on-dark.webp')
-  await expect(page.locator('.notfound__mark--dark')).toBeHidden()
+  await expect(page.locator('.notfound__mark')).toHaveAttribute('src', '/icon.png')
+  await expect(page.locator('.notfound__mark')).toBeVisible()
 
   await homeLink.focus()
   await expect(homeLink).toBeFocused()
@@ -208,7 +206,7 @@ test('Home: practice areas render as static (non-interactive) tiles, not links',
   await page.goto('/')
   const items = page.locator('.practice-grid__item')
   await expect(items).toHaveCount(6)
-  await expect(items.first().locator('.practice-grid__rule')).toBeVisible()
+  await expect(items.first().locator('.practice-grid__icon')).toBeVisible()
 
   const names = await items.locator('h3').allTextContents()
   expect(names).toEqual([

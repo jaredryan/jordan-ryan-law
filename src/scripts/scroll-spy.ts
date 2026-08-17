@@ -1,6 +1,6 @@
-// Progressive-enhancement active-section tracking for the Expertise and
-// About side rails (and their narrow-screen chip/jump-nav equivalents,
-// which share the same section hashes). Every element this script touches
+// Progressive-enhancement active-section tracking for About's side rail
+// (and its narrow-screen jump-nav equivalent, which shares the same section
+// hashes). Every element this script touches
 // is a normal <a href="#..."> already wired for native anchor navigation,
 // so with JS disabled the page still works — this only adds the
 // aria-current/is-active affordance on top.
@@ -111,7 +111,7 @@ function initScrollSpy() {
   for (const [id, links] of linksByHash) {
     for (const link of links) {
       link.addEventListener('click', () => {
-        // Collapses the mobile/tablet <details> jump nav (About, Expertise)
+        // Collapses the mobile/tablet <details> jump nav (About)
         // before the browser scrolls to the target — left open, its
         // expanded height can sit tall enough to cover the heading the
         // reader just navigated to. No-op for the desktop rail's plain

@@ -1,23 +1,17 @@
 ---
-// Scroll-spy section nav shared by About and Expertise: a sticky rail at
+// Scroll-spy section nav, currently used by About only: a sticky rail at
 // desktop widths, a collapsible jump-nav at narrow/tablet widths — never
 // both at once (src/scripts/scroll-spy.ts drives both via [data-spy-rail]).
-//
-// `density` covers the one real difference between the two pages' desktop
-// rails: About lists 8 categorical sections at a tighter size with no row
-// dividers; Expertise lists 6 practice areas with more generous padding and
-// a divider between each. Same variant-prop pattern as ThemeToggle.astro.
 interface Props {
   items: { id: string; name: string }[]
   railLabel: string
   jumpLabel: string
-  density: 'compact' | 'roomy'
 }
 
-const { items, railLabel, jumpLabel, density } = Astro.props
+const { items, railLabel, jumpLabel } = Astro.props
 ---
 
-<aside class:list={['section-nav-rail', `section-nav-rail--${density}`]} aria-label={railLabel} data-spy-rail>
+<aside class="section-nav-rail" aria-label={railLabel} data-spy-rail>
   <ol>
     {
       items.map((item) => (
@@ -131,6 +125,7 @@ const { items, railLabel, jumpLabel, density } = Astro.props
       border-right: 1px solid var(--border);
       max-height: calc(100vh - var(--s8) - 60px);
       overflow-y: auto;
+      padding: var(--s6) var(--s4) var(--s6) 0;
     }
 
     .section-nav-rail ol {
@@ -145,6 +140,8 @@ const { items, railLabel, jumpLabel, density } = Astro.props
       color: var(--muted-text);
       text-decoration: none;
       font-weight: 600;
+      padding: var(--s2) 0 var(--s2) var(--s3);
+      font-size: 0.875rem;
     }
 
     .section-nav-rail a:hover,
@@ -162,30 +159,6 @@ const { items, railLabel, jumpLabel, density } = Astro.props
 
     :root[data-theme='dark'] .section-nav-rail a.is-active {
       color: var(--text);
-    }
-
-    /* About: 8 categorical sections — tighter padding/type, no row dividers. */
-    .section-nav-rail--compact {
-      padding: var(--s6) var(--s4) var(--s6) 0;
-    }
-
-    .section-nav-rail--compact a {
-      padding: var(--s2) 0 var(--s2) var(--s3);
-      font-size: 0.875rem;
-    }
-
-    /* Expertise: 6 practice areas — roomier padding/type, ruled rows. */
-    .section-nav-rail--roomy {
-      padding: var(--s6) var(--s5) var(--s6) 0;
-    }
-
-    .section-nav-rail--roomy li {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-nav-rail--roomy a {
-      padding: var(--s3) 0 var(--s3) var(--s3);
-      font-size: 0.9375rem;
     }
   }
 </style>
