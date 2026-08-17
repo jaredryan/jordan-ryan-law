@@ -5,7 +5,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 <BaseLayout title="Page not found" path="/404" flushFooter noindex>
   <section class="notfound">
     <div class="notfound__inner">
-      <img src="/icon.png" alt="" width="96" height="96" class="notfound__mark" />
+      <img
+        src="/logo.webp"
+        alt=""
+        width="96"
+        height="71"
+        class="notfound__mark notfound__mark--light"
+      />
+      <img
+        src="/logo-white.webp"
+        alt=""
+        width="96"
+        height="71"
+        class="notfound__mark notfound__mark--dark"
+      />
       <h1>Page not found</h1>
       <p class="lead">The page may have moved, or the address may be incorrect.</p>
       <a href="/" class="btn btn-primary">Return Home</a>
@@ -47,8 +60,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
     display: block;
     width: clamp(72px, 7vw, 96px);
     height: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 240 / 178;
     margin-bottom: var(--s5);
+  }
+
+  .notfound__mark--dark {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .notfound__mark--light {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .notfound__mark--dark {
+    display: block;
   }
 
   .notfound h1 {
