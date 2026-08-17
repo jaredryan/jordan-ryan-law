@@ -330,7 +330,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(320px, 85vw);
+    width: min(300px, 85vw);
     display: flex;
     flex-direction: column;
     background: var(--nav-footer-bg);
@@ -411,6 +411,11 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     border-bottom: 1px solid var(--nav-footer-rule);
   }
 
+  .site-header__drawer-nav a:hover,
+  .site-header__drawer-nav a:focus-visible {
+    color: var(--stone);
+  }
+
   .site-header__drawer-nav a[aria-current='page'] {
     color: var(--accent-on-navy);
   }
@@ -435,10 +440,21 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     width: 168px;
     max-width: 100%;
     height: auto;
-    margin: 0 auto var(--s6);
+    margin: 0 auto;
   }
 
   .site-header__drawer-appearance {
     margin-top: var(--s5);
+  }
+
+  /* Legacy phones with very short viewports (e.g. iPhone SE in landscape,
+     older Android devices) can't fit the full-height drawer content above
+     the fold — drop the trailing brand moment (divider + logo) first since
+     it's decorative, not navigational. */
+  @media (max-height: 659px) {
+    .site-header__drawer-divider,
+    .site-header__drawer-logo {
+      display: none;
+    }
   }
 </style>
