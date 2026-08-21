@@ -4,4 +4,4 @@ Allow: /about
 Allow: /contact
 Allow: /privacy
 
-Sitemap: https://jordanryanlaw.netlify.app/sitemap-index.xml
+Sitemap: https://www.jordanryanlaw.com/sitemap-index.xml

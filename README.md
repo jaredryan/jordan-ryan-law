@@ -1,6 +1,6 @@
 # Jordan Ryan Law, PLLC
 
-**Live: [jordanryanlaw.netlify.app](https://jordanryanlaw.netlify.app)**
+**Live: [www.jordanryanlaw.com](https://www.jordanryanlaw.com)**
 
 The professional website for Jordan Ryan Law, PLLC, a Texas commercial real estate law firm. Built as a static-first Astro site: real HTML on the first response for every route, small scoped `<script>` islands for the handful of things that need JavaScript (theme toggle, mobile menu, contact form, scroll-spy), and no client-side framework anywhere.
 
@@ -57,7 +57,7 @@ Two layers, for two different jobs:
 
 ## SEO
 
-- **Sitemap**: generated on every `npm run build` via `@astrojs/sitemap`. Production URL: `https://jordanryanlaw.netlify.app/sitemap-index.xml` (the 404 page is deliberately excluded, and marked `noindex` in its own `<meta>` tag).
+- **Sitemap**: generated on every `npm run build` via `@astrojs/sitemap`. Production URL: `https://www.jordanryanlaw.com/sitemap-index.xml` (the 404 page is deliberately excluded, and marked `noindex` in its own `<meta>` tag).
 - **Structured data**: a single connected JSON-LD `@graph` per page (`LegalService`, `WebSite`, `WebPage`/`AboutPage`/`ContactPage`, and a `Person` entity for Jordan), built from the same typed data as the visible content — never a second, divergent source of truth. Stable `@id` conventions resolve against the production origin only, checked by an end-to-end test against every route.
 - Canonical URLs, Open Graph, and Twitter card metadata on every page (`src/layouts/BaseLayout.astro`).
 
@@ -89,6 +89,17 @@ npm run preview         # serve the production build locally
 ## Deployment
 
 Hosted on Netlify as a static site (`netlify.toml`: `npm run build` → publish `dist/`, function directory `netlify/functions`). The contact form is proxied through a Netlify redirect (`/api/contact` → the function), which is also where the rate limit is configured.
+
+**Production domain**: `https://www.jordanryanlaw.com`
+
+**DNS**: Network Solutions is the registrar and remains the authoritative DNS provider — the domain's nameservers were *not* delegated to Netlify. Records for the site:
+
+| Host | Type  | Value                      |
+| ---- | ----- | -------------------------- |
+| `@`  | A     | `75.2.60.5`                |
+| `www`| CNAME | `jordanryanlaw.netlify.app`|
+
+Netlify's primary custom domain is `www.jordanryanlaw.com`; the apex (`jordanryanlaw.com`) redirects to it.
 
 ## Project layout
 

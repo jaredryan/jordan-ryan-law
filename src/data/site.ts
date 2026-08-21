@@ -1,6 +1,6 @@
 // Firm-level facts: identity, contact details, and page-level SEO defaults.
 
-export const siteUrl = import.meta.env.SITE_URL || 'https://jordanryanlaw.netlify.app'
+export const siteUrl = import.meta.env.SITE_URL || 'https://www.jordanryanlaw.com'
 
 export const businessName = 'Jordan Ryan Law, PLLC'
 
