@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const routes = ['/', '/about', '/contact']
+const routes = ['/', '/about/', '/contact/']
 
 async function readGraph(page: import('@playwright/test').Page) {
   const raw = await page.locator('script[type="application/ld+json"]').textContent()
@@ -47,7 +47,7 @@ for (const route of routes) {
 test('About: Jordan Ryan is a Person tied to the LegalService firm entity, not a bare attorney record', async ({
   page,
 }) => {
-  await page.goto('/about')
+  await page.goto('/about/')
   const graph = await readGraph(page)
 
   const jordan = graph.find((e) => e.name === 'Jordan Ryan')
@@ -67,11 +67,11 @@ test('Home: LegalService firm entity references Jordan Ryan as founder', async (
   const firm = graph.find((e) => e['@type'] === 'LegalService')
   expect(firm, 'expected a LegalService entity on Home').toBeTruthy()
   expect(firm?.name).toBe('Jordan Ryan Law, PLLC')
-  expect(firm?.founder).toMatchObject({ '@id': expect.stringContaining('/about#JordanRyan') })
+  expect(firm?.founder).toMatchObject({ '@id': expect.stringContaining('/about/#JordanRyan') })
 })
 
 test('404: is marked noindex and emits no JSON-LD', async ({ page }) => {
-  const response = await page.goto('/this-route-does-not-exist')
+  const response = await page.goto('/this-route-does-not-exist/')
   expect(response?.status()).toBe(404)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0)

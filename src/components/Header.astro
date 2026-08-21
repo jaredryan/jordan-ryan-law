@@ -31,7 +31,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     <div class="site-header__actions">
       <a href={`tel:${contact.phoneHref}`} class="site-header__phone">{contact.phoneDisplay}</a>
       <ThemeToggle variant="compact" />
-      <a href="/contact" class="btn btn-primary site-header__cta">
+      <a href="/contact/" class="btn btn-primary site-header__cta">
         <span class="site-header__cta-full">Schedule a Consultation</span>
         <span class="site-header__cta-short">Consultation</span>
       </a>
@@ -96,7 +96,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
       </ul>
     </nav>
 
-    <a href="/contact" class="btn btn-primary site-header__drawer-cta">Schedule a Consultation</a>
+    <a href="/contact/" class="btn btn-primary site-header__drawer-cta">Schedule a Consultation</a>
 
     <div class="site-header__drawer-appearance">
       <ThemeToggle variant="labeled" />

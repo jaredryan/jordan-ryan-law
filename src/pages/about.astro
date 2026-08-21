@@ -18,12 +18,12 @@ const keywords = [
 const jsonLd = [
   jordanRyanPersonJsonLd(),
   webPageJsonLd({
-    path: '/about',
+    path: '/about/',
     name: `About ${businessName}`,
     description,
     breadcrumbs: [
       { name: 'Home', path: '/' },
-      { name: 'About', path: '/about' },
+      { name: 'About', path: '/about/' },
     ],
     pageType: 'AboutPage',
     mainEntity: [{ '@id': jordanRyanId }],
@@ -38,7 +38,7 @@ const railSections = [
 ]
 ---
 
-<BaseLayout title="About" description={description} path="/about" keywords={keywords} jsonLd={jsonLd} flushFooter>
+<BaseLayout title="About" description={description} path="/about/" keywords={keywords} jsonLd={jsonLd} flushFooter>
   <div class="about-layout">
     <SectionNav items={railSections} railLabel="On this page" jumpLabel="On this page" />
 
@@ -53,7 +53,7 @@ const railSections = [
           <span class="eyebrow eyebrow--standalone">{jordanRyan.jobTitle}</span>
           <h1>{jordanRyan.name}</h1>
           {jordanRyan.summary.map((paragraph) => <p>{paragraph}</p>)}
-          <a href="/contact" class="link-editorial">
+          <a href="/contact/" class="link-editorial">
             Talk with Jordan <span class="link-editorial__arrow" aria-hidden="true">→</span>
           </a>
         </div>
@@ -124,7 +124,7 @@ const railSections = [
       <p class="lead">
         Work with an attorney who understands both the legal structure and the business realities behind the deal.
       </p>
-      <a href="/contact" class="btn btn-primary">Talk with Jordan</a>
+      <a href="/contact/" class="btn btn-primary">Talk with Jordan</a>
     </div>
   </section>
 </BaseLayout>

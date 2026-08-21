@@ -2,8 +2,8 @@ import { expect, test } from '@playwright/test'
 
 const routes: { path: string; heading: string }[] = [
   { path: '/', heading: 'Commercial Real Estate Counsel. Business-Minded Advice.' },
-  { path: '/about', heading: 'Jordan Ryan' },
-  { path: '/contact', heading: 'Discuss your legal needs' },
+  { path: '/about/', heading: 'Jordan Ryan' },
+  { path: '/contact/', heading: 'Discuss your legal needs' },
 ]
 
 for (const route of routes) {
@@ -21,7 +21,7 @@ for (const route of routes) {
 }
 
 test('404 page renders for an unknown route', async ({ page }) => {
-  const response = await page.goto('/this-route-does-not-exist')
+  const response = await page.goto('/this-route-does-not-exist/')
   expect(response?.status()).toBe(404)
   await expect(page.locator('h1')).toContainText('Page not found')
 })
@@ -46,7 +46,7 @@ test('primary navigation reaches every page', async ({ page }) => {
 })
 
 test('contact form renders required fields (no submission — avoid sending real email)', async ({ page }) => {
-  await page.goto('/contact')
+  await page.goto('/contact/')
   for (const field of ['name', 'phone', 'email', 'description']) {
     await expect(page.locator(`#${field}`)).toBeVisible()
   }
@@ -54,7 +54,7 @@ test('contact form renders required fields (no submission — avoid sending real
 })
 
 test('contact heading/disclaimer read correctly', async ({ page }) => {
-  await page.goto('/contact')
+  await page.goto('/contact/')
   await expect(page.getByRole('heading', { level: 2, name: 'Send a message' })).toBeVisible()
   const infoTitles = await page.locator('.contact-block__title').allTextContents()
   expect(infoTitles).toEqual(['Jordan Ryan', 'Phone', 'Office'])

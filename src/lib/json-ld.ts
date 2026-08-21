@@ -11,12 +11,12 @@ export type JsonLd = Record<string, any>
 // a preview/branch/localhost origin — see SITE_URL in src/data/site.ts):
 //   firm:    `${siteUrl}#JordanRyanLaw`
 //   website: `${siteUrl}/#website`
-//   people:  `${siteUrl}/about#<PersonSlug>` (About is their canonical page,
+//   people:  `${siteUrl}/about/#<PersonSlug>` (About is their canonical page,
 //            referenced by @id — never redefined — from other pages)
 //   pages:   `${siteUrl}<path>#webpage`
 export const firmId = `${siteUrl}#JordanRyanLaw`
 export const websiteId = `${siteUrl}/#website`
-export const jordanRyanId = `${siteUrl}/about#JordanRyan`
+export const jordanRyanId = `${siteUrl}/about/#JordanRyan`
 
 // Combines already-built entities into one connected @graph rather than
 // several isolated top-level JSON-LD objects. Per-entity `@context` is
@@ -122,7 +122,7 @@ export function jordanRyanPersonJsonLd(): JsonLd {
     alternateName: jordanRyan.alternateName,
     givenName: jordanRyan.givenName,
     familyName: jordanRyan.familyName,
-    url: `${siteUrl}/about`,
+    url: `${siteUrl}/about/`,
     image: `${siteUrl}/square-profile.webp`,
     jobTitle: jordanRyan.jobTitle,
     honorificSuffix: jordanRyan.honorificSuffix,

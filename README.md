@@ -92,12 +92,12 @@ Hosted on Netlify as a static site (`netlify.toml`: `npm run build` → publish 
 
 **Production domain**: `https://www.jordanryanlaw.com`
 
-**DNS**: Network Solutions is the registrar and remains the authoritative DNS provider — the domain's nameservers were *not* delegated to Netlify. Records for the site:
+**DNS**: Network Solutions is the registrar and remains the authoritative DNS provider — the domain's nameservers were _not_ delegated to Netlify. Records for the site:
 
-| Host | Type  | Value                      |
-| ---- | ----- | -------------------------- |
-| `@`  | A     | `75.2.60.5`                |
-| `www`| CNAME | `jordanryanlaw.netlify.app`|
+| Host  | Type  | Value                       |
+| ----- | ----- | --------------------------- |
+| `@`   | A     | `75.2.60.5`                 |
+| `www` | CNAME | `jordanryanlaw.netlify.app` |
 
 Netlify's primary custom domain is `www.jordanryanlaw.com`; the apex (`jordanryanlaw.com`) redirects to it.
 

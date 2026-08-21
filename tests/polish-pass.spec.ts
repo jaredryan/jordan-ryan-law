@@ -29,7 +29,7 @@ test('Header brand mark uses logo-white.webp', async ({ page }) => {
 })
 
 test('404 page shows the branded compact layout', async ({ page }) => {
-  const response = await page.goto('/this-route-does-not-exist')
+  const response = await page.goto('/this-route-does-not-exist/')
   expect(response?.status()).toBe(404)
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible()
   await expect(page.getByText('The page may have moved, or the address may be incorrect.')).toBeVisible()
@@ -44,7 +44,7 @@ test('404 page shows the branded compact layout', async ({ page }) => {
 })
 
 test('404 page footer sits flush against the compact content (no margin gap)', async ({ page }) => {
-  await page.goto('/this-route-does-not-exist')
+  await page.goto('/this-route-does-not-exist/')
   const gap = await page.evaluate(() => {
     const main = document.querySelector('main')
     const footer = document.querySelector('.site-footer')
@@ -130,7 +130,7 @@ test('Mobile menu: Escape closes it and returns focus to the toggle button', asy
 
 test('About: section-nav rail active-state updates on click', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
-  await page.goto('/about')
+  await page.goto('/about/')
   const railLinks = page.locator('.section-nav-rail a')
   await expect(railLinks).toHaveCount(4)
   await expect(railLinks.first()).toHaveAttribute('aria-current', 'location')
@@ -143,12 +143,12 @@ test('Home and About closing bands: flush footer, correct CTA copy, and excluded
   page,
 }) => {
   const ctaLabel = (path: string) => (path === '/' ? 'Request a consultation' : 'Talk with Jordan')
-  for (const path of ['/', '/about']) {
+  for (const path of ['/', '/about/']) {
     await page.goto(path)
     const band = page.locator('.closing-band')
     await expect(band).toBeVisible()
     const cta = band.getByRole('link', { name: ctaLabel(path) })
-    await expect(cta).toHaveAttribute('href', '/contact')
+    await expect(cta).toHaveAttribute('href', '/contact/')
 
     const gap = await page.evaluate(() => {
       const closing = document.querySelector('.closing-band')
@@ -165,13 +165,13 @@ test('Home and About closing bands: flush footer, correct CTA copy, and excluded
   }
 
   // About's rail still lists exactly its 4 original sections (no extra item for the band).
-  await page.goto('/about')
+  await page.goto('/about/')
   await expect(page.locator('.section-nav-rail li')).toHaveCount(4)
 })
 
 test('Closing-band CTA focus rings use the theme-aware band-focus color, not the on-navy pattern', async ({ page }) => {
   const ctaLabel = (path: string) => (path === '/' ? 'Request a consultation' : 'Talk with Jordan')
-  for (const path of ['/', '/about']) {
+  for (const path of ['/', '/about/']) {
     await page.goto(path)
     const band = page.locator('.closing-band')
     await expect(band).not.toHaveClass(/on-navy/)
@@ -209,7 +209,7 @@ test('Home hero and Contact submit primary-button focus rings use stone-ink (lig
   await heroCta.focus()
   await expect(heroCta).toHaveCSS('outline-color', 'rgb(247, 245, 239)') // --nav-footer-text, navbar's cream treatment
 
-  await page.goto('/contact')
+  await page.goto('/contact/')
   await page.evaluate(() => {
     localStorage.setItem('theme', 'light')
     document.documentElement.setAttribute('data-theme', 'light')
@@ -227,7 +227,7 @@ test('Home hero and Contact submit primary-button focus rings use stone-ink (lig
 })
 
 test('Contact info column carries the eyebrow and stays visually distinct from the form', async ({ page }) => {
-  await page.goto('/contact')
+  await page.goto('/contact/')
   const info = page.locator('.contact-main__info')
   await expect(info.locator('.eyebrow')).toHaveText('Reach us directly')
   await expect(page.getByRole('heading', { level: 2, name: 'Send a message' })).toBeVisible()

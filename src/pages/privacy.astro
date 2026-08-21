@@ -7,18 +7,18 @@ const description = `How ${businessName} collects, uses, and protects informatio
 
 const jsonLd = [
   webPageJsonLd({
-    path: '/privacy',
+    path: '/privacy/',
     name: 'Privacy Policy',
     description,
     breadcrumbs: [
       { name: 'Home', path: '/' },
-      { name: 'Privacy Policy', path: '/privacy' },
+      { name: 'Privacy Policy', path: '/privacy/' },
     ],
   }),
 ]
 ---
 
-<BaseLayout title="Privacy Policy" description={description} path="/privacy" jsonLd={jsonLd}>
+<BaseLayout title="Privacy Policy" description={description} path="/privacy/" jsonLd={jsonLd}>
   <section class="page-section page-section--narrow privacy-section">
     <div class="page-hero">
       <span class="eyebrow">Privacy Policy</span>
@@ -32,7 +32,7 @@ const jsonLd = [
       <h2>Information we collect</h2>
       <p>
         The only personal information this website collects is what you choose to submit through the contact form on our <a
-          href="/contact">Contact</a
+          href="/contact/">Contact</a
         > page: your name, phone number, email address, and the details of your message. We do not use analytics, advertising,
         or tracking cookies of any kind.
       </p>

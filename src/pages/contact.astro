@@ -15,14 +15,12 @@ const keywords = [
 
 const jsonLd = [
   webPageJsonLd({
-    path: '/contact',
+    path: '/contact/',
     name: `Contact ${businessName}`,
     description,
-    // "Contact" matches the nav label — /contact-us is only a 301 redirect,
-    // never the client-facing name for this page.
     breadcrumbs: [
       { name: 'Home', path: '/' },
-      { name: 'Contact', path: '/contact' },
+      { name: 'Contact', path: '/contact/' },
     ],
     pageType: 'ContactPage',
     mentions: [{ '@id': jordanRyanId }],
@@ -32,7 +30,7 @@ const jsonLd = [
 const fullAddress = `${address.street}, ${address.suite}, ${address.city}, ${address.state} ${address.postalCode}`
 ---
 
-<BaseLayout title="Contact Us" description={description} path="/contact" keywords={keywords} jsonLd={jsonLd}>
+<BaseLayout title="Contact Us" description={description} path="/contact/" keywords={keywords} jsonLd={jsonLd}>
   <section class="page-section page-section--narrow contact-hero page-hero">
     <span class="eyebrow eyebrow--standalone">Contact</span>
     <h1>Discuss your legal needs</h1>
