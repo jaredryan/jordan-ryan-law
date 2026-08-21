@@ -5,7 +5,7 @@ export const siteUrl = import.meta.env.SITE_URL || 'https://jordanryanlaw.netlif
 export const businessName = 'Jordan Ryan Law, PLLC'
 
 // TODO: placeholder — swap for real firm positioning copy once available.
-export const businessSlogan = 'Commercial Real Estate Counsel for Acquisitions, Development, and Finance Transactions'
+export const businessSlogan = 'Counsel to Developers, Investors & Property Owners'
 
 export const businessSummary = businessSlogan
 
@@ -13,8 +13,8 @@ export const businessSummary = businessSlogan
 export const defaultDescription =
   'Commercial real estate legal counsel serving McKinney, Texas and beyond — acquisitions, leasing, finance, due diligence, entity formation, and development.'
 
-export const valuesAndMission: string[] = [
-  `With experience spanning private practice and service as chief legal officer for a national industrial and multi-family developer, Jordan Ryan Law provides practical, business-minded legal counsel tailored to commercial real estate and business transactions. The firm represents developers, investors, and business owners in acquisitions, dispositions, leasing, financing, development, entity formation, contract negotiations, and general business matters, delivering strategic solutions designed to help clients achieve their goals efficiently and confidently.`,
+export const businessMission: string[] = [
+  `With experience spanning private practice and service as chief legal officer for a national industrial and multifamily developer, Jordan Ryan Law provides practical, business-minded counsel to developers, investors, property owners, and business owners. The firm advises clients throughout the lifecycle of commercial real estate transactions, including acquisitions, dispositions, development, leasing, financing, and related business matters. With a focus on understanding each client's objectives and the economics behind the transaction, Jordan Ryan Law delivers thoughtful, practical advice designed to move deals forward and protect clients' interests.`,
 ]
 
 // TODO: placeholder — swap for real SEO keywords once available.

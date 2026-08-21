@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { businessName, businessSlogan, valuesAndMission, defaultDescription, defaultKeywords } from '@/data/site'
+import { businessName, businessSlogan, businessMission, defaultDescription, defaultKeywords } from '@/data/site'
 import { areasOfPractice } from '@/data/practice-areas'
 import { jordanRyan } from '@/data/people'
 import { legalServiceJsonLd, websiteJsonLd, webPageJsonLd, jordanRyanId } from '@/lib/json-ld'
@@ -38,13 +38,8 @@ const jsonLd = [
 const proofItems = [
   {
     variant: 'credential',
-    value: 'Former Chief Legal Officer',
-    label: 'National industrial & multifamily developer',
-  },
-  {
-    variant: 'stat',
-    value: '$60M',
-    label: 'Construction financing transaction',
+    value: '13+ Years',
+    label: 'Commercial Real Estate Experience',
   },
   {
     variant: 'credential',
@@ -53,7 +48,12 @@ const proofItems = [
   },
   {
     variant: 'stat',
-    value: '4M+ Sq. Ft.',
+    value: '1,000+ Acres',
+    label: 'Acquisition & Entitlement',
+  },
+  {
+    variant: 'stat',
+    value: '5M+ Sq. Ft.',
     label: 'Industrial & office leases negotiated',
   },
 ] as const
@@ -71,7 +71,7 @@ const proofItems = [
     <div class="hero__grid">
       <div class="hero__copy">
         <span class="eyebrow eyebrow--standalone">Dallas - Fort Worth, TX</span>
-        <h1>Guiding Commercial Real Estate and Business Success.</h1>
+        <h1>Commercial Real Estate Counsel. Business-Minded Advice.</h1>
         <p class="lead">{businessSlogan}</p>
         <div class="hero__actions">
           <a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
@@ -154,7 +154,7 @@ const proofItems = [
       </div>
     </div>
     <div class="values-mission__columns">
-      {valuesAndMission.map((paragraph) => <p>{paragraph}</p>)}
+      {businessMission.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 
@@ -346,7 +346,7 @@ const proofItems = [
     padding-left: var(--s4);
   }
 
-  /* Stat items (4M+ Sq. Ft., $60M) keep the base primitive's large numeral
+  /* Stat items (5M+ Sq. Ft., $60M) keep the base primitive's large numeral
      and label treatment untouched — they're the visual anchors of the
      strip. */
 

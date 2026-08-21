@@ -9,8 +9,9 @@ export const jordanRyan = {
   honorificSuffix: 'JD, Esq.',
   languages: ['English'],
   summary: [
-    `Jordan Ryan is a commercial real estate and business attorney focused on delivering practical, business-minded legal counsel for complex transactions.`,
-    `Drawing on his experience as chief legal officer for a national industrial and multifamily developer, Jordan understands the operational and financial realities behind real estate deals and works to structure solutions that protect clients while keeping transactions moving efficiently.`,
-    `Jordan is licensed to practice law in Texas and California and is Board Certified in Commercial Real Estate Law in Texas.`,
+    `Jordan Ryan is the founder of Jordan Ryan Law, where he represents developers, property owners, investors, lenders, tenants, and businesses in complex commercial real estate and business transactions.`,
+    `Jordan brings a business-oriented perspective to transactions involving acquisitions and dispositions, development, leasing, financing, and corporate matters. Before founding Jordan Ryan Law, he served as chief legal officer for a national industrial and multifamily developer, where he advised on real estate transactions and development from the inside of the business.`,
+    `Jordan's approach is straightforward: provide sophisticated legal advice that is practical, responsive, and aligned with the client's business objectives.`,
+    `He is licensed in Texas and California and is Board Certified in Commercial Real Estate Law by the Texas Board of Legal Specialization.`,
   ],
 }

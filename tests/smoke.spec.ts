@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 const routes: { path: string; heading: string }[] = [
-  { path: '/', heading: 'Guiding Commercial Real Estate and Business Success.' },
+  { path: '/', heading: 'Commercial Real Estate Counsel. Business-Minded Advice.' },
   { path: '/about', heading: 'Jordan Ryan' },
   { path: '/contact', heading: 'Discuss your legal needs' },
 ]

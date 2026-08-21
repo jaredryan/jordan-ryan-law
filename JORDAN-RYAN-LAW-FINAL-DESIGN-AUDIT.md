@@ -18,7 +18,7 @@ The site reads as one coherent design system, not a Ryan Legal PC reskin. The th
 
 Hero, proof strip, Practice Areas matrix, Mission, and closing CTA all execute cleanly. The Practice Areas emphasized-surface grid (2px stone-filled seams, centered 48px line icons) is a genuine visual anchor and the icon family is consistent in stroke weight and geometry. The closing-band CTA bracket (measured from actual text bounds via `cta-bracket.ts`) works exactly as specified — 12px offset, no flash, correct behavior regardless of wrap.
 
-One real, minor issue found and fixed: the "4M+ Sq. Ft." stat value broke as **"4M+ Sq." / "Ft."** at 390–430px, orphaning "Ft." on its own line. See Changes Implemented.
+One real, minor issue found and fixed: the "5M+ Sq. Ft." stat value broke as **"5M+ Sq." / "Ft."** at 390–430px, orphaning "Ft." on its own line. See Changes Implemented.
 
 One notable but deliberate design decision, not a defect: the closing band flips from deep navy (light theme) to a warm cream/stone surface (`--surface-consult: #ece7da`) in dark theme, while every other Home section stays dark. This is documented in `global.css` as an intentional contrast-preservation device ("this band must stay a _destination_ moment in both themes"), and it is well executed — themed brackets, themed focus ring, themed button — not a leftover or a broken variable. It is, however, the single boldest color move on the site and the only point where "deep navy dark theme" as a blanket description doesn't hold section-by-section. Documented under Taste-Level Alternatives, not fixed.
 
@@ -46,7 +46,7 @@ Every documented breakpoint behaves exactly as the code intends, with no collisi
 - **899/900px**: proof strip switches to 2×2, Practice Areas grid is still 2-col (correct — its own breakpoint is 640/1000, not 900), header switches to the drawer.
 - **721px vs 720px**: the hero's 2-column-to-stacked transition was checked right at the edge (721px) — still fits without crowding, no last-minute squeeze.
 - **640px**: Practice Areas grid's 1↔2 column boundary is clean in both directions.
-- **360–430px**: hero, proof strip, and Practice Areas single-column all wrap sensibly; only the "4M+ Sq. Ft." issue (fixed) was found.
+- **360–430px**: hero, proof strip, and Practice Areas single-column all wrap sensibly; only the "5M+ Sq. Ft." issue (fixed) was found.
 
 Mobile drawer: JR mark + close button, nav (active item in accent blue), CTA, theme toggle, divider, full logo — matches spec exactly, including the deliberate absence of phone/email/address (confirmed against source, not just visually). At realistic mobile viewport heights (390×844) the drawer fills the available height without an awkward empty gap; at an artificially tall 1000px test viewport there's more empty space below the logo, which is a test-viewport artifact, not a real-device issue.
 
@@ -65,7 +65,7 @@ Both themes are fully resolved token sets, not a mechanical color inversion — 
 | Typography                                 | 8.7/10     | Archivo/Inter pairing and intentionally light heading weights read confidently at actual rendered size; no jarring scale jumps anywhere tested.                                                                                          |
 | Color and light/dark theme execution       | 8.3/10     | Both themes are complete, considered token sets. Docked slightly for the closing-band inversion being a genuine outlier against the "deep navy dark theme" identity, even though it's well executed.                                     |
 | Layout / hierarchy / spacing               | 8.8/10     | Consistent section rhythm and the shared "compositional restart" `.section-intro` device across Practice Areas/Mission. Minor: Practice Areas row 2 at some widths has uneven bottom padding when one cell's heading wraps to two lines. |
-| Component and detail polish                | 8.4/10     | Buttons, cards, dividers, form fields all controlled. Docked for the "4M+ Sq. Ft." orphan wrap (now fixed) and the grid cell-padding nit (left as-is, see below).                                                                        |
+| Component and detail polish                | 8.4/10     | Buttons, cards, dividers, form fields all controlled. Docked for the "5M+ Sq. Ft." orphan wrap (now fixed) and the grid cell-padding nit (left as-is, see below).                                                                        |
 | Homepage responsiveness                    | 8.9/10     | Extremely thorough coverage from 360–1728px with zero collisions; only the mobile stat-wrap kept this from scoring higher.                                                                                                               |
 | Professional credibility / appropriateness | 9.0/10     | Reads convincingly as boutique commercial real estate/business law — no SaaS-y or generic-template tells.                                                                                                                                |
 | Production readiness                       | 8.5/10     | Ready to show a client today. The closing-band color flip is worth a conscious owner sign-off (taste call), not a blocker.                                                                                                               |
@@ -78,7 +78,7 @@ Both themes are fully resolved token sets, not a mechanical color inversion — 
 
 ### Worth changing now
 
-1. **"4M+ Sq. Ft." orphan wrap at 390–430px** — implemented (see below).
+1. **"5M+ Sq. Ft." orphan wrap at 390–430px** — implemented (see below).
 
 ### Optional polish (left as-is — current treatment is already professionally good)
 
@@ -93,7 +93,7 @@ Both themes are fully resolved token sets, not a mechanical color inversion — 
 
 Ranked by leverage:
 
-1. The "4M+ Sq. Ft." fix (implemented) — small, but a real "worth changing now" item.
+1. The "5M+ Sq. Ft." fix (implemented) — small, but a real "worth changing now" item.
 2. Nothing else surfaced in this pass rises above optional polish. Going from ~8.6 to 9.5+ would require genuinely new work — e.g., a stronger, more singular signature moment on the homepage beyond the corner-bracket motif, deeper editorial content (case studies, a real team page as the practice grows), or original photography — not micro-adjustments to what's already built. That is disproportionate to recommend as part of a polish pass, and would mostly be exploratory design work rather than fixing anything wrong.
 
 ---
@@ -102,9 +102,9 @@ Ranked by leverage:
 
 ### Fix: mobile stat-value line break
 
-- **What looked wrong:** at 390–430px, the proof-strip value "4M+ Sq. Ft." wrapped between "Sq." and "Ft.", orphaning "Ft." alone on its own line — a small but genuine rough edge in an otherwise carefully wrapped page.
+- **What looked wrong:** at 390–430px, the proof-strip value "5M+ Sq. Ft." wrapped between "Sq." and "Ft.", orphaning "Ft." alone on its own line — a small but genuine rough edge in an otherwise carefully wrapped page.
 - **What changed:** inserted a non-breaking space between "Sq." and "Ft." in `src/pages/index.astro` (`proofItems` data) so the unit stays together as one wrap unit.
-- **Why stronger:** at 360px the value already wrapped cleanly as "4M+" / "Sq. Ft." (no nbsp needed there, by coincidence of width); the fix makes 390–430px match that same clean behavior instead of the awkward mid-unit break. Verified in both themes and confirmed the desktop (no-wrap) rendering is byte-for-byte unaffected.
+- **Why stronger:** at 360px the value already wrapped cleanly as "5M+" / "Sq. Ft." (no nbsp needed there, by coincidence of width); the fix makes 390–430px match that same clean behavior instead of the awkward mid-unit break. Verified in both themes and confirmed the desktop (no-wrap) rendering is byte-for-byte unaffected.
 
 No other code changes were made.
 

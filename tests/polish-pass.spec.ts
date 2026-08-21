@@ -259,10 +259,10 @@ test('Proof strip: fix regression guard — no supporting description carries a 
 }) => {
   await page.goto('/')
   const items = [
-    { value: 'Former Chief Legal Officer', label: 'National industrial & multifamily developer' },
-    { value: '$60M', label: 'Construction financing transaction' },
+    { value: '13+ Years', label: 'Commercial Real Estate Experience' },
     { value: 'Board Certified', label: 'Commercial Real Estate Law — Texas' },
-    { value: '4M+ Sq. Ft.', label: 'Industrial & office leases negotiated' },
+    { value: '1,000+ Acres', label: 'Acquisition & Entitlement' },
+    { value: '5M+ Sq. Ft.', label: 'Industrial & office leases negotiated' },
   ]
   const figures = page.locator('.proof-figure')
   await expect(figures).toHaveCount(4)
