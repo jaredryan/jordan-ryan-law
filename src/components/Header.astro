@@ -167,6 +167,12 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
     white-space: nowrap;
   }
 
+  @media (max-width: 400px) {
+    .site-header__brand-name {
+      font-size: 1.125rem;
+    }
+  }
+
   .site-header__nav {
     flex: 1;
     min-width: 0;

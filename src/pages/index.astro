@@ -31,28 +31,20 @@ const jsonLd = [
   }),
 ]
 
-// Credential and numerical-stat items are interleaved (not grouped) so the
-// strip alternates weight rather than front-loading either shape. See
-// .proof-figure--credential / --stat below for the differing typographic
-// treatment each variant gets.
 const proofItems = [
   {
-    variant: 'credential',
     value: '13+ Years',
     label: 'Commercial Real Estate Experience',
   },
   {
-    variant: 'credential',
     value: 'Board Certified',
     label: 'Commercial Real Estate Law — Texas',
   },
   {
-    variant: 'stat',
     value: '1,000+ Acres',
     label: 'Acquisition & Entitlement',
   },
   {
-    variant: 'stat',
     value: '5M+ Sq. Ft.',
     label: 'Industrial & office leases negotiated',
   },
@@ -88,7 +80,7 @@ const proofItems = [
           <img
             src="/square-profile-640.webp"
             srcset="/square-profile-440.webp 440w, /square-profile-640.webp 640w, /square-profile.webp 833w"
-            sizes="(max-width: 720px) 176px, 208px"
+            sizes="(max-width: 720px) 208px, 280px"
             alt={jordanRyan.name}
             width="360"
             height="360"
@@ -106,7 +98,7 @@ const proofItems = [
     <ul class="proof-strip proof-band__inner">
       {
         proofItems.map((item) => (
-          <li class={`proof-figure proof-figure--${item.variant}`}>
+          <li class="proof-figure">
             <span class="proof-figure__value">{item.value}</span>
             <span class="proof-figure__label">{item.label}</span>
           </li>
@@ -186,7 +178,7 @@ const proofItems = [
 
   .hero__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 280px);
     gap: var(--s8);
     align-items: start;
   }
@@ -207,16 +199,16 @@ const proofItems = [
     white-space: nowrap;
   }
 
-  /* Portrait: framed small and off to the side rather than centered and
-     large, so a modest source photo reads as an intentional editorial
-     choice — a dossier inset, not an apology for low resolution. The
-     grayscale/contrast lift unifies its tone with the rest of the page
-     instead of sitting as a separate, higher-saturation photo block. */
+  /* Portrait: framed and off to the side rather than centered and full-bleed
+     — a dossier inset the copy column still visually outweighs, keeping the
+     hero text-led even with a strong source photo. The grayscale/contrast
+     lift unifies its tone with the rest of the page instead of sitting as a
+     separate, higher-saturation photo block. */
   .hero__portrait {
     margin: 0;
     justify-self: end;
     width: 100%;
-    max-width: 220px;
+    max-width: 280px;
   }
 
   /* Owns the relative positioning context for the corner brackets, so they
@@ -307,32 +299,23 @@ const proofItems = [
     grid-template-columns: repeat(4, 1fr);
     gap: var(--s6) var(--s5);
     /* Top-align every item's own content instead of stretching it to match
-       the tallest neighbor — with a two-line credential headline next to a
-       one-line stat, stretch would center the shorter one and read as
-       misaligned rather than intentional. */
+       the tallest neighbor — labels wrap to different line counts (e.g.
+       "Commercial Real Estate Law — Texas" vs. "Acquisition & Entitlement"),
+       and stretch would center the shorter ones, reading as misaligned
+       rather than intentional. */
     align-items: start;
   }
 
-  @media (max-width: 1080px) {
+  @media (max-width: 940px) {
     .proof-band__inner {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* Credential items (title + context, e.g. "Board Certified") get a
-     display headline sized down from the base primitive's giant numeral
-     treatment, but bumped up from the old serif-era size so it carries as
-     much visual weight next to the stat items as the brief calls for —
-     not so far down that it reads as secondary to them. The supporting
-     caption reuses the base .proof-figure__label treatment untouched (see
-     below) so both variants read as one consistent secondary layer, and
-     — the proof-strip fix — neither variant's label carries a max-width
-     anymore: the column width alone governs wrapping now, in both the
-     4-up and 2x2 layouts. */
-  .proof-figure--credential .proof-figure__value {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
+  @media (max-width: 350px) {
+    .proof-band__inner {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Vertical structural rail — replaces the old bracket frame around the
@@ -340,15 +323,14 @@ const proofItems = [
      left edge (the border naturally spans the li's full content height,
      headline + supporting label) rather than one frame around the group,
      so the proof strip's motif is distinct from the corner-bracket system
-     used for identity/section-heading framing. */
+     used for identity/section-heading framing. All four items share the
+     base primitive's large numeral/label treatment (.proof-figure__value /
+     __label in global.css) untouched — there's no separate credential
+     variant anymore, so nothing here overrides that typography. */
   .proof-figure {
     border-left: 2px solid var(--stone);
     padding-left: var(--s4);
   }
-
-  /* Stat items (5M+ Sq. Ft., $60M) keep the base primitive's large numeral
-     and label treatment untouched — they're the visual anchors of the
-     strip. */
 
   /* A deliberate compositional restart after the proof band: centered
      eyebrow/heading (breaking from the hero's left alignment) under a short
@@ -501,6 +483,33 @@ const proofItems = [
     }
   }
 
+  /* Just above the tablet stack (721px+), the portrait column is still at
+     its full 280px cap while the copy column has the least room of any
+     two-column width — trim the portrait modestly here so it stops
+     crowding the copy right at the point the layout goes two-column. */
+  @media (min-width: 881px) and (max-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(160px, 220px);
+    }
+
+    .hero__portrait {
+      max-width: 220px;
+    }
+  }
+
+  /* Closer still to the tablet stack, the copy column is tighter again —
+     one more modest step down keeps the portrait from crowding it before
+     the layout drops to one column at 720px. */
+  @media (min-width: 721px) and (max-width: 880px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 190px);
+    }
+
+    .hero__portrait {
+      max-width: 190px;
+    }
+  }
+
   /* Tablet: columns narrow enough that the 220px portrait column starts
      crowding the copy — drop to one column and let the portrait become a
      small centered card below the copy, still clearly secondary. */
@@ -517,7 +526,7 @@ const proofItems = [
          than one continuous hero. A single ~5rem (80px) gap, sourced from
          this grid gap alone (portrait's margin-top zeroed out below),
          replaces both. Desktop's two-column --s8 gap is untouched above. */
-      gap: 5rem;
+      gap: 4rem;
       text-align: center;
       justify-items: center;
     }
@@ -537,7 +546,7 @@ const proofItems = [
 
     .hero__portrait {
       justify-self: center;
-      max-width: 176px;
+      max-width: 208px;
       margin-top: 0;
     }
 
